@@ -28,17 +28,17 @@
                                 <h3 class="mb-4">Inicia sessió</h3>
                             </div>
                         </div>
-                        <form action="index.php?controller=Login&action=login" method="post" class="signin-form">
+                        <form action="index.php?controller=Login&action=login" method="post" class="signin-form"> <!-- Enlace envio formulario -->
                             <div class="form-group mb-3">
-                                <label class="label" for="name">Usuari</label>
-                                <input type="text" name="username" class="form-control" placeholder="Introdueix el nom d'usuari" required>
+                                <label class="label" for="name">Usuari</label><!--no borrar-->
+                                <input type="text" name="username" class="form-control" placeholder="Introdueix el nom d'usuari" required> <!-- nombre -->
                             </div>
                             <div class="form-group mb-3">
-                                <label class="label" for="password">Contrasenya</label>
-                                <input type="password" name="password" class="form-control" placeholder="Introdueix la contrasenya" required>
+                                <label class="label" for="password">Contrasenya</label><!--no borrar-->
+                                <input type="password" name="password" class="form-control" placeholder="Introdueix la contrasenya" required> <!-- contraseña -->
                             </div>
                             <div class="form-group">
-                                <button type="submit" class="form-control btn btn-primary rounded submit px-3">Inicia Sessió</button>
+                                <button type="submit" class="form-control btn btn-primary rounded submit px-3">Inicia Sessió</button> <!--boton-->
                             </div>
                         </form>
                     </div>
