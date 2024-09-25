@@ -5,7 +5,7 @@ class Database{
     
     public function conectar(){
         $servername = "localhost";
-        $dbname= "notas_master";
+        $dbname= "apellesfenosa";
         $username = "root";
         $password = "";
 
@@ -22,3 +22,4 @@ class Database{
     
 }
 
+?>
