@@ -1,51 +1,41 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="es">
 <head>
-    <title>Inicia Sessió</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link href='https://fonts.googleapis.com/css?family=Overpass' rel='stylesheet'>
-    <link rel="stylesheet" type="text/css" href="assets/css/styles.css"> 
-    <script src="assets/js/main.js"></script>
-    <style>
-        body {
-            font-family: 'Overpass';
-        }
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Museu Apel·les Fenosa</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/login/login.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-<section class="ftco-section">
+
+    <div class="header">
+        <img src="images/login/logo.png" alt="Museu Apel·les Fenosa">
+    </div>
+
     <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-12 col-lg-10">
-                <div class="wrap d-md-flex">
-                    <div class="img" id="imageLogo">
-						<img src="assets/images/ocellLogo.png" alt="Italian Trulli">
+        <div class="login-box">
+            <div class="form-container">
+                <form action="index.php?controller=Login&action=login" method="post" class="signin-form"> <!-- Enlace de envío del formulario -->
+                    <div class="input-group">
+                        <label for="username">Usuari</label>
+                        <i class="fas fa-user"></i> <!-- Icono del usuario -->
+                        <input type="text" name="username" id="username" placeholder="Usuari" required>
                     </div>
-                    <div class="login-wrap p-4 p-md-5">
-                        <div class="d-flex">
-                            <div class="w-100">
-                                <h3 class="mb-4">Inicia sessió</h3>
-                            </div>
-                        </div>
-                        <form action="index.php?controller=Login&action=login" method="post" class="signin-form">
-                            <div class="form-group mb-3">
-                                <label class="label" for="name">Usuari</label>
-                                <input type="text" name="username" class="form-control" placeholder="Introdueix el nom d'usuari" required>
-                            </div>
-                            <div class="form-group mb-3">
-                                <label class="label" for="password">Contrasenya</label>
-                                <input type="password" name="password" class="form-control" placeholder="Introdueix la contrasenya" required>
-                            </div>
-                            <div class="form-group">
-                                <button type="submit" class="form-control btn btn-primary rounded submit px-3">Inicia Sessió</button>
-                            </div>
-                        </form>
+                    <div class="input-group">
+                        <label for="password">Contrasenya</label>
+                        <i class="fas fa-lock"></i> <!-- Ícono de candado -->
+                        <input type="password" name="password" id="password" placeholder="Contrasenya" required>
                     </div>
-                </div>
+                    <button type="submit" class="login-btn">Inicia Sessió</button> <!-- Botón con funcionalidad PHP -->
+                </form>
+            </div>
+            <div class="image-container">
+                <img src="images/login/metamorphose.jpg" alt="Statue">
             </div>
         </div>
     </div>
-</section>
+
 </body>
 </html>
