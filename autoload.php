@@ -6,6 +6,11 @@ function autocargar($nombreClase){
 
     foreach ($directories as $directory) {
         $file = "$directory/$nombreClase.php";
+
+         // Depuración: imprime las rutas que se están buscando
+         error_log("Buscando: $file");
+
+
         if (file_exists($file)) {
             include $file;
             return;

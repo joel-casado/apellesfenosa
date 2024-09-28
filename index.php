@@ -12,7 +12,6 @@
 require_once "autoload.php";
 require_once "views/general/cabecera.html";
 require_once "views/general/menu.php";
-require_once 'controllers/ObraController.php';
 
 if (isset($_GET['controller'])){
     $nombreController = $_GET['controller']."Controller";
