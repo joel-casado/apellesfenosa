@@ -1,7 +1,7 @@
 <?php
 
 class Database{
-   
+
     
     public function conectar(){
         $servername = "localhost";
@@ -14,7 +14,7 @@ class Database{
 		// establim el mode PDO error a exception per poder
 		// recuperar les excepccions
 		$this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-         return $this->db;
+        return $this->db;
     
     }
     
