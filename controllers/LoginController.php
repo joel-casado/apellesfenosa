@@ -18,8 +18,8 @@ class LoginController {
 
                 //session_start();
                 //$_SESSION['admin'] = $username;
-                echo "Login exitoso";
-                //header("Location: index.php?controller=consultes&action=index");
+                //echo "Login exitoso"; 
+                header("Location: index.php?controller=Obras&action=verObras");
                 //exit();
             } else {
                 // Si las credenciales no son válidas, redirigir al formulario de login con un mensaje de error
