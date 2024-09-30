@@ -1,7 +1,7 @@
 // Estilos generales
 body {
     font-family: Arial, sans-serif;
-    background-color: #f5f5f5;
+    background-color: #f4f4f4;
     margin: 0;
     padding: 0 20px;
   }
@@ -11,6 +11,7 @@ body {
     color: #333;
     margin: 20px 0;
   }
+  
   
   // Contenedor de la tabla
   table {
@@ -56,8 +57,23 @@ body {
         background-color: #f1f1f1;
       }
     }
+    tbody td img {
+      width: 100px ; 
+      height: 100px ;
+    }
+    
   }
   
+      .img-obra{
+        width: 100px;
+      height: auto; 
+      border-radius: 8px;
+      transition: transform 0.3s; 
+      }
+
+      .img-obra:hover {
+      transform: scale(1.1); 
+      }
   // Estilo del botón de "Editar"
   .edit-button {
     display: inline-block;
@@ -97,9 +113,5 @@ body {
       font-size: 12px;
     }
   }
-  
 
-table tbody td img {
-  width: 100px ; 
-  height: 100px ;
-}
+

@@ -10,7 +10,7 @@
 </head>
 <body>
     <h1>Listado de Obras</h1>
-    <table border="1">
+    <table>
         <thead>
             <tr>
                 <th>Imatge</th>
@@ -25,12 +25,12 @@
         <tbody>
             <?php foreach ($obras as $obra): ?>
                 <tr>
-                <td><?php echo '<img src="https://www.museuapellesfenosa.cat/wp-content/uploads/2024/01/6.-Gran-tete-de-Paul-Eluard-1041x1536.jpg" alt="Imagen de la obra" style="height="50px" width="100px"">'; ?></td>
+                <td><?php echo '<img src="https://www.museuapellesfenosa.cat/wp-content/uploads/2024/01/6.-Gran-tete-de-Paul-Eluard-1041x1536.jpg"  style="height="50px" width="50px"">'; ?></td>
                     <td><?php echo $obra["numero_registro"]; ?></td>
                     <td><?php echo $obra["titulo"]; ?></td>
                     <td><?php echo $obra['autor']; ?></td>
                     <td><?php echo $obra['descripcion']; ?></td>
-                    <td><a href="editar.php?id=<?php echo $obra['numero_registro']; ?>" class="edit-button">Editar</a></td>
+                    <td><a href="views/editar_obra/editar.php?id=<?php echo $obra['numero_registro']; ?>" class="edit-button">Editar</a></td>
                 </tr>
             <?php endforeach; ?>
         </tbody>
