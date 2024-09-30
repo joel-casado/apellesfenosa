@@ -15,7 +15,7 @@ body {
   // Contenedor de la tabla
   table {
     width: 100%;
-    max-width: 1200px;
+    max-width: 100px;
     margin: 20px auto;
     border-collapse: collapse;
     background-color: #fff;
@@ -98,3 +98,8 @@ body {
     }
   }
   
+
+table tbody td img {
+  width: 100px ; 
+  height: 100px ;
+}
