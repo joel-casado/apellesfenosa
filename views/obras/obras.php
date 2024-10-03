@@ -18,6 +18,7 @@
                 <th>Nom</th>
                 <th>autor</th>
                 <th>Descripció</th>
+                <th>Clasificació</th>
                 <th>Acció</th>
                 
             </tr>
@@ -30,6 +31,7 @@
                     <td><?php echo $obra["titulo"]; ?></td>
                     <td><?php echo $obra['autor']; ?></td>
                     <td><?php echo $obra['descripcion']; ?></td>
+                    <td><?php echo $obra['classificacion_generica']; ?></td>
                     <td><a href="views/editar_obra/editar.php?id=<?php echo $obra['numero_registro']; ?>" class="edit-button">Editar</a></td>
                 </tr>
             <?php endforeach; ?>

@@ -18,10 +18,6 @@ class Login extends Database {
             $row = $stmt->fetch(PDO::FETCH_ASSOC);
             $contrasenya = $row['password'];
             
-            // Verify if the provided password matches the stored hash
-            if (password_verify($password, $contrasenya)) {
-                return true;
-            }
         }
 
         // If no user found or password doesn't match, return false
