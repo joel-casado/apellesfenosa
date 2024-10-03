@@ -16,13 +16,13 @@ class LoginController {
 
             if($login_model->validar_usuario($username, $password)) {
 
-                //session_start();
-                //$_SESSION['admin'] = $username;
-                //echo "Login exitoso"; 
+                session_start();
+                $_SESSION['admin'] = $username;
+                echo "Login exitoso"; 
                 header("Location: index.php?controller=Obras&action=verObras");
-                //exit();
+                exit();
             } else {
-                // Si las credenciales no son válidas, redirigir al formulario de login con un mensaje de error
+                //Si las credenciales no son válidas, redirigir al formulario de login con un mensaje de error
                 //header("Location: index.php?controller=login&action=verLogin");
                 //exit();
                 echo "Login invalido";
