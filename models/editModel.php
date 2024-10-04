@@ -56,7 +56,7 @@ class EditarController {
 
         // Obtener todas las clasificaciones genéricas únicas
         public function getClasificacionesGenericas() {
-            $sql = "SELECT DISTINCT texto_clasificacion FROM clasificaciones_genericas"; // Corrige aquí
+            $sql = "SELECT DISTINCT texto_clasificacion FROM clasificaciones_genericas";
             $result = $this->conn->query($sql);
             return $result->fetchAll(PDO::FETCH_ASSOC);
         }        

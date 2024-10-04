@@ -38,13 +38,17 @@ $estadosConservacion = $obraModel->getEstadosConservacion();
     <title>Editar Obra</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../../styles/Editar_obra/Editar_obra.css">
+    <link rel="stylesheet" href="../../styles/Editar_obra/Editar_obra.css">
 </head>
 <body>
     <a href="../obras.php" class="back-button">Volver a Obras</a>
     <h1>Editar Obra</h1>
     
     <img src="https://www.museuapellesfenosa.cat/wp-content/uploads/2024/01/6.-Gran-tete-de-Paul-Eluard-1041x1536.jpg">
+    
+    <img src="https://www.museuapellesfenosa.cat/wp-content/uploads/2024/01/6.-Gran-tete-de-Paul-Eluard-1041x1536.jpg">
     <form action="../controllers/EditarController.php" method="POST">
+        
         
         <input type="hidden" name="numero_registro" value="<?php echo $obra['numero_registro']; ?>">
         
@@ -183,6 +187,9 @@ $estadosConservacion = $obraModel->getEstadosConservacion();
 
         <label for="descripcion">Descripción:</label>
         <textarea id="descripcion" name="descripcion" required><?php echo $obra['descripcion']; ?></textarea>
+        
+        <label for="historia_obra">Historia de la Obra:</label>
+        <textarea id="historia_obra" name="historia_obra"><?php echo $obra['historia_obra']; ?></textarea>
         
         <label for="historia_obra">Historia de la Obra:</label>
         <textarea id="historia_obra" name="historia_obra"><?php echo $obra['historia_obra']; ?></textarea>

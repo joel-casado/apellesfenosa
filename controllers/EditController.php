@@ -17,6 +17,22 @@ class EditarController {
         return $this->obra->actualizarObra($data['numero_registro'], $data['titulo'], $data['autor'], $data['descripcion']);
     }
 
+    public function mostrarFormulario() {
+        // Obtener los valores únicos desde el modelo
+        $obra = $this->obra->obtenerObra($id);
+        $autores = $this->model->getAutores();
+        $anoInicio = $this->model->getAnoInicio();
+        $anoFinal = $this->model->getAnoFinal();
+        $materiales = $this->model->getMateriales();
+        $tecnicas = $this->model->getTecnicas();
+        $clasificacionesGenericas = $this->model->getClasificacionesGenericas();
+        $formasIngreso = $this->model->getFormasIngreso();
+        $estadosConservacion = $this->model->getEstadosConservacion();
+
+        // Incluir la vista y pasarle los datos
+        require_once 'views/editar.php';
+    }
+
     public function mostrarFormulario($id) {
         // Obtener los valores únicos desde el modelo
         $obra = $this->obra->obtenerObra($id);
