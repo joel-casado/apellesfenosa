@@ -10,10 +10,6 @@
 </head>
 <body>
 
-    <div class="header">
-        <img src="images/login/logo.png" alt="Museu Apel·les Fenosa">
-    </div>
-
     <div class="container">
         <div class="login-box">
             <div class="form-container">
