@@ -14,7 +14,7 @@
     </div>
 
     <h1>Listado de Obras</h1>
-    <table border="1">
+    <table>
         <thead>
             <tr>
                 <th></th>
@@ -25,11 +25,13 @@
                 <th>Datació</th>
                 <th>Ubicació</th>
                 <th>Acció</th>
+                
             </tr>
         </thead>
         <tbody>
             <?php foreach ($obras as $obra): ?>
                 <tr>
+                <td><?php echo '<img src="https://www.museuapellesfenosa.cat/wp-content/uploads/2024/01/6.-Gran-tete-de-Paul-Eluard-1041x1536.jpg"  style="height="50px" width="50px"">'; ?></td>
                     <td><?php echo $obra["numero_registro"]; ?></td>
                     <td><?php echo $obra["Nom Objecte"]; ?></td>
                     <td><?php echo $obra['autor']; ?></td>
