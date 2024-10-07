@@ -16,7 +16,7 @@ if (isset($_GET['controller'])){
 }
 else{
     //Controlador per dedecte
-    $nombreController = "UsuarioController";
+    $nombreController = "LoginController";
 }
 if (class_exists($nombreController)){
     $controlador = new $nombreController(); 
@@ -24,7 +24,7 @@ if (class_exists($nombreController)){
         $action = $_GET['action'];
     }
     else{
-        $action ="mostrarTodos";
+        $action ="verLogin";
     }
     $controlador->$action();   
 }else{
