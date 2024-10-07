@@ -3,42 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <title>Usuarios</title>
-    <link rel="stylesheet" href="views/general/general.css">
+    <link rel="stylesheet" href="views/variables/usuaris.css">
+    <div class="header">
+        <img src="views/general/imagenes/Logo.png" alt="Logo">
+    </div>
 </head>
 <body>
-    <div class="header">
-        <img src="images/login/logo.png" alt="Museu Apel·les Fenosa">
-    </div>
-    <div class="container">
-        <div class="login-box">
-            <div class="form-container">
-                <form action="index.php?controller=Login&action=login" method="post" class="signin-form"> <!-- Enlace de envío del formulario -->
-                    <div class="input-group">
-                        <label for="username">Usuari</label>
-                        <i class="fas fa-user"></i> <!-- Icono del usuario -->
-                        <input type="text" name="username" id="username" placeholder="Usuari" required>
-                    </div>
-                    <div class="input-group">
-                        <label for="rol">Rol</label>
-                        <select id="rol" name="rol">
-                            <option value="Usuari_convidat">Convidat</option>
-                            <option value="usuari_tecnic">Técnic</option>
-                            <option value="usuari_admin">Administrador</option>
-                        </select>
-                    </div>
-                    <div class="input-group">
-                        <label for="password">Contrasenya</label>
-                        <i class="fas fa-lock"></i> <!-- Ícono de candado -->
-                        <input type="password" name="password" id="password" placeholder="Contrasenya" required>
-                    </div>
-                  
-                    <button type="submit" class="usuari-btn">Guardar</button> <!-- Botón con funcionalidad PHP -->
-                </form>
-            </div>
-            <div class="image-container">
-                <img src="images/login/metamorphose.jpg" alt="Statue">
-            </div>
+
+    <div class="usuaris_box">
+        
+        
+        <form action="index.php?controller=Usuaris&action=createUser" method="POST">
+            <input type="text" name="name" required placeholder="Nombre de usuario">
+            <select id="roles" name="roles">
+                <div class="usurol">
+                    <option value="seleccion_rol"></option>
+                    <option value="usuari_cpnvidat">Convidat</option>
+                    <option value="usuari_tecnic">Tècnic</option>
+                    <option value="usuari_admin">Administrador</option>
+                </div>
+            </selct>
+            <input type="password" name="password" required placeholder="Contraseña">
+            
+            <button type="submit">Crear</button>
+        </form>
+        <div class="image_usuaris_box">
+            <img src="views/general/imagenes/2.-Petite-Tete-de-Jean-Cocteau_2-1.png" alt="Statue">
         </div>
+
     </div>
 </body>
 </html>
