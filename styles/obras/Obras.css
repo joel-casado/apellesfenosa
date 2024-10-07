@@ -1,0 +1,93 @@
+/*variqables" pagina login*/
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+  background-color: #f9f9f9;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+}
+
+/* Header */
+.header {
+  text-align: left;
+  padding: 30px;
+  background-color: rgb(255, 255, 255);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.header img {
+  height: 80px;
+}
+
+/* Main Heading */
+h1 {
+  font-size: 2rem;
+  color: #444;
+  margin: 20px 0;
+  text-align: center;
+}
+
+/* Table Styles */
+table {
+  width: 90%;
+  max-width: 1000px;
+  border-collapse: collapse;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: -2px 4px 4px 4px rgba(0, 0, 0, 0.1);
+  margin: 100px auto;
+  overflow: hidden;
+}
+
+tr {
+  align-items: center;
+}
+
+thead {
+  background-color: #f3f3f3;
+  height: 70px;
+}
+
+th, td {
+  padding: 12px;
+  text-align: center;
+  border: none;
+  font-weight: 400;
+  border-bottom: 2px solid #E8E8E8;
+}
+
+th {
+  font-weight: 500;
+  color: #555;
+}
+
+/* Image Styles */
+td img {
+  height: 80px;
+  width: 80px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 4px;
+}
+
+/* Button Styles */
+.edit-button {
+  padding: 6px 12px;
+  background-color: #6589C4;
+  color: #fff;
+  border-radius: 4px;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: background-color 0.3s ease;
+}
+
+.edit-button:hover {
+  background-color: #2D4F6F;
+}/*# sourceMappingURL=obras.css.map */

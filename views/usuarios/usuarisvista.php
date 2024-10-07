@@ -19,10 +19,19 @@
                         <input type="text" name="username" id="username" placeholder="Usuari" required>
                     </div>
                     <div class="input-group">
+                        <label for="rol">Rol</label>
+                        <input type="rol" name="rol" id="rol" placeholder="Rol" required>
+                        <select id="rol" name="rol">
+                        <option value="">Seleccione datació...</option>
+                        <option value="segle IV ante ">Segle IV ante </option>
+                        <option value="primera meita segle IV ante ">Primera meitat Segle IV ante..........-400....-301</option>
+                    </div>
+                    <div class="input-group">
                         <label for="password">Contrasenya</label>
                         <i class="fas fa-lock"></i> <!-- Ícono de candado -->
                         <input type="password" name="password" id="password" placeholder="Contrasenya" required>
                     </div>
+                  
                     <button type="submit" class="login-btn">Inicia Sessió</button> <!-- Botón con funcionalidad PHP -->
                 </form>
             </div>
