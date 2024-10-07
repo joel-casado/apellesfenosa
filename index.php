@@ -1,4 +1,3 @@
-<!--Controlador frontal: fichero que se encarga de cargarlo absolutamente todo -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
