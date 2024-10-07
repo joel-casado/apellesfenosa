@@ -16,3 +16,4 @@ class ObrasController {
         require_once "views/obras/obras.php";
     }
 }
+?>
