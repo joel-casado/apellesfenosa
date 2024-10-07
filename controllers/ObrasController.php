@@ -71,7 +71,7 @@ class ObrasController {
     
     
 
-       public function mostrarFormulario($id) {
+    public function mostrarFormulario($id) {
         // Obtener los valores únicos desde el modelo
         $obra = $this->obra->obtenerObra($id);
         $autores = $this->obra->getAutores(); 

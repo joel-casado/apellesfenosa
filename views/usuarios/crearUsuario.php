@@ -22,9 +22,10 @@
                         <label for="rol">Rol</label>
                         <input type="rol" name="rol" id="rol" placeholder="Rol" required>
                         <select id="rol" name="rol">
-                        <option value="">Seleccione datació...</option>
-                        <option value="segle IV ante ">Segle IV ante </option>
-                        <option value="primera meita segle IV ante ">Primera meitat Segle IV ante..........-400....-301</option>
+                            <option value="Usuari_convidat">Convidat</option>
+                            <option value="usuari_tecnic">Técnic</option>
+                            <option value="usuari_admin">Administrador</option>
+                        </select>
                     </div>
                     <div class="input-group">
                         <label for="password">Contrasenya</label>
