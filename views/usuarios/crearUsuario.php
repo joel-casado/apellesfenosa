@@ -20,7 +20,6 @@
                     </div>
                     <div class="input-group">
                         <label for="rol">Rol</label>
-                        <input type="rol" name="rol" id="rol" placeholder="Rol" required>
                         <select id="rol" name="rol">
                             <option value="Usuari_convidat">Convidat</option>
                             <option value="usuari_tecnic">Técnic</option>
@@ -33,7 +32,7 @@
                         <input type="password" name="password" id="password" placeholder="Contrasenya" required>
                     </div>
                   
-                    <button type="submit" class="login-btn">Inicia Sessió</button> <!-- Botón con funcionalidad PHP -->
+                    <button type="submit" class="usuari-btn">Guardar</button> <!-- Botón con funcionalidad PHP -->
                 </form>
             </div>
             <div class="image-container">
