@@ -1,5 +1,6 @@
-@import "_variables";
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+@import "C:/xampp/htdocs/apellesfenosa/SCSS/_variables.scss";
+@import "C:/xampp/htdocs/apellesfenosa/SCSS/_mixins.scss";
 
 * {
     margin: 0;
@@ -13,14 +14,7 @@ body {
 }
 
 .header {
-    text-align: left;
-    padding: 10px;
-    background-color: white;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-
-    img {
-        height: 80px;
-    }
+    @include header;
 }
 
 .container {
