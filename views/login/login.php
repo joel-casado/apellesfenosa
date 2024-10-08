@@ -16,18 +16,18 @@
     <div class="container">
         <div class="login-box">
             <div class="form-container">
-                <form action="index.php?controller=Login&action=login" method="post" class="signin-form"> <!-- Enlace de envío del formulario -->
+                <form action="index.php?controller=Login&action=login" method="post" class="signin-form">
                     <div class="input-group">
                         <label for="username">Usuari</label>
-                        <i class="fas fa-user"></i> <!-- Icono del usuario -->
+                        <i class="fas fa-user"></i>
                         <input type="text" name="username" id="username" placeholder="Usuari" required>
                     </div>
                     <div class="input-group">
                         <label for="password">Contrasenya</label>
-                        <i class="fas fa-lock"></i> <!-- Ícono de candado -->
+                        <i class="fas fa-lock"></i> 
                         <input type="password" name="password" id="password" placeholder="Contrasenya" required>
                     </div>
-                    <button type="submit" class="login-btn">Inicia Sessió</button> <!-- Botón con funcionalidad PHP -->
+                    <button type="submit" class="login-btn">Inicia Sessió</button>
                 </form>
             </div>
             <div class="image-container">
