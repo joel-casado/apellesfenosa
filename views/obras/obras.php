@@ -48,7 +48,8 @@ if (!isset($_SESSION['admin']) && !isset($_SESSION['tecnic']) && !isset($_SESSIO
                     <td><?php echo $obra['autor']; ?></td>
                     <td><?php echo $obra['datacion']; ?></td>
                     <td><?php echo $obra['ubicacion']; ?></td>
-                    <td><a href="editar.php?id=<?php echo $obra['numero_registro']; ?>" class="edit-button">Editar</a></td>
+                    <td><a href="views/editar_obra/editar.php?id=<?php echo $obra['numero_registro']; ?>" class="edit-button">Editar</a>
+                    <a href="views/crear_obra/crear.php?id=<?php echo $obra['numero_registro']; ?>" class="edit-button">Crear</a></td>
                 </tr>
             <?php endforeach; ?>
         </tbody>
