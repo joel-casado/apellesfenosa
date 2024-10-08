@@ -1,3 +1,12 @@
+<?php
+session_start();
+
+if (!isset($_SESSION['admin']) && !isset($_SESSION['tecnic']) && !isset($_SESSION['convidat'])) {
+    
+    header("Location: index.php?controller=Login&action=verLogin");
+}
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -9,11 +18,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
+
     <div class="header">
         <img src="images/login/logo.png" alt="Museu Apel·les Fenosa">
+        <a href="index.php?controller=Login&action=logout" class="logout-link">Cerrar sesión</a>
     </div>
 
-   
     <table>
         <thead>
             <tr>
@@ -31,7 +41,7 @@
         <tbody>
             <?php foreach ($obras as $obra): ?>
                 <tr>
-                <td><?php echo '<img src="https://www.museuapellesfenosa.cat/wp-content/uploads/2024/01/6.-Gran-tete-de-Paul-Eluard-1041x1536.jpg"  style="height="50px" width="50px"">'; ?></td>
+                    <td><?php echo '<img src="https://www.museuapellesfenosa.cat/wp-content/uploads/2024/01/6.-Gran-tete-de-Paul-Eluard-1041x1536.jpg"  style="height="50px" width="50px"">'; ?></td>
                     <td><?php echo $obra["numero_registro"]; ?></td>
                     <td><?php echo $obra["nombre_objeto"]; ?></td>
                     <td><?php echo $obra['titulo']; ?></td>

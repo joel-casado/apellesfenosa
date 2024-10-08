@@ -3,7 +3,6 @@
 class LoginController {
 
     public function verLogin(){
-        // Cargar la vista del formulario de login
         require_once "views/login/login.php";
     }
 
@@ -14,26 +13,35 @@ class LoginController {
 
             $login_model = new Login();
 
-            if($login_model->validar_usuario($username, $password)) {
+            
+            $rol_usuario = $login_model->validar_usuario($username, $password);
 
+            if($rol_usuario) {
                 session_start();
-                $_SESSION['admin'] = $username;
-                echo "Login exitoso"; 
-                header("Location: index.php?controller=Obras&action=verObras");
-                exit();
+
+                if($rol_usuario == 'admin') {
+                    $_SESSION['admin'] = $username;
+                    header("Location: index.php?controller=Obras&action=verObras&admin");
+                } elseif($rol_usuario == 'tecnic') {
+                    $_SESSION['tecnic'] = $username;
+                    header("Location: index.php?controller=Obras&action=verObras&tecnic");
+                } elseif($rol_usuario == 'convidat') {
+                    $_SESSION['convidat'] = $username;
+                    header("Location: index.php?controller=Obras&action=verObras&convidat");
+                }
+                
             } else {
-                //Si las credenciales no son válidas, redirigir al formulario de login con un mensaje de error
-                //header("Location: index.php?controller=login&action=verLogin");
-                //exit();
                 echo "Login invalido";
             }
-        } else {
-            //header("Location: index.php?controller=login&action=verLogin");
-            //exit();
         }
     }
 
     public function logout() {
+
+        session_start();
+        session_unset();
+        session_destroy();
+        header("Location: index.php?controller=Login&action=verLogin");
 
     }
 }
