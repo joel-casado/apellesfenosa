@@ -15,11 +15,10 @@ class Usuario extends Database {
         $stmt->bindParam(':id', $id);
         $stmt->execute();
     }
-    
-
-    function getApellidos() {
-        return $this->rol;
+    function setRol($rol) {
+        $this->rol = $rol;
     }
+    
     function getPassword() {
         return $this->password;
     }
@@ -37,30 +36,39 @@ class Usuario extends Database {
         $stmt = $db->query($sql);
         return $stmt->fetchAll(PDO::FETCH_ASSOC); // Devolver resultados como un arreglo asociativo
     }
-    
-        // ...
-    
-    function insertar($nombre, $password, $rol) {
+    public function getByUsername($nombre) {
         $db = $this->conectar();
-        $sql = "INSERT INTO usuarios ('nombre_usuario', 'password', 'rol_usuario') VALUES (:nombre_usuario, :password, :rol_usuario)"; // Asegúrate de que el nombre de la tabla y los campos sean correctos
+        $sql = "SELECT * FROM usuarios WHERE nombre_usuario = :username";
         $stmt = $db->prepare($sql);
-        $stmt->bindParam(':nombre_usuario', $nombre);
-        $stmt->bindParam(':password',$hashedPassword);
+        $stmt->bindParam(':username', $nombre);
+        $stmt->execute();
+
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return $user ? $user : null; // Devuelve el usuario encontrado o null si no existe
+    }
+    
+    function insertar($nombre, $rol, $password) {
+        $db = $this->conectar();
+        $sql = "INSERT INTO usuarios (nombre_usuario, rol_usuario, password) VALUES (:nombre_usuario, :rol_usuario, :password)";
+        $stmt = $db->prepare($sql);
+        $stmt->bindParam(':nombre_usuario', $nombre);       
         $stmt->bindParam(':rol_usuario', $rol);
+        $stmt->bindParam(':password', $password);
         echo "Nombre: $nombre, Rol: $rol, Password: $password"; // Debugging
-            
+                    
             // Ejecuta la consulta
-            try {
-                $stmt->execute(); // Ejecutar la inserción
-                echo "Usuario creado exitosamente."; // Mensaje de éxito
-                return true; // Retornar verdadero si se ejecutó correctamente
-            } catch (PDOException $e) {
+        try {
+            $stmt->execute(); // Ejecutar la inserción
+            echo "Usuario creado exitosamente."; // Mensaje de éxito
+            return true; // Retornar verdadero si se ejecutó correctamente
+        } catch (PDOException $e) {
                 // Manejo de errores de inserción
-                echo "Error al insertar el usuario: " . $e->getMessage();
-                return false; // Retornar falso si hubo un error
-            }
+            echo "Error al insertar el usuario: " . $e->getMessage();
+            return false; // Retornar falso si hubo un error
+        }
     }
-    }
+}
 
 
 ?>
