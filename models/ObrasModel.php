@@ -109,7 +109,31 @@ class ObrasModel {
             return $stmt->execute();
         }
         
+        public function crearObra($numero_registro, $titulo, $autor, $classificacion_generica, 
+        $coleccion_procedencia, $maxima_altura, $maxima_anchura, $maxima_profundidad, $id_material, $tecnica, 
+        $ano_inicio, $ano_final, $datacion, $ubicacion, $fecha_registro, $descripcion) {
 
+            $query = "INSERT INTO obras SET titulo = :titulo, classificacion_generica = :classificacion_generica, autor = :autor, coleccion_procedencia = :coleccion_procedencia, maxima_altura = :maxima_altura, maxima_anchura = :maxima_anchura, maxima_profundidad = :maxima_profundidad, material = :material, tecnica = :tecnica, ano_inicio = :ano_inicio, ano_final = :ano_final, datacion = :datacion, ubicacion = :ubicacion, fecha_registro = :fecha_registro, descripcion = :descripcion ";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(':titulo', $titulo);
+            $stmt->bindParam(':classificacion_generica', $classificacion_generica);
+            $stmt->bindParam(':autor', $autor);
+            $stmt->bindParam(':coleccion_procedencia', $coleccion_procedencia);
+            $stmt->bindParam(':maxima_altura', $maxima_altura); 
+            $stmt->bindParam(':maxima_anchura', $maxima_anchura);
+            $stmt->bindParam(':maxima_profundidad', $maxima_profundidad);
+            $stmt->bindParam(':material', $material);
+            $stmt->bindParam(':tecnica', $tecnica);
+            $stmt->bindParam(':ano_inicio', $ano_inicio);
+            $stmt->bindParam(':ano_final', $ano_final);
+            $stmt->bindParam(':datacion', $datacion);
+            $stmt->bindParam(':ubicacion', $ubicacion);
+            $stmt->bindParam(':fecha_registro', $fecha_registro);
+            $stmt->bindParam(':numero_registro', $numero_registro);
+            $stmt->bindParam(':descripcion', $descripcion);
+            
+            return $stmt->execute();
+        }
         
 
 }

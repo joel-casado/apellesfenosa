@@ -29,7 +29,7 @@ $estadosConservacion = $obraModel->getEstadosConservacion();
     <link rel="stylesheet" href="styles/obras/obras.css">
 </head>
 <body>
-    <a href="../../views/obras/obras.php" class="back-button">Volver a Obras</a>
+    <a href="../../views/obras/obras.php">a</a>
     <h1>Editar Obra</h1>
     
     <img src="https://www.museuapellesfenosa.cat/wp-content/uploads/2024/01/6.-Gran-tete-de-Paul-Eluard-1041x1536.jpg"  style="height="150px" width="150px"">
@@ -51,9 +51,6 @@ $estadosConservacion = $obraModel->getEstadosConservacion();
 
         <label for="autor">Codigo Autor:</label>
         <input type="text" id="nombre_autor" name="nombre_autor" value="<?php echo $obra['autor']; ?>">
-
-
-
 
         <label for="coleccion_procedencia">Colección Procedencia:</label>
         <input type="text" id="coleccion_procedencia" name="coleccion_procedencia" value="<?php echo $obra['coleccion_procedencia']; ?>">

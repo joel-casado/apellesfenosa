@@ -66,12 +66,49 @@ class ObrasController {
         }
     }
     
+    public function crear() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $numero_registro = $_POST['n_registro'];
+            $titulo = $_POST['titulo'];
+            $classificacion_generica = $_POST['classificacion_generica'];
+            $autor = $_POST['nombre_autor'];
+            $coleccion_procedencia = $_POST['coleccion_procedencia'];
+            $maxima_altura = $_POST['maxima_altura'];
+            $maxima_anchura = $_POST['maxima_anchura'];
+            $maxima_profundidad = $_POST['maxima_profundidad'];
+            $material = $_POST['id_material'];
+            $tecnica = $_POST['tecnica'];
+            $ano_inicio = $_POST['ano_inicio'];
+            $ano_final = $_POST['ano_final'];
+            $datacion = $_POST['datacion'];
+            $ubicacion = $_POST['ubicacion'];
+            $fecha_registro = $_POST['fecha_registro'];
+            $descripcion = $_POST['descripcion'];
+
+
+            // Instanciar el modelo con la conexión
+            $obraModel = new ObrasModel($this->conn);
+
+            // actualizar la obra
+            $resultado = $obraModel->crearObra($numero_registro, $titulo, $autor, $classificacion_generica, 
+            $coleccion_procedencia, $maxima_altura, $maxima_anchura, $maxima_profundidad, $id_material, $tecnica, 
+            $ano_inicio, $ano_final, $datacion, $ubicacion, $fecha_registro, $descripcion);
+
+            if ($resultado) {
+                // Redirigir a la lista de obras después de la actualización
+                header('Location: index.php?controller=Obras&action=verObras');
+                exit();
+            } else {
+                echo "Error al actualizar la obra.";
+            }
+        }
+    }
     
 
     
     
 
-    public function mostrarFormulario($id) {
+       public function mostrarFormulario($id) {
         // Obtener los valores únicos desde el modelo
         $obra = $this->obra->obtenerObra($id);
         $autores = $this->obra->getAutores(); 

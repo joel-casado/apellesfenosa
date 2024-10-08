@@ -31,14 +31,15 @@
         <tbody>
             <?php foreach ($obras as $obra): ?>
                 <tr>
-                <td><?php echo '<img src="https://www.museuapellesfenosa.cat/wp-content/uploads/2024/01/6.-Gran-tete-de-Paul-Eluard-1041x1536.jpg"  style="height="50px" width="50px"">'; ?></td>
+                <td><?php echo '<img src="https://www.museuapellesfenosa.cat/wp-content/uploads/2024/01/6.-Gran-tete-de-Paul-Eluard-1041x1536.jpg"  ">'; ?></td>
                     <td><?php echo $obra["numero_registro"]; ?></td>
                     <td><?php echo $obra["nombre_objeto"]; ?></td>
                     <td><?php echo $obra['titulo']; ?></td>
                     <td><?php echo $obra['autor']; ?></td>
                     <td><?php echo $obra['datacion']; ?></td>
                     <td><?php echo $obra['ubicacion']; ?></td>
-                    <td><a href="editar.php?id=<?php echo $obra['numero_registro']; ?>" class="edit-button">Editar</a></td>
+                    <td><a href="views/editar_obra/editar.php?id=<?php echo $obra['numero_registro']; ?>" class="edit-button">Editar</a>
+                    <a href="views/crear_obra/crear.php?id=<?php echo $obra['numero_registro']; ?>" class="edit-button">Crear</a></td>
                 </tr>
             <?php endforeach; ?>
         </tbody>
