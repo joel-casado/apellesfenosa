@@ -14,11 +14,11 @@
     <div class="usuaris_box">
         
         
-    <form action="index.php?controller=Usuaris&action=createUser " method="POST">
+    <form action="index.php?controller=Usuaris&action=createUser" method="POST" onsubmit="return validarFormulario()">
         <input type="text" name="name" required placeholder="Nombre de usuario">
+        <span id="username-error" style="color: red;"></span>
         <select id="roles" name="roles">
             <div class="usurol">
-                <option value="seleccion_rol"></option>
                 <option value="convidat">Convidat</option>
                 <option value="tecnic">Tècnic</option>
                 <option value="admin">Administrador</option>
@@ -33,5 +33,13 @@
         </div>
 
     </div>
+
+    <script>
+        function validarFormulario() {
+            // código para mostrar el mensaje de error
+            document.getElementById("username-error").innerHTML = "Error: el nombre de usuario ya existe";
+            return false;
+        }
+    </script>
 </body>
 </html>
