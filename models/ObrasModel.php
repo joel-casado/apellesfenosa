@@ -8,10 +8,17 @@ class ObrasModel {
     }
 
     public function getObras() {
-        $stmt = $this->conn->prepare("SELECT * FROM obras");
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $query = "SELECT obras.*, materiales.texto_material, autores.nombre_autor, dataciones.nombre_datacion
+    FROM obras 
+    JOIN materiales ON obras.material = materiales.codigo_getty_material
+    JOIN autores ON obras.autor = autores.codigo_autor
+    JOIN dataciones ON obras.datacion = dataciones.id_datacion";
+    $stmt = $this->conn->prepare($query);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+       
     }
+
 
         public function obtenerObra($id) {
         $query = "SELECT * FROM obras WHERE numero_registro = :id";
@@ -83,7 +90,7 @@ class ObrasModel {
             return $result->fetchAll(PDO::FETCH_ASSOC);
         }
 
-        public function actualizarObra($numero_registro, $titulo, $autor, $classificacion_generica, 
+        public function actualizarObra($numero_registro, $titulo, $nombre_autor, $classificacion_generica, 
         $coleccion_procedencia, $maxima_altura, $maxima_anchura, $maxima_profundidad, $id_material, $tecnica, 
         $ano_inicio, $ano_final, $datacion, $ubicacion, $fecha_registro, $descripcion) {
 
@@ -91,7 +98,7 @@ class ObrasModel {
             $stmt = $this->conn->prepare($query);
             $stmt->bindParam(':titulo', $titulo);
             $stmt->bindParam(':classificacion_generica', $classificacion_generica);
-            $stmt->bindParam(':autor', $autor);
+            $stmt->bindParam(':autor', $nombre_autor);
             $stmt->bindParam(':coleccion_procedencia', $coleccion_procedencia);
             $stmt->bindParam(':maxima_altura', $maxima_altura); 
             $stmt->bindParam(':maxima_anchura', $maxima_anchura);
@@ -110,11 +117,15 @@ class ObrasModel {
         }
         
         public function crearObra($numero_registro, $titulo, $autor, $classificacion_generica, 
-        $coleccion_procedencia, $maxima_altura, $maxima_anchura, $maxima_profundidad, $id_material, $tecnica, 
+        $coleccion_procedencia, $maxima_altura, $maxima_anchura, $maxima_profundidad, $material, $tecnica, 
         $ano_inicio, $ano_final, $datacion, $ubicacion, $fecha_registro, $descripcion) {
 
-            $query = "INSERT INTO obras SET titulo = :titulo, classificacion_generica = :classificacion_generica, autor = :autor, coleccion_procedencia = :coleccion_procedencia, maxima_altura = :maxima_altura, maxima_anchura = :maxima_anchura, maxima_profundidad = :maxima_profundidad, material = :material, tecnica = :tecnica, ano_inicio = :ano_inicio, ano_final = :ano_final, datacion = :datacion, ubicacion = :ubicacion, fecha_registro = :fecha_registro, descripcion = :descripcion ";
+            // Consulta SQL corregida
+            $query = "INSERT INTO obras (numero_registro, titulo, classificacion_generica, autor, coleccion_procedencia, maxima_altura, maxima_anchura, maxima_profundidad, material, tecnica, ano_inicio, ano_final, datacion, ubicacion, fecha_registro, descripcion) 
+                    VALUES (:numero_registro, :titulo, :classificacion_generica, :autor, :coleccion_procedencia, :maxima_altura, :maxima_anchura, :maxima_profundidad, :material, :tecnica, :ano_inicio, :ano_final, :datacion, :ubicacion, :fecha_registro, :descripcion)";
+            
             $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(':numero_registro', $numero_registro);
             $stmt->bindParam(':titulo', $titulo);
             $stmt->bindParam(':classificacion_generica', $classificacion_generica);
             $stmt->bindParam(':autor', $autor);
@@ -129,7 +140,6 @@ class ObrasModel {
             $stmt->bindParam(':datacion', $datacion);
             $stmt->bindParam(':ubicacion', $ubicacion);
             $stmt->bindParam(':fecha_registro', $fecha_registro);
-            $stmt->bindParam(':numero_registro', $numero_registro);
             $stmt->bindParam(':descripcion', $descripcion);
             
             return $stmt->execute();

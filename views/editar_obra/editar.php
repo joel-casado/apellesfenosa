@@ -46,11 +46,20 @@ $estadosConservacion = $obraModel->getEstadosConservacion();
         <input type="text" id="n_registro" name="n_registro" value="<?php echo $obra['numero_registro']; ?>" required>
 
         <select name="clasificaciones_generica" id="clasificaciones_generica">
-            <option value="">Selecciona Clasificación</option>
-            <input type="text" id="classificacion_generica" name="classificacion_generica" value="<?php echo $obra['classificacion_generica']; ?>">
+        <option value="">Selecciona Clasificación</option>
+        <input type="text" id="classificacion_generica" name="classificacion_generica" value="<?php echo $obra['classificacion_generica']; ?>">
 
-        <label for="autor">Codigo Autor:</label>
-        <input type="text" id="nombre_autor" name="nombre_autor" value="<?php echo $obra['autor']; ?>">
+        
+        <label for="autor">Nombre Autor:</label>
+        <select name="autor" id="autor">
+            <option value=""></option>
+            <?php foreach ($autor as $autor): ?>
+                <option value="<?= $autor['nombre_autor'] ?>" <?= $obra['autor'] == $autor['nombre_autor'] ? 'selected' : '' ?>>
+                    <?= $autor['nombre_autor'] ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
+        <input type="text" id="nombre_autor" name="nombre_autor" value="<?php echo $obra['nombre_autor']; ?>">
 
         <label for="coleccion_procedencia">Colección Procedencia:</label>
         <input type="text" id="coleccion_procedencia" name="coleccion_procedencia" value="<?php echo $obra['coleccion_procedencia']; ?>">
@@ -76,6 +85,20 @@ $estadosConservacion = $obraModel->getEstadosConservacion();
 
         <label for="material">[Tècnica] text (sense valor per defecte)<label>
         
+        
+        <label for="autor">Nombre Autor:</label>
+        <select name="id_autor" id="id_autor" required>
+            <option value="">Selecciona un Autor</option>
+            <?php foreach ($autores as $autor): ?>
+                <option value="<?= $autor['nombre_autor'] ?>" <?= $obra['autor'] == $autor['nombre_autor'] ? 'selected' : '' ?>>
+                    <?= $autor['nombre_autor'] ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
+
+           
+
+
 
         <label for="ano_inicio">Año inicio:</label>
         <select name="ano_inicio" id="ano_inicio">
