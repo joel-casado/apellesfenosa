@@ -27,8 +27,10 @@ class UsuarisController {
             $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
             $usuarioModel = new Usuario();
             $existingUser  = $usuarioModel->getByUsername($nombre);
-            if ($existingUser ) {
-                echo "Error: El usuario ya existe en la base de datos";
+            if ($existingUser) {
+                // Si el usuario ya existe, vuelve a mostrar la vista con un mensaje de error
+                $errorMessage = "Error: El nombre de usuario ya existe."; // Mensaje de error
+                include('views/usuarios/crearUsuario.php'); // Muestra la vista con el error
                 return;
             }
             // Llamar al modelo para insertar el usuario en la base de datos
@@ -43,7 +45,9 @@ class UsuarisController {
         }
         $this->index(); // Mostrar la vista en caso de que no sea un POST 
     }
-    public function deleteUser() {
+
+    }
+    function deleteUser() {
         $userId = $_GET['id'] ?? null;
         if ($userId) {
             // Llamar al modelo para eliminar el usuario de la base de datos
@@ -54,12 +58,13 @@ class UsuarisController {
         header('Location: index.php?controller=Usuaris&action=index');
         exit();
     }
-    public function checkUsername() {
+    function checkUsername() {
         $username = $_GET['username'];
         $usuarioModel = new Usuario();
-        $existingUser  = $usuarioModel->getByUsername($username);
-        $exists = !empty($existingUser );
+        $existingUser = $usuarioModel->getByUsername($username);
+        $exists = !empty($existingUser);
         echo json_encode(['exists' => $exists]);
         exit;
     }
-}
+    
+ 

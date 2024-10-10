@@ -8,7 +8,7 @@
 
 body {
   font-family: Arial, sans-serif;
-  background-color: #fff;
+  background-color: #FFFFFF;
   color: black;
 }
 
@@ -22,15 +22,10 @@ body {
   height: 80px;
 }
 
-img {
-  width: 150px;
-}
-
 .usuaris_box {
   display: flex;
   width: 800px;
   margin: 100px auto;
-  padding: 20px;
   background-color: #FFFFFF;
   border-radius: 10px;
   box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.1);
@@ -38,7 +33,7 @@ img {
 }
 
 .image_usuaris_box {
-  width: 800px;
+  width: 200px;
 }
 
 form {

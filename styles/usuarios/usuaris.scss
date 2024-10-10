@@ -9,29 +9,25 @@
 
 body {
     font-family: Arial, sans-serif;
-    background-color: #fff;
+    background-color:$header-bg;
     color: black;
 }
 
 .header {
-   @include header;
-}
-img {
-    width: 150px;
+@include header;
 }
 
 .usuaris_box {
     display: flex;
     width: 800px;
     margin: 100px auto;
-    padding: 20px;
     background-color:$header-bg;
     border-radius: 10px;
     box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.1);
     text-align: center;
 }
 .image_usuaris_box{
-    width: 800px;
+    width: 200px;
 }
 
 

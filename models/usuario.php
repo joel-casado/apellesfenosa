@@ -52,7 +52,7 @@ class Usuario extends Database {
         $db = $this->conectar();
         $sql = "INSERT INTO usuarios (nombre_usuario, rol_usuario, password) VALUES (:nombre_usuario, :rol_usuario, :password)";
         $stmt = $db->prepare($sql);
-        $stmt->bindParam(':nombre_usuario', $nombre);       
+        $stmt->bindParam(':nombre_usuario', $nombre);
         $stmt->bindParam(':rol_usuario', $rol);
         $stmt->bindParam(':password', $password);
         echo "Nombre: $nombre, Rol: $rol, Password: $password"; // Debugging
