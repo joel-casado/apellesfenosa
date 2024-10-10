@@ -33,7 +33,7 @@ class ObrasController {
             $numero_registro = $_POST['n_registro'];
             $titulo = $_POST['titulo'];
             $classificacion_generica = $_POST['classificacion_generica'];
-            $autor = $_POST['nombre_autor'];
+            $nombre_autor = $_POST['id_autor'];
             $coleccion_procedencia = $_POST['coleccion_procedencia'];
             $maxima_altura = $_POST['maxima_altura'];
             $maxima_anchura = $_POST['maxima_anchura'];
@@ -89,9 +89,9 @@ class ObrasController {
             // Instanciar el modelo con la conexión
             $obraModel = new ObrasModel($this->conn);
 
-            // actualizar la obra
+            // crear la obra
             $resultado = $obraModel->crearObra($numero_registro, $titulo, $autor, $classificacion_generica, 
-            $coleccion_procedencia, $maxima_altura, $maxima_anchura, $maxima_profundidad, $id_material, $tecnica, 
+            $coleccion_procedencia, $maxima_altura, $maxima_anchura, $maxima_profundidad, $material, $tecnica, 
             $ano_inicio, $ano_final, $datacion, $ubicacion, $fecha_registro, $descripcion);
 
             if ($resultado) {

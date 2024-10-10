@@ -45,9 +45,8 @@ $estadosConservacion = $obraModel->getEstadosConservacion();
         <label for="titulo">Nº Registro:</label>
         <input type="text" id="n_registro" name="n_registro" value="" required>
 
-        <select name="clasificaciones_generica" id="clasificaciones_generica">
-            <option value="">Selecciona Clasificación</option>
-            <input type="text" id="classificacion_generica" name="classificacion_generica" value="">
+        <label for="classificacion_generica">Selecciona Clasificación</option>
+        <input type="text" id="classificacion_generica" name="classificacion_generica" value="">
 
         <label for="autor">Codigo Autor:</label>
         <input type="text" id="nombre_autor" name="nombre_autor" value="">
@@ -99,16 +98,15 @@ $estadosConservacion = $obraModel->getEstadosConservacion();
                 </option>
             <?php endforeach; ?>
         </select>
-
-
-        <label for="datacion">Datación:</label>
-        <textarea id="datacion" name="datacion" required></textarea>
     
         <label for="ubicacion">Ubicación:</label>
         <input type="text" id="ubicacion" name="ubicacion" value="">
 
         <label for="fecha_registro">Fecha Registro:</label>
         <input type="date" id="fecha_registro" name="fecha_registro" value="">
+
+        <label for="datacion">Datacion:</label>
+        <input type="text" id="datacion" name="datacion" value="">
 
         <label for="numero_ejemplares">Número de Ejemplares:</label>
         <input type="number" id="numero_ejemplares" name="numero_ejemplares" value="">
