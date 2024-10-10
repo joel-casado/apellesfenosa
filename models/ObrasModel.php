@@ -32,10 +32,11 @@ class ObrasModel {
 
         // Obtener todos los autores únicos
         public function getAutores() {
-            $sql = "SELECT DISTINCT nombre_autor FROM autores";
-            $result = $this->conn->query($sql);  // La consulta se ejecuta correctamente
+            $sql = "SELECT DISTINCT codigo_autor, nombre_autor FROM autores"; // Asegúrate de que 'codigo_autor' esté incluido en la consulta
+            $result = $this->conn->query($sql);
             return $result->fetchAll(PDO::FETCH_ASSOC);
         }
+        
 
     
         // Obtener todos los años de inicio únicos
@@ -57,14 +58,14 @@ class ObrasModel {
 
         // Obtener todos los materiales únicos
         public function getMateriales() {
-            $sql = "SELECT DISTINCT texto_material FROM materiales";
+            $sql = "SELECT DISTINCT texto_material, codigo_getty_material FROM materiales";
             $result = $this->conn->query($sql);
             return $result->fetchAll(PDO::FETCH_ASSOC);
         }
 
         // Obtener todas las técnicas únicas
         public function getTecnicas() {
-            $sql = "SELECT DISTINCT texto_tecnica FROM tecnicas";
+            $sql = "SELECT DISTINCT texto_tecnica, codigo_getty_tecnica FROM tecnicas";
             $result = $this->conn->query($sql);
             return $result->fetchAll(PDO::FETCH_ASSOC);
         }
@@ -78,7 +79,7 @@ class ObrasModel {
 
         // Obtener todas las formas de ingreso únicas
         public function getFormasIngreso() {
-            $sql = "SELECT DISTINCT texto_forma_ingreso FROM formas_ingreso";
+            $sql = "SELECT DISTINCT id_forma_ingreso, texto_forma_ingreso FROM formas_ingreso";
             $result = $this->conn->query($sql);
             return $result->fetchAll(PDO::FETCH_ASSOC);
         }
@@ -90,25 +91,41 @@ class ObrasModel {
             return $result->fetchAll(PDO::FETCH_ASSOC);
         }
 
-        public function actualizarObra($numero_registro, $titulo, $nombre_autor, $classificacion_generica, 
-        $coleccion_procedencia, $maxima_altura, $maxima_anchura, $maxima_profundidad, $id_material, $tecnica, 
-        $ano_inicio, $ano_final, $datacion, $ubicacion, $fecha_registro, $descripcion) {
+        // Obtener dataciones
+        public function getdatacion() {
+            $sql = "SELECT DISTINCT id_datacion, nombre_datacion, ano_inicio, ano_final from dataciones";
+            $result = $this->conn->query($sql);
+            return $result->fetchAll(PDO::FETCH_ASSOC);
+        }
 
-            $query = "UPDATE obras SET titulo = :titulo, classificacion_generica = :classificacion_generica, autor = :autor, coleccion_procedencia = :coleccion_procedencia, maxima_altura = :maxima_altura, maxima_anchura = :maxima_anchura, maxima_profundidad = :maxima_profundidad, material = :material, tecnica = :tecnica, ano_inicio = :ano_inicio, ano_final = :ano_final, datacion = :datacion, ubicacion = :ubicacion, fecha_registro = :fecha_registro, descripcion = :descripcion WHERE numero_registro = :numero_registro";
+        // Obtener dataciones
+        public function getexposicion() {
+            $sql = "SELECT DISTINCT id_exposicion, tipo_exposicion, sitio_exposicion from exposiciones";
+            $result = $this->conn->query($sql);
+            return $result->fetchAll(PDO::FETCH_ASSOC);
+        }
+        
+
+        public function actualizarObra($numero_registro, $titulo, $autor, $classificacion_generica, 
+        $coleccion_procedencia, $maxima_altura, $maxima_anchura, $maxima_profundidad, $materiales, $tecnica, 
+        $ano_inicio, $ano_final, $datacion, $ubicacion, $formas_ingreso, $fecha_registro, $descripcion) {
+
+            $query = "UPDATE obras SET titulo = :titulo, classificacion_generica = :classificacion_generica, autor = :autor, coleccion_procedencia = :coleccion_procedencia, maxima_altura = :maxima_altura, maxima_anchura = :maxima_anchura, maxima_profundidad = :maxima_profundidad, material = :material, tecnica = :tecnica, ano_inicio = :ano_inicio, ano_final = :ano_final, datacion = :datacion, ubicacion = :ubicacion, forma_ingreso = :forma_ingreso, fecha_registro = :fecha_registro, descripcion = :descripcion WHERE numero_registro = :numero_registro";
             $stmt = $this->conn->prepare($query);
             $stmt->bindParam(':titulo', $titulo);
             $stmt->bindParam(':classificacion_generica', $classificacion_generica);
-            $stmt->bindParam(':autor', $nombre_autor);
+            $stmt->bindParam(':autor', $autor);
             $stmt->bindParam(':coleccion_procedencia', $coleccion_procedencia);
             $stmt->bindParam(':maxima_altura', $maxima_altura); 
             $stmt->bindParam(':maxima_anchura', $maxima_anchura);
             $stmt->bindParam(':maxima_profundidad', $maxima_profundidad);
-            $stmt->bindParam(':material', $material);
-            $stmt->bindParam(':tecnica', $tecnica);
+            $stmt->bindParam(':material', $materiales);
+            $stmt->bindParam(':tecnica', $tecnicas);
             $stmt->bindParam(':ano_inicio', $ano_inicio);
             $stmt->bindParam(':ano_final', $ano_final);
-            $stmt->bindParam(':datacion', $datacion);
+            $stmt->bindParam(':datacion', $dataciones);
             $stmt->bindParam(':ubicacion', $ubicacion);
+            $stmt->bindParam(':forma_ingreso', $formas_ingreso);
             $stmt->bindParam(':fecha_registro', $fecha_registro);
             $stmt->bindParam(':numero_registro', $numero_registro);
             $stmt->bindParam(':descripcion', $descripcion);
@@ -118,7 +135,7 @@ class ObrasModel {
         
         public function crearObra($numero_registro, $titulo, $autor, $classificacion_generica, 
         $coleccion_procedencia, $maxima_altura, $maxima_anchura, $maxima_profundidad, $material, $tecnica, 
-        $ano_inicio, $ano_final, $datacion, $ubicacion, $fecha_registro, $descripcion) {
+        $ano_inicio, $ano_final, $dataciones, $ubicacion, $fecha_registro, $descripcion) {
 
             // Consulta SQL corregida
             $query = "INSERT INTO obras (numero_registro, titulo, classificacion_generica, autor, coleccion_procedencia, maxima_altura, maxima_anchura, maxima_profundidad, material, tecnica, ano_inicio, ano_final, datacion, ubicacion, fecha_registro, descripcion) 
