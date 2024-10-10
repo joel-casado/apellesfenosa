@@ -13,10 +13,12 @@ $autores = $obraModel->getAutores();
 $clasificaciones_genericas = $obraModel->getClasificacionesGenericas();
 $materiales = $obraModel->getMateriales();
 $tecnicas = $obraModel->getTecnicas();
+$dataciones = $obraModel->getdatacion();
 $anoInicio = $obraModel->getAnoInicio();
 $anoFinal = $obraModel->getAnoFinal();
 $formasIngreso = $obraModel->getFormasIngreso();
 $estadosConservacion = $obraModel->getEstadosConservacion();
+$exposiciones = $obraModel->getexposicion();
 ?>
 
 <!DOCTYPE html>
@@ -51,15 +53,15 @@ $estadosConservacion = $obraModel->getEstadosConservacion();
 
         
         <label for="autor">Nombre Autor:</label>
-        <select name="autor" id="autor">
-            <option value=""></option>
-            <?php foreach ($autor as $autor): ?>
-                <option value="<?= $autor['nombre_autor'] ?>" <?= $obra['autor'] == $autor['nombre_autor'] ? 'selected' : '' ?>>
+        <select name="codigo_autor" id="codigo_autor" required>
+            <option value="">Selecciona un Autor</option>
+            <?php foreach ($autores as $autor): ?>
+                <option value="<?= $autor['codigo_autor'] ?>" <?= $obra['autor'] == $autor['codigo_autor'] ? 'selected' : '' ?>                >
                     <?= $autor['nombre_autor'] ?>
                 </option>
             <?php endforeach; ?>
         </select>
-        <input type="text" id="nombre_autor" name="nombre_autor" value="<?php echo $obra['nombre_autor']; ?>">
+
 
         <label for="coleccion_procedencia">Colección Procedencia:</label>
         <input type="text" id="coleccion_procedencia" name="coleccion_procedencia" value="<?php echo $obra['coleccion_procedencia']; ?>">
@@ -73,31 +75,28 @@ $estadosConservacion = $obraModel->getEstadosConservacion();
         <label for="maxima_profundidad">Máxima Profundidad:</label>
         <input type="text" id="maxima_profundidad" name="maxima_profundidad" value="<?php echo $obra['maxima_profundidad']; ?>">
 
-        <label for="material">[Material] text (sense valor per defecte):</label>
-        <input type="text" id="id_material" name="id_material" value="<?php echo $obra['material']; ?>">
-
-        <label for="material">Nombre Material:</label>
-        <input type="text" id="id_material" name="id_material" value="<?php echo $obra['material']; ?>">
-
-
-        <label for="tecnica">Técnica:</label>
-        <input type="text" id="tecnica" name="tecnica" value="<?php echo $obra['tecnica']; ?>">
-
-        <label for="material">[Tècnica] text (sense valor per defecte)<label>
-        
-        
-        <label for="autor">Nombre Autor:</label>
-        <select name="id_autor" id="id_autor" required>
-            <option value="">Selecciona un Autor</option>
-            <?php foreach ($autores as $autor): ?>
-                <option value="<?= $autor['nombre_autor'] ?>" <?= $obra['autor'] == $autor['nombre_autor'] ? 'selected' : '' ?>>
-                    <?= $autor['nombre_autor'] ?>
+        <label for="material">Material:</label>
+        <select name="codigo_getty_material" id="codigo_getty_material" required>
+            <option value="">Selecciona un Material</option>
+            <?php foreach ($materiales as $material): ?>
+                <option value="<?= $material['codigo_getty_material'] ?>" <?= $obra['material'] == $material['codigo_getty_material'] ? 'selected' : '' ?>>
+                    <?= $material['texto_material'] ?>
                 </option>
             <?php endforeach; ?>
         </select>
 
-           
 
+        <label for="tecnica">Técnica:</label>
+        <select name="tecnica" id="tecnica" required>
+            <option value="">Selecciona una tecnica</option>
+            <?php foreach ($tecnicas as $tecnica): ?>
+                <option value="<?= $tecnica['codigo_getty_tecnica'] ?>" <?= $obra['tecnica'] == $tecnica['codigo_getty_tecnica'] ? 'selected' : '' ?>>
+                    <?= $tecnica['texto_tecnica'] ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
+
+        <label for="material">[Tècnica] text (sense valor per defecte)<label>
 
 
         <label for="ano_inicio">Año inicio:</label>
@@ -112,7 +111,7 @@ $estadosConservacion = $obraModel->getEstadosConservacion();
 
         <label for="ano_final">Año final:</label>
         <select name="ano_final" id="ano_final">
-        <option value="">Fecha Final</option>
+        <option value="">Año Final</option>
         <?php foreach ($anoFinal as $final): ?>
             <option value="<?= $final['ano_final'] ?>" <?= $obra['ano_final'] == $final['ano_final'] ? 'selected' : '' ?>>
                 <?= $final['ano_final'] ?>
@@ -122,7 +121,14 @@ $estadosConservacion = $obraModel->getEstadosConservacion();
 
 
         <label for="datacion">Datación:</label>
-        <textarea id="datacion" name="datacion" required><?php echo $obra['datacion']; ?></textarea>
+        <select name="datacion" id="datacion">
+        <option value="">Datación</option>
+        <?php foreach ($dataciones as $datacion): ?>
+            <option value="<?= $datacion['id_datacion'] ?>" <?= $obra['datacion'] == $datacion['id_datacion'] ? 'selected' : '' ?>>
+                <?= $datacion['nombre_datacion']  . ' - ' . $datacion['ano_inicio']  . ' - ' . $datacion['ano_final'] ?>
+            </option>
+        <?php endforeach; ?>
+        </select>
     
         <label for="ubicacion">Ubicación:</label>
         <input type="text" id="ubicacion" name="ubicacion" value="<?php echo $obra['ubicacion']; ?>">
@@ -133,15 +139,15 @@ $estadosConservacion = $obraModel->getEstadosConservacion();
         <label for="numero_ejemplares">Número de Ejemplares:</label>
         <input type="number" id="numero_ejemplares" name="numero_ejemplares" value="<?php echo $obra['numero_ejemplares']; ?>">
 
-        <label for="forma_ingreso">Acabar Forma de Ingreso:</label>
-        <input list="formas_ingreso" name="forma_ingreso" id="forma_ingreso" value="<?= $obra['forma_ingreso']; ?>">
-        <datalist id="formas_ingreso">
-            <?php foreach ($formasIngreso as $forma): ?>
-                <option value="<?= $forma['texto_forma_ingreso'] ?>">
-                    <?= $forma['texto_forma_ingreso'] ?>
-                </option>
-            <?php endforeach; ?>
-        </datalist>
+        <label for="forma_ingreso">Forma de Ingreso:</label>
+        <select name="forma_ingreso" id="forma_ingreso">
+        <option value="">forma ingreso</option>
+        <?php foreach ($formasIngreso as $forma_ingreso): ?>
+            <option value="<?= $forma_ingreso['id_forma_ingreso'] ?>" <?= $obra['forma_ingreso'] == $forma_ingreso['id_forma_ingreso'] ? 'selected' : '' ?>>
+                <?= $forma_ingreso['texto_forma_ingreso'] ?>
+            </option>
+        <?php endforeach; ?>
+        </select>
 
 
 
@@ -172,11 +178,14 @@ $estadosConservacion = $obraModel->getEstadosConservacion();
         <label for="valoracion_econ">Valoración Económica:</label>
         <input type="text" id="valoracion_econ" name="valoracion_econ" value="<?php echo $obra['valoracion_econ']; ?>">
 
-        <label for="id_exposicion">ID de Exposición:</label>
-        <input type="text" id="id_exposicion" name="id_exposicion" value="<?php echo $obra['id_exposicion']; ?>">
-
-        <label for="id_exposicion">Tipus de Exposición:</label>
-        <input type="text" id="id_exposicion" name="id_exposicion" value="<?php echo $obra['id_exposicion']; ?>">
+        <label for="exposicion">Tipo Exposición:</label>
+        <select name="exposicion" id="exposicion">
+        <?php foreach ($exposiciones as $exposicion): ?>
+            <option value="<?= $exposicion['id_exposicion'] ?>" <?= $obra['id_exposicion'] == $exposicion['id_exposicion'] ? 'selected' : '' ?>>
+                <?= $exposicion['tipo_exposicion']  . ' - ' . $exposicion['sitio_exposicion'] ?>
+            </option>
+        <?php endforeach; ?>
+        </select>
 
         <label for="bibliografia">Bibliografía:</label>
         <textarea id="bibliografia" name="bibliografia"><?php echo $obra['bibliografia']; ?></textarea>

@@ -33,17 +33,18 @@ class ObrasController {
             $numero_registro = $_POST['n_registro'];
             $titulo = $_POST['titulo'];
             $classificacion_generica = $_POST['classificacion_generica'];
-            $nombre_autor = $_POST['id_autor'];
+            $autor = $_POST['codigo_autor'];
             $coleccion_procedencia = $_POST['coleccion_procedencia'];
             $maxima_altura = $_POST['maxima_altura'];
             $maxima_anchura = $_POST['maxima_anchura'];
             $maxima_profundidad = $_POST['maxima_profundidad'];
-            $material = $_POST['id_material'];
-            $tecnica = $_POST['tecnica'];
+            $materiales = $_POST['codigo_getty_material'];
+            $tecnicas = $_POST['codigo_getty_tecnica'];
             $ano_inicio = $_POST['ano_inicio'];
             $ano_final = $_POST['ano_final'];
-            $datacion = $_POST['datacion'];
+            $dataciones = $_POST['id_datacion'];
             $ubicacion = $_POST['ubicacion'];
+            $formas_ingreso = $_POST['id_forma_ingreso'];
             $fecha_registro = $_POST['fecha_registro'];
             $descripcion = $_POST['descripcion'];
 
@@ -53,8 +54,8 @@ class ObrasController {
 
             // actualizar la obra
             $resultado = $obraModel->actualizarObra($numero_registro, $titulo, $autor, $classificacion_generica, 
-            $coleccion_procedencia, $maxima_altura, $maxima_anchura, $maxima_profundidad, $id_material, $tecnica, 
-            $ano_inicio, $ano_final, $datacion, $ubicacion, $fecha_registro, $descripcion);
+            $coleccion_procedencia, $maxima_altura, $maxima_anchura, $maxima_profundidad, $materiales, $tecnicas, 
+            $ano_inicio, $ano_final, $dataciones, $ubicacion, $formas_ingreso, $fecha_registro, $descripcion);
 
             if ($resultado) {
                 // Redirigir a la lista de obras después de la actualización
