@@ -19,15 +19,17 @@ body {
 
 .usuaris_box {
     display: flex;
-    width: 800px;
+    width: 1000px;
     margin: 100px auto;
     background-color:$header-bg;
     border-radius: 10px;
     box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.1);
     text-align: center;
 }
-.image_usuaris_box{
-    width: 200px;
+.image_usuaris_box {
+    position: relative; // mantener la posición relativa
+    width: 900px;
+    border-radius: 10px !important;
 }
 
 
