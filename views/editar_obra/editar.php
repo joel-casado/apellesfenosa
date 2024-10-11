@@ -27,14 +27,14 @@ $exposiciones = $obraModel->getexposicion();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Obra</title>
+    <link rel="stylesheet" href="../../styles/editar_obras/editar.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles/obras/obras.css">
 </head>
 <body>
     <a href="../../views/obras/obras.php">a</a>
     <h1>Editar Obra</h1>
     
-    <img src="https://www.museuapellesfenosa.cat/wp-content/uploads/2024/01/6.-Gran-tete-de-Paul-Eluard-1041x1536.jpg"  style="height="150px" width="150px"">
+    <img src="https://www.museuapellesfenosa.cat/wp-content/uploads/2024/01/6.-Gran-tete-de-Paul-Eluard-1041x1536.jpg">
 
 
     <form action="../../index.php?controller=Obras&action=actualizar" method="POST">
@@ -48,8 +48,8 @@ $exposiciones = $obraModel->getexposicion();
         <input type="text" id="n_registro" name="n_registro" value="<?php echo $obra['numero_registro']; ?>" required>
 
         
-        <option value="">Selecciona Clasificación</option>
-        <select name="clasificaciones_generica" id="clasificaciones_generica">
+        <label value="">Selecciona Clasificación</label>
+        <select name="classificacion_generica" id="classificacion_generica">
         <?php foreach ($clasificaciones_genericas as $clasificacion): ?>
             <option value="<?= $clasificacion['id_clasificacion'] ?>" <?= $obra['classificacion_generica'] == $clasificacion['id_clasificacion'] ? 'selected' : '' ?>>
                 <?= $clasificacion['texto_clasificacion']?>
@@ -60,7 +60,6 @@ $exposiciones = $obraModel->getexposicion();
         
         <label for="autor">Nombre Autor:</label>
         <select name="codigo_autor" id="codigo_autor" required>
-            <option value="">Selecciona un Autor</option>
             <?php foreach ($autores as $autor): ?>
                 <option value="<?= $autor['codigo_autor'] ?>" <?= $obra['autor'] == $autor['codigo_autor'] ? 'selected' : '' ?>                >
                     <?= $autor['nombre_autor'] ?>
@@ -83,7 +82,6 @@ $exposiciones = $obraModel->getexposicion();
 
         <label for="material">Material:</label>
         <select name="codigo_getty_material" id="codigo_getty_material" required>
-            <option value="">Selecciona un Material</option>
             <?php foreach ($materiales as $material): ?>
                 <option value="<?= $material['codigo_getty_material'] ?>" <?= $obra['material'] == $material['codigo_getty_material'] ? 'selected' : '' ?>>
                     <?= $material['texto_material'] ?>
@@ -94,7 +92,6 @@ $exposiciones = $obraModel->getexposicion();
 
         <label for="tecnica">Técnica:</label>
         <select name="tecnica" id="tecnica" required>
-            <option value="">Selecciona una tecnica</option>
             <?php foreach ($tecnicas as $tecnica): ?>
                 <option value="<?= $tecnica['codigo_getty_tecnica'] ?>" <?= $obra['tecnica'] == $tecnica['codigo_getty_tecnica'] ? 'selected' : '' ?>>
                     <?= $tecnica['texto_tecnica'] ?>
@@ -102,12 +99,8 @@ $exposiciones = $obraModel->getexposicion();
             <?php endforeach; ?>
         </select>
 
-        <label for="material">[Tècnica] text (sense valor per defecte)<label>
-
-
         <label for="ano_inicio">Año inicio:</label>
         <select name="ano_inicio" id="ano_inicio">
-            <option value="">Año inicio</option>
             <?php foreach ($anoInicio as $inicio): ?>
                 <option value="<?= $inicio['ano_inicio'] ?>" <?= $obra['ano_inicio'] == $inicio['ano_inicio'] ? 'selected' : '' ?>>
                     <?= $inicio['ano_inicio'] ?>
@@ -117,7 +110,6 @@ $exposiciones = $obraModel->getexposicion();
 
         <label for="ano_final">Año final:</label>
         <select name="ano_final" id="ano_final">
-        <option value="">Año Final</option>
         <?php foreach ($anoFinal as $final): ?>
             <option value="<?= $final['ano_final'] ?>" <?= $obra['ano_final'] == $final['ano_final'] ? 'selected' : '' ?>>
                 <?= $final['ano_final'] ?>
@@ -128,10 +120,9 @@ $exposiciones = $obraModel->getexposicion();
 
         <label for="datacion">Datación:</label>
         <select name="datacion" id="datacion">
-        <option value="">Datación</option>
         <?php foreach ($dataciones as $datacion): ?>
             <option value="<?= $datacion['id_datacion'] ?>" <?= $obra['datacion'] == $datacion['id_datacion'] ? 'selected' : '' ?>>
-                <?= $datacion['nombre_datacion']  . ' - ' . $datacion['ano_inicio']  . ' - ' . $datacion['ano_final'] ?>
+                <?= $datacion['nombre_datacion']  . ' / ' . $datacion['ano_inicio']  . ' / ' . $datacion['ano_final'] ?>
             </option>
         <?php endforeach; ?>
         </select>
@@ -147,7 +138,6 @@ $exposiciones = $obraModel->getexposicion();
 
         <label for="forma_ingreso">Forma de Ingreso:</label>
         <select name="forma_ingreso" id="forma_ingreso">
-        <option value="">forma ingreso</option>
         <?php foreach ($formasIngreso as $forma_ingreso): ?>
             <option value="<?= $forma_ingreso['id_forma_ingreso'] ?>" <?= $obra['forma_ingreso'] == $forma_ingreso['id_forma_ingreso'] ? 'selected' : '' ?>>
                 <?= $forma_ingreso['texto_forma_ingreso'] ?>
@@ -192,15 +182,12 @@ $exposiciones = $obraModel->getexposicion();
             </option>
         <?php endforeach; ?>
         </select>
-+
+
         <label for="bibliografia">Bibliografía:</label>
         <textarea id="bibliografia" name="bibliografia"><?php echo $obra['bibliografia']; ?></textarea>
 
         <label for="descripcion">Descripción:</label>
         <textarea id="descripcion" name="descripcion" required><?php echo $obra['descripcion']; ?></textarea>
-        
-        <label for="historia_obra">Historia de la Obra:</label>
-        <textarea id="historia_obra" name="historia_obra"><?php echo $obra['historia_obra']; ?></textarea>
         
         <label for="historia_obra">Historia de la Obra:</label>
         <textarea id="historia_obra" name="historia_obra"><?php echo $obra['historia_obra']; ?></textarea>

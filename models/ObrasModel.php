@@ -107,35 +107,63 @@ class ObrasModel {
         
 
         public function actualizarObra($numero_registro, $titulo, $autor, $clasificaciones_genericas, 
-        $coleccion_procedencia, $maxima_altura, $maxima_anchura, $maxima_profundidad, $materiales, $tecnica, 
-        $ano_inicio, $ano_final, $datacion, $ubicacion, $formas_ingreso, $fecha_registro, $descripcion) {
+                $coleccion_procedencia, $maxima_altura, $maxima_anchura, $maxima_profundidad, 
+                $materiales, $tecnica, $ano_inicio, $ano_final, $dataciones, 
+                $ubicacion, $formas_ingreso, $fecha_registro, $descripcion, 
+                $numero_ejemplares, $fuente_ingreso, $estado_conservacion, 
+                $lugar_procedencia, $lugar_ejecucion, $valoracion_econ, 
+                $bibliografia, $historia_obra) {
 
-            $query = "UPDATE obras SET titulo = :titulo, clasificaciones_generica = :classificacion_generica, autor = :autor, coleccion_procedencia = :coleccion_procedencia, maxima_altura = :maxima_altura, maxima_anchura = :maxima_anchura, maxima_profundidad = :maxima_profundidad, material = :material, tecnica = :tecnica, ano_inicio = :ano_inicio, ano_final = :ano_final, datacion = :datacion, ubicacion = :ubicacion, forma_ingreso = :forma_ingreso, fecha_registro = :fecha_registro, descripcion = :descripcion WHERE numero_registro = :numero_registro";
-            $stmt = $this->conn->prepare($query);
-            $stmt->bindParam(':titulo', $titulo);
-            $stmt->bindParam(':clasificaciones_generica', $clasificaciones_genericas);
-            $stmt->bindParam(':autor', $autor);
-            $stmt->bindParam(':coleccion_procedencia', $coleccion_procedencia);
-            $stmt->bindParam(':maxima_altura', $maxima_altura); 
-            $stmt->bindParam(':maxima_anchura', $maxima_anchura);
-            $stmt->bindParam(':maxima_profundidad', $maxima_profundidad);
-            $stmt->bindParam(':material', $materiales);
-            $stmt->bindParam(':tecnica', $tecnicas);
-            $stmt->bindParam(':ano_inicio', $ano_inicio);
-            $stmt->bindParam(':ano_final', $ano_final);
-            $stmt->bindParam(':datacion', $dataciones);
-            $stmt->bindParam(':ubicacion', $ubicacion);
-            $stmt->bindParam(':forma_ingreso', $formas_ingreso);
-            $stmt->bindParam(':fecha_registro', $fecha_registro);
-            $stmt->bindParam(':numero_registro', $numero_registro);
-            $stmt->bindParam(':descripcion', $descripcion);
-            
-            return $stmt->execute();
-        }
+                $query = "UPDATE obras SET titulo = :titulo, classificacion_generica = :classificacion_generica, 
+                autor = :autor, coleccion_procedencia = :coleccion_procedencia, 
+                maxima_altura = :maxima_altura, maxima_anchura = :maxima_anchura, 
+                maxima_profundidad = :maxima_profundidad, material = :material, 
+                tecnica = :tecnica, ano_inicio = :ano_inicio, ano_final = :ano_final, 
+                datacion = :datacion, ubicacion = :ubicacion, 
+                forma_ingreso = :forma_ingreso, fecha_registro = :fecha_registro, 
+                descripcion = :descripcion, numero_ejemplares = :numero_ejemplares, 
+                fuente_ingreso = :fuente_ingreso, estado_conservacion = :estado_conservacion, 
+                lugar_procedencia = :lugar_procedencia, lugar_ejecucion = :lugar_ejecucion, 
+                valoracion_econ = :valoracion_econ, bibliografia = :bibliografia, 
+                historia_obra = :historia_obra 
+                WHERE numero_registro = :numero_registro";
+
+                $stmt = $this->conn->prepare($query);
+                
+                $stmt->bindParam(':titulo', $titulo);
+                $stmt->bindParam(':classificacion_generica', $clasificaciones_genericas); // Asegúrate de que este sea el nombre correcto
+                $stmt->bindParam(':autor', $autor);
+                $stmt->bindParam(':coleccion_procedencia', $coleccion_procedencia);
+                $stmt->bindParam(':maxima_altura', $maxima_altura); 
+                $stmt->bindParam(':maxima_anchura', $maxima_anchura);
+                $stmt->bindParam(':maxima_profundidad', $maxima_profundidad);
+                $stmt->bindParam(':material', $materiales);
+                $stmt->bindParam(':tecnica', $tecnica);
+                $stmt->bindParam(':ano_inicio', $ano_inicio);
+                $stmt->bindParam(':ano_final', $ano_final);
+                $stmt->bindParam(':datacion', $dataciones);
+                $stmt->bindParam(':ubicacion', $ubicacion);
+                $stmt->bindParam(':forma_ingreso', $formas_ingreso);
+                $stmt->bindParam(':fecha_registro', $fecha_registro);
+                $stmt->bindParam(':numero_registro', $numero_registro);
+                $stmt->bindParam(':descripcion', $descripcion);
+                $stmt->bindParam(':numero_ejemplares', $numero_ejemplares);
+                $stmt->bindParam(':fuente_ingreso', $fuente_ingreso);
+                $stmt->bindParam(':estado_conservacion', $estado_conservacion);
+                $stmt->bindParam(':lugar_procedencia', $lugar_procedencia);
+                $stmt->bindParam(':lugar_ejecucion', $lugar_ejecucion);
+                $stmt->bindParam(':valoracion_econ', $valoracion_econ);
+                $stmt->bindParam(':bibliografia', $bibliografia);
+                $stmt->bindParam(':historia_obra', $historia_obra);
+
+                
+                return $stmt->execute();
+            }
+
         
         public function crearObra($numero_registro, $titulo, $autor, $classificacion_generica, 
-        $coleccion_procedencia, $maxima_altura, $maxima_anchura, $maxima_profundidad, $material, $tecnica, 
-        $ano_inicio, $ano_final, $dataciones, $ubicacion, $fecha_registro, $descripcion) {
+        $coleccion_procedencia, $maxima_altura, $maxima_anchura, $maxima_profundidad, $materiales, $tecnica, 
+        $ano_inicio, $ano_final, $dataciones, $ubicacion, $formas_ingreso, $fecha_registro, $descripcion) {
 
             // Consulta SQL corregida
             $query = "INSERT INTO obras (numero_registro, titulo, classificacion_generica, autor, coleccion_procedencia, maxima_altura, maxima_anchura, maxima_profundidad, material, tecnica, ano_inicio, ano_final, datacion, ubicacion, fecha_registro, descripcion) 
