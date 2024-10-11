@@ -32,7 +32,7 @@ class ObrasController {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $numero_registro = $_POST['n_registro'];
             $titulo = $_POST['titulo'];
-            $classificacion_generica = $_POST['classificacion_generica'];
+            $clasificaciones_genericas = $_POST['id_clasificacion'];
             $autor = $_POST['codigo_autor'];
             $coleccion_procedencia = $_POST['coleccion_procedencia'];
             $maxima_altura = $_POST['maxima_altura'];
@@ -53,7 +53,7 @@ class ObrasController {
             $obraModel = new ObrasModel($this->conn);
 
             // actualizar la obra
-            $resultado = $obraModel->actualizarObra($numero_registro, $titulo, $autor, $classificacion_generica, 
+            $resultado = $obraModel->actualizarObra($numero_registro, $titulo, $autor, $clasificaciones_genericas, 
             $coleccion_procedencia, $maxima_altura, $maxima_anchura, $maxima_profundidad, $materiales, $tecnicas, 
             $ano_inicio, $ano_final, $dataciones, $ubicacion, $formas_ingreso, $fecha_registro, $descripcion);
 

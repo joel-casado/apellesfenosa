@@ -72,7 +72,7 @@ class ObrasModel {
 
         // Obtener todas las clasificaciones genéricas únicas
         public function getClasificacionesGenericas() {
-            $sql = "SELECT DISTINCT texto_clasificacion FROM clasificaciones_genericas";
+            $sql = "SELECT DISTINCT texto_clasificacion, id_clasificacion FROM clasificaciones_genericas";
             $result = $this->conn->query($sql);
             return $result->fetchAll(PDO::FETCH_ASSOC);
         }        
@@ -106,14 +106,14 @@ class ObrasModel {
         }
         
 
-        public function actualizarObra($numero_registro, $titulo, $autor, $classificacion_generica, 
+        public function actualizarObra($numero_registro, $titulo, $autor, $clasificaciones_genericas, 
         $coleccion_procedencia, $maxima_altura, $maxima_anchura, $maxima_profundidad, $materiales, $tecnica, 
         $ano_inicio, $ano_final, $datacion, $ubicacion, $formas_ingreso, $fecha_registro, $descripcion) {
 
-            $query = "UPDATE obras SET titulo = :titulo, classificacion_generica = :classificacion_generica, autor = :autor, coleccion_procedencia = :coleccion_procedencia, maxima_altura = :maxima_altura, maxima_anchura = :maxima_anchura, maxima_profundidad = :maxima_profundidad, material = :material, tecnica = :tecnica, ano_inicio = :ano_inicio, ano_final = :ano_final, datacion = :datacion, ubicacion = :ubicacion, forma_ingreso = :forma_ingreso, fecha_registro = :fecha_registro, descripcion = :descripcion WHERE numero_registro = :numero_registro";
+            $query = "UPDATE obras SET titulo = :titulo, clasificaciones_generica = :classificacion_generica, autor = :autor, coleccion_procedencia = :coleccion_procedencia, maxima_altura = :maxima_altura, maxima_anchura = :maxima_anchura, maxima_profundidad = :maxima_profundidad, material = :material, tecnica = :tecnica, ano_inicio = :ano_inicio, ano_final = :ano_final, datacion = :datacion, ubicacion = :ubicacion, forma_ingreso = :forma_ingreso, fecha_registro = :fecha_registro, descripcion = :descripcion WHERE numero_registro = :numero_registro";
             $stmt = $this->conn->prepare($query);
             $stmt->bindParam(':titulo', $titulo);
-            $stmt->bindParam(':classificacion_generica', $classificacion_generica);
+            $stmt->bindParam(':clasificaciones_generica', $clasificaciones_genericas);
             $stmt->bindParam(':autor', $autor);
             $stmt->bindParam(':coleccion_procedencia', $coleccion_procedencia);
             $stmt->bindParam(':maxima_altura', $maxima_altura); 

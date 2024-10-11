@@ -47,9 +47,15 @@ $exposiciones = $obraModel->getexposicion();
         <label for="titulo">Nº Registro:</label>
         <input type="text" id="n_registro" name="n_registro" value="<?php echo $obra['numero_registro']; ?>" required>
 
-        <select name="clasificaciones_generica" id="clasificaciones_generica">
+        
         <option value="">Selecciona Clasificación</option>
-        <input type="text" id="classificacion_generica" name="classificacion_generica" value="<?php echo $obra['classificacion_generica']; ?>">
+        <select name="clasificaciones_generica" id="clasificaciones_generica">
+        <?php foreach ($clasificaciones_genericas as $clasificacion): ?>
+            <option value="<?= $clasificacion['id_clasificacion'] ?>" <?= $obra['classificacion_generica'] == $clasificacion['id_clasificacion'] ? 'selected' : '' ?>>
+                <?= $clasificacion['texto_clasificacion']?>
+            </option>
+        <?php endforeach; ?>
+        </select>
 
         
         <label for="autor">Nombre Autor:</label>
@@ -186,7 +192,7 @@ $exposiciones = $obraModel->getexposicion();
             </option>
         <?php endforeach; ?>
         </select>
-
++
         <label for="bibliografia">Bibliografía:</label>
         <textarea id="bibliografia" name="bibliografia"><?php echo $obra['bibliografia']; ?></textarea>
 
