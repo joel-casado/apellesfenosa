@@ -1,70 +1,93 @@
 <?php
 
 class UsuarisController {
-    private $users = []; // Cambia esto a un array vacío inicialmente
+    private $users = [];
 
     public function index() {
-        // Obtener todos los usuarios desde el modelo
         $usuarioModel = new Usuario();
-        $this->users = $usuarioModel->mostrarTodos(); // Asigna a $this->users
-        // Mostrar todos los usuarios
+        $this->users = $usuarioModel->mostrarTodos();
         include('views/usuarios/crearUsuario.php');
     }
 
-    public function formularioCrearUsuario(){
+    public function formularioCrearUsuario() {
         require_once "views/usuarios/crearUsuario.php";
     }
-    public function createUser() {
+
+    public function listar_usuarios() {
+        // Crear instancia del modelo Usuario
+        $usuarioModel = new Usuario();
+
+        // Obtener todos los usuarios
+        $usuarios = $usuarioModel->mostrarTodos();
+
+        // Incluir la vista que mostrará los usuarios
+        require_once "views/usuarios/listarUsuarios.php";
+    }
+
+    public function createUser  () {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            // Verificar si se están enviando los valores correctos
-            if (!isset($_POST['name']) || !isset($_POST['roles']) || !isset($_POST['password'])) {
+            if (!isset($_POST['name']) || !isset($_POST['rol']) || !isset($_POST['password'])) {
                 echo "Error: No se han enviado todos los campos requeridos";
                 return;
             }
             $nombre = $_POST['name'];
-            $rol = $_POST['roles'];
+            $rol = $_POST['rol'];
             $password = $_POST['password'];
             $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
             $usuarioModel = new Usuario();
-            $existingUser  = $usuarioModel->getByUsername($nombre);
-            if ($existingUser) {
-                // Si el usuario ya existe, vuelve a mostrar la vista con un mensaje de error
-                $errorMessage = "Error: El nombre de usuario ya existe."; // Mensaje de error
-                include('views/usuarios/crearUsuario.php'); // Muestra la vista con el error
+            $existingUser   = $usuarioModel->getByUsername($nombre);
+            if ($existingUser ) {
+                $errorMessage = "Error: El nombre de usuario ya existe.";
+                include('views/usuarios/crearUsuario.php');
                 return;
             }
-            // Llamar al modelo para insertar el usuario en la base de datos
             if ($usuarioModel->insertar($nombre, $rol, $hashedPassword)) {
-                // Redirigir a la lista de usuarios si se inserta correctamente
                 header('Location: index.php?controller=Usuaris&action=index');
-                exit(); // Asegúrate de salir para evitar que el script continúe
+                exit();
             } else {
-                // Manejar el error aquí si es necesario
                 echo "Error al crear el usuario.";
             }
         }
-        $this->index(); // Mostrar la vista en caso de que no sea un POST 
+        $this->index();
     }
 
-    }
-    function deleteUser() {
-        $userId = $_GET['id'] ?? null;
-        if ($userId) {
-            // Llamar al modelo para eliminar el usuario de la base de datos
-            $usuarioModel = new Usuario();
-            $usuarioModel->eliminar($userId);
-        }
-        // Redirigir a la lista de usuarios después de la eliminación
-        header('Location: index.php?controller=Usuaris&action=index');
-        exit();
-    }
-    function checkUsername() {
+    public function checkUsername() {
         $username = $_GET['username'];
         $usuarioModel = new Usuario();
-        $existingUser = $usuarioModel->getByUsername($username);
-        $exists = !empty($existingUser);
+        $existingUser  = $usuarioModel->getByUsername($username);
+        $exists = !empty($existingUser );
         echo json_encode(['exists' => $exists]);
         exit;
     }
+
+    public function editarUsuario() {
+        $usuarioModel = new Usuario();
+        $nombreUsuario = $_GET['nombre'] ?? null;
+        if (!$nombreUsuario) {
+            echo "Error: No se ha proporcionado un nombre de usuario.";
+            return;
+        }
+        $user = $usuarioModel->getByUsername($nombreUsuario);
+        if ($user) {
+            include 'views/usuarios/editarUsuario.php';
+        } else {
+            echo "Usuario no encontrado.";
+        }
+    }
+
+    public function updateUser() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $nombreOriginal = $_POST['nombre_original']; // El nombre antes de editar
+            $nombreNuevo = $_POST['name']; // El nuevo nombre
+            $rol = $_POST['rol'];
+            $activo = $_POST['activo'];
     
- 
+            $usuarioModel = new Usuario();
+            $usuarioModel->actualizar($nombreOriginal, $nombreNuevo, $rol, $activo);
+    
+            header('Location: index.php?controller=Usuaris&action=listar_usuarios');
+
+        }
+    }
+    
+}
