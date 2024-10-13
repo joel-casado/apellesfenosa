@@ -1,0 +1,68 @@
+@charset "UTF-8";
+/*variqables" pagina login*/
+body {
+  font-family: "Arial", sans-serif;
+  background-color: #FFFFFF;
+  margin: 0;
+  padding: 0;
+}
+
+.header {
+  text-align: left;
+  padding: 30px;
+  background-color: rgb(255, 255, 255);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.header img {
+  height: 80px;
+}
+
+.editar {
+  display: flex;
+  width: 900px;
+  margin: 100px auto;
+  background-color: #FFFFFF;
+  border-radius: 10px;
+  box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+.editar .image_editar {
+  position: relative;
+}
+.editar .image_editar img {
+  max-width: 100%; /* Asegura que la imagen no sobrepase el ancho del contenedor */
+  height: 50% S; /* Mantiene la proporción */
+  border-radius: 8px; /* Bordes redondeados, opcional */
+}
+
+form {
+  margin-left: 120px;
+  padding: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+form input[type=text], form select {
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #F2F2F2;
+  border-radius: 5px;
+  font-size: 1rem;
+  width: 320px;
+  box-sizing: border-box;
+  background-color: #F2F2F2;
+}
+form button {
+  margin-left: 30px;
+  padding: 10px 20px;
+  background-color: #6589C4;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  width: 80%;
+}
+form button:hover {
+  background-color: #2D4F6F;
+}/*# sourceMappingURL=editar_usuario.css.map */

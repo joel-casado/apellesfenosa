@@ -1,0 +1,66 @@
+@import "C:/xampp/htdocs/apellesfenosa/SCSS/_variables.scss";
+@import "C:/xampp/htdocs/apellesfenosa/SCSS/_mixins.scss";
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: $header-bg;
+    margin: 0;
+    padding: 0;
+}
+
+.header {
+    @include header;
+}
+.editar {
+    display: flex;
+    width: 900px;
+    margin: 100px auto;
+    background-color:$header-bg;
+    border-radius: 10px;
+    box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+
+    .image_editar {
+        position: relative; // mantener la posición relativa
+
+        img {
+            max-width: 100%; /* Asegura que la imagen no sobrepase el ancho del contenedor */
+            height: 50%S; /* Mantiene la proporción */
+            border-radius: 8px; /* Bordes redondeados, opcional */
+        }
+    }
+}
+form {
+    margin-left: 120px;
+    padding: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+input[type="text"], select {
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #F2F2F2;
+    border-radius: 5px;
+    font-size: 1rem;
+    width: 320px;
+    box-sizing: border-box;
+    background-color: #F2F2F2;
+}
+
+button {
+    margin-left: 30px;
+    padding: 10px 20px;
+    background-color: $button-bg;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    width: 80%;
+
+    &:hover {
+        background-color: $button_hv;
+    }
+}
+}

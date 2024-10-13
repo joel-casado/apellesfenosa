@@ -1,0 +1,94 @@
+@charset "UTF-8";
+/*variqables" pagina login*/
+body {
+  font-family: "Arial", sans-serif;
+  background-color: #FFFFFF;
+  margin: 0;
+  padding: 0;
+}
+
+.header {
+  text-align: left;
+  padding: 30px;
+  background-color: rgb(255, 255, 255);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between; /* Asegura que el logo y el botón estén alineados */
+  align-items: center;
+  padding: 10px 20px;
+}
+.header img {
+  height: 80px;
+}
+
+.btn {
+  padding: 10px 40px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: white;
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.btn-success {
+  background-color: #6589C4;
+  border: none;
+}
+.btn-success:hover {
+  background-color: #2D4F6F;
+}
+
+.btn-primary {
+  background-color: #6589C4;
+  border: none;
+}
+.btn-primary:hover {
+  background-color: #2D4F6F;
+}
+
+.usuaris_box {
+  max-width: 1000px;
+  margin: 150px auto;
+  padding: 20px;
+  background-color: #FFFFFF;
+  box-shadow: -2px 4px 4px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: 8px;
+}
+.table th {
+  padding: 25px;
+  text-align: left;
+  background-color: #f4f4f4;
+  color: #555;
+}
+.table td {
+  padding: 15px;
+  text-align: left;
+}
+.table tr {
+  background-color: #FFFFFF;
+  position: relative;
+  box-shadow: 0 0px 5px 0px rgba(0, 0, 0, 0.1);
+}
+.table .acciones-header {
+  text-align: left;
+  padding-left: 120px;
+}
+.table .acciones {
+  text-align: center;
+  padding-right: 0;
+}
+
+.editar {
+  max-width: 1000px;
+  margin: 150px auto;
+  padding: 20px;
+  background-color: #FFFFFF;
+  box-shadow: -2px 4px 4px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}/*# sourceMappingURL=listado_usuarios.css.map */
