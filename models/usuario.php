@@ -8,13 +8,6 @@ class Usuario extends Database {
     function getNombre() {
         return $this->nombre;
     }
-    public function eliminar($id) {
-        $db = $this->conectar();
-        $sql = "DELETE FROM usuarios WHERE id = :id";  // Asegúrate de que 'id' es el nombre correcto del campo en tu tabla
-        $stmt = $db->prepare($sql);
-        $stmt->bindParam(':id', $id);
-        $stmt->execute();
-    }
     function setRol($rol) {
         $this->rol = $rol;
     }
@@ -55,6 +48,7 @@ class Usuario extends Database {
         $stmt->bindParam(':nombre_usuario', $nombre);
         $stmt->bindParam(':rol_usuario', $rol);
         $stmt->bindParam(':password', $password);
+        
         echo "Nombre: $nombre, Rol: $rol, Password: $password"; // Debugging
                     
             // Ejecuta la consulta
@@ -67,6 +61,24 @@ class Usuario extends Database {
             echo "Error al insertar el usuario: " . $e->getMessage();
             return false; // Retornar falso si hubo un error
         }
+    }
+    public function actualizar($nombreOriginal, $nombreNuevo, $rol, $activo) {
+        $sql = "UPDATE usuarios SET nombre_usuario = :nombreNuevo, rol_usuario = :rol, activo = :activo WHERE nombre_usuario = :nombreOriginal";
+        $db = $this->conectar();
+        $stmt = $db->prepare($sql);
+        $stmt->bindParam(':nombreNuevo', $nombreNuevo);
+        $stmt->bindParam(':rol', $rol);
+        $stmt->bindParam(':activo', $activo);
+        $stmt->bindParam(':nombreOriginal', $nombreOriginal); // Este es el nombre con el que filtras al usuario
+        return $stmt->execute();
+    }
+    
+    public function eliminar($nombre) {
+        $sql = "DELETE FROM usuarios WHERE nombre_usuario = :username";
+        $db = $this->conectar();
+        $stmt = $db->prepare($sql);
+        $stmt->bindParam(':username', $nombre);
+        return $stmt->execute();
     }
 }
 
