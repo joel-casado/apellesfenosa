@@ -19,8 +19,9 @@ if (!isset($_SESSION['admin']) && !isset($_SESSION['tecnic']) && !isset($_SESSIO
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <style>.actions {
-  margin-right: 430px;
+  margin-right: 540px;
   margin-top: 100px;
+  margin-bottom: 20px;
   display: flex;
   justify-content: flex-end; /* Alinea a la derecha */
   margin-bottom: -90px;
@@ -30,6 +31,10 @@ if (!isset($_SESSION['admin']) && !isset($_SESSION['tecnic']) && !isset($_SESSIO
     <div class="header">
         <img src="images/login/logo.png" alt="Museu Apel·les Fenosa">
         <a href="index.php?controller=Login&action=logout" class="logout-link">Cerrar sesión</a>
+    </div>
+
+    <div class="actions">
+        <a href="views/vocabulario/ver_vocabulario.php?id=" class="edit-button">Vocabulario</a>
     </div>
 
     <div class="actions">
