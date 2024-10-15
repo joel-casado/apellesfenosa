@@ -14,7 +14,7 @@
         <form action="index.php?controller=Usuaris&action=createUser" method="POST" onsubmit="return validarFormulario()">
             <input type="text" name="name" id="username" required placeholder="Nombre de usuario">
             <span id="username-error" style="color: red;"><?php echo isset($errorMessage) ? $errorMessage : ''; ?></span>
-            <select id="roles" name="roles">
+            <select id="rol" name="rol">
                 <option value="convidat">Convidat</option>
                 <option value="tecnic">Tècnic</option>
                 <option value="admin">Administrador</option>
