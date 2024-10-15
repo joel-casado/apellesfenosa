@@ -19,18 +19,25 @@ body {
 
 .usuaris_box {
     display: flex;
-    width: 1000px;
+    width: 765px;
     margin: 100px auto;
     background-color:$header-bg;
     border-radius: 10px;
     box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.1);
     text-align: center;
+
+    .image_usuaris_box {
+        position: relative; // mantener la posición relativa
+
+        img {
+            width: 110% !important; /* Tamaño específico para el ancho, forzado con !important */
+            height: 100% !important; /* Tamaño específico para la altura, forzado con !important */
+            object-fit: cover !important; /* Asegura que la imagen mantenga su proporción y se recorte si es necesario */
+            border-radius: 8px !important;
+        }
+    }
 }
-.image_usuaris_box {
-    position: relative; // mantener la posición relativa
-    width: 900px;
-    border-radius: 10px !important;
-}
+
 
 
 form {
