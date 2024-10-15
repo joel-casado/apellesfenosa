@@ -48,16 +48,14 @@ class Usuario extends Database {
         $stmt->bindParam(':nombre_usuario', $nombre);
         $stmt->bindParam(':rol_usuario', $rol);
         $stmt->bindParam(':password', $password);
-        
-        echo "Nombre: $nombre, Rol: $rol, Password: $password"; // Debugging
-                    
-            // Ejecuta la consulta
+                        
+        // Ejecuta la consulta
         try {
             $stmt->execute(); // Ejecutar la inserción
             echo "Usuario creado exitosamente."; // Mensaje de éxito
             return true; // Retornar verdadero si se ejecutó correctamente
         } catch (PDOException $e) {
-                // Manejo de errores de inserción
+            // Manejo de errores de inserción
             echo "Error al insertar el usuario: " . $e->getMessage();
             return false; // Retornar falso si hubo un error
         }
