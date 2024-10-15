@@ -29,10 +29,9 @@
                 <tr>
                     <td><?= $user['nombre_usuario']; ?></td>
                     <td><?= $user['rol_usuario']; ?></td>
-                    <td><?= $user['activo'] == 'activo' ? 'Activo' : 'Inactivo'; ?></td>
+                    <td><?= $user['estado'] == 'activo' ? 'Activo' : 'Inactivo'; ?></td>
                     <td class="acciones">
                         <a href="index.php?controller=Usuaris&action=editarUsuario&nombre=<?= $user['nombre_usuario']; ?>" class="btn btn-primary">Editar</a>
-                        <a href="index.php?controller=Usuaris&action=eliminarUsuario&id=<?= $user['nombre_usuario']; ?>" class="btn btn-danger">Eliminar</a>
                     </td>
                 </tr>
                 <?php endforeach; ?>

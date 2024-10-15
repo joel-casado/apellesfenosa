@@ -19,8 +19,8 @@
                 <option value="admin" <?= $user['rol_usuario'] == 'admin' ? 'selected' : '' ?>>Administrador</option>
             </select>
             <select name="activo">
-                <option value="activo" <?= $user['activo'] == 'activo' ? 'selected' : '' ?>>Activo</option>
-                <option value="inactivo" <?= $user['activo'] == 'inactivo' ? 'selected' : '' ?>>Inactivo</option>
+                <option value="activo" <?= $user['estado'] == 'activo' ? 'selected' : '' ?>>Activo</option>
+                <option value="inactivo" <?= $user['estado'] == 'inactivo' ? 'selected' : '' ?>>Inactivo</option>
             </select>
             <button type="submit">Guardar cambios</button>
         </form>

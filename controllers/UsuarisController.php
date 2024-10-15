@@ -26,10 +26,6 @@ class UsuarisController {
 
     public function createUser  () {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            if (!isset($_POST['name']) || !isset($_POST['rol']) || !isset($_POST['password'])) {
-                echo "Error: No se han enviado todos los campos requeridos";
-                return;
-            }
             $nombre = $_POST['name'];
             $rol = $_POST['rol'];
             $password = $_POST['password'];
@@ -42,7 +38,7 @@ class UsuarisController {
                 return;
             }
             if ($usuarioModel->insertar($nombre, $rol, $hashedPassword)) {
-                header('Location: index.php?controller=Usuaris&action=index');
+                header('Location: index.php?controller=Usuaris&action=listar_usuarios');
                 exit();
             } else {
                 echo "Error al crear el usuario.";
