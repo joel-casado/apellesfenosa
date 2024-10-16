@@ -1,7 +1,7 @@
 <?php
-require_once "../../models/database.php";
-require_once "../../models/MaterialModel.php";
-require_once "../../controllers/MaterialesController.php";
+require_once "../../../models/database.php";
+require_once "../../../models/MaterialModel.php";
+require_once "../../../controllers/MaterialesController.php";
 
 $dbConnection = new Database();
 $conn = $dbConnection->conectar(); 
@@ -17,15 +17,16 @@ $materiales = $materialModel->getMateriales();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Materiales</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../../styles/obras/obras.css">
+    <link rel="stylesheet" href="../../../styles/obras/obras.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
+<a href="../ver_vocabulario.php" class="edit-button">Vocabulario</a>
 
     <h1>Listado de Materiales</h1>
 
     <div class="actions">
-        <a href="../vocabulario/crear_material.php" class="edit-button">Crear</a>
+        <a href="crear_material.php" class="edit-button">Crear</a>
     </div>
 
     <table>
@@ -33,7 +34,7 @@ $materiales = $materialModel->getMateriales();
             <tr>
                 <th>Código Getty</th>
                 <th>Texto Material</th>
-                <th></th>
+                <th>Acción</th>
             </tr>
         </thead>
         <tbody>
@@ -43,11 +44,14 @@ $materiales = $materialModel->getMateriales();
                     <td><?php echo($material['texto_material']); ?></td>
                     <td>
                         <a href="editar_vocabulario.php?id=<?php echo $material['codigo_getty_material']; ?>" class="edit-button">Editar</a>
-                        <a href="../../index.php?controller=Materiales&action=deshabilitar&id=<?php echo $material['codigo_getty_material']; ?>" class="edit-button" onclick="return confirm('¿Estás seguro de que quieres deshabilitar este material?');">Deshabilitar</a>
+                        <form action="../../../index.php?controller=Materiales&action=deshabilitar&id=<?php echo $material['codigo_getty_material']; ?>" method="post" style="display:inline-block;" onsubmit="return confirm('¿Estás seguro de que quieres deshabilitar este material?');">
+                            <button type="submit" class="edit-button">Deshabilitar</button>
+                        </form>
                     </td>
                 </tr>
             <?php endforeach; ?>
         </tbody>
+
 
     </table>
 

@@ -33,10 +33,6 @@ if (!isset($_SESSION['admin']) && !isset($_SESSION['tecnic']) && !isset($_SESSIO
         <a href="index.php?controller=Login&action=logout" class="logout-link">Cerrar sesión</a>
     </div>
 
-    <div class="actions">
-        <a href="views/crear_obra/crear.php?id=" class="edit-button">Crear</a>
-    </div>
-    
     <table>
         <thead>
             <tr>
@@ -47,15 +43,15 @@ if (!isset($_SESSION['admin']) && !isset($_SESSION['tecnic']) && !isset($_SESSIO
         <tbody>
                 <tr>
                     <td>Materiales</td>
-                    <td><a href="material.php" class="edit-button">Editar</a></td>
+                    <td><a href="materiales/material.php" class="edit-button">Editar</a></td>
                 </tr>
-                <tr><td>Autores</td><td><a href="material.php" class="edit-button">Editar</a></td></tr>
-                <tr><td>Dataciones</td><td><a href="dataciones.php" class="edit-button">Editar</a></td></tr>
-                <tr><td>Clasificaciones genericas</td><td><a href="material.php" class="edit-button">Editar</a></td></tr>
-                <tr><td>Exposiciones</td><td><a href="material.php" class="edit-button">Editar</a></td></tr>
-                <tr><td>Prestamos</td><td><a href="material.php" class="edit-button">Editar</a></td></tr>
-                <tr><td>Tecnicas</td><td><a href="material.php" class="edit-button">Editar</a></td></tr>
-                <tr><td>Ubicaciones</td><td><a href="material.php" class="edit-button">Editar</a></td></tr>
+                <tr><td>Autores</td><td><a href="Autores/autores.php" class="edit-button">Editar</a></td></tr>
+                <tr><td>Dataciones</td><td><a href="dataciones/dataciones.php" class="edit-button">Editar</a></td></tr>
+                <tr><td>Clasificaciones genericas</td><td><a href="Clasificaciones/clasificaciones.php" class="edit-button">Editar</a></td></tr>
+                <tr><td>Exposiciones</td><td><a href="Exposiciones.php" class="edit-button">Editar</a></td></tr>
+                <tr><td>Prestamos</td><td><a href="Prestamos.php" class="edit-button">Editar</a></td></tr>
+                <tr><td>Tecnicas</td><td><a href="Tecnicas.php" class="edit-button">Editar</a></td></tr>
+                <tr><td>Ubicaciones</td><td><a href="Ubicaciones.php" class="edit-button">Editar</a></td></tr>
                     
 
         </tbody>
