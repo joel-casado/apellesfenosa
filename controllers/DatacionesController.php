@@ -67,20 +67,32 @@ class datacionesController {
         
 
 
+        // Método para deshabilitar una datación
     public function deshabilitar() {
-        $id_datacion = $_GET['id'];  // Asegúrate de que el id se pase correctamente en la URL
+        $id_datacion = $_GET['id'];
     
-        $datacionesModel = new datacionesModel($this->conn);
-        $resultado = $datacionesModel->deshabilitardataciones($id_datacion);
+        $datacionesModel = new DatacionesModel($this->conn);
+        $resultado = $datacionesModel->deshabilitarDatacion($id_datacion);
     
-        // Redirigir a la lista de dataciones después de deshabilitar
         if ($resultado) {
-            header("Location: views/vocabulario/dataciones/dataciones.php"); // Cambia esta ruta según tu estructura
-            exit();
+            if ($this->esAjax()) {
+                echo "success";  // Respuesta simple para peticiones AJAX
+            } else {
+                header("Location: views/vocabulario/dataciones.php");
+                exit();
+            }
         } else {
-            echo "Error al deshabilitar el dataciones.";
+            echo "Error al deshabilitar la datación.";
         }
     }
+    
+    // Método para verificar si es una petición AJAX
+    private function esAjax() {
+        return !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest';
+    }
+        
+        
+        
     
     
 

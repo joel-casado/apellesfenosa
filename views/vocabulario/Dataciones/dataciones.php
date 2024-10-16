@@ -10,6 +10,30 @@ $datacionesModel = new DatacionesModel($conn);
 $dataciones = $datacionesModel->getDataciones();
 ?>
 
+<script>
+    function deshabilitarDatacion(id, button) {
+        if (confirm('¿Estás seguro de que quieres deshabilitar esta datación?')) {
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "../../../index.php?controller=Dataciones&action=deshabilitar&id=" + id, true);
+            xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    // Si la solicitud fue exitosa y el servidor responde "success", eliminamos la fila
+                    if (xhr.responseText.trim() === "success") {
+                        var row = button.closest('tr');
+                        row.parentNode.removeChild(row);
+                    } else {
+                        alert('Hubo un error al deshabilitar la datación.');
+                    }
+                }
+            };
+
+            xhr.send();
+        }
+    }
+</script>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -48,8 +72,8 @@ $dataciones = $datacionesModel->getDataciones();
                     <td><?php echo($datacion['ano_final']); ?></td>
                     <td>
                         <a href="editar_dataciones.php?id=<?php echo $datacion['id_datacion']; ?>" class="edit-button">Editar</a>
-                        <form action="../../../index.php?controller=Dataciones&action=deshabilitar&id=<?php echo $datacion['id_datacion']; ?>" method="post" style="display:inline-block;" onsubmit="return confirm('¿Estás seguro de que quieres deshabilitar esta datación?');">
-                            <button type="submit" class="edit-button">Deshabilitar</button>
+                        <form onsubmit="return false;" style="display:inline-block;">
+                            <button type="button" class="edit-button" onclick="deshabilitarDatacion('<?php echo $datacion['id_datacion']; ?>', this)">Deshabilitar</button>
                         </form>
                     </td>
                 </tr>

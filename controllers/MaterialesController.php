@@ -54,7 +54,7 @@ class MaterialesController {
     
         // Redirigir a una página de confirmación o de listado
         if ($resultado) {
-            header("Location: views/vocabulario/material.php");  // Redirige a la lista de materiales
+            header("Location: views/vocabulario/materiales/material.php");  // Redirige a la lista de materiales
             exit(); // Asegúrate de usar exit después de redirigir
         } else {
             echo "Error al agregar el material.";
@@ -63,19 +63,28 @@ class MaterialesController {
 
 
     public function deshabilitar() {
-        $codigo_getty_material = $_GET['id'];  // Asegúrate de que el id se pase correctamente en la URL
+        $codigo_getty_material = $_GET['id'];
     
         $materialModel = new MaterialModel($this->conn);
         $resultado = $materialModel->deshabilitarMaterial($codigo_getty_material);
     
-        // Redirigir a la lista de materiales después de deshabilitar
         if ($resultado) {
-            header("Location: views/vocabulario/ver_vocabulario.php"); // Cambia esta ruta según tu estructura
-            exit();
+            if ($this->esAjax()) {
+                echo "success";  // Respuesta simple para peticiones AJAX
+            } else {
+                header("Location: views/vocabulario/ver_vocabulario.php");
+                exit();
+            }
         } else {
             echo "Error al deshabilitar el material.";
         }
     }
+    
+    // Método para verificar si es una petición AJAX
+    private function esAjax() {
+        return !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest';
+    }
+    
     
     
 

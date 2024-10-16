@@ -21,7 +21,7 @@ $Clasificaciones = $ClasificacionesModel->getClasificaciones();
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-
+<a href="../ver_vocabulario.php" class="edit-button">Vocabulario</a>
     <h1>Listado de Clasificaciones</h1>
 
     <div class="actions">

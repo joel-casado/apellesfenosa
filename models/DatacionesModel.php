@@ -48,12 +48,13 @@ class datacionesModel {
     }
     
 
-    public function deshabilitardataciones($id_datacion) {
+    public function deshabilitarDatacion($id_datacion) {
         $query = "UPDATE dataciones SET activo = 0 WHERE id_datacion = :id_datacion";
         $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(':id_datacion', $id_datacion, PDO::PARAM_STR);
+        $stmt->bindParam(':id_datacion', $id_datacion, PDO::PARAM_INT);
         return $stmt->execute();
     }
+    
     
     
 }
