@@ -12,13 +12,16 @@ body {
   padding: 30px;
   background-color: rgb(255, 255, 255);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  display: flex;
-  justify-content: space-between; /* Asegura que el logo y el botón estén alineados */
-  align-items: center;
-  padding: 10px 20px;
 }
 .header img {
   height: 80px;
+}
+
+.editar-usuario {
+  display: flex;
+  justify-content: flex-end; /* Alinea el botón a la derecha */
+  margin: 20px auto; /* Ajusta el margen superior e inferior */
+  width: 1000px; /* El ancho máximo del contenedor */
 }
 
 .btn {
@@ -26,13 +29,17 @@ body {
   border-radius: 8px;
   text-decoration: none;
   color: white;
-  display: inline-block;
-  margin-right: 5px;
+  display: inline-flex;
 }
 
 .btn-success {
+  position: absolute;
+  top: 20px;
+  right: 400px;
+  z-index: 1;
   background-color: #6589C4;
   border: none;
+  margin-top: 185px;
 }
 .btn-success:hover {
   background-color: #2D4F6F;
@@ -46,15 +53,17 @@ body {
   background-color: #2D4F6F;
 }
 
+/* Contenedor principal */
 .usuaris_box {
   max-width: 1000px;
-  margin: 150px auto;
+  margin: 120px auto;
   padding: 20px;
   background-color: #FFFFFF;
   box-shadow: -2px 4px 4px 4px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
 }
 
+/* Tabla */
 .table {
   width: 100%;
   border-collapse: collapse;
@@ -84,6 +93,7 @@ body {
   padding-right: 0;
 }
 
+/* Estilo para el botón de "Editar" */
 .editar {
   max-width: 1000px;
   margin: 150px auto;
