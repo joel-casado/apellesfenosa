@@ -13,7 +13,7 @@ if (!isset($_SESSION['admin']) && !isset($_SESSION['tecnic']) && !isset($_SESSIO
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Obras</title>
+    <title>Vocabulario</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../../styles/obras/obras.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -33,10 +33,6 @@ if (!isset($_SESSION['admin']) && !isset($_SESSION['tecnic']) && !isset($_SESSIO
         <a href="index.php?controller=Login&action=logout" class="logout-link">Cerrar sesión</a>
     </div>
 
-    <div class="actions">
-        <a href="views/crear_obra/crear.php?id=" class="edit-button">Crear</a>
-    </div>
-    
     <table>
         <thead>
             <tr>
@@ -47,15 +43,15 @@ if (!isset($_SESSION['admin']) && !isset($_SESSION['tecnic']) && !isset($_SESSIO
         <tbody>
                 <tr>
                     <td>Materiales</td>
-                    <td><a href="material.php" class="edit-button">Editar</a></td>
+                    <td><a href="materiales/material.php" class="edit-button">Editar</a></td>
                 </tr>
-                <tr><td>Autores</td><td><a href="material.php" class="edit-button">Editar</a></td></tr>
-                <tr><td>Dataciones</td><td><a href="dataciones.php" class="edit-button">Editar</a></td></tr>
-                <tr><td>Clasificaciones genericas</td><td><a href="material.php" class="edit-button">Editar</a></td></tr>
-                <tr><td>Exposiciones</td><td><a href="material.php" class="edit-button">Editar</a></td></tr>
-                <tr><td>Prestamos</td><td><a href="material.php" class="edit-button">Editar</a></td></tr>
-                <tr><td>Tecnicas</td><td><a href="material.php" class="edit-button">Editar</a></td></tr>
-                <tr><td>Ubicaciones</td><td><a href="material.php" class="edit-button">Editar</a></td></tr>
+                <tr><td>Autores</td><td><a href="Autores/autores.php" class="edit-button">Editar</a></td></tr>
+                <tr><td>Dataciones</td><td><a href="dataciones/dataciones.php" class="edit-button">Editar</a></td></tr>
+                <tr><td>Clasificaciones genericas</td><td><a href="Clasificaciones/clasificaciones.php" class="edit-button">Editar</a></td></tr>
+                <tr><td>Exposiciones</td><td><a href="Exposiciones/Exposiciones.php" class="edit-button">Editar</a></td></tr>
+                <tr><td>Prestamos</td><td><a href="Prestamos/Prestamos.php" class="edit-button">Editar</a></td></tr>
+                <tr><td>Tecnicas</td><td><a href="Tecnicas/Tecnicas.php" class="edit-button">Editar</a></td></tr>
+                <tr><td>Ubicaciones</td><td><a href="Ubicaciones/Ubicaciones.php" class="edit-button">Editar</a></td></tr>
                     
 
         </tbody>
