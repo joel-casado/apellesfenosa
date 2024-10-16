@@ -10,10 +10,15 @@ body {
 
 .header {
     @include header;
-    display: flex;
-    justify-content: space-between; /* Asegura que el logo y el botón estén alineados */
-    align-items: center;
-    padding: 10px 20px;
+}
+
+
+.editar-usuario {
+        display: flex;
+        justify-content: flex-end; /* Alinea el botón a la derecha */
+        margin: 20px auto; /* Ajusta el margen superior e inferior */
+        width: 1000px; /* El ancho máximo del contenedor */
+    
 }
 
 .btn {
@@ -21,14 +26,17 @@ body {
     border-radius: 8px;
     text-decoration: none;
     color: white;
-    display: inline-block;
-    margin-right: 5px;
-    
+    display: inline-flex;
 }
 
 .btn-success {
+    position: absolute;
+    top: 20px;
+    right: 400px;
+    z-index: 1;
     background-color: $button-bg;
     border: none;
+    margin-top: 185px;
 
     &:hover {
         background-color: $button_hv;
@@ -44,32 +52,27 @@ body {
     }
 }
 
-
-
-// Contenedor principal
+/* Contenedor principal */
 .usuaris_box {
     max-width: 1000px;
-    margin: 150px auto;
+    margin: 120px auto;
     padding: 20px;
     background-color: $header-bg;
     box-shadow: -2px 4px 4px 4px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
 }
 
-// Tabla
+/* Tabla */
 .table {
     width: 100%;
     border-collapse: collapse;
     border-radius: 8px;
     
-
     th {
         padding: 25px;
         text-align: left;
         background-color: #f4f4f4;
         color: #555;
-        
-
     }
 
     td {
@@ -78,21 +81,23 @@ body {
     }
 
     tr {
-        background-color:  $header-bg;
-        position: relative; // Necesario para el box-shadow
-        box-shadow: 0 0px 5px 0px rgba(0, 0, 0, 0.1); // Sombra difuminada debajo de cada fila
+        background-color: $header-bg;
+        position: relative;
+        box-shadow: 0 0px 5px 0px rgba(0, 0, 0, 0.1);
     }
+
     .acciones-header {
-        text-align: left;  // Alinea el texto "Accions" en el centro sobre los botones
-        padding-left: 120px;    // Elimina el padding adicional
+        text-align: left;
+        padding-left: 120px;
     }
 
     .acciones {
-        text-align: center;  // Alinea los botones de acciones al centro
-        padding-right: 0;    // Ajusta para que coincida con el encabezado
+        text-align: center;
+        padding-right: 0;
     }
-
 }
+
+/* Estilo para el botón de "Editar" */
 .editar {
     max-width: 1000px;
     margin: 150px auto;

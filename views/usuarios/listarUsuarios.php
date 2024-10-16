@@ -8,12 +8,10 @@
 <body>
     <div class="header">
         <img src="views/obras/Logo2.png" alt="Logo">
-        <!-- Contenedor para el botón de crear usuario -->
-        <div class="crear-usuario">
-            <a href="index.php?controller=Usuaris&action=formularioCrearUsuario" class="btn btn-success">Crear Usuario</a>
-        </div>
     </div>
-
+    
+    <a href="index.php?controller=Usuaris&action=formularioCrearUsuario" class="btn btn-success">Crear Usuario</a>
+    
     <div class="usuaris_box">
         <table class="table">
             <thead>
