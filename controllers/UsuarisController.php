@@ -13,6 +13,10 @@ class UsuarisController {
         require_once "views/usuarios/crearUsuario.php";
     }
 
+    public function mostrarPanelAdmin(){
+        require_once "views/admin/panelAdmin.php";
+    }
+
     public function listar_usuarios() {
         // Crear instancia del modelo Usuario
         $usuarioModel = new Usuario();
