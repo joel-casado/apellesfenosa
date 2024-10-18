@@ -22,6 +22,15 @@ class AutoresModel {
         return $stmt->fetch(PDO::FETCH_ASSOC); 
     }
     
+    public function obtenerAutor($id) {
+        $query = "SELECT codigo_autor, nombre_autor FROM autores WHERE codigo_autor = :codigo_autor";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':codigo_autor', $id, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);  // Retorna la obra como un array asociativo
+    }
+
+
     // Método para actualizar un autor en la base de datos
     public function actualizarAutores($codigo_autor, $nombre_autor) {
         $query = "UPDATE autores SET nombre_autor = :nombre_autor WHERE codigo_autor = :codigo_autor";
@@ -43,6 +52,7 @@ class AutoresModel {
         // Ejecutar la consulta
         return $stmt->execute();
     }
+    
 
     public function deshabilitarAutores($codigo_autor) {
         $query = "UPDATE autores SET activo = 0 WHERE codigo_autor = :codigo_autor";

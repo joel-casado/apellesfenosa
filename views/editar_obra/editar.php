@@ -1,8 +1,4 @@
 <?php
-require_once "../../models/database.php";
-require_once "../../models/ObrasModel.php";
-require_once "../../controllers/ObrasController.php";
-
 $dbConnection = new Database();
 $conn = $dbConnection->conectar(); 
 
@@ -27,7 +23,7 @@ $exposiciones = $obraModel->getexposicion();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Obra</title>
-    <link rel="stylesheet" href="../../styles/editar_obras/editar.css">
+    <link rel="stylesheet" href="styles/editar_obras/editar.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -37,7 +33,7 @@ $exposiciones = $obraModel->getexposicion();
     <img src="https://www.museuapellesfenosa.cat/wp-content/uploads/2024/01/6.-Gran-tete-de-Paul-Eluard-1041x1536.jpg">
 
 
-    <form action="../../index.php?controller=Obras&action=actualizar" method="POST">
+    <form action="index.php?controller=Obras&action=actualizar" method="POST">
 
         <input type="hidden" name="numero_registro" value="<?php echo $obra['numero_registro']; ?>">
         

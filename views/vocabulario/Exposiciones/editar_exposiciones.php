@@ -1,8 +1,4 @@
 <?php
-require_once "../../../models/database.php";
-require_once "../../../models/exposicionesModel.php";
-require_once "../../../controllers/exposicionesController.php";
-
 $dbConnection = new Database();
 $conn = $dbConnection->conectar(); 
 
@@ -19,16 +15,16 @@ $exposiciones = $exposicionesModel->getexposicionPorId($id);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar Autor</title>
-    <link rel="stylesheet" href="../../../styles/editar_obras/editar.css">
+    <title>Editar Exposiciones</title>
+    <link rel="stylesheet" href="styles/editar_obras/editar.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
-    <a href="../../views/obras/obras.php">a</a>
-    <h1>Editar Clasificación</h1>
+    <a href="views/obras/obras.php">a</a>
+    <h1>Editar Exposiciones</h1>
 
 
-    <form action="../../../index.php?controller=exposiciones&action=actualizar" method="POST">
+    <form action="index.php?controller=exposiciones&action=actualizar" method="POST">
 
         <input type="hidden" name="id_exposicion" value="<?php echo $exposiciones['id_exposicion']; ?>">
         

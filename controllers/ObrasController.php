@@ -24,9 +24,7 @@ class ObrasController {
         require_once "views/obras/obras.php";
     }
 
-    public function editar($id) {
-        return $this->obra->obtenerObra($id);
-    }
+     
 
     public function actualizar() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -132,19 +130,29 @@ class ObrasController {
     
     
 
-       public function mostrarFormulario($id) {
-        // Obtener los valores únicos desde el modelo
-        $obra = $this->obra->obtenerObra($id);
-        $autores = $this->obra->getAutores(); 
-        $anoInicio = $this->obra->getAnoInicio();
-        $anoFinal = $this->obra->getAnoFinal();
-        $materiales = $this->obra->getMateriales();
-        $tecnicas = $this->obra->getTecnicas();
-        $clasificacionesGenericas = $this->obra->getClasificacionesGenericas(); 
-        $formasIngreso = $this->obra->getFormasIngreso();
-        $estadosConservacion = $this->obra->getEstadosConservacion();
+    public function mostrarFormulario() {
+        // Capturar el ID de la URL
+        if (isset($_GET['id'])) {
+            $id = $_GET['id'];  // Obtiene el 'id' desde la URL
     
-        require_once 'views/editar_obra/editar.php';
+            // Obtener los valores desde el modelo utilizando el ID
+            $obraModel = new ObrasModel($this->conn);
+            $obra = $obraModel->obtenerObra($id);
+            $autores = $obraModel->getAutores();
+            $anoInicio = $obraModel->getAnoInicio();
+            $anoFinal = $obraModel->getAnoFinal();
+            $materiales = $obraModel->getMateriales();
+            $tecnicas = $obraModel->getTecnicas();
+            $clasificacionesGenericas = $obraModel->getClasificacionesGenericas();
+            $formasIngreso = $obraModel->getFormasIngreso();
+            $estadosConservacion = $obraModel->getEstadosConservacion();
+    
+            // Cargar la vista de edición con los datos de la obra
+            require_once 'views/editar_obra/editar.php';
+        } else {
+            echo "ID no proporcionado.";
+        }
     }
+    
 }
 ?>

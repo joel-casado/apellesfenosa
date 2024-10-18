@@ -1,7 +1,4 @@
 <?php
-require_once "../../../models/database.php";
-require_once "../../../models/AutoresModel.php";
-require_once "../../../controllers/AutoresController.php";
 
 $dbConnection = new Database();
 $conn = $dbConnection->conectar(); 
@@ -17,17 +14,18 @@ $autores = $AutoresModel->getAutores();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Autores</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../../../styles/obras/obras.css">
+    <link rel="stylesheet" href="styles/obras/obras.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-<a href="../ver_vocabulario.php" class="edit-button">Vocabulario</a>
+<a href="views/vocabulario/ver_vocabulario.php" class="edit-button">Vocabulario</a>
 
     <h1>Listado de Autores</h1>
 
     <div class="actions">
-        <a href="crear_autor.php" class="edit-button">Crear</a>
+    <a href="index.php?controller=autores&action=crearAutores" class="edit-button">Crear</a>
     </div>
+
 
     <table>
         <thead>
@@ -43,8 +41,8 @@ $autores = $AutoresModel->getAutores();
                     <td><?php echo($autor['codigo_autor']); ?></td>
                     <td><?php echo($autor['nombre_autor']); ?></td>
                     <td>
-                        <a href="editar_autor.php?id=<?php echo $autor['codigo_autor']; ?>" class="edit-button">Editar</a>
-                        <form action="../../../index.php?controller=Autores&action=deshabilitar&id=<?php echo $autor['codigo_autor']; ?>" method="post" style="display:inline-block;" onsubmit="return confirm('¿Estás seguro de que quieres deshabilitar este autor?');">
+                        <a href="index.php?controller=autores&action=mostrarFormulario&id=<?php echo $autor['codigo_autor']; ?>" class="edit-button">Editar</a>
+                        <form action="index.php?controller=autores&action=deshabilitar&id=<?php echo $autor['codigo_autor']; ?>" method="post" style="display:inline-block;" onsubmit="return confirm('¿Estás seguro de que quieres deshabilitar este autor?');">
                             <button type="submit" class="edit-button">Deshabilitar</button>
                         </form>
                     </td>

@@ -1,8 +1,4 @@
 <?php
-require_once "../../../models/database.php";
-require_once "../../../models/AutoresModel.php";
-require_once "../../../controllers/AutoresController.php";
-
 $dbConnection = new Database();
 $conn = $dbConnection->conectar(); 
 
@@ -21,9 +17,9 @@ $AutoresController = new AutoresController();
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
-    <h1>Crear Material</h1>
+    <h1>Crear Autor</h1>
 
-    <form action="../../../index.php?controller=Autores&action=crearAutores" method="POST">
+    <form action="index.php?controller=autores&action=crearAutores" method="POST">
         <label for="codigo_autor">Código Autor:</label>
         <input type="text" id="codigo_autor" name="codigo_autor" required>
 
@@ -34,3 +30,4 @@ $AutoresController = new AutoresController();
     </form>
 </body>
 </html>
+

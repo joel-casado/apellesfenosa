@@ -1,8 +1,4 @@
 <?php
-require_once "../../../models/database.php";
-require_once "../../../models/AutoresModel.php";
-require_once "../../../controllers/AutoresController.php";
-
 $dbConnection = new Database();
 $conn = $dbConnection->conectar(); 
 
@@ -28,7 +24,7 @@ $autores = $AutoresModel->getAutorId($id);
     <h1>Editar Autor</h1>
 
 
-    <form action="../../../index.php?controller=Autores&action=actualizar" method="POST">
+    <form action="index.php?controller=Autores&action=actualizar" method="POST">
 
         <input type="hidden" name="codigo_autor" value="<?php echo $autores['codigo_autor']; ?>">
         

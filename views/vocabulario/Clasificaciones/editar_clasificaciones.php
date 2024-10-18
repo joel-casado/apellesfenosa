@@ -1,14 +1,10 @@
 <?php
-require_once "../../../models/database.php";
-require_once "../../../models/clasificacionesModel.php";
-require_once "../../../controllers/clasificacionesController.php";
-
 $dbConnection = new Database();
 $conn = $dbConnection->conectar(); 
 
 $id = $_GET['id'];  // Aquí $id es realmente el codigo_clasificacion
 $clasificacionesModel = new clasificacionesModel($conn);
-$clasificaciones = $clasificacionesModel->getclasificaionId($id);
+$clasificaciones = $clasificacionesModel->getclasificacionId($id);
  
 ?>
 
@@ -20,7 +16,7 @@ $clasificaciones = $clasificacionesModel->getclasificaionId($id);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Autor</title>
-    <link rel="stylesheet" href="../../../styles/editar_obras/editar.css">
+    <link rel="stylesheet" href="styles/editar_obras/editar.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -28,7 +24,7 @@ $clasificaciones = $clasificacionesModel->getclasificaionId($id);
     <h1>Editar Clasificación</h1>
 
 
-    <form action="../../../index.php?controller=clasificaciones&action=actualizar" method="POST">
+    <form action="index.php?controller=clasificaciones&action=actualizar" method="POST">
 
         <input type="hidden" name="id_clasificacion" value="<?php echo $clasificaciones['id_clasificacion']; ?>">
         

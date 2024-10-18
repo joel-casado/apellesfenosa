@@ -1,8 +1,4 @@
 <?php
-require_once "../../../models/database.php";
-require_once "../../../models/MaterialModel.php";
-require_once "../../../controllers/MaterialesController.php";
-
 // Conexión a la base de datos
 $dbConnection = new Database();
 $conn = $dbConnection->conectar(); 
@@ -23,7 +19,7 @@ $materialController = new MaterialesController();
 <body>
     <h1>Crear Material</h1>
 
-    <form action="../../../index.php?controller=Materiales&action=crearMaterial" method="POST">
+    <form action="index.php?controller=Materiales&action=crearMaterial" method="POST">
         <label for="codigo_getty_material">Código Getty Material:</label>
         <input type="text" id="codigo_getty_material" name="codigo_getty_material" required>
 

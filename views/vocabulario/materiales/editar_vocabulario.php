@@ -1,8 +1,4 @@
 <?php
-require_once "../../../models/database.php";
-require_once "../../../models/MaterialModel.php";
-require_once "../../../controllers/MaterialesController.php";
-
 $dbConnection = new Database();
 $conn = $dbConnection->conectar(); 
 
@@ -28,7 +24,7 @@ $materiales = $materialModel->getMaterialPorId($id);
     <h1>Editar Material</h1>
 
 
-    <form action="../../../index.php?controller=Materiales&action=actualizar" method="POST">
+    <form action="index.php?controller=Materiales&action=actualizar" method="POST">
 
         <input type="hidden" name="codigo_getty_material" value="<?php echo $materiales['codigo_getty_material']; ?>">
         

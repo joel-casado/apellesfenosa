@@ -36,7 +36,7 @@ class prestamosController {
 
         // Redirigir a una página de confirmación o de listado
         if ($resultado) {
-            header("Location: views/vocabulario/prestamos/prestamos.php");  // Redirige de vuelta a la página de obras
+            header("Location: index.php?controller=prestamos&action=mostrarprestamos");  // Redirige de vuelta a la página de obras
             exit(); // Asegúrate de usar exit después de redirigir
         } else {
             echo "Error al actualizar el prestamo.";
@@ -44,6 +44,8 @@ class prestamosController {
     }
 
     public function crearprestamos() {
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Recibir datos del formulario
         $id_prestamo = $_POST['id_prestamo'];
         $numero_registro = $_POST['numero_registro'];
@@ -58,11 +60,15 @@ class prestamosController {
     
         // Redirigir a una página de confirmación o de listado
         if ($resultado) {
-            header("Location: views/vocabulario/prestamos/prestamos.php");  // Redirige a la lista de prestamos
+            header("Location: index.php?controller=prestamos&action=mostrarprestamos");  // Redirige a la lista de prestamos
             exit(); // Asegúrate de usar exit después de redirigir
         } else {
             echo "Error al agregar el prestamo.";
         }
+
+    } else {
+        require_once "views/vocabulario/prestamos/crear_prestamos.php";
+    }
     }
 
 
@@ -76,7 +82,7 @@ class prestamosController {
             if ($this->esAjax()) {
                 echo "success";  // Respuesta simple para peticiones AJAX
             } else {
-                header("Location: views/vocabulario/prestamos/prestamos.php");
+                header("Location: index.php?controller=prestamos&action=mostrarprestamos");
                 exit();
             }
         } else {
@@ -89,6 +95,22 @@ class prestamosController {
         return !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest';
     }
     
+    public function mostrarFormulario() {
+
+        if (isset($_GET['id'])) {
+            $id = $_GET['id'];
+            $prestamosModel = new prestamosModel($this->conn);
+            $prestamos = $prestamosModel->getprestamoPorId($id);
+            
+            if ($prestamos) {
+                require_once 'views/vocabulario/prestamos/editar_prestamos.php';
+            } else {
+                echo "Datación no encontrada.";
+            }
+        } else {
+            echo "ID no proporcionado.";
+        }
+    }
     
     
 

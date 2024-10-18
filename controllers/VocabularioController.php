@@ -2,7 +2,7 @@
 
 class VocabularioController {
     
-    public function mostrarObras() {
+    public function mostrarvocabulario() {
         $vocabularioModel = new VocabularioModel();
         $tablas = $vocabularioModel->getNombresTablas();
 
@@ -12,7 +12,7 @@ class VocabularioController {
         echo "</pre>";
         
         // Pasamos los nombres de las tablas a la vista
-        require_once 'views/obras/ver_vocabulario.php';
+        require_once 'views/vocabulario/ver_vocabulario.php';
     }
 }
 
