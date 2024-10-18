@@ -1,5 +1,5 @@
-@import "../../SCSS/_mixins.scss";
 @import "../../SCSS/_variables.scss";
+@import "../../SCSS/_mixins.scss";
 
 * {
     margin: 0;
@@ -47,11 +47,10 @@ h1 {
 
 form {
     display: grid;
-    grid-template-columns: 1fr; /* Una sola columna */
+    grid-template-columns: 4fr; /* Una sola columna */
     grid-gap: 25px;
     width: 80%; /* Reduce el ancho del formulario */
     max-width: 500px; /* Limita el ancho máximo */
-    margin: 0 auto; /* Centra el formulario horizontalmente */
 }
 
 form label {

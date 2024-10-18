@@ -73,6 +73,22 @@ class ObrasController {
         }
     }
     
+    public function mostrarFicha() {
+        // Capturar el ID de la URL
+        if (isset($_GET['id'])) {
+            $id = $_GET['id'];  // Obtiene el 'id' desde la URL
+    
+            // Obtener los valores desde el modelo utilizando el ID
+            $obraModel = new ObrasModel($this->conn);
+            $obra = $obraModel->obtenerObra($id);
+    
+            // Cargar la vista de edición con los datos de la obra
+            require_once 'views/ficha/ficha.php';
+        } else {
+            echo "ID no proporcionado.";
+        }
+    }
+
     public function crear() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $numero_registro = $_POST['n_registro'];
@@ -126,10 +142,6 @@ class ObrasController {
         }
     }
     
-
-    
-    
-
     public function mostrarFormulario() {
         // Capturar el ID de la URL
         if (isset($_GET['id'])) {

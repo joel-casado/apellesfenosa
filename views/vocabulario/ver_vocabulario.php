@@ -53,6 +53,7 @@ if (!isset($_SESSION['admin']) && !isset($_SESSION['tecnic']) && !isset($_SESSIO
                 <tr><td>Prestamos</td><td><a href="/Crea%20una%20carpeta/apellesfenosa/index.php?controller=prestamos&action=mostrarprestamos" class="edit-button">Editar</a></td></tr>
                 <tr><td>Tecnicas</td><td><a href="/Crea%20una%20carpeta/apellesfenosa/index.php?controller=tecnicas&action=mostrartecnicas" class="edit-button">Editar</a></td></tr>
                 <tr><td>Ubicaciones</td><td><a href="/Crea%20una%20carpeta/apellesfenosa/index.php?controller=ubicaciones&action=mostrarubicaciones" class="edit-button">Editar</a></td></tr>
+                <tr><td>Formas de ingreso</td><td><a href="/Crea%20una%20carpeta/apellesfenosa/index.php?controller=ingresos&action=mostraringresos" class="edit-button">Editar</a></td></tr>
                     
 
         </tbody>

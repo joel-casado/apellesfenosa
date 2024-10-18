@@ -41,6 +41,7 @@ if (!isset($_SESSION['admin']) && !isset($_SESSION['tecnic']) && !isset($_SESSIO
         <a href="views/crear_obra/crear.php?id=" class="edit-button">Crear</a>
     </div>
     
+    
     <table>
         <thead>
             <tr>
@@ -53,7 +54,7 @@ if (!isset($_SESSION['admin']) && !isset($_SESSION['tecnic']) && !isset($_SESSIO
                 <th>Datació</th>
                 <th>Ubicació</th>
                 <th>Material</th>
-                <th>Acció</th>
+                <th colspan="2">Acció</th>
             </tr>
         </thead>
         <tbody>
@@ -67,7 +68,8 @@ if (!isset($_SESSION['admin']) && !isset($_SESSION['tecnic']) && !isset($_SESSIO
                     <td><?php echo $obra['nombre_datacion']; ?></td>
                     <td><?php echo $obra['ubicacion']; ?></td>
                     <td><?php echo $obra['texto_material']; ?></td>
-                    <td><a href="index.php?controller=Obras&action=mostrarFormulario&id=<?php echo $obra['numero_registro']; ?>" class="edit-button">Editar</a>                    </td>
+                    <td><a href="index.php?controller=Obras&action=mostrarFormulario&id=<?php echo $obra['numero_registro']; ?>" class="edit-button">Editar</a>
+                    <td><a href="index.php?controller=Obras&action=mostrarFicha&id=<?php echo $obra['numero_registro']; ?>" class="edit-button">Ficha</a>                    </td>
                 </tr>
             <?php endforeach; ?>
         </tbody>

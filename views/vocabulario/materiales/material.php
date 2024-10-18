@@ -31,6 +31,45 @@ $Materiales = $MaterialModel->getMateriales();
     }
 }
 
+function deshabilitarmaterial(codigo, button) {
+    // Paso 1: Mostrar un cuadro de confirmación al usuario
+    if (confirm('¿Estás seguro de que quieres deshabilitar este material?')) {
+        
+        // Paso 2: Crear un nuevo objeto XMLHttpRequest para realizar la petición AJAX
+        var xhr = new XMLHttpRequest();
+        
+        // Paso 3: Configurar la petición como POST
+        xhr.open("POST", "index.php?controller=materiales&action=deshabilitar&id=" + codigo, true);
+        
+        // Paso 4: Establecer el tipo de contenido que se enviará en la petición
+        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+        // Paso 5: Definir lo que sucederá cuando la petición cambie de estado
+        xhr.onreadystatechange = function () {
+            // Verificar que la petición ha sido completada y ha sido exitosa (estado 200)
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                
+                // Paso 6: Analizar la respuesta JSON del servidor
+                var response = JSON.parse(xhr.responseText);
+
+                // Paso 7: Verificar si la respuesta del servidor indica éxito
+                if (response.status === 'success') {
+                    // Si la respuesta es exitosa, eliminar la fila correspondiente en la tabla del DOM
+                    var row = button.closest('tr');
+                    row.parentNode.removeChild(row);
+                } else {
+                    // Si hubo un error, mostrar un mensaje de error
+                    alert("Error: " + response.message);
+                }
+            }
+        };
+
+        // Paso 8: Enviar la petición al servidor
+        xhr.send();
+    }
+}
+
+
 
 
 </script>
