@@ -15,12 +15,6 @@ class UbicacionController {
         require_once "views/admin/vistaArbol.php"; 
     }
 
-    public function obtenerDatosArbol() {
-
-        $ubicaciones = $this->ubicacionModel->getUbicaciones();
-        echo json_encode($this->buildTree($ubicaciones));
-    }
-
     private function buildTree($ubicaciones, $parent_id = null) {
         $tree = [];
         foreach ($ubicaciones as $ubicacion) {
