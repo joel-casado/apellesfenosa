@@ -8,7 +8,7 @@ class MaterialModel {
     }
     
     public function getMateriales() {
-        $query = "SELECT DISTINCT codigo_getty_material, texto_material FROM materiales";
+        $query = "SELECT DISTINCT codigo_getty_material, texto_material FROM materiales WHERE activo = 1";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -22,6 +22,14 @@ class MaterialModel {
         return $stmt->fetch(PDO::FETCH_ASSOC); // Usamos fetch para un solo resultado
     }
     
+    public function obtenerMaterial($id) {
+        $query = "SELECT codigo_getty_material, texto_material FROM materiales WHERE codigo_getty_material = :codigo_getty_material";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':codigo_getty_material', $id, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);  // Retorna la obra como un array asociativo
+    }
+
     // Método para actualizar un material en la base de datos
     public function actualizarMaterial($codigo_getty_material, $texto_material) {
         $query = "UPDATE materiales SET texto_material = :texto_material WHERE codigo_getty_material = :codigo_getty_material";

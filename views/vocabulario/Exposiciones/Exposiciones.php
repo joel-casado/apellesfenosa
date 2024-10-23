@@ -1,8 +1,4 @@
 <?php
-require_once "../../../models/database.php";
-require_once "../../../models/exposicionesModel.php";
-require_once "../../../controllers/exposicionesController.php";
-
 $dbConnection = new Database();
 $conn = $dbConnection->conectar(); 
 
@@ -17,15 +13,15 @@ $exposiciones = $exposicionesModel->getexposiciones();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>exposiciones</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../../../styles/obras/obras.css">
+    <link rel="stylesheet" href="styles/obras/obras.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-<a href="../ver_vocabulario.php" class="edit-button">Vocabulario</a>
+<a href="views/vocabulario/ver_vocabulario.php" class="edit-button">Vocabulario</a>
     <h1>Listado de exposiciones</h1>
 
     <div class="actions">
-        <a href="crear_exposiciones.php" class="edit-button">Crear</a>
+        <a href="index.php?controller=exposiciones&action=crearexposiciones" class="edit-button">Crear</a>
     </div>
 
     <table>
@@ -48,8 +44,8 @@ $exposiciones = $exposicionesModel->getexposiciones();
                     <td><?php echo($exposicion['fecha_fin_expo']); ?></td>
                     <td><?php echo($exposicion['sitio_exposicion']); ?></td>
                     <td>
-                        <a href="editar_exposiciones.php?id=<?php echo $exposicion['id_exposicion']; ?>" class="edit-button">Editar</a>
-                        <form action="../../../index.php?controller=exposiciones&action=deshabilitar&id=<?php echo $exposicion['id_exposicion']; ?>" method="post" style="display:inline-block;" onsubmit="return confirm('¿Estás seguro de que quieres deshabilitar este autor?');">
+                        <a href="index.php?controller=Exposiciones&action=mostrarFormulario&id=<?php echo $exposicion['id_exposicion']; ?>" class="edit-button">Editar</a>
+                        <form action="index.php?controller=exposiciones&action=deshabilitar&id=<?php echo $exposicion['id_exposicion']; ?>" method="post" style="display:inline-block;" onsubmit="return confirm('¿Estás seguro de que quieres deshabilitar este autor?');">
                             <button type="submit" class="edit-button">Deshabilitar</button>
                         </form>
                     </td>

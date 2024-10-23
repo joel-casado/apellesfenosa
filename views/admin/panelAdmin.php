@@ -15,20 +15,30 @@
         }
         .container {
             background-color: white;
-            padding: 20px;
+            padding: 0;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             display: flex;
-            align-items: center;
+            flex-direction: row;
+            width: 50%;
+            height: 70%;
         }
-        .buttons {
-            margin-right: 20px;
+        .left-panel {
+            padding: 40px 30px; /* Aumenta el margen a los lados */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            width: 50%;
+        }
+        .left-panel h2 {
+            margin-bottom: 40px;
+            text-align: center;
         }
         button {
             display: block;
-            width: 200px;
-            padding: 10px;
-            margin-bottom: 10px;
+            width: 180px; /* Botones más cortos */
+            padding: 12px; /* Menor padding */
+            margin: 10px auto; /* Ajuste centrado con margen */
             font-size: 16px;
             background-color: #4b89dc;
             color: white;
@@ -42,23 +52,27 @@
         .active {
             background-color: #2860a0;
         }
-        img {
-            width: 200px;
-            height: auto;
-            border-radius: 10px;
+        .right-panel img {
+            width: 125%;
+            height: 100%;
+            border-radius: 0 10px 10px 0;
+            object-fit: cover;
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <div class="buttons">
+    <div class="left-panel">
+        <h2>Panell d'Administració</h2>
         <button id="usuaris" class="active">Gestió d'usuaris</button>
         <button>Gestió de vocabulari</button>
         <button>Gestió d'ubicacions</button>
         <button>Còpia de Seguretat</button>
     </div>
-    <img src="imatge.png" alt="Escultura">
+    <div class="right-panel">
+        <img src="images/2.-Petite-Tete-de-Jean-Cocteau_2-1.png" alt="Escultura">
+    </div>
 </div>
 
 <script>

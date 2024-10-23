@@ -1,8 +1,4 @@
 <?php
-require_once "../../../models/database.php";
-require_once "../../../models/DatacionesModel.php";
-require_once "../../../controllers/DatacionesController.php";
-
 $dbConnection = new Database();
 $conn = $dbConnection->conectar(); 
 
@@ -17,13 +13,13 @@ $datacion = $datacionesModel->getDatacionId($id);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Datación</title>
-    <link rel="stylesheet" href="../../../styles/editar_obras/editar.css">
+    <link rel="stylesheet" href="styles/editar_obras/editar.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
     <h1>Editar Datación</h1>
 
-    <form action="../../../index.php?controller=dataciones&action=actualizar" method="POST">
+    <form action="index.php?controller=dataciones&action=actualizar" method="POST">
         <input type="hidden" name="id_datacion" value="<?php echo $datacion['id_datacion']; ?>">
 
         <label for="nombre_datacion">Nombre:</label>

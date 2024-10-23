@@ -36,7 +36,7 @@ class ExposicionesController {
 
         // Redirigir a una página de confirmación o de listado
         if ($resultado) {
-            header("Location: views/vocabulario/exposiciones/exposiciones.php");  // Redirige de vuelta a la página de obras
+            header("Location: index.php?controller=exposiciones&action=mostrarexposiciones");  // Redirige de vuelta a la página de obras
             exit(); // Asegúrate de usar exit después de redirigir
         } else {
             echo "Error al actualizar el exposicion.";
@@ -44,25 +44,30 @@ class ExposicionesController {
     }
 
     public function crearexposiciones() {
-        // Recibir datos del formulario
-        $id_exposicion = $_POST['id_exposicion'];
-        $tipo_exposicion = $_POST['tipo_exposicion'];
-        $fecha_inicio_expo = $_POST['fecha_inicio_expo'];
-        $fecha_fin_expo = $_POST['fecha_fin_expo'];
-        $sitio_exposicion = $_POST['sitio_exposicion'];
-    
-        // Instanciar el modelo
-        $exposicionesModel = new exposicionesModel($this->conn);
-    
-        // Llamar al método del modelo para insertar el nuevo exposicion
-        $resultado = $exposicionesModel->crearexposicion($id_exposicion, $tipo_exposicion, $fecha_inicio_expo, $fecha_fin_expo, $sitio_exposicion);
-    
-        // Redirigir a una página de confirmación o de listado
-        if ($resultado) {
-            header("Location: views/vocabulario/exposiciones/exposiciones.php");  // Redirige a la lista de exposiciones
-            exit(); // Asegúrate de usar exit después de redirigir
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Recibir datos del formulario
+            $id_exposicion = $_POST['id_exposicion'];
+            $tipo_exposicion = $_POST['tipo_exposicion'];
+            $fecha_inicio_expo = $_POST['fecha_inicio_expo'];
+            $fecha_fin_expo = $_POST['fecha_fin_expo'];
+            $sitio_exposicion = $_POST['sitio_exposicion'];
+        
+            // Instanciar el modelo
+            $exposicionesModel = new exposicionesModel($this->conn);
+        
+            // Llamar al método del modelo para insertar el nuevo exposicion
+            $resultado = $exposicionesModel->crearexposicion($id_exposicion, $tipo_exposicion, $fecha_inicio_expo, $fecha_fin_expo, $sitio_exposicion);
+        
+            // Redirigir a una página de confirmación o de listado
+            if ($resultado) {
+                header("Location: index.php?controller=exposiciones&action=mostrarexposiciones");  // Redirige a la lista de exposiciones
+                exit(); // Asegúrate de usar exit después de redirigir
+            } else {
+                echo "Error al agregar el exposicion.";
+            }
         } else {
-            echo "Error al agregar el exposicion.";
+            require_once "views/vocabulario/exposiciones/crear_exposiciones.php";
         }
     }
 
@@ -77,7 +82,7 @@ class ExposicionesController {
             if ($this->esAjax()) {
                 echo "success";  // Respuesta simple para peticiones AJAX
             } else {
-                header("Location: views/vocabulario/exposiciones/exposiciones.php");
+                header("Location: index.php?controller=exposiciones&action=mostrarexposiciones");
                 exit();
             }
         } else {
@@ -90,6 +95,22 @@ class ExposicionesController {
         return !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest';
     }
     
+    public function mostrarFormulario() {
+
+        if (isset($_GET['id'])) {
+            $id = $_GET['id'];
+            $ExposicionesModel = new ExposicionesModel($this->conn);
+            $Exposicion = $ExposicionesModel->getexposicionPorId($id);
+            
+            if ($Exposicion) {
+                require_once 'views/vocabulario/exposiciones/editar_exposiciones.php';
+            } else {
+                echo "Datación no encontrada.";
+            }
+        } else {
+            echo "ID no proporcionado.";
+        }
+    }
     
     
 

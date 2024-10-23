@@ -14,7 +14,7 @@ class ClasificacionesModel {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function getclasificaionId($id_clasificacion) {
+    public function getclasificacionId($id_clasificacion) {
         $query = "SELECT  id_clasificacion, texto_clasificacion FROM Clasificaciones_genericas WHERE id_clasificacion = :id_clasificacion";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':id_clasificacion', $id_clasificacion, PDO::PARAM_STR);

@@ -1,8 +1,4 @@
 <?php
-require_once "../../../models/database.php";
-require_once "../../../models/exposicionesModel.php";
-require_once "../../../controllers/exposicionesController.php";
-
 // Conexión a la base de datos
 $dbConnection = new Database();
 $conn = $dbConnection->conectar(); 
@@ -17,13 +13,13 @@ $exposicionesController = new exposicionesController();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crear exposiciones</title>
-    <link rel="stylesheet" href="../../../styles/editar_obras/editar.css">
+    <link rel="stylesheet" href="styles/editar_obras/editar.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
     <h1>Crear exposiciones</h1>
 
-    <form action="../../../index.php?controller=exposiciones&action=crearexposiciones" method="POST">
+    <form action="index.php?controller=exposiciones&action=crearexposiciones" method="POST">
 
         <label for="id_exposicion">Codigo:</label>
         <input type="text" id="id_exposicion" name="id_exposicion" value="" required>

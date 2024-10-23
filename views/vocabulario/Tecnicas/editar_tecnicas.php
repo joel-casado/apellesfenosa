@@ -1,13 +1,9 @@
 <?php
-require_once "../../../models/database.php";
-require_once "../../../models/tecnicasModel.php";
-require_once "../../../controllers/tecnicasController.php";
-
 $dbConnection = new Database();
 $conn = $dbConnection->conectar(); 
 
 $id = $_GET['id'];  // Aquí $id es realmente el codigo_getty_tecnica
-$tecnicaModel = new tecnicaModel($conn);
+$tecnicaModel = new tecnicasModel($conn);
 $tecnicas = $tecnicaModel->gettecnicaPorId($id);
  
 ?>
@@ -20,15 +16,15 @@ $tecnicas = $tecnicaModel->gettecnicaPorId($id);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar tecnica</title>
-    <link rel="stylesheet" href="../../styles/editar_obras/editar.css">
+    <link rel="stylesheet" href="styles/editar_obras/editar.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
-    <a href="../../views/obras/obras.php">a</a>
+    <a href="views/obras/obras.php">a</a>
     <h1>Editar tecnica</h1>
 
 
-    <form action="../../../index.php?controller=tecnicas&action=actualizar" method="POST">
+    <form action="index.php?controller=tecnicas&action=actualizar" method="POST">
 
         <input type="hidden" name="codigo_getty_tecnica" value="<?php echo $tecnicas['codigo_getty_tecnica']; ?>">
         

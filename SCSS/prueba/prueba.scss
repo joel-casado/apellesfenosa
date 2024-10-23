@@ -1,0 +1,99 @@
+@import "../../SCSS/_variables.scss";
+@import "../../SCSS/_mixins.scss";
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #f8f8f8;
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+  font-weight: 500;
+  color: #333;
+}
+
+form {
+  background-color: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  margin-top: 30px;
+  font-size: 18px;
+  font-weight: 500;
+  color: #333;
+}
+
+label {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 5px;
+  color: #666;
+}
+
+input[type="text"],
+input[type="date"],
+input[type="number"],
+select,
+textarea {
+  width: calc(33.33% - 10px); /* Cambiado a 33.33% para tres columnas */
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  font-size: 14px;
+  color: #333;
+}
+
+input[type="text"]:focus,
+input[type="date"]:focus,
+input[type="number"]:focus,
+select:focus,
+textarea:focus {
+  border-color: #999;
+  outline: none;
+}
+
+textarea {
+  height: 80px;
+  resize: vertical;
+}
+
+button[type="submit"] {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  background-color: #007bff;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+.grid-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.grid-item {
+  width: 30%; /* Cambiado a 30% para tres columnas */
+}
+
+@media (max-width: 768px) {
+  .grid-item {
+    width: 100%;
+  }
+}

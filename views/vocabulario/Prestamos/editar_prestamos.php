@@ -1,8 +1,4 @@
 <?php
-require_once "../../../models/database.php";
-require_once "../../../models/prestamosModel.php";
-require_once "../../../controllers/prestamosController.php";
-
 $dbConnection = new Database();
 $conn = $dbConnection->conectar(); 
 
@@ -20,15 +16,15 @@ $prestamos = $prestamosModel->getprestamoPorId($id);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Autor</title>
-    <link rel="stylesheet" href="../../../styles/editar_obras/editar.css">
+    <link rel="stylesheet" href="styles/editar_obras/editar.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
-    <a href="../../views/obras/obras.php">a</a>
+    <a href="views/obras/obras.php">a</a>
     <h1>Editar Clasificación</h1>
 
 
-    <form action="../../../index.php?controller=prestamos&action=actualizar" method="POST">
+    <form action="index.php?controller=prestamos&action=actualizar" method="POST">
 
         <input type="hidden" name="id_prestamo" value="<?php echo $prestamos['id_prestamo']; ?>">
         

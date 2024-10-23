@@ -24,13 +24,17 @@ $exposiciones = $obraModel->getexposicion();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crear Obra</title>
-    <link href="../../styles/editar_obras/editar.css" rel="stylesheet">
+    <link href="../../SCSS/prueba/prueba.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
     <h1>Crear Obra</h1>
     
     <form action="../../index.php?controller=Obras&action=crear" method="POST">
+
+        <!-- Información Principal -->
+        <h2 class="section-title">Informació Principal</h2>
+
         <label for="titulo">Título:</label>
         <input type="text" id="titulo" name="titulo" required>
 
@@ -60,6 +64,12 @@ $exposiciones = $obraModel->getexposicion();
         <label for="coleccion_procedencia">Colección Procedencia:</label>
         <input type="text" id="coleccion_procedencia" name="coleccion_procedencia">
 
+        <label for="ubicacion">Ubicación:</label>
+        <input type="text" id="ubicacion" name="ubicacion">
+
+        <!-- Detalles Realización -->
+        <h2  class="section-title">Detalles Realización</h2>
+
         <label for="maxima_altura">Máxima Altura:</label>
         <input type="text" id="maxima_altura" name="maxima_altura">
 
@@ -78,6 +88,8 @@ $exposiciones = $obraModel->getexposicion();
                 </option>
             <?php endforeach; ?>
         </select>
+        
+        
 
         <label for="tecnica">Técnica:</label>
         <select name="tecnica" id="tecnica" required>
@@ -88,6 +100,12 @@ $exposiciones = $obraModel->getexposicion();
                 </option>
             <?php endforeach; ?>
         </select>
+
+        <label for="numero_ejemplares">Número de Ejemplares:</label>
+        <input type="number" id="numero_ejemplares" name="numero_ejemplares">
+
+
+        <h2 class="section-title">Datación</h2>
 
         <label for="ano_inicio">Año Inicio:</label>
         <select name="ano_inicio" id="ano_inicio">
@@ -109,8 +127,6 @@ $exposiciones = $obraModel->getexposicion();
             <?php endforeach; ?>
         </select>
     
-        <label for="ubicacion">Ubicación:</label>
-        <input type="text" id="ubicacion" name="ubicacion">
 
         <label for="fecha_registro">Fecha Registro:</label>
         <input type="date" id="fecha_registro" name="fecha_registro">
@@ -125,8 +141,7 @@ $exposiciones = $obraModel->getexposicion();
             <?php endforeach; ?>
         </select>
 
-        <label for="numero_ejemplares">Número de Ejemplares:</label>
-        <input type="number" id="numero_ejemplares" name="numero_ejemplares">
+        <h2  class="section-title" >Ingreso</h2>
 
         <label for="forma_ingreso">Forma de Ingreso:</label>
         <select name="forma_ingreso" id="forma_ingreso">
@@ -137,7 +152,7 @@ $exposiciones = $obraModel->getexposicion();
                 </option>
             <?php endforeach; ?>
         </select>
-
+        
         <label for="fecha_ingreso">Fecha de Ingreso:</label>
         <input type="date" id="fecha_ingreso" name="fecha_ingreso">
 
@@ -151,9 +166,10 @@ $exposiciones = $obraModel->getexposicion();
                 <option value="Dolent">
                 <option value="Excel·lent">
                 <option value="Indeterminat">
-                <option value="desconeguda">
+                <option value="Desconeguda">
                 <option value="Regular">
             </datalist>
+
 
         <label for="lugar_ejecucion">Lugar de Ejecución:</label>
         <input type="text" id="lugar_ejecucion" name="lugar_ejecucion">
@@ -187,3 +203,4 @@ $exposiciones = $obraModel->getexposicion();
     </form>
 </body>
 </html>
+

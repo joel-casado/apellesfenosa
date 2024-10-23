@@ -1,8 +1,4 @@
 <?php
-require_once "../../../models/database.php";
-require_once "../../../models/prestamosModel.php";
-require_once "../../../controllers/prestamosController.php";
-
 $dbConnection = new Database();
 $conn = $dbConnection->conectar(); 
 
@@ -17,15 +13,15 @@ $prestamos = $prestamosModel->getprestamos();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>prestamos</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../../../styles/obras/obras.css">
+    <link rel="stylesheet" href="styles/obras/obras.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-<a href="../ver_vocabulario.php" class="edit-button">Vocabulario</a>
+<a href="views/vocabulario/ver_vocabulario.php" class="edit-button">Vocabulario</a>
     <h1>Listado de prestamos</h1>
 
     <div class="actions">
-        <a href="crear_prestamos.php" class="edit-button">Crear</a>
+        <a href="index.php?controller=prestamos&action=crearprestamos" class="edit-button">Crear</a>
     </div>
 
     <table>
@@ -46,8 +42,8 @@ $prestamos = $prestamosModel->getprestamos();
                     <td><?php echo($prestamo['fecha_prestacion']); ?></td>
                     <td><?php echo($prestamo['fecha_devolucion']); ?></td>
                     <td>
-                        <a href="editar_prestamos.php?id=<?php echo $prestamo['id_prestamo']; ?>" class="edit-button">Editar</a>
-                        <form action="../../../index.php?controller=prestamos&action=deshabilitar&id=<?php echo $prestamo['id_prestamo']; ?>" method="post" style="display:inline-block;" onsubmit="return confirm('¿Estás seguro de que quieres deshabilitar este prestamo?');">
+                        <a href="index.php?controller=prestamos&action=mostrarFormulario&id=<?php echo $prestamo['id_prestamo']; ?>" class="edit-button">Editar</a>
+                        <form action="index.php?controller=prestamos&action=deshabilitar&id=<?php echo $prestamo['id_prestamo']; ?>" method="post" style="display:inline-block;" onsubmit="return confirm('¿Estás seguro de que quieres deshabilitar este prestamo?');">
                             <button type="submit" class="edit-button">Deshabilitar</button>
                         </form>
                     </td>
