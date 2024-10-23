@@ -1,0 +1,76 @@
+@import "C:/xampp/htdocs/apellesfenosa/SCSS/_variables.scss";
+@import "C:/xampp/htdocs/apellesfenosa/SCSS/_mixins.scss";
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: $header-bg;
+    margin: 0;
+    padding: 0;
+}
+.header {
+    @include header; // Asegúrate de que 'header' esté definido en _mixins.scss
+}
+.expo_box {
+    display: flex;
+    width: 900px;
+    margin: 100px auto;
+    background-color:$header-bg;
+    border-radius: 10px;
+    box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+.image_expo_box {
+    position: relative;
+    width: 100%; // Cambia max-width a width
+    height: auto; // Cambia height a auto
+    border-radius: 8px;
+    overflow: hidden; // Asegúrate de que no se desborde
+}
+.image_expo_box img {
+    width: 100%; // Asegúrate de que la imagen ocupe el 100% del contenedor
+    height: auto; // Mantiene la proporción
+    object-fit: cover; // O 'contain', según lo que necesites
+    margin-left: 30px;
+}
+form {
+    margin-left: 10px;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+input {
+    margin:20px auto;
+    padding: 10px;
+    border: 1px solid #F2F2F2;
+    border-radius: 5px;
+    background-color: #F2F2F2;
+    font-size: 16px;
+    width: 320px;
+
+    &:focus {
+        outline: none;
+        border-color: #F2F2F2;
+        background-color: lighten(#F2F2F2, 5%);
+    }
+    }
+
+    button {
+    width: 70%;
+    padding: 10px;
+    margin-left: 50px;
+    background-color:$button-bg;
+    color:$header-bg;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+
+    &:hover {
+        background-color:$button_hv;
+    }
+    }
+}
