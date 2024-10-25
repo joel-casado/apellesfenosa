@@ -27,11 +27,11 @@ class UbicacionController {
                 if ($children) {
                     $node['children'] = $children;
                 }
-                $tree[] = $node;
-            }
+                $tree[] = $node; 
+            } 
         }
         return $tree;
-    }
+    } 
 }
 
 ?>
