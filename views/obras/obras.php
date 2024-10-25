@@ -38,7 +38,7 @@ if (!isset($_SESSION['admin']) && !isset($_SESSION['tecnic']) && !isset($_SESSIO
     </div>
 
     <div class="actions">
-        <a href="views/crear_obra/crear.php?id=" class="edit-button">Crear</a>
+        <a href="index.php?controller=Obras&action=crear" class="edit-button">Crear</a>
     </div>
     
     
@@ -60,7 +60,17 @@ if (!isset($_SESSION['admin']) && !isset($_SESSION['tecnic']) && !isset($_SESSIO
         <tbody>
             <?php foreach ($obras as $obra): ?>
                 <tr>
-                    <td><?php echo '<img src="https://www.museuapellesfenosa.cat/wp-content/uploads/2024/01/6.-Gran-tete-de-Paul-Eluard-1041x1536.jpg" ">'; ?></td>
+                <td>
+                    <?php if (!empty($obra['imagen_url'])): ?>
+                        <img src="<?php echo htmlspecialchars($obra['imagen_url']); ?>" alt="<?php echo htmlspecialchars($obra['titulo']); ?>" style="width: 100px; height: auto;">
+                    <?php else: ?>
+                        <img src="ruta/a/la/imagen/por_defecto.jpg" alt="Sin imagen" style="width: 100px; height: auto;">
+                        <p>Sin imagen disponible</p>
+                    <?php endif; ?>
+                </td>
+
+
+                
                     <td><?php echo $obra["numero_registro"]; ?></td>
                     <td><?php echo $obra["nombre_objeto"]; ?></td>
                     <td><?php echo $obra['titulo']; ?></td>

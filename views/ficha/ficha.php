@@ -27,8 +27,12 @@ $exposiciones = $obraModel->getexposicion();
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
-    <a href="../../views/obras/obras.php">a</a>
-    <h1>Editar Obra</h1>
+    <a href="views/obras/obras.php">a</a>
+
+    <h1>FICHA OBRA</h1>
+
+    <a href="index.php?controller=Obras&action=mostrarpdf&id=<?php echo $obra['numero_registro']; ?>" class="download-button">Descargar PDF</a>
+
     
     <img src="https://www.museuapellesfenosa.cat/wp-content/uploads/2024/01/6.-Gran-tete-de-Paul-Eluard-1041x1536.jpg">
 
@@ -87,51 +91,84 @@ $exposiciones = $obraModel->getexposicion();
         <input type="text" id="maxima_profundidad" name="maxima_profundidad" value="<?php echo $obra['maxima_profundidad']; ?>" readonly>
 
         <label for="material">Material:</label>
-        <select name="codigo_getty_material" id="codigo_getty_material" required>
-            <?php foreach ($materiales as $material): ?>
-                <option value="<?= $material['codigo_getty_material'] ?>" <?= $obra['material'] == $material['codigo_getty_material'] ? 'selected' : '' ?>>
-                    <?= $material['texto_material'] ?>
-                </option>
-            <?php endforeach; ?>
-        </select>
+
+        <span>
+            <?php 
+            $materialseleccionado = '';
+            foreach ($materiales as $material){
+                 if ($obra['material'] == $material['codigo_getty_material']) {
+                    $materialseleccionado = $material['texto_material'];
+                    break;
+                 }
+            }
+            ?>
+            <input type="text" id="codigo_getty_material" name="codigo_getty_material" value="<?php echo $materialseleccionado ?>" readonly >
+    
+            </span>
 
 
         <label for="tecnica">Técnica:</label>
-        <select name="tecnica" id="tecnica" required>
-            <?php foreach ($tecnicas as $tecnica): ?>
-                <option value="<?= $tecnica['codigo_getty_tecnica'] ?>" <?= $obra['tecnica'] == $tecnica['codigo_getty_tecnica'] ? 'selected' : '' ?>>
-                    <?= $tecnica['texto_tecnica'] ?>
-                </option>
-            <?php endforeach; ?>
-        </select>
+        <span>
+            <?php 
+            $tecnicaseleccionado = '';
+            foreach ($tecnicas as $tecnica){
+                 if ($obra['tecnica'] == $tecnica['codigo_getty_tecnica']) {
+                    $tecnicaseleccionado = $tecnica['texto_tecnica'];
+                    break;
+                 }
+            }
+            ?>
+            <input type="text" id="codigo_getty_tecnica" name="codigo_getty_tecnica" value="<?php echo $tecnicaseleccionado ?>" readonly >
+    
+            </span>
 
         <label for="ano_inicio">Año inicio:</label>
-        <select name="ano_inicio" id="ano_inicio">
-            <?php foreach ($anoInicio as $inicio): ?>
-                <option value="<?= $inicio['ano_inicio'] ?>" <?= $obra['ano_inicio'] == $inicio['ano_inicio'] ? 'selected' : '' ?>>
-                    <?= $inicio['ano_inicio'] ?>
-                </option>
-            <?php endforeach; ?>
-        </select>
+        <span>
+            <?php 
+            $inicioseleccionado = '';
+            foreach ($anoInicio as $inicio){
+                 if ($obra['ano_inicio'] == $inicio['ano_inicio']) {
+                    $inicioseleccionado = $inicio['ano_inicio'];
+                    break;
+                 }
+            }
+            ?>
+            <input type="text" id="ano_inicio" name="ano_inicio" value="<?php echo $inicioseleccionado ?>" readonly >
+    
+            </span>
 
         <label for="ano_final">Año final:</label>
-        <select name="ano_final" id="ano_final">
-        <?php foreach ($anoFinal as $final): ?>
-            <option value="<?= $final['ano_final'] ?>" <?= $obra['ano_final'] == $final['ano_final'] ? 'selected' : '' ?>>
-                <?= $final['ano_final'] ?>
-            </option>
-        <?php endforeach; ?>
-    </select>
+        <span>
+            <?php 
+            $finalseleccionado = '';
+            foreach ($anoFinal as $final){
+                 if ($obra['ano_final'] == $final['ano_final']) {
+                    $finalseleccionado = $final['ano_final'];
+                    break;
+                 }
+            }
+            ?>
+            <input type="text" id="ano_inicio" name="ano_inicio" value="<?php echo $finalseleccionado ?>" readonly >
+    
+            </span>
 
 
         <label for="datacion">Datación:</label>
-        <select name="datacion" id="datacion">
-        <?php foreach ($dataciones as $datacion): ?>
-            <option value="<?= $datacion['id_datacion'] ?>" <?= $obra['datacion'] == $datacion['id_datacion'] ? 'selected' : '' ?>>
-                <?= $datacion['nombre_datacion']  . ' / ' . $datacion['ano_inicio']  . ' / ' . $datacion['ano_final'] ?>
-            </option>
-        <?php endforeach; ?>
-        </select>
+
+        <span>
+            <?php 
+            $datacionseleccionado = '';
+            foreach ($dataciones as $datacion){
+                 if ($obra['datacion'] == $datacion['id_datacion']) {
+                    $datacionseleccionado = $datacion['nombre_datacion']  . ' / ' . $datacion['ano_inicio']  . ' / ' . $datacion['ano_final'];
+                    break;
+                 }
+            }
+            ?>
+            <input type="text" id="ano_inicio" name="ano_inicio" value="<?php echo $datacionseleccionado ?>" readonly >
+    
+            </span>
+
     
         <label for="ubicacion">Ubicación:</label>
         <input type="text" id="ubicacion" name="ubicacion" value="<?php echo $obra['ubicacion']; ?>" readonly>
@@ -142,15 +179,20 @@ $exposiciones = $obraModel->getexposicion();
         <label for="numero_ejemplares">Número de Ejemplares:</label>
         <input type="number" id="numero_ejemplares" name="numero_ejemplares" value="<?php echo $obra['numero_ejemplares']; ?>" readonly>
 
-        <label for="forma_ingreso">Forma de Ingreso:</label>
-        <select name="forma_ingreso" id="forma_ingreso">
-        <?php foreach ($formasIngreso as $forma_ingreso): ?>
-            <option value="<?= $forma_ingreso['id_forma_ingreso'] ?>" <?= $obra['forma_ingreso'] == $forma_ingreso['id_forma_ingreso'] ? 'selected' : '' ?> >
-                <?= $forma_ingreso['texto_forma_ingreso'] ?>
-            </option>
-        <?php endforeach; ?>
-        </select>
-
+        <label for="formas_ingreso">Forma de Ingreso:</label>
+        <span>
+            <?php 
+            $ingresoseleccionado = '';
+            foreach ($formasIngreso as $forma_ingreso){
+                 if ($obra['forma_ingreso'] == $forma_ingreso['id_forma_ingreso']) {
+                    $ingresoseleccionado = $forma_ingreso['texto_forma_ingreso'];
+                    break;
+                 }
+            }
+            ?>
+            <input type="text" id="formas_ingreso" name="formas_ingreso" value="<?php echo $ingresoseleccionado ?>" readonly >
+    
+            </span>
 
 
         <label for="fecha_ingreso">Fecha de Ingreso:</label>
@@ -181,13 +223,19 @@ $exposiciones = $obraModel->getexposicion();
         <input type="text" id="valoracion_econ" name="valoracion_econ" value="<?php echo $obra['valoracion_econ']; ?>" readonly>
 
         <label for="exposicion">Tipo Exposición:</label>
-        <select name="exposicion" id="exposicion">
-        <?php foreach ($exposiciones as $exposicion): ?>
-            <option value="<?= $exposicion['id_exposicion'] ?>" <?= $obra['id_exposicion'] == $exposicion['id_exposicion'] ? 'selected' : '' ?>>
-                <?= $exposicion['tipo_exposicion']  . ' - ' . $exposicion['sitio_exposicion'] ?>
-            </option>
-        <?php endforeach; ?>
-        </select>
+        <span>
+            <?php 
+            $exposicionseleccionado = '';
+            foreach ($exposiciones as $exposicion){
+                 if ($obra['id_exposicion'] == $exposicion['id_exposicion']) {
+                    $exposicionseleccionado = $exposicion['tipo_exposicion']  . ' - ' . $exposicion['sitio_exposicion'] ;
+                    break;
+                 }
+            }
+            ?>
+            <input type="text" id="exposicion" name="exposicion" value="<?php echo $exposicionseleccionado ?>" readonly >
+    
+            </span>
 
         <label for="bibliografia">Bibliografía:</label>
         <textarea id="bibliografia" name="bibliografia" readonly><?php echo $obra['bibliografia']; ?></textarea>
@@ -197,8 +245,6 @@ $exposiciones = $obraModel->getexposicion();
         
         <label for="historia_obra">Historia de la Obra:</label>
         <textarea id="historia_obra" name="historia_obra" readonly><?php echo $obra['historia_obra']; ?></textarea>
-
-        <button type="submit">Actualizar</button>
     </form>
 </body>
 </html>
