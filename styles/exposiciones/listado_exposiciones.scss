@@ -1,0 +1,72 @@
+@import "C:/xampp/htdocs/apellesfenosa/SCSS/_variables.scss";
+@import "C:/xampp/htdocs/apellesfenosa/SCSS/_mixins.scss";
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: $header-bg;
+    margin: 0;
+    padding: 0;
+}
+
+.header {
+    @include header; // Asegúrate de que 'header' esté definido en _mixins.scss
+    display: flex;
+    justify-content: space-between; /* Asegura que el logo y el botón estén alineados */
+    align-items: center;
+    padding: 10px 20px;
+}
+
+table {
+    width: 60%;
+    border-collapse: collapse; // Asegura que no haya espacios entre las celdas
+    border-radius: 8px;
+    margin-left: 350px;
+    margin-top: 150px;
+
+    th, td {
+        padding: 15px;
+        text-align: center; // Alinea el texto a la izquierda
+        border: 1px solid #ddd; // Añade bordes a las celdas
+    }
+
+    th {
+        background-color: #f4f4f4; // Color de fondo del encabezado
+        color: #555;
+    }
+
+    tr {
+        background-color: $header-bg; // Color de fondo de las filas
+        box-shadow: 0 0px 5px 0px rgba(0, 0, 0, 0.1); // Sombra difusa
+    }
+
+    tr:hover {
+        background-color: lighten($header-bg, 10%); // Cambia el color al pasar el ratón
+    }
+
+   
+}
+
+.create-button {
+  background-color: $button-bg; // Color de fondo
+  color: white; // Color del texto
+  padding: 10px 20px; // Espaciado
+  text-decoration: none; // Sin subrayado
+  border-radius: 5px; // Bordes redondeados
+  transition: background-color 0.3s; // Efecto de transición
+
+  &:hover {
+      background-color: $button_hv; // Color al pasar el ratón
+  }
+}
+.button{
+    background-color: $button-bg; // Color de fondo
+    color: white; // Color del texto
+    padding: 10px 20px; // Espaciado
+    text-decoration: none; // Sin subrayado
+    border-radius: 5px; // Bordes redondeados
+    transition: background-color 0.3s; // Efecto de transición
+    &:hover {
+        background-color: $button_hv; // Color al pasar el ratón
+    }
+}
+

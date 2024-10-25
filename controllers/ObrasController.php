@@ -24,8 +24,6 @@ class ObrasController {
         require_once "views/obras/obras.php";
     }
 
-     
-
     public function actualizar() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $numero_registro = $_POST['n_registro'];
