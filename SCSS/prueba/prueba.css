@@ -103,4 +103,11 @@ button[type=submit]:hover {
   .grid-container {
     grid-template-columns: 2fr; /* Para pantallas más pequeñas, hacer que las filas ocupen todo el ancho */
   }
+}
+form img {
+  height: 150px;
+  width: 250px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 4px;
 }/*# sourceMappingURL=prueba.css.map */

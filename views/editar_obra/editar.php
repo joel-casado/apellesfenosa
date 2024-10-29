@@ -151,7 +151,7 @@ $exposiciones = $obraModel->getexposicion();
 
 
         <label for="estado_conservacion">Estado de Conservación:</label>
-        <input list="estados" name="estado" id="estado">
+        <input list="estado_conservacion" id="estado_conservacion" name="estado_conservacion" value="<?php echo $obra['estado_conservacion']; ?>">
             <datalist id="estados">
                 <option value="Bo">
                 <option value="Dolent">

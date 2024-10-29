@@ -7,17 +7,36 @@ class ObrasModel {
     }
 
     public function getObras() { 
-        $query = "SELECT obras.*,materiales.texto_material,autores.nombre_autor, dataciones.nombre_datacion, imagenes.url AS imagen_url
+        $query = "SELECT obras.*,materiales.texto_material,autores.nombre_autor, dataciones.nombre_datacion, archivos.enlace AS imagen_url
                   FROM obras 
                   JOIN materiales ON obras.material = materiales.codigo_getty_material
                   JOIN autores ON obras.autor = autores.codigo_autor
                   JOIN dataciones ON obras.datacion = dataciones.id_datacion
-                  LEFT JOIN imagenes ON obras.numero_registro = imagenes.id_obra"; // Añadido el LEFT JOIN con imagenes
+                  LEFT JOIN archivos ON obras.numero_registro = archivos.numero_registro";
                   
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function obtenerImagen($id) {
+        $query = "SELECT enlace FROM archivos WHERE numero_registro = :id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+        // Depuración: Verificar si se encuentra el enlace en la base de datos
+        if ($result) {
+            echo "<script>console.log('URL de imagen obtenida del modelo: " . $result['enlace'] . "');</script>";
+        } else {
+            echo "<script>console.log('No se encontró ninguna URL de imagen en la base de datos para ID: " . $id . "');</script>";
+        }
+        
+        return $result ? $result['enlace'] : null;
+    }
+    
+    
 
 
         public function obtenerObra($id) {

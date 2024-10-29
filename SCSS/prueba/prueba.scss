@@ -106,3 +106,11 @@ button[type="submit"]:hover {
     grid-template-columns: 2fr; /* Para pantallas más pequeñas, hacer que las filas ocupen todo el ancho */
   }
 }
+
+
+form img {
+  height: 150px;
+  width: 250px;
+  object-fit: cover;
+  border-radius: 4px;
+}

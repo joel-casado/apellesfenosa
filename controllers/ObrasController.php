@@ -72,20 +72,23 @@ class ObrasController {
     }
     
     public function mostrarFicha() {
-        // Capturar el ID de la URL
         if (isset($_GET['id'])) {
-            $id = $_GET['id'];  // Obtiene el 'id' desde la URL
-    
-            // Obtener los valores desde el modelo utilizando el ID
+            $id = $_GET['id'];
+            
             $obraModel = new ObrasModel($this->conn);
             $obra = $obraModel->obtenerObra($id);
+            $imagen_url = $obraModel->obtenerImagen($id);
     
-            // Cargar la vista de edición con los datos de la obra
+            // Depuración: Verificar si la URL de la imagen se pasa correctamente a la vista
+            echo "<script>console.log('URL de imagen en el controlador: " . $imagen_url . "');</script>";
+    
             require_once 'views/ficha/ficha.php';
         } else {
             echo "ID no proporcionado.";
         }
     }
+    
+    
 
     public function mostrarpdf() {
         // Capturar el ID de la URL

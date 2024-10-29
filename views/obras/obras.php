@@ -46,7 +46,7 @@ if (!isset($_SESSION['admin']) && !isset($_SESSION['tecnic']) && !isset($_SESSIO
         <thead>
             <tr>
                
-                <th></th>
+                <th>Imatge</th>
                 <th>Número Registre</th>
                 <th>Nom Objecte</th>
                 <th>Títol</th>
@@ -62,7 +62,7 @@ if (!isset($_SESSION['admin']) && !isset($_SESSION['tecnic']) && !isset($_SESSIO
                 <tr>
                 <td>
                     <?php if (!empty($obra['imagen_url'])): ?>
-                        <img src="<?php echo htmlspecialchars($obra['imagen_url']); ?>" alt="<?php echo htmlspecialchars($obra['titulo']); ?>" style="width: 100px; height: auto;">
+                        <img src="<?php echo htmlspecialchars($obra['imagen_url']); ?>" alt="<?php echo htmlspecialchars($obra['titulo']); ?>">
                     <?php else: ?>
                         <img src="ruta/a/la/imagen/por_defecto.jpg" alt="Sin imagen" style="width: 100px; height: auto;">
                         <p>Sin imagen disponible</p>
