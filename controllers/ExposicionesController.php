@@ -106,11 +106,5 @@ class ExposicionesController {
         // Cargar la vista y pasarle los datos de las obras
         require_once "views/exposiciones/ver_obras.php";
     }
-
-    public function update($id) {
-        $expo = $_POST;
-        $this->modelo->updateExposicion($id, $expo);
-        header('Location: index.php?controller=Exposiciones&action=index');
-    }
 }
 ?>
