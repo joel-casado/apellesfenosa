@@ -23,17 +23,24 @@ $exposiciones = $obraModel->getexposicion();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Obra</title>
-    <link rel="stylesheet" href="styles/editar_obras/editar.css">
+    <link rel="stylesheet" href="SCSS/prueba/prueba.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
-    <a href="../../views/obras/obras.php">a</a>
+    <div class="header">
+        <a href="index.php?controller=Login&action=logout" class="edit-button">Cerrar sesión</a>
+        <a href="views/vocabulario/ver_vocabulario.php?id=" class="edit-button">Vocabulario</a>
+        <a href="index.php?controller=Obras&action=verObras&admin" class="edit-button">Obras</a><br>
+    </div>
+
     <h1>Editar Obra</h1>
     
-    <img src="https://www.museuapellesfenosa.cat/wp-content/uploads/2024/01/6.-Gran-tete-de-Paul-Eluard-1041x1536.jpg">
-
-
     <form action="index.php?controller=Obras&action=actualizar" method="POST">
+
+    <h2 class="section-title" onclick="toggleSection(this)">Información Principal  <span class="arrow">▼</span></h2>
+        <div class="section-content">
+
+        <div class="grid-container">
 
         <input type="hidden" name="numero_registro" value="<?php echo $obra['numero_registro']; ?>">
         
@@ -42,16 +49,6 @@ $exposiciones = $obraModel->getexposicion();
 
         <label for="titulo">Nº Registro:</label>
         <input type="text" id="n_registro" name="n_registro" value="<?php echo $obra['numero_registro']; ?>" required>
-
-        
-        <label value="">Selecciona Clasificación</label>
-        <select name="classificacion_generica" id="classificacion_generica">
-        <?php foreach ($clasificaciones_genericas as $clasificacion): ?>
-            <option value="<?= $clasificacion['id_clasificacion'] ?>" <?= $obra['classificacion_generica'] == $clasificacion['id_clasificacion'] ? 'selected' : '' ?>>
-                <?= $clasificacion['texto_clasificacion']?>
-            </option>
-        <?php endforeach; ?>
-        </select>
 
         
         <label for="autor">Nombre Autor:</label>
@@ -63,10 +60,21 @@ $exposiciones = $obraModel->getexposicion();
             <?php endforeach; ?>
         </select>
 
-
         <label for="coleccion_procedencia">Colección Procedencia:</label>
         <input type="text" id="coleccion_procedencia" name="coleccion_procedencia" value="<?php echo $obra['coleccion_procedencia']; ?>">
  
+
+        <label for="ubicacion">Ubicación:</label>
+        <input type="text" id="ubicacion" name="ubicacion" value="<?php echo $obra['ubicacion']; ?>">
+
+        <div>
+        </div>
+
+        <!-- Detalles Realización -->
+        <h2 class="section-title" onclick="toggleSection(this)">Detalles Realización <span class="arrow">▼</span></h2>
+        <div class="section-content">
+        <div class="grid-container">
+
         <label for="maxima_altura">Máxima Altura:</label>
         <input type="text" id="maxima_altura" name="maxima_altura" value="<?php echo $obra['maxima_altura']; ?>">
 
@@ -95,6 +103,18 @@ $exposiciones = $obraModel->getexposicion();
             <?php endforeach; ?>
         </select>
 
+                
+        <label for="numero_ejemplares">Número de Ejemplares:</label>
+        <input type="number" id="numero_ejemplares" name="numero_ejemplares" value="<?php echo $obra['numero_ejemplares']; ?>">
+
+        </div>
+        </div>
+
+        <!-- Detalles Realización -->
+        <h2 class="section-title" onclick="toggleSection(this)">Datación <span class="arrow">▼</span></h2>
+        <div class="section-content">
+        <div class="grid-container">
+
         <label for="ano_inicio">Año inicio:</label>
         <select name="ano_inicio" id="ano_inicio">
             <?php foreach ($anoInicio as $inicio): ?>
@@ -113,6 +133,9 @@ $exposiciones = $obraModel->getexposicion();
         <?php endforeach; ?>
     </select>
 
+        <label for="fecha_registro">Fecha Registro:</label>
+        <input type="date" id="fecha_registro" name="fecha_registro" value="<?php echo $obra['fecha_registro']; ?>">
+
 
         <label for="datacion">Datación:</label>
         <select name="datacion" id="datacion">
@@ -123,15 +146,24 @@ $exposiciones = $obraModel->getexposicion();
         <?php endforeach; ?>
         </select>
     
-        <label for="ubicacion">Ubicación:</label>
-        <input type="text" id="ubicacion" name="ubicacion" value="<?php echo $obra['ubicacion']; ?>">
 
-        <label for="fecha_registro">Fecha Registro:</label>
-        <input type="date" id="fecha_registro" name="fecha_registro" value="<?php echo $obra['fecha_registro']; ?>">
+        <label value="">Selecciona Clasificación</label>
+            <select name="classificacion_generica" id="classificacion_generica">
+            <?php foreach ($clasificaciones_genericas as $clasificacion): ?>
+                <option value="<?= $clasificacion['id_clasificacion'] ?>" <?= $obra['classificacion_generica'] == $clasificacion['id_clasificacion'] ? 'selected' : '' ?>>
+                    <?= $clasificacion['texto_clasificacion']?>
+                </option>
+            <?php endforeach; ?>
+            </select>
 
-        <label for="numero_ejemplares">Número de Ejemplares:</label>
-        <input type="number" id="numero_ejemplares" name="numero_ejemplares" value="<?php echo $obra['numero_ejemplares']; ?>">
+        </div>
+        </div>
+        <!-- Ingreso -->
+        <h2 class="section-title" onclick="toggleSection(this)">Ingreso <span class="arrow">▼</span></h2>
+        <div class="section-content">
 
+        <div class="grid-container">
+        
         <label for="forma_ingreso">Forma de Ingreso:</label>
         <select name="forma_ingreso" id="forma_ingreso">
         <?php foreach ($formasIngreso as $forma_ingreso): ?>
@@ -188,7 +220,12 @@ $exposiciones = $obraModel->getexposicion();
         <label for="historia_obra">Historia de la Obra:</label>
         <textarea id="historia_obra" name="historia_obra"><?php echo $obra['historia_obra']; ?></textarea>
 
+        </div>
+        </div>
+
         <button type="submit">Actualizar</button>
     </form>
+
+    <script src="scripts/formulario.js"></script>
 </body>
 </html>

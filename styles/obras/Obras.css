@@ -124,18 +124,11 @@ h2 {
 }
 
 .grid-container {
-  display: grid;
-  grid-template-columns: 100px 1fr; /* Asignar columnas: primera para los labels, segunda para los inputs */
+  grid-template-columns: 100px 1fr;
   grid-column-gap: 20px;
   grid-row-gap: 20px;
   align-items: center;
   align-content: center;
-}
-
-label {
-  font-size: 14px;
-  color: #666;
-  display: block; /* Para asegurar que el label se comporte como bloque */
 }
 
 input[type=text],
@@ -198,11 +191,6 @@ button[type=submit]:hover {
   cursor: pointer; /* Cambia el cursor al pasar sobre el título */
 }
 
-@media (max-width: 400px) {
-  .grid-container {
-    grid-template-columns: 2fr; /* Para pantallas más pequeñas, hacer que las filas ocupen todo el ancho */
-  }
-}
 form img {
   height: 150px;
   width: 250px;

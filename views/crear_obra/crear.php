@@ -34,6 +34,8 @@ $dataciones = $obraModel->getdatacion();
 
         <div class="grid-container">
             
+            <label for="foto">Foto:</label>
+            <input type="file" id="foto" name="foto">
 
             <label for="titulo">Título:</label>
             <input type="text" id="titulo" name="titulo" required>

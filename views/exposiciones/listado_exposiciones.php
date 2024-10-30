@@ -2,13 +2,15 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Listado de Usuarios</title>
+    <title>Listado de Exposiciones</title>
     <link rel="stylesheet" href="styles/exposiciones/listado_exposiciones.css">
 </head>
 <body>
     <div class="header">
-        <img src="views/obras/Logo2.png" alt="Logo">
-        <!-- Contenedor para el botón de crear usuario -->
+        <a href="index.php?controller=Obras&action=verObras"><img src="images/login/logo.png" alt="Museu Apel·les Fenosa"></a>
+        <a href="index.php?controller=Login&action=logout" class="create-button">Cerrar sesión</a>
+        <a href="views/vocabulario/ver_vocabulario.php?id=" class="create-button">Vocabulario</a>
+        <a href="index.php?controller=Obras&action=verObras&admin" class="create-button">Obras</a><br>
         <div class="crear-expo">
             <a href="index.php?controller=Exposiciones&action=crea_expo" class="create-button">Crear exposició</a>
         </div>

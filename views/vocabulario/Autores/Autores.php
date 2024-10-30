@@ -43,7 +43,7 @@ $autores = $AutoresModel->getAutores();
                     <td>
                         <a href="index.php?controller=autores&action=mostrarFormulario&id=<?php echo $autor['codigo_autor']; ?>" class="edit-button">Editar</a>
                         <form action="index.php?controller=autores&action=deshabilitar&id=<?php echo $autor['codigo_autor']; ?>" method="post" style="display:inline-block;" onsubmit="return confirm('¿Estás seguro de que quieres deshabilitar este autor?');">
-                            <button type="submit" class="edit-button">Deshabilitar</button>
+                            <button type="submit" id="deshabilitar">Deshabilitar</button>
                         </form>
                     </td>
                 </tr>

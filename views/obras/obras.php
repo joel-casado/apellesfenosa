@@ -30,11 +30,9 @@ if (!isset($_SESSION['admin']) && !isset($_SESSION['tecnic']) && !isset($_SESSIO
 
     <div class="header">
         <img src="images/login/logo.png" alt="Museu Apel·les Fenosa">
-        <a href="index.php?controller=Login&action=logout" class="logout-link">Cerrar sesión</a>
-    </div>
-
-    <div class="actions">
+        <a href="index.php?controller=Login&action=logout" class="edit-button">Cerrar sesión</a>
         <a href="views/vocabulario/ver_vocabulario.php?id=" class="edit-button">Vocabulario</a>
+        <a href="index.php?controller=Obras&action=verObras&admin" class="edit-button">Obras</a><br>
     </div>
 
     <div class="actions">

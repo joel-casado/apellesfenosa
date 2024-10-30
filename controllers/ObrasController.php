@@ -114,6 +114,7 @@ class ObrasController {
 
         ob_start();
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            header('Content-Type: application/json');
             $titulo = isset($_POST['titulo']) ? trim($_POST['titulo']) : null;
             $numero_registro = isset($_POST['n_registro']) ? trim($_POST['n_registro']) : null;
             $codigo_autor = isset($_POST['codigo_autor']) ? trim($_POST['codigo_autor']) : null;
@@ -142,7 +143,7 @@ class ObrasController {
             $bibliografia = isset($_POST['bibliografia']) ? trim($_POST['bibliografia']) : null;
             $historia_obra = isset($_POST['historia_obra']) ? trim($_POST['historia_obra']) : null;
 
-    
+
             // Server-side validation
             $errors = [];
             
@@ -159,12 +160,42 @@ class ObrasController {
             }
             
             if (!empty($errors)) {
-                // Return error response
-                header('Content-Type: application/json');
                 echo json_encode(['success' => false, 'errors' => $errors]);
                 exit();
             }
     
+
+
+            // Comprobar si se ha subido un archivo
+        if (isset($_FILES['foto']) && $_FILES['foto']['error'] === UPLOAD_ERR_OK) {
+            $foto = $_FILES['foto'];
+            $nombreArchivo = basename($foto['name']);
+            $rutaDestino = "images/" . $nombreArchivo;
+            
+            // Mover el archivo a la carpeta "uploads"
+            if (move_uploaded_file($foto['tmp_name'], $rutaDestino)) {
+                // Llamada al modelo para crear la obra
+                $obraModel = new ObrasModel($this->conn);
+                header('Content-Type: application/json');
+                $resultado = $obraModel->crearObra(
+                    $numero_registro, $titulo, /* Otros parámetros */
+                    $rutaDestino  // Guardar la ruta de la imagen
+                );
+                
+                if ($resultado) {
+                    // Insertar el enlace en la tabla de archivos
+                    $obraModel->guardarArchivo($numero_registro, $rutaDestino);
+                    echo json_encode(['success' => true, 'message' => 'Obra creada con éxito']);
+                } else {
+                    echo json_encode(['success' => false, 'message' => 'Error al crear la obra']);
+                }
+                exit();
+            } else {
+                echo json_encode(['success' => false, 'message' => 'Error al subir la foto']);
+                exit();
+            }
+        }
+
             $obraModel = new ObrasModel($this->conn);
             
             // Llamada al método del modelo con todos los parámetros
@@ -181,7 +212,6 @@ class ObrasController {
             
             
             if ($resultado) {
-                ob_end_clean();
                 header('Content-Type: application/json');
                 echo json_encode(['success' => true, 'message' => 'Obra creada con éxito']);
             } else {
