@@ -245,6 +245,28 @@ class ObrasModel {
                 
             }
             
+            public function getObrasExpo($id_exposicion) {
+                $query = "SELECT obras.*, materiales.texto_material, autores.nombre_autor, dataciones.nombre_datacion
+                FROM obras 
+                JOIN materiales ON obras.material = materiales.codigo_getty_material
+                JOIN autores ON obras.autor = autores.codigo_autor
+                JOIN dataciones ON obras.datacion = dataciones.id_datacion
+                WHERE obras.id_exposicion = :id_exposicion"; // Asegúrate de que 'id_exposicion' sea un campo válido
+            
+                $stmt = $this->conn->prepare($query);
+                $stmt->bindParam(':id_exposicion', $id_exposicion, PDO::PARAM_INT); // Asegúrate de que el tipo de dato sea correcto
+            
+                // Imprimir la consulta y el valor del parámetro para depuración
+                
+            
+                if (!$stmt->execute()) {
+                    // Si hay un error, muestra el error
+                    print_r($stmt->errorInfo());
+                }
+            
+                return $stmt->fetchAll(PDO::FETCH_ASSOC);
+            }
+            
         
 
 }

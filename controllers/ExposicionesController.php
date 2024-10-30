@@ -1,119 +1,108 @@
 <?php
 
 class ExposicionesController {
-    private $conn;
+    private $modelo;
 
     public function __construct() {
-        // Inicializar la conexión a la base de datos
-        $this->conn = (new Database())->conectar();
+        $this->modelo = new Exposiciones();
     }
 
-    // Método que obtiene los exposiciones y los pasa a la vista
-    public function mostrarexposiciones() {
-        // Instanciamos el modelo y pasamos la conexión
-        $exposicionesModel = new exposicionesModel($this->conn);
-
-        // Obtenemos los exposiciones desde el modelo
-        $exposiciones = $exposicionesModel->getexposiciones();
-
-        // Pasamos los datos a la vista
-        require_once "views/vocabulario/exposiciones/exposiciones.php";
+    public function listado_exposiciones() {
+        $exposiciones = $this->modelo->getExposiciones();
+        require_once 'views/exposiciones/listado_exposiciones.php';
     }
 
-    // Método para actualizar el exposicion
-    public function actualizar() {
-        // Recibir datos del formulario
-        $id_exposicion = $_POST['id_exposicion'];
-        $tipo_exposicion = $_POST['tipo_exposicion'];
-        $fecha_inicio_expo = $_POST['fecha_inicio_expo'];
-        $fecha_fin_expo = $_POST['fecha_fin_expo'];
-        $sitio_exposicion = $_POST['sitio_exposicion'];
-        // Instanciar el modelo
-        $exposicionesModel = new exposicionesModel($this->conn);
-
-        // Llamar al método del modelo para actualizar el exposicion
-        $resultado = $exposicionesModel->actualizarexposicion($id_exposicion, $tipo_exposicion, $fecha_inicio_expo, $fecha_fin_expo, $sitio_exposicion);
-
-        // Redirigir a una página de confirmación o de listado
-        if ($resultado) {
-            header("Location: index.php?controller=exposiciones&action=mostrarexposiciones");  // Redirige de vuelta a la página de obras
-            exit(); // Asegúrate de usar exit después de redirigir
-        } else {
-            echo "Error al actualizar el exposicion.";
+    public function anadirObra(){
+        require_once 'views/exposiciones/añadir_obra.php';
+    }
+    public function anadirObrasSeleccionadas() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['obra_ids'])) {
+            $obraIds = $_POST['obra_ids'];
+            $id_exposicion = $_GET['id']; // Suponiendo que el ID de la exposición esté en la URL
+    
+            foreach ($obraIds as $obraId) {
+                $this->modelo->addObraToExposicion($obraId, $id_exposicion);
+            }
+    
+            // Redirigir a la página de ver obras
+            header('Location: index.php?controller=Exposiciones&action=ver_obras&id=' . $id_exposicion);
+            exit();
         }
     }
+    
 
-    public function crearexposiciones() {
-
+    public function crea_expo() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            // Recibir datos del formulario
-            $id_exposicion = $_POST['id_exposicion'];
-            $tipo_exposicion = $_POST['tipo_exposicion'];
-            $fecha_inicio_expo = $_POST['fecha_inicio_expo'];
-            $fecha_fin_expo = $_POST['fecha_fin_expo'];
-            $sitio_exposicion = $_POST['sitio_exposicion'];
-        
-            // Instanciar el modelo
-            $exposicionesModel = new exposicionesModel($this->conn);
-        
-            // Llamar al método del modelo para insertar el nuevo exposicion
-            $resultado = $exposicionesModel->crearexposicion($id_exposicion, $tipo_exposicion, $fecha_inicio_expo, $fecha_fin_expo, $sitio_exposicion);
-        
-            // Redirigir a una página de confirmación o de listado
-            if ($resultado) {
-                header("Location: index.php?controller=exposiciones&action=mostrarexposiciones");  // Redirige a la lista de exposiciones
-                exit(); // Asegúrate de usar exit después de redirigir
-            } else {
-                echo "Error al agregar el exposicion.";
-            }
-        } else {
-            require_once "views/vocabulario/exposiciones/crear_exposiciones.php";
+            // Recoger los datos del formulario
+            $expo = [
+                'exposicion' => $_POST['exposicion'],
+                'inicio' => $_POST['inicio'],
+                'fin' => $_POST['fin'],
+                'tipo' => $_POST['tipo'],
+                'lugar' => $_POST['lugar'],
+            ];
+    
+            // Llamar al método para crear la exposición
+            $this->modelo->createExposicion($expo);
+    
+            // Redirigir a la lista de exposiciones después de crear
+            header('Location: index.php?controller=Exposiciones&action=listado_exposiciones');
+            exit();
         }
-    }
-
-
-    public function deshabilitar() {
-        $id_exposicion = $_GET['id'];
     
-        $exposicionesModel = new exposicionesModel($this->conn);
-        $resultado = $exposicionesModel->deshabilitarexposicion($id_exposicion);
-    
-        if ($resultado) {
-            if ($this->esAjax()) {
-                echo "success";  // Respuesta simple para peticiones AJAX
-            } else {
-                header("Location: index.php?controller=exposiciones&action=mostrarexposiciones");
-                exit();
-            }
-        } else {
-            echo "Error al deshabilitar el exposicion.";
-        }
+        // Si no es un POST, mostrar el formulario
+        require_once 'views/exposiciones/crea_expo.php';
     }
     
-    // Método para verificar si es una petición AJAX
-    private function esAjax() {
-        return !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest';
-    }
     
-    public function mostrarFormulario() {
-
+    public function editar_expo() {
         if (isset($_GET['id'])) {
             $id = $_GET['id'];
-            $ExposicionesModel = new ExposicionesModel($this->conn);
-            $Exposicion = $ExposicionesModel->getexposicionPorId($id);
-            
-            if ($Exposicion) {
-                require_once 'views/vocabulario/exposiciones/editar_exposiciones.php';
-            } else {
-                echo "Datación no encontrada.";
-            }
+            $expo = $this->modelo->getExposicionById($id);
+            require_once 'views/exposiciones/editar_expo.php';
         } else {
-            echo "ID no proporcionado.";
+            // Manejar el caso en que no se proporciona un ID
+            header('Location: index.php?controller=Exposiciones&action=listado_exposiciones');
+            exit();
         }
     }
-    
-    
 
+    public function update() {
+        if (isset($_POST['id_exposicion'])) {
+            $id = $_POST['id_exposicion']; // ID obtenido del formulario
+            $expo = [
+                'exposicion' => $_POST['exposicion'],
+                'inicio' => $_POST['inicio'],
+                'fin' => $_POST['fin'],
+                'tipo' => $_POST['tipo'],
+                'lugar' => $_POST['lugar'],
+            ]; // Recoge todos los datos del formulario
+            $this->modelo->updateExposicion($id, $expo); // Actualiza la exposición
+            header('Location: index.php?controller=Exposiciones&action=listado_exposiciones'); // Redirige a la lista
+            exit();
+        } else {
+            // Manejar el caso en que no se proporciona un ID
+            header('Location: index.php?controller=Exposiciones&action=listado_exposiciones');
+            exit();
+        }
+    }
+    public function ver_obras() {
+        if (isset($_GET['id'])) { // Cambiar de POST a GET para obtener el ID desde la URL
+            $id_exposicion = $_GET['id']; // Obtener el ID de la exposición desde la URL
+            $obras = $this->modelo->ver_obras($id_exposicion); // Llamar al método del modelo para obtener las obras
+        } else {
+            // Manejar el caso en que no se proporciona un ID
+            header('Location: index.php?controller=Exposiciones&action=listado_exposiciones');
+            exit();
+        }
+        // Crear una instancia de la clase de base de datos para obtener la conexión
+        $db = (new Database())->conectar();
+        $obrasModel = new ObrasModel($db);
+        $obras = $obrasModel->getObrasExpo($id_exposicion);
 
+        // Cargar la vista y pasarle los datos de las obras
+        require_once "views/exposiciones/ver_obras.php";
+    }
 
 }
+?>

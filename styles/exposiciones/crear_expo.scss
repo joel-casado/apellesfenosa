@@ -1,6 +1,5 @@
-@import "../../SCSS/_variables.scss";
-@import "../../SCSS/_mixins.scss";
-
+@import "C:/xampp/htdocs/apellesfenosa/SCSS/_variables.scss";
+@import "C:/xampp/htdocs/apellesfenosa/SCSS/_mixins.scss";
 * {
     margin: 0;
     padding: 0;
@@ -19,11 +18,12 @@ body {
     display: flex;
     width: 900px;
     margin: 100px auto;
-    background-color:$header-bg;
+    background-color: $header-bg;
     border-radius: 10px;
-    box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 8px 12px 4px rgba(0, 0, 0, 0.2); // Sombra más uniforme en todos los lados
     text-align: center;
 }
+
 .image_expo_box {
     position: relative;
     width: 100%; // Cambia max-width a width
