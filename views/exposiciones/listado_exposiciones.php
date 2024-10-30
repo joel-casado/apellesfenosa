@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Listado de Exposiciones</title>
+    <title>Llistat de Exposicions</title>
     <link rel="stylesheet" href="styles/exposiciones/listado_exposiciones.css">
 </head>
 <body>
@@ -12,7 +12,7 @@
         <a href="views/vocabulario/ver_vocabulario.php?id=" class="create-button">Vocabulario</a>
         <a href="index.php?controller=Obras&action=verObras&admin" class="create-button">Obras</a><br>
         <div class="crear-expo">
-            <a href="index.php?controller=Exposiciones&action=crea_expo" class="create-button">Crear exposició</a>
+            <a href="index.php?controller=Exposiciones&action=crea_expo" class="btn btn-success">Crear exposició</a>
         </div>
     </div>
 
@@ -20,7 +20,7 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th>ID</th>
+                    <th>Nom</th>
                     <th>Exposició</th>
                     <th>Data Inici</th>
                     <th>Data Fi</th>
@@ -32,16 +32,18 @@
             <tbody>
                 <?php foreach ($exposiciones as $expo): ?>
                     <tr>
-                        <td><?php echo $expo['id_exposicion']; ?></td>
+                        
                         <td><?php echo $expo['exposicion']; ?></td>
                         <td><?php echo $expo['fecha_inicio_expo']; ?></td>
                         <td><?php echo $expo['fecha_fin_expo']; ?></td>
                         <td><?php echo $expo['tipo_exposicion']; ?></td>
                         <td><?php echo $expo['sitio_exposicion']; ?></td>
+                        
                         <td>
-                            <a href="index.php?controller=Usuaris&action=editarUsuario&nombre=<?= $user['nombre_usuario']; ?>" class="btn btn-primary">Editar</a>
-                            <a href="index.php?controller=Usuaris&action=eliminarUsuario&id=<?= $user['nombre_usuario']; ?>" class="btn btn-danger">Eliminar</a>
+                            <a href="index.php?controller=Exposiciones&action=editar_expo&id=<?= $expo['id_exposicion']; ?>" class="btn btn-primary">Editar</a>
+                            <a href="index.php?controller=Exposiciones&action=ver_obras&id=<?= $expo['id_exposicion']; ?>" class="btn btn-primary">Ver</a>
                         </td>
+                        
                     </tr>
                 <?php endforeach; ?>
             </tbody>

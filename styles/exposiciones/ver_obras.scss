@@ -1,5 +1,5 @@
-@import "C:/xampp/htdocs/apellesfenosa/SCSS/_variables.scss";
-@import "C:/xampp/htdocs/apellesfenosa/SCSS/_mixins.scss";
+@import "../../SCSS/_variables.scss";
+@import "../../SCSS/_mixins.scss";
 
 body {
     font-family: 'Arial', sans-serif;
@@ -11,7 +11,7 @@ body {
 .header {
     @include header; // Asegúrate de que 'header' esté definido en _mixins.scss
     display: flex;
-    justify-content: space-between; /* Asegura que el logo y el botón estén alineados */
+    justify-content: space-between; 
     align-items: center;
     padding: 10px 20px;
 }
@@ -36,7 +36,7 @@ table {
 
     tr {
         background-color: $header-bg; // Color de fondo de las filas
-        box-shadow: 0 0px 5px 0px rgba(0, 0, 0, 0.1); // Sombra difusa
+        box-shadow: 0 0px 5px 0px rgba(0, 0, 0, 0.1); // Sombra difus
     }
 
     tr:hover {
@@ -52,7 +52,6 @@ table {
     display: inline-flex;
     
 }
-
 .btn-success {
     position: absolute;
     top: 20px;
