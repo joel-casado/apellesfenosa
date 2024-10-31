@@ -12,29 +12,38 @@ function toggleSection(titleElement) {
     }
 }
 
-
 document.getElementById("crearObraForm").addEventListener("submit", function(event) {
     event.preventDefault();
 
     const formData = new FormData(this);
+    console.log("Datos del formulario a enviar:", ...formData.entries());
 
     fetch("index.php?controller=Obras&action=crear", {
         method: "POST",
-        body: formData
+        body: formData,
     })
-    .then(response => response.json())
+    .then(response => {
+        return response.text().then(text => {
+            console.log("Respuesta del servidor:", text);
+            if (!response.ok) {
+                throw new Error("Error en la respuesta del servidor");
+            }
+            return JSON.parse(text);
+        });
+    })
     .then(data => {
+        console.log("Datos recibidos en formato JSON:", data);
         if (data.success) {
-            alert(data.message); // Mensaje de éxito
-            // Redireccionar o actualizar la vista según sea necesario
+            alert(data.message);
+            // Redireccionar o actualizar la vista
         } else if (data.errors) {
-            alert("Errores: " + data.errors.join(", ")); // Mostrar errores de validación
+            alert("Errores: " + data.errors.join(", "));
         } else {
-            alert(data.message); // Mensaje de error general
+            alert(data.message);
         }
     })
     .catch(error => {
-        console.error("Error:", error);
+        console.error("Error al procesar la solicitud:", error);
         alert("Hubo un error en la solicitud.");
     });
 });

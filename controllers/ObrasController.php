@@ -87,6 +87,23 @@ class ObrasController {
             echo "ID no proporcionado.";
         }
     }
+
+    public function mostrarFichaGeneral() {
+        if (isset($_GET['id'])) {
+            $id = $_GET['id'];
+            
+            $obraModel = new ObrasModel($this->conn);
+            $obra = $obraModel->obtenerObra($id);
+            $imagen_url = $obraModel->obtenerImagen($id);
+    
+            // Depuración: Verificar si la URL de la imagen se pasa correctamente a la vista
+            echo "<script>console.log('URL de imagen en el controlador: " . $imagen_url . "');</script>";
+    
+            require_once 'views/ficha/ficha_general.php';
+        } else {
+            echo "ID no proporcionado.";
+        }
+    }
     
     
 
@@ -106,6 +123,22 @@ class ObrasController {
         }
     }
 
+    public function mostrarpdfGeneral() {
+        // Capturar el ID de la URL
+        if (isset($_GET['id'])) {
+            $id = $_GET['id'];  
+    
+            // Obtener los valores desde el modelo utilizando el ID
+            $obraModel = new ObrasModel($this->conn);
+            $obra = $obraModel->obtenerObra($id);
+    
+            // Cargar la vista de edición con los datos de la obra
+            require_once 'views/ficha/crear_pdf_general.php';
+        } else {
+            echo "ID no proporcionado.";
+        }
+    }
+
 
     //FUNCION CREAR CON TODOS LOS PARAMETROS//
 
@@ -113,8 +146,12 @@ class ObrasController {
     public function crear() {
 
         ob_start();
+        
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             header('Content-Type: application/json');
+            var_dump($_POST);
+            var_dump($_FILES);
+            exit();
             $titulo = isset($_POST['titulo']) ? trim($_POST['titulo']) : null;
             $numero_registro = isset($_POST['n_registro']) ? trim($_POST['n_registro']) : null;
             $codigo_autor = isset($_POST['codigo_autor']) ? trim($_POST['codigo_autor']) : null;
@@ -212,14 +249,15 @@ class ObrasController {
             
             
             if ($resultado) {
-                header('Content-Type: application/json');
+                header('Location: index.php?controller=Obras&action=verObras');
                 echo json_encode(['success' => true, 'message' => 'Obra creada con éxito']);
             } else {
                 header('Content-Type: application/json');
                 echo json_encode(['success' => false, 'message' => 'Error al crear la obra']);
             }
-            exit();
-        }else {
+            echo json_encode($response);
+            exit;
+        }else {  
             require_once 'views/crear_obra/crear.php';
         }
     }

@@ -39,6 +39,19 @@ class ObrasModel {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+    public function obtenerImagen($numeroRegistro) {
+        $sql = "SELECT enlace FROM archivos WHERE numero_registro = :numero_registro LIMIT 1";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':numero_registro', $numeroRegistro);
+        $stmt->execute();
+        
+        if ($stmt->rowCount() > 0) {
+            $archivo = $stmt->fetch(PDO::FETCH_ASSOC);
+            return $archivo['enlace'];
+        } else {
+            return null; // No se encontró ninguna imagen
+        }
+    }
     
 
         // Obtener todos los autores únicos
@@ -178,7 +191,14 @@ class ObrasModel {
                 $stmt->bindParam(':bibliografia', $bibliografia);
                 $stmt->bindParam(':historia_obra', $historia_obra);
                 
-                $stmt->execute();
+                
+                if ($stmt->execute()) {
+                    // Si la inserción fue exitosa
+                    return json_encode(['success' => true, 'message' => 'Obra creada correctamente.']);
+                } else {
+                    // Si hubo un error
+                    return json_encode(['success' => false, 'message' => 'Error al crear la obra.', 'error' => $stmt->errorInfo()]);
+                }
                 
                 
             }
