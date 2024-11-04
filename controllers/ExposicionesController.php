@@ -29,7 +29,7 @@ class ExposicionesController {
             exit();
         }
     }
-    
+    //Md reactualiza
 
     public function crea_expo() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
