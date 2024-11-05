@@ -39,9 +39,7 @@ class ExposicionesController {
         echo json_encode(['success' => true, 'message' => 'Obras añadidas correctamente.']);
         exit();
     }
-    
-    
-    
+    //Md reactualiza
 
     public function crea_expo() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
