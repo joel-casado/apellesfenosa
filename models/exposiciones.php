@@ -35,6 +35,7 @@ class Exposiciones {
 
     public function updateExposicion($id, $expo) {
         $query = "UPDATE exposiciones SET
+                    exposicion = :exposicion,
                     fecha_inicio_expo = :fecha_inicio,
                     fecha_fin_expo = :fecha_fin,
                     tipo_exposicion = :tipo,
@@ -42,16 +43,18 @@ class Exposiciones {
                 WHERE id_exposicion = :id";
         try {
             $stmt = $this->db->prepare($query);
-            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+            $stmt->bindParam(':exposicion', $expo['exposicion']);
             $stmt->bindParam(':fecha_inicio', $expo['inicio']);
             $stmt->bindParam(':fecha_fin', $expo['fin']);
             $stmt->bindParam(':tipo', $expo['tipo']);
             $stmt->bindParam(':sitio', $expo['lugar']);
+            $stmt->bindParam(':id', $id, PDO::PARAM_INT); // Asegúrate de enlazar el ID aquí
             $stmt->execute();
         } catch (PDOException $e) {
             echo "Error al actualizar la exposición: " . $e->getMessage();
         }
     }
+    
     public function getMaxId() {
         $query = "SELECT MAX(id_exposicion) as max_id FROM exposiciones";
         try {
@@ -90,5 +93,35 @@ class Exposiciones {
     public function __destruct() {
         $this->db = null; // Cierra la conexión al final
     }
+    public function ver_obras($id_exposicion) {
+        $query = "SELECT * FROM obras WHERE id_exposicion = :id_exposicion";
+        try {
+            $stmt = $this->db->prepare($query);
+            $stmt->bindParam(':id_exposicion', $id_exposicion, PDO::PARAM_INT);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC); // Devuelve el resultado como array asociativo
+        } catch (PDOException $e) {
+            echo "Error al obtener las obras: " . $e->getMessage();
+            return [];
+        }
+    }
+    public function addObraToExposicion($numero_registro, $id_exposicion) {
+        $query = "UPDATE obras SET id_exposicion = :id_exposicion WHERE id_obra = :obra_id";
+        try {
+            $stmt = $this->db->prepare($query);
+            $stmt->bindParam(':id_exposicion', $id_exposicion, PDO::PARAM_INT);
+            $stmt->bindParam(':obra_id', $numero_registro, PDO::PARAM_INT);
+            $stmt->execute();
+        } catch (PDOException $e) {
+            echo "Error al añadir la obra a la exposición: " . $e->getMessage();
+        }
+    }
+    
+    public function getObrasSinExposicion() {
+        $query = "SELECT * FROM obras WHERE id_exposicion IS NULL"; // Ajusta según tu esquema de base de datos
+        $result = $this->db->query($query);
+        return $result->fetchAll(PDO::FETCH_ASSOC); // Devuelve las obras como un array asociativo
+    }
+    
 }
 ?>

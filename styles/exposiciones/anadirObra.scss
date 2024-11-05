@@ -1,0 +1,83 @@
+@import "../../SCSS/_variables.scss";
+@import "../../SCSS/_mixins.scss";
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: $header-bg;
+    margin: 0;
+    padding: 0;
+}
+
+.header {
+    @include header; // Asegúrate de que 'header' esté definido en _mixins.scss
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    padding: 10px 20px;
+}
+
+table {
+    width: 60%;
+    border-collapse: collapse; // Asegura que no haya espacios entre las celdas
+    border-radius: 8px;
+    margin-left: 350px;
+    margin-top: 150px;
+
+    th, td {
+        padding: 15px;
+        text-align: center; // Alinea el texto a la izquierda
+        border: 1px solid #ddd; // Añade bordes a las celdas
+        max-width: 20%;
+    }
+
+    th {
+        background-color: #f4f4f4; // Color de fondo del encabezado
+        color: #555;
+    }
+
+    tr {
+        background-color: $header-bg; // Color de fondo de las filas
+        box-shadow: 0 0px 5px 0px rgba(0, 0, 0, 0.1); // Sombra difus
+    }
+
+    tr:hover {
+        background-color: lighten($header-bg, 10%); // Cambia el color al pasar el ratón
+    }
+    img {
+        max-width: 20px; // Ajusta el tamaño máximo que desees
+        height: 50px; // Mantiene la proporción de la imagen
+    }
+}
+
+.btn {
+    padding: 10px 40px;
+    border-radius: 8px;
+    text-decoration: none;
+    color: white;
+    display: inline-flex;
+    
+}
+.btn-success {
+    position: absolute;
+    top: 20px;
+    right: 418px;
+    z-index: 1;
+    background-color: $button-bg;
+    border: none;
+    margin-top: 185px;
+
+    &:hover {
+        background-color: $button_hv;
+    }
+}
+
+.btn-primary {
+    
+    background-color: $button-bg;
+    border: none;
+
+    &:hover {
+        background-color: $button_hv;
+    }
+}
+

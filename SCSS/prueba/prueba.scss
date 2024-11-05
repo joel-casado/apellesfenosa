@@ -27,11 +27,18 @@ h2 {
   color: #333;
 }
 
+.grid-container {
+  display: grid;
+  grid-template-columns: 100px 1fr; /* Asignar columnas: primera para los labels, segunda para los inputs */
+  grid-column-gap: 20px;
+  grid-row-gap: 20px;
+  align-items: center;
+}
+
 label {
-  display: block;
   font-size: 14px;
-  margin-bottom: 5px;
   color: #666;
+  display: block; /* Para asegurar que el label se comporte como bloque */
 }
 
 input[type="text"],
@@ -39,8 +46,8 @@ input[type="date"],
 input[type="number"],
 select,
 textarea {
-  width: calc(33.33% - 10px); /* Cambiado a 33.33% para tres columnas */
-  padding: 10px;
+  width: 50%; /* Usar el 100% para llenar completamente la columna */
+  padding: 5px;
   margin-bottom: 20px;
   border: 1px solid #ddd;
   border-radius: 5px;
@@ -49,9 +56,11 @@ textarea {
   color: #333;
 }
 
-input[type="text"]:focus,
-input[type="date"]:focus,
-input[type="number"]:focus,
+input[type="file"] {
+  width: 50%;
+}
+
+input:focus,
 select:focus,
 textarea:focus {
   border-color: #999;
@@ -65,7 +74,7 @@ textarea {
 
 button[type="submit"] {
   display: block;
-  width: 100%;
+  width: 50%;
   padding: 12px;
   background-color: #007bff;
   color: white;
@@ -82,18 +91,26 @@ button[type="submit"]:hover {
   background-color: #0056b3;
 }
 
-.grid-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
+.section-content {
+  display: none; /* Oculta el contenido por defecto */
+  margin-bottom: 15px; /* Espacio entre secciones */
 }
 
-.grid-item {
-  width: 30%; /* Cambiado a 30% para tres columnas */
+.section-title {
+  cursor: pointer; /* Cambia el cursor al pasar sobre el título */
 }
 
-@media (max-width: 768px) {
-  .grid-item {
-    width: 100%;
+
+@media (max-width: 400px) {
+  .grid-container {
+    grid-template-columns: 2fr; /* Para pantallas más pequeñas, hacer que las filas ocupen todo el ancho */
   }
+}
+
+
+form img {
+  height: 150px;
+  width: 250px;
+  object-fit: cover;
+  border-radius: 4px;
 }

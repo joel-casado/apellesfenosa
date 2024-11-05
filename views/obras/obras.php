@@ -30,15 +30,13 @@ if (!isset($_SESSION['admin']) && !isset($_SESSION['tecnic']) && !isset($_SESSIO
 
     <div class="header">
         <img src="images/login/logo.png" alt="Museu Apel·les Fenosa">
-        <a href="index.php?controller=Login&action=logout" class="logout-link">Cerrar sesión</a>
-    </div>
-
-    <div class="actions">
+        <a href="index.php?controller=Login&action=logout" class="edit-button">Cerrar sesión</a>
         <a href="views/vocabulario/ver_vocabulario.php?id=" class="edit-button">Vocabulario</a>
+        <a href="index.php?controller=Obras&action=verObras&admin" class="edit-button">Obras</a><br>
     </div>
 
     <div class="actions">
-        <a href="views/crear_obra/crear.php?id=" class="edit-button">Crear</a>
+        <a href="index.php?controller=Obras&action=crear" class="edit-button">Crear</a>
     </div>
     
     
@@ -46,7 +44,7 @@ if (!isset($_SESSION['admin']) && !isset($_SESSION['tecnic']) && !isset($_SESSIO
         <thead>
             <tr>
                
-                <th></th>
+                <th>Imatge</th>
                 <th>Número Registre</th>
                 <th>Nom Objecte</th>
                 <th>Títol</th>
@@ -54,13 +52,23 @@ if (!isset($_SESSION['admin']) && !isset($_SESSION['tecnic']) && !isset($_SESSIO
                 <th>Datació</th>
                 <th>Ubicació</th>
                 <th>Material</th>
-                <th colspan="2">Acció</th>
+                <th colspan="3">Acció</th>
             </tr>
         </thead>
         <tbody>
             <?php foreach ($obras as $obra): ?>
                 <tr>
-                    <td><?php echo '<img src="https://www.museuapellesfenosa.cat/wp-content/uploads/2024/01/6.-Gran-tete-de-Paul-Eluard-1041x1536.jpg" ">'; ?></td>
+                <td>
+                    <?php if (!empty($obra['imagen_url'])): ?>
+                        <img src="<?php echo htmlspecialchars($obra['imagen_url']); ?>" alt="<?php echo htmlspecialchars($obra['titulo']); ?>">
+                    <?php else: ?>
+                        <img src="ruta/a/la/imagen/por_defecto.jpg" alt="Sin imagen" style="width: 100px; height: auto;">
+                        <p>Sin imagen disponible</p>
+                    <?php endif; ?>
+                </td>
+
+
+                
                     <td><?php echo $obra["numero_registro"]; ?></td>
                     <td><?php echo $obra["nombre_objeto"]; ?></td>
                     <td><?php echo $obra['titulo']; ?></td>
@@ -69,7 +77,8 @@ if (!isset($_SESSION['admin']) && !isset($_SESSION['tecnic']) && !isset($_SESSIO
                     <td><?php echo $obra['ubicacion']; ?></td>
                     <td><?php echo $obra['texto_material']; ?></td>
                     <td><a href="index.php?controller=Obras&action=mostrarFormulario&id=<?php echo $obra['numero_registro']; ?>" class="edit-button">Editar</a>
-                    <td><a href="index.php?controller=Obras&action=mostrarFicha&id=<?php echo $obra['numero_registro']; ?>" class="edit-button">Ficha</a>                    </td>
+                    <td><a href="index.php?controller=Obras&action=mostrarFicha&id=<?php echo $obra['numero_registro']; ?>" class="edit-button">FichaBásica</a></td>
+                    <td><a href="index.php?controller=Obras&action=mostrarFichaGeneral&id=<?php echo $obra['numero_registro']; ?>" class="edit-button">FichaGeneral</a></td>
                 </tr>
             <?php endforeach; ?>
         </tbody>

@@ -45,26 +45,31 @@ table tr:hover {
   background-color: white;
 }
 
-.create-button {
-  background-color: #6589C4;
-  color: white;
-  padding: 10px 20px;
+.btn {
+  padding: 10px 40px;
+  border-radius: 8px;
   text-decoration: none;
-  border-radius: 5px;
-  transition: background-color 0.3s;
+  color: white;
+  display: inline-flex;
 }
-.create-button:hover {
+
+.btn-success {
+  position: absolute;
+  top: 20px;
+  right: 418px;
+  z-index: 1;
+  background-color: #6589C4;
+  border: none;
+  margin-top: 185px;
+}
+.btn-success:hover {
   background-color: #2D4F6F;
 }
 
-.button {
+.btn-primary {
   background-color: #6589C4;
-  color: white;
-  padding: 10px 20px;
-  text-decoration: none;
-  border-radius: 5px;
-  transition: background-color 0.3s;
+  border: none;
 }
-.button:hover {
+.btn-primary:hover {
   background-color: #2D4F6F;
 }/*# sourceMappingURL=listado_exposiciones.css.map */
