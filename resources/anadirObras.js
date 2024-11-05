@@ -1,9 +1,22 @@
+document.addEventListener('DOMContentLoaded', function() {
+    // Asumiendo que tienes un botón con un evento onclick que llama a agregarObras
+    const button = document.querySelector('.btn-success');
+    if (button) {
+        button.onclick = agregarObras; // Asignar la función al evento onclick del botón
+    }
+});
+
 function agregarObras() {
     console.log("Función agregarObras llamada");
 
     // Obtiene el ID de la exposición del botón
     const button = document.querySelector('.btn-success');
+    if (!button) {
+        console.error('Botón no encontrado');
+        return;
+    }
     const id_exposicion = button.getAttribute('data-id-exposicion');
+    console.log('ID de exposición:', id_exposicion);
 
     // Obtiene los checkbox seleccionados
     const checkboxes = document.querySelectorAll('.checkbox-obra:checked');
@@ -33,4 +46,6 @@ function agregarObras() {
             alert('Hubo un error al añadir las obras.');
         }
     })
+    const url = 'index.php?controller=Exposiciones&action=anadirObrasSeleccionadas&id=' + id_exposicion;
+    console.log('URL de la solicitud:', url);
 }

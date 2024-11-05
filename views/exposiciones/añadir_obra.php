@@ -10,7 +10,7 @@
 </head>
     
 <body>
-
+    <script src="resources/anadirObras.js"></script>
 
     <div class="header">
         <img src="images/login/logo.png" alt="Museu Apel·les Fenosa">
@@ -56,6 +56,6 @@
                 <?php endif; ?>
             </tbody>
         </table>
-    <script src="resources/anadirObras.js"></script>
+        <script src="resources/anadirObras.js"></script>
 </body>
 </html>
