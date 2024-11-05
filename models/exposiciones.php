@@ -106,7 +106,7 @@ class Exposiciones {
         }
     }
     public function addObraToExposicion($numero_registro, $id_exposicion) {
-        $query = "UPDATE obras SET id_exposicion = :id_exposicion WHERE id_obra = :obra_id";
+        $query = "UPDATE obras SET id_exposicion = :id_exposicion WHERE numero_registro = :obra_id";
         try {
             $stmt = $this->db->prepare($query);
             $stmt->bindParam(':id_exposicion', $id_exposicion, PDO::PARAM_INT);
