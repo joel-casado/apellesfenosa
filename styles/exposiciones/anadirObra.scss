@@ -27,6 +27,7 @@ table {
         padding: 15px;
         text-align: center; // Alinea el texto a la izquierda
         border: 1px solid #ddd; // Añade bordes a las celdas
+        max-width: 20%;
     }
 
     th {
@@ -41,6 +42,10 @@ table {
 
     tr:hover {
         background-color: lighten($header-bg, 10%); // Cambia el color al pasar el ratón
+    }
+    img {
+        max-width: 20px; // Ajusta el tamaño máximo que desees
+        height: 50px; // Mantiene la proporción de la imagen
     }
 }
 

@@ -12,23 +12,35 @@ class ExposicionesController {
         require_once 'views/exposiciones/listado_exposiciones.php';
     }
 
-    public function anadirObra(){
+    public function anadirObra() {
+        // Obtener las obras que no están adscritas a ninguna exposición
+        $obras = $this->modelo->getObrasSinExposicion(); // Asegúrate de tener este método en tu modelo
+    
+        // Cargar la vista y pasarle los datos de las obras
         require_once 'views/exposiciones/añadir_obra.php';
     }
     public function anadirObrasSeleccionadas() {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['obra_ids'])) {
-            $obraIds = $_POST['obra_ids'];
-            $id_exposicion = $_GET['id']; // Suponiendo que el ID de la exposición esté en la URL
+        // Configuración de respuesta como JSON
+        header('Content-Type: application/json');
     
-            foreach ($obraIds as $obraId) {
-                $this->modelo->addObraToExposicion($obraId, $id_exposicion);
-            }
+        $id_exposicion = $_GET['id'] ?? null; // Obtener el ID de la exposición
+        $input = json_decode(file_get_contents("php://input"), true); // Obtener el JSON enviado
+        $obrasSeleccionadas = $input['exposicion_ids'] ?? []; // Obtener las obras seleccionadas
     
-            // Redirigir a la página de ver obras
-            header('Location: index.php?controller=Exposiciones&action=ver_obras&id=' . $id_exposicion);
+        if (!$id_exposicion || empty($obrasSeleccionadas)) {
+            echo json_encode(['success' => false, 'message' => 'Datos incompletos.']);
             exit();
         }
+    
+        foreach ($obrasSeleccionadas as $numero_registro) {
+            $this->modelo->addObraToExposicion($numero_registro, $id_exposicion);
+        }
+    
+        echo json_encode(['success' => true, 'message' => 'Obras añadidas correctamente.']);
+        exit();
     }
+    
+    
     
 
     public function crea_expo() {
@@ -65,9 +77,7 @@ class ExposicionesController {
             header('Location: index.php?controller=Exposiciones&action=listado_exposiciones');
             exit();
         }
-    
-        // Si no es un POST, mostrar el formulario
-        require_once 'views/exposiciones/crea_expo.php';
+
     }
 
     public function update() {
@@ -90,21 +100,18 @@ class ExposicionesController {
         }
     }
     public function ver_obras() {
-        if (isset($_GET['id'])) { // Cambiar de POST a GET para obtener el ID desde la URL
-            $id_exposicion = $_GET['id']; // Obtener el ID de la exposición desde la URL
-            $obras = $this->modelo->ver_obras($id_exposicion); // Llamar al método del modelo para obtener las obras
+        if (isset($_GET['id'])) {
+            $id_exposicion = $_GET['id'];
+            // Llamar al método del modelo para obtener las obras
+            $obras = $this->modelo->ver_obras($id_exposicion);
         } else {
-            // Manejar el caso en que no se proporciona un ID
             header('Location: index.php?controller=Exposiciones&action=listado_exposiciones');
             exit();
         }
-        // Crear una instancia de la clase de base de datos para obtener la conexión
-        $db = (new Database())->conectar();
-        $obrasModel = new ObrasModel($db);
-        $obras = $obrasModel->getObrasExpo($id_exposicion);
-
+    
         // Cargar la vista y pasarle los datos de las obras
         require_once "views/exposiciones/ver_obras.php";
     }
+    
 }
 ?>

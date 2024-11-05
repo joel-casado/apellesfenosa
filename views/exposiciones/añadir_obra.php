@@ -8,12 +8,14 @@
     <link rel="stylesheet" href="styles/exposiciones/anadirObra.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
+    
 <body>
+
 
     <div class="header">
         <img src="images/login/logo.png" alt="Museu Apel·les Fenosa">
         <div class="crear-expo">
-            <button onclick="agregarObras()" class="btn btn-success">Añadir</button>
+            <button onclick="agregarObras()" class="btn btn-success" data-id-exposicion="<?php echo $id_exposicion; ?>">Añadir</button>
         </div>
     </div>
         <table>
@@ -35,9 +37,9 @@
                     <?php foreach ($obras as $obra): ?>
                         <tr>
                             <td>
-                                <input type="checkbox" name="exposicion_ids[]" value="<?php echo $obra['id_exposicion']; ?>">
+                                <input type="checkbox" class="checkbox-obra" name="exposicion_ids[]" value="<?php echo $obra['numero_registro']; ?>">
                             </td>
-                            <td><?php echo '<img src="https://www.museuapellesfenosa.cat/wp-content/uploads/2024/01/6.-Gran-tete-de-Paul-Eluard-1041x1536.jpg" ">'; ?></td>
+                            <td><?php echo '<img src="https://www.museuapellesfenosa.cat/wp-content/uploads/2024/01/6.-Gran-tete-de-Paul-Eluard-1041x1536.jpg" style="max-width: 100px; height: auto;">'; ?></td>
                             <td><?php echo $obra["numero_registro"]; ?></td>
                             <td><?php echo $obra["nombre_objeto"]; ?></td>
                             <td><?php echo $obra['titulo']; ?></td>

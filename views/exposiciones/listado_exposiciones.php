@@ -20,6 +20,7 @@
         <table class="table">
             <thead>
                 <tr>
+                    
                     <th>Nom</th>
                     <th>Exposició</th>
                     <th>Data Inici</th>
@@ -34,6 +35,7 @@
                     <tr>
                         
                         <td><?php echo $expo['exposicion']; ?></td>
+                        <td><?php echo $expo['id_exposicion']; ?></td>
                         <td><?php echo $expo['fecha_inicio_expo']; ?></td>
                         <td><?php echo $expo['fecha_fin_expo']; ?></td>
                         <td><?php echo $expo['tipo_exposicion']; ?></td>

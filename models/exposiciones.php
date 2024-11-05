@@ -105,16 +105,22 @@ class Exposiciones {
             return [];
         }
     }
-    public function addObraToExposicion($obraId, $id_exposicion) {
-        $query = "INSERT INTO exposicion_obras (id_exposicion, id_obra) VALUES (:id_exposicion, :id_obra)";
+    public function addObraToExposicion($numero_registro, $id_exposicion) {
+        $query = "UPDATE obras SET id_exposicion = :id_exposicion WHERE id_obra = :obra_id";
         try {
             $stmt = $this->db->prepare($query);
             $stmt->bindParam(':id_exposicion', $id_exposicion, PDO::PARAM_INT);
-            $stmt->bindParam(':id_obra', $obraId, PDO::PARAM_INT);
+            $stmt->bindParam(':obra_id', $numero_registro, PDO::PARAM_INT);
             $stmt->execute();
         } catch (PDOException $e) {
             echo "Error al añadir la obra a la exposición: " . $e->getMessage();
         }
+    }
+    
+    public function getObrasSinExposicion() {
+        $query = "SELECT * FROM obras WHERE id_exposicion IS NULL"; // Ajusta según tu esquema de base de datos
+        $result = $this->db->query($query);
+        return $result->fetchAll(PDO::FETCH_ASSOC); // Devuelve las obras como un array asociativo
     }
     
 }
