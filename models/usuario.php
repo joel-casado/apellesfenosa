@@ -70,6 +70,7 @@ class Usuario extends Database {
         $stmt->bindParam(':nombreOriginal', $nombreOriginal); // Este es el nombre con el que filtras al usuario
         return $stmt->execute();
     }
+    
 }
 
 

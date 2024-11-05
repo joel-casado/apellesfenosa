@@ -1,32 +1,37 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Crear Ubicacion</title>
-    <link rel="stylesheet" href="styles/usuarios/usuaris.css">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Ubicación</title>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script>
+        $(function() {
+            $("#fecha_inicio_ubi, #fecha_fin_ubi").datepicker({
+                dateFormat: "dd/mm/yy"
+            });
+        });
+    </script>
 </head>
 <body>
-    <div class="header">
-        <img src="views/obras/Logo2.png" alt="Logo">
-    </div>
-
-    <div class="usuaris_box">
-        <form action="index.php?controller=Usuaris&action=createUser" method="POST" onsubmit="return validarFormulario()">
-            <input type="text" name="name" id="username" required placeholder="Nombre de usuario">
-            <span id="username-error" style="color: red;"><?php echo isset($errorMessage) ? $errorMessage : ''; ?></span>
-            <select id="rol" name="rol">
-                <option value="convidat">Convidat</option>
-                <option value="tecnic">Tècnic</option>
-                <option value="admin">Administrador</option>
-            </select>
-            <input type="password" name="password" required placeholder="Contraseña">
-            <button type="submit">Crear</button>
-        </form>
-        <div class="image_usuaris_box">
-            <img src="images/2.-Petite-Tete-de-Jean-Cocteau_2-1.png" alt="Statue">
-        </div>
-    </div>
-
-    <script src="path/to/usuaris.js"></script>
+    <h2>Crear Nueva Ubicación</h2>
+    <form action="index.php?controller=ubicacion&action=crearUbicacion&padre_id=<?php echo isset($_GET['padre_id']) ? $_GET['padre_id'] : ''; ?>" method="POST">
+        <label for="nombre_ubicacion">Nombre de Ubicación:</label>
+        <input type="text" id="nombre_ubicacion" name="nombre_ubicacion" required>
+        
+        <label for="fecha_inicio_ubi">Fecha Inicio:</label>
+        <input type="text" id="fecha_inicio_ubi" name="fecha_inicio_ubi" required>
+        
+        <label for="fecha_fin_ubi">Fecha Fin:</label>
+        <input type="text" id="fecha_fin_ubi" name="fecha_fin_ubi">
+        
+        <label for="comentario_ubicacion">Comentario:</label>
+        <textarea id="comentario_ubicacion" name="comentario_ubicacion"></textarea>
+        
+        <button type="submit">Crear Ubicación</button>
+    </form>
 </body>
 </html>
