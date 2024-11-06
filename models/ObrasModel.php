@@ -138,28 +138,6 @@ class ObrasModel {
             return $result->fetchAll(PDO::FETCH_ASSOC);
         }
         
-
-        
-        public function crearObra(
-            $numero_registro, $titulo, $codigo_autor, $classificacion_generica, 
-            $coleccion_procedencia, $maxima_altura, $maxima_anchura, $maxima_profundidad, 
-            $materiales, $tecnica, $ano_inicio, $ano_final, /*$dataciones, */
-            $ubicacion, $formas_ingreso, $fecha_registro, $descripcion, 
-            $numero_ejemplares, $fuente_ingreso, $estado_conservacion, 
-            $lugar_procedencia, $lugar_ejecucion, $valoracion_econ, 
-            $bibliografia, $historia_obra,$fecha_ingreso,/*$exposicion*/
-        )
-        {
-            $query = "INSERT INTO obras (
-                numero_registro, titulo, classificacion_generica, autor, 
-                coleccion_procedencia, maxima_altura, maxima_anchura, 
-                maxima_profundidad, material, tecnica, ano_inicio, 
-                ano_final, ubicacion, fecha_registro, 
-                descripcion, numero_ejemplares, fecha_ingreso, fuente_ingreso,
-                forma_ingreso, estado_conservacion, lugar_ejecucion, 
-                lugar_procedencia, valoracion_econ, /*id_exposicion,*/ 
-                bibliografia, historia_obra
-            ) VALUES (
         public function crearObra(
             $numero_registro, $titulo, $codigo_autor, $classificacion_generica, 
             $coleccion_procedencia, $maxima_altura, $maxima_anchura, 
