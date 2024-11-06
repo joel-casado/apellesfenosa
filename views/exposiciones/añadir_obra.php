@@ -10,14 +10,15 @@
 </head>
     
 <body>
-    <script src="resources/anadirObras.js"></script>
+
 
     <div class="header">
         <img src="images/login/logo.png" alt="Museu Apel·les Fenosa">
-        <div class="crear-expo">
-            <button onclick="agregarObras()" class="btn btn-success" data-id-exposicion="<?php echo $id_exposicion; ?>">Añadir</button>
-        </div>
     </div>
+    <form method="POST" action="index.php?controller=Exposiciones&action=anadirObra">
+        <!-- Campo oculto para enviar el ID de la exposición -->
+        <input type="hidden" name="id_exposicion" value="<?php echo $id_exposicion; ?>">
+
         <table>
             <thead>
                 <tr>
@@ -37,9 +38,12 @@
                     <?php foreach ($obras as $obra): ?>
                         <tr>
                             <td>
+                                <!-- Checkbox para seleccionar la obra -->
                                 <input type="checkbox" class="checkbox-obra" name="exposicion_ids[]" value="<?php echo $obra['numero_registro']; ?>">
                             </td>
-                            <td><?php echo '<img src="https://www.museuapellesfenosa.cat/wp-content/uploads/2024/01/6.-Gran-tete-de-Paul-Eluard-1041x1536.jpg" style="max-width: 100px; height: auto;">'; ?></td>
+                            <td>
+                                <img src="https://www.museuapellesfenosa.cat/wp-content/uploads/2024/01/6.-Gran-tete-de-Paul-Eluard-1041x1536.jpg" style="max-width: 100px; height: auto;">
+                            </td>
                             <td><?php echo $obra["numero_registro"]; ?></td>
                             <td><?php echo $obra["nombre_objeto"]; ?></td>
                             <td><?php echo $obra['titulo']; ?></td>
@@ -56,6 +60,9 @@
                 <?php endif; ?>
             </tbody>
         </table>
-        <script src="resources/anadirObras.js"></script>
+
+        <!-- Botón de submit para enviar el formulario -->
+        <button type="submit" class="btn btn-success">Añadir</button>
+    </form>
 </body>
 </html>
