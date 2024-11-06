@@ -33,8 +33,7 @@ class ExposicionesController {
         require_once 'views/exposiciones/añadir_obra.php';
     }
     
-
-    public function crea_expo() {
+        public function crea_expo() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Recoger los datos del formulario
             $expo = [

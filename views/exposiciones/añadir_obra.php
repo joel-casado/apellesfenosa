@@ -10,16 +10,10 @@
 </head>
     
 <body>
-    
-
     <div class="header">
         <img src="images/login/logo.png" alt="Museu Apel·les Fenosa">
-        <div class="crear-expo">
-            <button onclick="agregarObras()" class="btn btn-success" data-id-exposicion="<?php echo $id_exposicion; ?>">Añadir</button>
-        </div>
     </div>
     <form method="POST" action="index.php?controller=Exposiciones&action=anadirObra">
-    <!-- Campo oculto para enviar el ID de la exposición -->
     <input type="hidden" name="id_exposicion" value="<?php echo $id_exposicion; ?>">
 
     <table>
@@ -41,7 +35,6 @@
                 <?php foreach ($obras as $obra): ?>
                     <tr>
                         <td>
-                            <!-- Checkbox para seleccionar la obra -->
                             <input type="checkbox" class="checkbox-obra" name="exposicion_ids[]" value="<?php echo $obra['numero_registro']; ?>">
                         </td>
                         <td>
@@ -63,11 +56,8 @@
             <?php endif; ?>
         </tbody>
     </table>
-
-    <!-- Botón de submit para enviar el formulario -->
     <button type="submit" class="btn btn-success">Añadir</button>
 </form>
 
-    
 </body>
 </html>
