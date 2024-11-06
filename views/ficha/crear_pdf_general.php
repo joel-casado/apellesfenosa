@@ -29,17 +29,7 @@ $imagen_url = $obraModel->obtenerImagen($obra['numero_registro']);
 
 // Selección de valores de listas
 $autorseleccionado = array_column(array_filter($autores, fn($a) => $a['codigo_autor'] === $obra['autor']), 'nombre_autor')[0] ?? '';
-$materialseleccionado = array_column(array_filter($materiales, fn($m) => $m['codigo_getty_material'] === $obra['material']), 'texto_material')[0] ?? '';
-
-
-                $clasificacionSeleccionada = '';
-                foreach ($clasificaciones_genericas as $clasificacion) {
-                    if ($obra['classificacion_generica'] == $clasificacion['id_clasificacion']) {
-                        $clasificacionSeleccionada = $clasificacion['texto_clasificacion'];
-                        break; // Salir del bucle una vez encontrada la clasificación
-                    }
-                }
-                
+$materialseleccionado = array_column(array_filter($materiales, fn($m) => $m['codigo_getty_material'] === $obra['material']), 'texto_material')[0] ?? '';                
 $datacionseleccionado = '';
 foreach ($dataciones as $datacion) {
     if ($obra['datacion'] == $datacion['id_datacion']) {
@@ -60,6 +50,19 @@ $pdf->SetHeaderData('', 0, 'Ficha de Obra', '');
 // Agregar una página
 $pdf->AddPage();
 
+// Comprobamos si la imagen existe antes de añadirla
+      // Comprobamos si la imagen existe antes de añadirla
+$imagen_html = '';
+if (file_exists($imagen_url)) {
+    // Generar el HTML para la imagen centrada con margen superior
+    $imagen_html = '<div style="text-align: center; <br><br><br><br>"><img src="' . $imagen_url . '" width="100" height="100"/></div>'; // Ajusta '20px' según sea necesario
+} else {
+    $imagen_html = '<div style="text-align: center; margin-top: 20px;">No disponible</div>'; // Añadir margen también aquí
+}
+
+
+
+        
 $html = <<<EOD
 <style>
     body {
@@ -97,6 +100,8 @@ $html = <<<EOD
 </style>
 
 <h1>Ficha de Obra</h1>
+
+ $imagen_html
 
 <h2 class="section-title">Informació Principal</h2>
 <table>

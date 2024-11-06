@@ -49,11 +49,7 @@ $imagen_url = $obraModel->obtenerImagen($obra['numero_registro']);
 
 
     <form>
-        <?php
-        // Depuración: Verificar si la URL de la imagen está presente en la vista
-        echo "<script>console.log('URL de imagen en la vista: " . htmlspecialchars($imagen_url) . "');</script>";
-        ?>
-
+    
         <?php if (!empty($imagen_url)): ?>
             <img src="<?php echo htmlspecialchars($imagen_url); ?>" alt="<?php echo htmlspecialchars($obra['titulo']); ?>" style="width: 100px; height: auto;">
         <?php else: ?>

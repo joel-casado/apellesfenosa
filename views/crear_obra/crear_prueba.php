@@ -1,4 +1,4 @@
-<?php
+ prueba<?php
 $dbConnection = new Database();
 $conn = $dbConnection->conectar(); 
 
@@ -25,7 +25,7 @@ $dataciones = $obraModel->getdatacion();
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
-    <h1>Crear Ficha</h1>
+    <h1>Crear Ficha prueba</h1>
     
     <form id="crearObraForm" action="index.php?controller=Obras&action=crear" method="POST" enctype="multipart/form-data">
 

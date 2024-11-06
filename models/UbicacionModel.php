@@ -21,28 +21,46 @@ class UbicacionModel {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
     
-    public function crearUbicacion($fecha_inicio_ubi, $fecha_fin_ubi, $comentario_ubicacion, $ubicacion_padre) {
-        // Fetch the highest current ID
+    public function crearUbicacion($fecha_inicio_ubi, $fecha_fin_ubi, $comentario_ubicacion, $ubicacion_padre, $nombre_ubicacion) {
         $query = $this->conn->prepare("SELECT MAX(id_ubicacion) AS max_id FROM ubicaciones");
         $query->execute();
         $result = $query->fetch(PDO::FETCH_ASSOC);
         $new_id = $result['max_id'] + 1;
     
-        // Insert new record
+        $ubicacion_padre = $ubicacion_padre ?? null;
+    
         $query = $this->conn->prepare(
-            "INSERT INTO ubicaciones (id_ubicacion, fecha_inicio_ubi, fecha_fin_ubi, comentario_ubicacion, ubicacion_padre)
-             VALUES (:id_ubicacion, :fecha_inicio_ubi, :fecha_fin_ubi, :comentario_ubicacion, :ubicacion_padre)"
+            "INSERT INTO ubicaciones (id_ubicacion, fecha_inicio_ubi, fecha_fin_ubi, comentario_ubicacion, ubicacion_padre, nombre_ubicacion)
+             VALUES (:id_ubicacion, :fecha_inicio_ubi, :fecha_fin_ubi, :comentario_ubicacion, :ubicacion_padre, :nombre_ubicacion)"
         );
         $query->bindParam(':id_ubicacion', $new_id);
         $query->bindParam(':fecha_inicio_ubi', $fecha_inicio_ubi);
         $query->bindParam(':fecha_fin_ubi', $fecha_fin_ubi);
         $query->bindParam(':comentario_ubicacion', $comentario_ubicacion);
         $query->bindParam(':ubicacion_padre', $ubicacion_padre, PDO::PARAM_INT);
+        $query->bindParam(':nombre_ubicacion', $nombre_ubicacion);
     
         return $query->execute();
     }
     
+    public function updateUbicacion($id, $nombreUbicacion, $fechaInicio, $fechaFin, $comentario) {
+        $query = $this->conn->prepare(
+            "UPDATE ubicaciones 
+             SET nombre_ubicacion = :nombre_ubicacion, 
+                 fecha_inicio_ubi = :fecha_inicio_ubi, 
+                 fecha_fin_ubi = :fecha_fin_ubi, 
+                 comentario_ubicacion = :comentario_ubicacion 
+             WHERE id_ubicacion = :id"
+        );
     
-
+        $query->bindParam(':nombre_ubicacion', $nombreUbicacion);
+        $query->bindParam(':fecha_inicio_ubi', $fechaInicio);
+        $query->bindParam(':fecha_fin_ubi', $fechaFin);
+        $query->bindParam(':comentario_ubicacion', $comentario);
+        $query->bindParam(':id', $id, PDO::PARAM_INT);
+    
+        return $query->execute();
+    }
+    
 }
 ?>
