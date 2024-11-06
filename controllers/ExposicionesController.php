@@ -13,33 +13,26 @@ class ExposicionesController {
     }
 
     public function anadirObra() {
-        // Obtener las obras que no están adscritas a ninguna exposición
-        $obras = $this->modelo->getObrasSinExposicion(); // Asegúrate de tener este método en tu modelo
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['exposicion_ids'])) {
+            $obras = $_POST['exposicion_ids']; // Obtener las IDs de las obras seleccionadas
+            $id_exposicion = $_POST['id_exposicion']; // Asegúrate de que el ID de exposición sea enviado
     
-        // Cargar la vista y pasarle los datos de las obras
-        require_once 'views/exposiciones/añadir_obra.php';
-    }
-    public function anadirObrasSeleccionadas() {
-        // Configuración de respuesta como JSON
-        header('Content-Type: application/json');
+            foreach ($obras as $numero_registro) {
+                $this->modelo->addObraToExposicion($numero_registro, $id_exposicion);
+            }
     
-        $id_exposicion = $_GET['id'] ?? null; // Obtener el ID de la exposición
-        $input = json_decode(file_get_contents("php://input"), true); // Obtener el JSON enviado
-        $obrasSeleccionadas = $input['exposicion_ids'] ?? []; // Obtener las obras seleccionadas
-    
-        if (!$id_exposicion || empty($obrasSeleccionadas)) {
-            echo json_encode(['success' => false, 'message' => 'Datos incompletos.']);
+            // Redirigir o mostrar un mensaje de éxito
+            header('Location: index.php?controller=Exposiciones&action=ver_obras&id=' . $id_exposicion);
             exit();
         }
     
-        foreach ($obrasSeleccionadas as $numero_registro) {
-            $this->modelo->addObraToExposicion($numero_registro, $id_exposicion);
-        }
+        // Obtener las obras que no están adscritas a ninguna exposición
+        $obras = $this->modelo->getObrasSinExposicion();
     
-        echo json_encode(['success' => true, 'message' => 'Obras añadidas correctamente.']);
-        exit();
+        // Cargar la vista
+        require_once 'views/exposiciones/añadir_obra.php';
     }
-    //Md reactualiza
+    
 
     public function crea_expo() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {

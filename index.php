@@ -10,7 +10,6 @@
 
 require_once "autoload.php";
 require_once "models/database.php"; // Include your database class
-ini_set('memory_limit', '1024M');
 // Create the database connection using the conectar() method
 $db = new Database();
 $connection = $db->conectar(); // Call the conectar method

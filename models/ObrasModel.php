@@ -8,12 +8,12 @@ class ObrasModel {
 
     public function getObras() { 
         $query = "SELECT obras.*,materiales.texto_material,autores.nombre_autor, dataciones.nombre_datacion, archivos.enlace AS imagen_url
-                  FROM obras 
-                  JOIN materiales ON obras.material = materiales.codigo_getty_material
-                  JOIN autores ON obras.autor = autores.codigo_autor
-                  JOIN dataciones ON obras.datacion = dataciones.id_datacion
-                  LEFT JOIN archivos ON obras.numero_registro = archivos.numero_registro";
-                  
+                FROM obras 
+                JOIN materiales ON obras.material = materiales.codigo_getty_material
+                JOIN autores ON obras.autor = autores.codigo_autor
+                JOIN dataciones ON obras.datacion = dataciones.id_datacion
+                LEFT JOIN archivos ON obras.numero_registro = archivos.numero_registro";
+                
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -140,6 +140,26 @@ class ObrasModel {
         
 
         
+        public function crearObra(
+            $numero_registro, $titulo, $codigo_autor, $classificacion_generica, 
+            $coleccion_procedencia, $maxima_altura, $maxima_anchura, $maxima_profundidad, 
+            $materiales, $tecnica, $ano_inicio, $ano_final, /*$dataciones, */
+            $ubicacion, $formas_ingreso, $fecha_registro, $descripcion, 
+            $numero_ejemplares, $fuente_ingreso, $estado_conservacion, 
+            $lugar_procedencia, $lugar_ejecucion, $valoracion_econ, 
+            $bibliografia, $historia_obra,$fecha_ingreso,/*$exposicion*/
+        )
+        {
+            $query = "INSERT INTO obras (
+                numero_registro, titulo, classificacion_generica, autor, 
+                coleccion_procedencia, maxima_altura, maxima_anchura, 
+                maxima_profundidad, material, tecnica, ano_inicio, 
+                ano_final, ubicacion, fecha_registro, 
+                descripcion, numero_ejemplares, fecha_ingreso, fuente_ingreso,
+                forma_ingreso, estado_conservacion, lugar_ejecucion, 
+                lugar_procedencia, valoracion_econ, /*id_exposicion,*/ 
+                bibliografia, historia_obra
+            ) VALUES (
         public function crearObra(
             $numero_registro, $titulo, $codigo_autor, $classificacion_generica, 
             $coleccion_procedencia, $maxima_altura, $maxima_anchura, 

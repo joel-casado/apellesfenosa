@@ -10,7 +10,7 @@
 </head>
     
 <body>
-
+    
 
     <div class="header">
         <img src="images/login/logo.png" alt="Museu Apel·les Fenosa">
@@ -18,44 +18,56 @@
             <button onclick="agregarObras()" class="btn btn-success" data-id-exposicion="<?php echo $id_exposicion; ?>">Añadir</button>
         </div>
     </div>
-        <table>
-            <thead>
-                <tr>
-                    <th>Selecciona</th>
-                    <th>Obra</th>
-                    <th>Número Registre</th>
-                    <th>Nom Objecte</th>
-                    <th>Títol</th>
-                    <th>Autor</th>
-                    <th>Datació</th>
-                    <th>Ubicació</th>
-                    <th>Material</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php if (!empty($obras)): ?>
-                    <?php foreach ($obras as $obra): ?>
-                        <tr>
-                            <td>
-                                <input type="checkbox" class="checkbox-obra" name="exposicion_ids[]" value="<?php echo $obra['numero_registro']; ?>">
-                            </td>
-                            <td><?php echo '<img src="https://www.museuapellesfenosa.cat/wp-content/uploads/2024/01/6.-Gran-tete-de-Paul-Eluard-1041x1536.jpg" style="max-width: 100px; height: auto;">'; ?></td>
-                            <td><?php echo $obra["numero_registro"]; ?></td>
-                            <td><?php echo $obra["nombre_objeto"]; ?></td>
-                            <td><?php echo $obra['titulo']; ?></td>
-                            <td><?php echo $obra['nombre_autor']; ?></td>
-                            <td><?php echo $obra['nombre_datacion']; ?></td>
-                            <td><?php echo $obra['ubicacion']; ?></td>
-                            <td><?php echo $obra['texto_material']; ?></td>
-                        </tr>
-                    <?php endforeach; ?>
-                <?php else: ?>
+    <form method="POST" action="index.php?controller=Exposiciones&action=anadirObra">
+    <!-- Campo oculto para enviar el ID de la exposición -->
+    <input type="hidden" name="id_exposicion" value="<?php echo $id_exposicion; ?>">
+
+    <table>
+        <thead>
+            <tr>
+                <th>Selecciona</th>
+                <th>Obra</th>
+                <th>Número Registre</th>
+                <th>Nom Objecte</th>
+                <th>Títol</th>
+                <th>Autor</th>
+                <th>Datació</th>
+                <th>Ubicació</th>
+                <th>Material</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php if (!empty($obras)): ?>
+                <?php foreach ($obras as $obra): ?>
                     <tr>
-                        <td colspan="9">No hay obras disponibles para esta exposición.</td>
+                        <td>
+                            <!-- Checkbox para seleccionar la obra -->
+                            <input type="checkbox" class="checkbox-obra" name="exposicion_ids[]" value="<?php echo $obra['numero_registro']; ?>">
+                        </td>
+                        <td>
+                            <img src="https://www.museuapellesfenosa.cat/wp-content/uploads/2024/01/6.-Gran-tete-de-Paul-Eluard-1041x1536.jpg" style="max-width: 100px; height: auto;">
+                        </td>
+                        <td><?php echo $obra["numero_registro"]; ?></td>
+                        <td><?php echo $obra["nombre_objeto"]; ?></td>
+                        <td><?php echo $obra['titulo']; ?></td>
+                        <td><?php echo $obra['nombre_autor']; ?></td>
+                        <td><?php echo $obra['nombre_datacion']; ?></td>
+                        <td><?php echo $obra['ubicacion']; ?></td>
+                        <td><?php echo $obra['texto_material']; ?></td>
                     </tr>
-                <?php endif; ?>
-            </tbody>
-        </table>
-    <script src="resources/anadirObras.js"></script>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <tr>
+                    <td colspan="9">No hay obras disponibles para esta exposición.</td>
+                </tr>
+            <?php endif; ?>
+        </tbody>
+    </table>
+
+    <!-- Botón de submit para enviar el formulario -->
+    <button type="submit" class="btn btn-success">Añadir</button>
+</form>
+
+    
 </body>
 </html>
