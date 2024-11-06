@@ -135,16 +135,7 @@ $dataciones = $obraModel->getdatacion();
                 <?php endforeach; ?>
             </select>
 
-
-            <label for="datacion">Datación:</label>
-            <select name="datacion" id="datacion">
-            <option value="">Selecciona Datación</option>
-            <?php foreach ($dataciones as $datacion): ?>
-                <option>
-                    <?= $datacion['nombre_datacion']  . ' / ' . $datacion['ano_inicio']  . ' / ' . $datacion['ano_final'] ?>
-                </option>
-            <?php endforeach; ?>
-            </select>
+            
         
 
             <label for="fecha_registro">Fecha Registro:</label>
@@ -191,7 +182,7 @@ $dataciones = $obraModel->getdatacion();
 
         <label for="lugar_ejecucion">Lugar de Ejecución:</label>
         <input type="text" id="lugar_ejecucion" name="lugar_ejecucion"required>
-
+        
         <label for="lugar_procedencia">Lugar de Procedencia:</label>
         <input type="text" id="lugar_procedencia" name="lugar_procedencia"required>
 

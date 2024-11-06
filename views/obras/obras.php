@@ -39,7 +39,7 @@ if (!isset($_SESSION['admin']) && !isset($_SESSION['tecnic']) && !isset($_SESSIO
         <a href="index.php?controller=Obras&action=crear" class="edit-button">Crear</a>
     </div>
     
-    
+    <h1>OBRAS DISPONIBLES</h1>
     <table>
         <thead>
             <tr>

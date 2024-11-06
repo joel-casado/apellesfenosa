@@ -63,11 +63,7 @@ $exposiciones = $obraModel->getexposicion();
         <label for="coleccion_procedencia">Colección Procedencia:</label>
         <input type="text" id="coleccion_procedencia" name="coleccion_procedencia" value="<?php echo $obra['coleccion_procedencia']; ?>">
  
-
-        <label for="ubicacion">Ubicación:</label>
-        <input type="text" id="ubicacion" name="ubicacion" value="<?php echo $obra['ubicacion']; ?>">
-
-        <div>
+        </div>
         </div>
 
         <!-- Detalles Realización -->
