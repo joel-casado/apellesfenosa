@@ -51,11 +51,16 @@ $dataciones = $obraModel->getdatacion();
                 <?php endforeach; ?>
             </select>
 
+            <label for="classificacion_generica">Clasificación Genérica:</label>
+            <select name="classificacion_generica" id="classificacion_generica" required>
+                <option value="">Selecciona Clasificación</option>
+                <?php foreach ($clasificaciones_genericas as $clasificacion_generica): ?>
+                    <option value="<?= $clasificacion_generica['id_clasificacion'] ?>"><?= $clasificacion_generica['texto_clasificacion'] ?></option>
+                <?php endforeach; ?>
+            </select>
+
             <label for="coleccion_procedencia">Colección Procedencia:</label>
             <input type="text" id="coleccion_procedencia" name="coleccion_procedencia"required>
-
-            <label for="ubicacion">Ubicación:</label>
-            <input type="text" id="ubicacion" name="ubicacion"required>
 
         </div>
         </div>
@@ -128,6 +133,17 @@ $dataciones = $obraModel->getdatacion();
                         <?= $final['ano_final'] ?>
                     </option>
                 <?php endforeach; ?>
+            </select>
+
+
+            <label for="datacion">Datación:</label>
+            <select name="datacion" id="datacion">
+            <option value="">Selecciona Datación</option>
+            <?php foreach ($dataciones as $datacion): ?>
+                <option>
+                    <?= $datacion['nombre_datacion']  . ' / ' . $datacion['ano_inicio']  . ' / ' . $datacion['ano_final'] ?>
+                </option>
+            <?php endforeach; ?>
             </select>
         
 

@@ -39,8 +39,7 @@ class ObrasController {
             $ano_inicio = $_POST['ano_inicio'];
             $ano_final = $_POST['ano_final'];
             $dataciones = $_POST['datacion'];
-            $ubicacion = $_POST['ubicacion'];
-            $formas_ingreso = $_POST['forma_ingreso'];
+            $formas_ingreso = $_POST['id_forma_ingreso'];
             $fecha_registro = $_POST['fecha_registro'];
             $descripcion = $_POST['descripcion'];
             $numero_ejemplares = $_POST['numero_ejemplares'];
@@ -132,7 +131,7 @@ class ObrasController {
             $obraModel = new ObrasModel($this->conn);
             $obra = $obraModel->obtenerObra($id);
     
-            // Cargar la vista de edición con los datos de la obra
+            // Cargar la vista de edición con los datose la obra
             require_once 'views/ficha/crear_pdf_general.php';
         } else {
             echo "ID no proporcionado.";
@@ -144,19 +143,18 @@ class ObrasController {
 
     
     public function crear() {
-
-        ob_start();
         
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
             header('Content-Type: application/json');
-            var_dump($_POST);
-            var_dump($_FILES);
-            exit();
+           
+
             $titulo = isset($_POST['titulo']) ? trim($_POST['titulo']) : null;
             $numero_registro = isset($_POST['n_registro']) ? trim($_POST['n_registro']) : null;
             $codigo_autor = isset($_POST['codigo_autor']) ? trim($_POST['codigo_autor']) : null;
             $classificacion_generica = isset($_POST['classificacion_generica']) ? trim($_POST['classificacion_generica']) : null;
             $coleccion_procedencia = isset($_POST['coleccion_procedencia']) ? trim($_POST['coleccion_procedencia']) : null;
+            $dataciones = isset($_POST['id_datacion']) ? trim($_POST['id_datacion']) : null;
             $maxima_altura = isset($_POST['maxima_altura']) ? trim($_POST['maxima_altura']) : null;
             $maxima_anchura = isset($_POST['maxima_anchura']) ? trim($_POST['maxima_anchura']) : null;
             $maxima_profundidad = isset($_POST['maxima_profundidad']) ? trim($_POST['maxima_profundidad']) : null;
@@ -164,10 +162,8 @@ class ObrasController {
             $tecnica = isset($_POST['tecnica']) ? trim($_POST['tecnica']) : null;
             $ano_inicio = isset($_POST['ano_inicio']) ? trim($_POST['ano_inicio']) : null;
             $ano_final = isset($_POST['ano_final']) ? trim($_POST['ano_final']) : null;
-            $ubicacion = isset($_POST['ubicacion']) ? trim($_POST['ubicacion']) : null;
-            $formas_ingreso = isset($_POST['forma_ingreso']) ? trim($_POST['forma_ingreso']) : null; 
+            $formas_ingreso = isset($_POST['forma_ingreso']) ? trim($_POST['forma_ingreso']) : null;
             $fecha_registro = isset($_POST['fecha_registro']) ? trim($_POST['fecha_registro']) : null;
-           // $dataciones = isset($_POST['datacion']) ? trim($_POST['datacion']) : null;
             $descripcion = isset($_POST['descripcion']) ? trim($_POST['descripcion']) : null;
             $numero_ejemplares = isset($_POST['numero_ejemplares']) ? trim($_POST['numero_ejemplares']) : null;
             $fecha_ingreso = isset($_POST['fecha_ingreso']) ? trim($_POST['fecha_ingreso']) : null;
@@ -176,26 +172,21 @@ class ObrasController {
             $lugar_ejecucion = isset($_POST['lugar_ejecucion']) ? trim($_POST['lugar_ejecucion']) : null;
             $lugar_procedencia = isset($_POST['lugar_procedencia']) ? trim($_POST['lugar_procedencia']) : null;
             $valoracion_econ = isset($_POST['valoracion_econ']) ? trim($_POST['valoracion_econ']) : null;
-         /*   $exposicion = isset($_POST['id_exposicion']) ? trim($_POST['id_exposicion']) : null;*/ 
             $bibliografia = isset($_POST['bibliografia']) ? trim($_POST['bibliografia']) : null;
             $historia_obra = isset($_POST['historia_obra']) ? trim($_POST['historia_obra']) : null;
 
-
-            // Server-side validation
+            // Validación de datos
             $errors = [];
-            
             if (empty($titulo)) {
                 $errors[] = 'El título es obligatorio';
             }
-            
             if (empty($numero_registro)) {
                 $errors[] = 'El Nº de registro es obligatorio';
             }
-    
             if (empty($codigo_autor)) {
                 $errors[] = 'El código del autor es obligatorio';
             }
-            
+
             if (!empty($errors)) {
                 echo json_encode(['success' => false, 'errors' => $errors]);
                 exit();
@@ -203,65 +194,53 @@ class ObrasController {
     
 
 
-            // Comprobar si se ha subido un archivo
-        if (isset($_FILES['foto']) && $_FILES['foto']['error'] === UPLOAD_ERR_OK) {
-            $foto = $_FILES['foto'];
-            $nombreArchivo = basename($foto['name']);
-            $rutaDestino = "images/" . $nombreArchivo;
-            
-            // Mover el archivo a la carpeta "uploads"
-            if (move_uploaded_file($foto['tmp_name'], $rutaDestino)) {
-                // Llamada al modelo para crear la obra
-                $obraModel = new ObrasModel($this->conn);
-                header('Content-Type: application/json');
-                $resultado = $obraModel->crearObra(
-                    $numero_registro, $titulo, /* Otros parámetros */
-                    $rutaDestino  // Guardar la ruta de la imagen
-                );
-                
-                if ($resultado) {
-                    // Insertar el enlace en la tabla de archivos
-                    $obraModel->guardarArchivo($numero_registro, $rutaDestino);
-                    echo json_encode(['success' => true, 'message' => 'Obra creada con éxito']);
-                } else {
-                    echo json_encode(['success' => false, 'message' => 'Error al crear la obra']);
-                }
-                exit();
-            } else {
-                echo json_encode(['success' => false, 'message' => 'Error al subir la foto']);
-                exit();
-            }
-        }
+            $rutaArchivo = null; // Ruta del archivo guardado
 
-            $obraModel = new ObrasModel($this->conn);
-            
-            // Llamada al método del modelo con todos los parámetros
-            $resultado = $obraModel->crearObra(
-                $numero_registro, $titulo, $codigo_autor, $classificacion_generica, 
-                $coleccion_procedencia, $maxima_altura, $maxima_anchura, 
-                $maxima_profundidad, $materiales, $tecnica, 
-                $ano_inicio, $ano_final, $ubicacion, 
-                $formas_ingreso, $fecha_registro, /*$dataciones,*/ $descripcion,
-                $numero_ejemplares, $fecha_ingreso, $fuente_ingreso, 
-                $estado_conservacion, $lugar_ejecucion, $lugar_procedencia, 
-                $valoracion_econ,/* $exposicion,*/  $bibliografia, $historia_obra
-            );
-            
-            
-            if ($resultado) {
-                header('Location: index.php?controller=Obras&action=verObras');
-                echo json_encode(['success' => true, 'message' => 'Obra creada con éxito']);
-            } else {
-                header('Content-Type: application/json');
-                echo json_encode(['success' => false, 'message' => 'Error al crear la obra']);
+            // Comprobar si se ha subido un archivo
+            if (isset($_FILES['foto']) && $_FILES['foto']['error'] === UPLOAD_ERR_OK) {
+                $foto = $_FILES['foto'];
+                $nombreArchivo = basename($foto['name']);
+                $rutaDestino = "images/" . $nombreArchivo;
+
+                // Mover el archivo a la carpeta "images"
+                if (move_uploaded_file($foto['tmp_name'], $rutaDestino)) {
+                    $rutaArchivo = $rutaDestino; // Guardar la ruta del archivo
+                } else {
+                    echo json_encode(['success' => false, 'message' => 'Error al subir la foto']);
+                    exit();
+                }
             }
-            echo json_encode($response);
-            exit;
-        }else {  
-            require_once 'views/crear_obra/crear.php';
+
+        $obraModel = new ObrasModel($this->conn);
+        $resultado = $obraModel->crearObra(
+            $numero_registro, $titulo, $codigo_autor, $classificacion_generica, 
+            $coleccion_procedencia, $maxima_altura, $maxima_anchura, 
+            $maxima_profundidad, $materiales, $tecnica, 
+            $ano_inicio, $ano_final,
+            $formas_ingreso, $fecha_registro, $descripcion,
+            $numero_ejemplares, $fecha_ingreso, $fuente_ingreso, 
+            $estado_conservacion, $lugar_ejecucion, $lugar_procedencia, 
+            $valoracion_econ, $bibliografia, $historia_obra,  $dataciones
+        );
+
+      
+        if ($resultado && $rutaArchivo) {
+            // Guardar el enlace del archivo en la tabla 'archivos'
+            $obraModel->guardarArchivo($numero_registro, $rutaArchivo);
+            echo json_encode(['success' => true, 'message' => 'Obra y archivo creados con éxito']);
+            header('Location: index.php?controller=Obras&action=verObras');
+        } elseif ($resultado) {
+            echo json_encode(['success' => true, 'message' => 'Obra creada con éxito, sin archivo']);
+        } else {
+            echo json_encode(['success' => false, 'message' => 'Error al crear la obra']);
         }
+        exit();
+    } else {
+        require_once 'views/crear_obra/crear.php';
     }
-    
+}
+
+        
 
 
     public function mostrarFormulario() {
