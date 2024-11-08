@@ -33,6 +33,9 @@ if (!isset($_SESSION['admin']) && !isset($_SESSION['tecnic']) && !isset($_SESSIO
         <a href="index.php?controller=Login&action=logout" class="edit-button">Cerrar sesión</a>
         <a href="views/vocabulario/ver_vocabulario.php?id=" class="edit-button">Vocabulario</a>
         <a href="index.php?controller=Obras&action=verObras&admin" class="edit-button">Obras</a><br>
+        <form class="search-bar">
+			<input type="text" id="q" placeholder="Busca per titol de obra" onkeyup="search()">
+		</form>
     </div>
 
     <div class="actions">
@@ -55,7 +58,7 @@ if (!isset($_SESSION['admin']) && !isset($_SESSION['tecnic']) && !isset($_SESSIO
                 <th colspan="3">Acció</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody id="the_table_body">
             <?php foreach ($obras as $obra): ?>
                 <tr>
                 <td>
@@ -66,9 +69,6 @@ if (!isset($_SESSION['admin']) && !isset($_SESSION['tecnic']) && !isset($_SESSIO
                         <p>Sin imagen disponible</p>
                     <?php endif; ?>
                 </td>
-
-
-                
                     <td><?php echo $obra["numero_registro"]; ?></td>
                     <td><?php echo $obra["nombre_objeto"]; ?></td>
                     <td><?php echo $obra['titulo']; ?></td>
@@ -83,5 +83,9 @@ if (!isset($_SESSION['admin']) && !isset($_SESSION['tecnic']) && !isset($_SESSIO
             <?php endforeach; ?>
         </tbody>
     </table>
+
+
+
+    <script src="scripts/busqueda.js"></script>
 </body>
 </html>

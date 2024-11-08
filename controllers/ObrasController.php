@@ -147,7 +147,7 @@ class ObrasController {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             header('Content-Type: application/json');
-           
+            ob_clean(); 
 
             $titulo = isset($_POST['titulo']) ? trim($_POST['titulo']) : null;
             $numero_registro = isset($_POST['n_registro']) ? trim($_POST['n_registro']) : null;
@@ -223,16 +223,11 @@ class ObrasController {
 
       
         if ($resultado && $rutaArchivo) {
-            // Guardar el enlace del archivo en la tabla 'archivos'
-            $obraModel->guardarArchivo($numero_registro, $rutaArchivo);
-            echo json_encode(['success' => true, 'message' => 'Obra y archivo creados con exito']);
-            exit();  
+            echo json_encode(['success' => true, 'message' => 'Obra y archivo creados con éxito', 'redirect' => 'index.php?controller=Obras&action=verObras']);
         } elseif ($resultado) {
-            echo json_encode(['success' => true, 'message' => 'Obra creada con éxito, sin archivo']);
-               exit();  
+            echo json_encode(['success' => true, 'message' => 'Obra creada con éxito, sin archivo', 'redirect' => 'index.php?controller=Obras&action=verObras']);
         } else {
             echo json_encode(['success' => false, 'message' => 'Error al crear la obra']);
-            exit();  
         }
         exit();
     } else {

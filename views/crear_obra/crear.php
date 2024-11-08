@@ -135,6 +135,15 @@ $dataciones = $obraModel->getdatacion();
                 <?php endforeach; ?>
             </select>
 
+            <label for="datacion">Datacion:</label>
+            <select name="datacion" id="datacion"required>
+                <option value="">Selecciona Datacion</option>
+                <?php foreach ($dataciones as $datacion): ?>
+                    <option value="<?= $datacion['id_datacion'] ?>">
+                        <?= $datacion['nombre_datacion']. ' / ' .$datacion['ano_inicio']. ' / ' .$datacion['ano_final']  ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
             
         
 

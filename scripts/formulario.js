@@ -37,42 +37,23 @@ document.getElementById("crearObraForm").addEventListener("submit", function(eve
     }
 
     const formData = new FormData(this);
-    console.log("Datos del formulario a enviar:", ...formData.entries());
 
-    console.log('Forma de Ingreso:', document.getElementById('forma_ingreso').value);
-
-    fetch("index.php?controller=Obras&action=crear", {
-        method: "POST",
-        body: formData,
+    fetch('index.php?controller=Obras&action=crear', {
+        method: 'POST',
+        body: formData
     })
-    .then(response => {
-        console.log("Respuesta del servidor recibida."); // Log de respuesta
-        if (response.headers.get("content-type").includes("application/json")) {
-            return response.json();
-        } else {
-            return response.text().then(text => {
-                console.error("Respuesta inesperada del servidor: " + text); // Log de error
-                throw new Error("Respuesta inesperada del servidor: " + text);
-            });
-        }
-    })
+    .then(response => response.json())  // Cambia temporalmente a .text() para inspeccionar
     .then(data => {
-        console.log("Datos recibidos en formato JSON:", data);
+        console.log('Respuesta del servidor:', data);  // Verifica si contiene HTML o JSON
         if (data.success) {
-            alert(data.message);
-            console.log("Redirigiendo a:", data.redirect); // Log de redirección
-            window.location.href = data.redirect;
-        } else if (data.errors) {
-            alert("Errores: " + data.errors.join(", "));
-            console.error("Errores devueltos:", data.errors); // Log de errores
+            alert(data.message);  // Muestra un mensaje de éxito
+            if (data.redirect) {
+                window.location.href = data.redirect;  // Redirige al usuario
+            }
         } else {
-            alert(data.message);
+            alert(data.message);  // Muestra un mensaje de error si la creación falla
         }
     })
-    .catch(error => {
-        console.error("Error al procesar la solicitud:", error);
-        alert("Hubo un error en la solicitud: " + error.message);
-    });
+    .catch(error => console.error('Error en la solicitud:', error));    
 });
-
 
