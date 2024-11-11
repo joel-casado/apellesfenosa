@@ -152,6 +152,7 @@ class ObrasController {
             $titulo = isset($_POST['titulo']) ? trim($_POST['titulo']) : null;
             $numero_registro = isset($_POST['n_registro']) ? trim($_POST['n_registro']) : null;
             $codigo_autor = isset($_POST['codigo_autor']) ? trim($_POST['codigo_autor']) : null;
+            $nombre = isset($_POST['nombre_objeto']) ? trim($_POST['nombre_objeto']) : null;
             $classificacion_generica = isset($_POST['classificacion_generica']) ? trim($_POST['classificacion_generica']) : null;
             $coleccion_procedencia = isset($_POST['coleccion_procedencia']) ? trim($_POST['coleccion_procedencia']) : null;
             $maxima_altura = isset($_POST['maxima_altura']) ? trim($_POST['maxima_altura']) : null;
@@ -161,6 +162,7 @@ class ObrasController {
             $tecnica = isset($_POST['tecnica']) ? trim($_POST['tecnica']) : null;
             $ano_inicio = isset($_POST['ano_inicio']) ? trim($_POST['ano_inicio']) : null;
             $ano_final = isset($_POST['ano_final']) ? trim($_POST['ano_final']) : null;
+            $dataciones = isset($_POST['datacion']) ? trim($_POST['datacion']) : null;
             $formas_ingreso = isset($_POST['forma_ingreso']) ? trim($_POST['forma_ingreso']) : null;
             $fecha_registro = isset($_POST['fecha_registro']) ? trim($_POST['fecha_registro']) : null;
             $descripcion = isset($_POST['descripcion']) ? trim($_POST['descripcion']) : null;
@@ -211,10 +213,10 @@ class ObrasController {
 
         $obraModel = new ObrasModel($this->conn);
         $resultado = $obraModel->crearObra(
-            $numero_registro, $titulo, $codigo_autor, $classificacion_generica, 
+            $numero_registro, $titulo,  $nombre, $codigo_autor, $classificacion_generica, 
             $coleccion_procedencia, $maxima_altura, $maxima_anchura, 
             $maxima_profundidad, $materiales, $tecnica, 
-            $ano_inicio, $ano_final,
+            $ano_inicio, $ano_final, $dataciones,
             $formas_ingreso, $fecha_registro, $descripcion,
             $numero_ejemplares, $fecha_ingreso, $fuente_ingreso, 
             $estado_conservacion, $lugar_ejecucion, $lugar_procedencia, 

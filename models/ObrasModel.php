@@ -208,7 +208,7 @@ class ObrasModel {
 
 
     public function crearObra(
-        $numero_registro, $titulo, $codigo_autor, $classificacion_generica, 
+        $numero_registro, $titulo, $nombre, $codigo_autor, $classificacion_generica, 
         $coleccion_procedencia, $maxima_altura, $maxima_anchura, 
         $maxima_profundidad, $materiales, $tecnica, 
         $ano_inicio, $ano_final, $dataciones, $formas_ingreso, $fecha_registro, 
@@ -217,7 +217,7 @@ class ObrasModel {
         $valoracion_econ, $bibliografia, $historia_obra
     ) {
             $query = "INSERT INTO obras (
-                numero_registro, titulo, classificacion_generica, autor, 
+                numero_registro, titulo, nombre_objeto, classificacion_generica, autor, 
                 coleccion_procedencia, maxima_altura, maxima_anchura, 
                 maxima_profundidad, material, tecnica, ano_inicio, 
                 ano_final, datacion, fecha_registro, descripcion, numero_ejemplares, 
@@ -225,10 +225,10 @@ class ObrasModel {
                 lugar_ejecucion, lugar_procedencia, valoracion_econ, 
                 bibliografia, historia_obra
             ) VALUES (
-                :n_registro, :titulo, :classificacion_generica, :autor, 
+                :n_registro, :titulo, :nombre, :classificacion_generica, :autor, 
                 :coleccion_procedencia, :maxima_altura, :maxima_anchura, 
                 :maxima_profundidad, :material, :tecnica,
-                :ano_inicio, :ano_final, :datacion :fecha_registro, :descripcion, 
+                :ano_inicio, :ano_final, :datacion, :fecha_registro, :descripcion, 
                 :numero_ejemplares, :fecha_ingreso, :fuente_ingreso, 
                 :estado_conservacion,:forma_ingreso, :lugar_ejecucion, 
                 :lugar_procedencia, :valoracion_econ, :bibliografia, 
@@ -240,6 +240,7 @@ class ObrasModel {
             // Vincula los parámetros correctamente
             $stmt->bindParam(':n_registro', $numero_registro);
             $stmt->bindParam(':titulo', $titulo);
+            $stmt->bindParam(':nombre', $nombre);
             $stmt->bindParam(':autor', $codigo_autor); 
             $stmt->bindParam(':classificacion_generica', $classificacion_generica);
             $stmt->bindParam(':coleccion_procedencia', $coleccion_procedencia);

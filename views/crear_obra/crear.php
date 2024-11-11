@@ -40,6 +40,10 @@ $dataciones = $obraModel->getdatacion();
             <label for="titulo">Título:</label>
             <input type="text" id="titulo" name="titulo" required>
 
+            <label for="nombre_objeto">Nombre:</label>
+            <input type="text" id="nombre_objeto" name="nombre_objeto" required>
+
+
             <label for="n_registro">Nº Registro:</label>
             <input type="text" id="n_registro" name="n_registro" required>
 
