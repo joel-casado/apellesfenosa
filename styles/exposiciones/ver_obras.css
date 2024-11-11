@@ -20,6 +20,11 @@ body {
   height: 80px;
 }
 
+h1 {
+  text-align: center;
+  margin-top: 50px;
+}
+
 table {
   width: 60%;
   border-collapse: collapse;
@@ -55,11 +60,11 @@ table tr:hover {
 .btn-success {
   position: absolute;
   top: 20px;
-  right: 418px;
+  right: 390px;
   z-index: 1;
   background-color: #6589C4;
   border: none;
-  margin-top: 185px;
+  margin-top: 275px;
 }
 .btn-success:hover {
   background-color: #2D4F6F;
@@ -71,4 +76,4 @@ table tr:hover {
 }
 .btn-primary:hover {
   background-color: #2D4F6F;
-}/*# sourceMappingURL=veer_obras.css.map */
+}/*# sourceMappingURL=ver_obras.css.map */

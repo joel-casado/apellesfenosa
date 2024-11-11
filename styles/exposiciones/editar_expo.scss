@@ -11,6 +11,10 @@ body {
 .header {
 @include header;
 }
+h1 {
+    text-align:center;
+    margin-top: 50px;
+}
 .editar {
     display: flex;
     width: 900px;

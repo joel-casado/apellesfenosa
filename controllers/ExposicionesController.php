@@ -17,21 +17,25 @@ class ExposicionesController {
             $obras = $_POST['exposicion_ids']; // Obtener las IDs de las obras seleccionadas
             $id_exposicion = $_POST['id_exposicion']; // Asegúrate de que el ID de exposición sea enviado
     
+            // Verificar que el ID de la exposición no esté vacío
+            if (empty($id_exposicion)) {
+                echo "No se ha recibido el ID de la exposición.";
+                return;
+            }
+    
             foreach ($obras as $numero_registro) {
                 $this->modelo->addObraToExposicion($numero_registro, $id_exposicion);
             }
-    
-            // Redirigir o mostrar un mensaje de éxito
-            header('Location: index.php?controller=Exposiciones&action=ver_obras&id=' . $id_exposicion);
-            exit();
+            echo ("obras añadidas correctamente");
         }
     
         // Obtener las obras que no están adscritas a ninguna exposición
         $obras = $this->modelo->getObrasSinExposicion();
     
-        // Cargar la vista
+        // Cargar la vista y pasarle el id_exposicion
         require_once 'views/exposiciones/añadir_obra.php';
     }
+    
     
         public function crea_expo() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {

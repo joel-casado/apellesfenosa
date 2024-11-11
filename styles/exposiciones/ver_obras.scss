@@ -15,7 +15,10 @@ body {
     align-items: center;
     padding: 10px 20px;
 }
-
+h1 {
+    text-align:center;
+    margin-top: 50px;
+}
 table {
     width: 60%;
     border-collapse: collapse; // Asegura que no haya espacios entre las celdas
@@ -55,11 +58,11 @@ table {
 .btn-success {
     position: absolute;
     top: 20px;
-    right: 418px;
+    right: 390px;
     z-index: 1;
     background-color: $button-bg;
     border: none;
-    margin-top: 185px;
+    margin-top: 275px;
 
     &:hover {
         background-color: $button_hv;

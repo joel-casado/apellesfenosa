@@ -15,7 +15,7 @@
             <a href="index.php?controller=Exposiciones&action=crea_expo" class="btn btn-success">Crear exposició</a>
         </div>
     </div>
-
+    <h1>Exposicions</h1>
     <div class="expo_box">
         <table class="table">
             <thead>
