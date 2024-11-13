@@ -32,7 +32,9 @@ if (!isset($_SESSION['admin']) && !isset($_SESSION['tecnic']) && !isset($_SESSIO
         <img src="images/login/logo.png" alt="Museu Apel·les Fenosa">
         <a href="index.php?controller=Login&action=logout" class="edit-button">Cerrar sesión</a>
         <a href="views/vocabulario/ver_vocabulario.php?id=" class="edit-button">Vocabulario</a>
-        <a href="index.php?controller=Obras&action=verObras&admin" class="edit-button">Obras</a><br>
+        <a href="index.php?controller=Obras&action=verObras&admin" class="edit-button">Obras</a>
+        <a href="index.php?controller=Exposiciones&action=listado_exposiciones" class="edit-button">Exposiciones</a>
+        <a href="index.php?controller=Ubicacion&action=verArbol" class="edit-button">Ubicaciones</a>
     </div>
 
     

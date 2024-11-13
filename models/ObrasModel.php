@@ -115,7 +115,7 @@ class ObrasModel {
 
         // Obtener todos los estados de conservación únicos
         public function getEstadosConservacion() {
-            $sql = "SELECT DISTINCT estado_conservacion FROM obras";
+            $sql = "SELECT DISTINCT id_estado, nombre_estado FROM estado_conservacion";
             $result = $this->conn->query($sql);
             return $result->fetchAll(PDO::FETCH_ASSOC);
         }
