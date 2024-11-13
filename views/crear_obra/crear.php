@@ -188,15 +188,15 @@ $dataciones = $obraModel->getdatacion();
         <input type="text" id="fuente_ingreso" name="fuente_ingreso"required>
 
         <label for="estado_conservacion">Estado de Conservación:</label>
-        <input list="estados" name="estado" id="estado"required>
-            <datalist id="estados">
-                <option value="Bo">
-                <option value="Dolent">
-                <option value="Excel·lent">
-                <option value="Indeterminat">
-                <option value="Desconeguda">
-                <option value="Regular">
-            </datalist>
+        <select name="estado_conservacion" id="estado_conservacion"required>
+            <option value="">Selecciona Estado de Conservación</option>
+            <?php foreach ($estadosConservacion as $estadoConservacion): ?>
+                <option value="<?= $estadoConservacion['id_estado'] ?>">
+                    <?= $estadoConservacion['nombre_estado'] ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
+            
 
 
         <label for="lugar_ejecucion">Lugar de Ejecución:</label>

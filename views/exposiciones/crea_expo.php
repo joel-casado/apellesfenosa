@@ -9,7 +9,7 @@
     <div class="header">
         <img src="images/login/Logo.png" alt="Logo">
     </div>
-
+    <h1>Creació d'exposició</h1>
     <div class="expo_box">
         <form action="index.php?controller=Exposiciones&action=crea_expo" method="POST" onsubmit="return validarFormulario()">
             <label for="inicio">Exposició</label>

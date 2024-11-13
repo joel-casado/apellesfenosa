@@ -9,17 +9,25 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-
     <div class="header">
         <img src="images/login/logo.png" alt="Museu Apel·les Fenosa">
         <a href="index.php?controller=Login&action=logout" class="logout-link">Cerrar sesión</a>
     </div>
-    <a href="index.php?controller=Exposiciones&action=anadirObra" class="btn btn-success">Añadir obra</a>
-
+    <h1>Exposició seleccionada</h1> 
+    <?php
+// Asegurémonos de que $id_exposicion tiene un valor
+        if (!isset($id_exposicion) || empty($id_exposicion)) {
+            echo "El ID de exposición no está definido o está vacío.";
+            return; // Detener la ejecución si no se tiene el ID
+        }
+    ?>
+    <?php
+        echo "El ID de exposición en la vista es: " . $id_exposicion;
+    ?>
+    <a  href="index.php?controller=Exposiciones&action=anadirObra&id_exposicion=<?php echo $id_exposicion; ?>" class="btn btn-success">Añadir obra</a>
     <table>
         <thead>
             <tr>
-                <th>Selecciona</th>
                 <th>Obra</th>
                 <th>Número Registre</th>
                 <th>Nom Objecte</th>
@@ -33,11 +41,9 @@
         <tbody>
             <?php if (!empty($obras)): ?>
                 <?php foreach ($obras as $obra): ?>
-                    <tr>
-                        <td>
-                            <input type="checkbox" name="exposicion_ids[]" value="<?php echo $obra['id_exposicion']; ?>">
-                        </td>
-                        <td><?php echo '<img src="https://www.museuapellesfenosa.cat/wp-content/uploads/2024/01/6.-Gran-tete-de-Paul-Eluard-1041x1536.jpg" ">'; ?></td>
+                    <tr>>
+                        <td><?php echo '<img src="https://www.museuapellesfenosa.cat/wp-content/uploads/2024/01/6.-Gran-tete-de-Paul-Eluard-1041x1536.jpg" alt="obra" width="100" height="150">'; ?></td>
+
                         <td><?php echo $obra["numero_registro"]; ?></td>
                         <td><?php echo $obra["nombre_objeto"]; ?></td>
                         <td><?php echo $obra['titulo']; ?></td>

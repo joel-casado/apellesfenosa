@@ -25,6 +25,7 @@ $materiales = $obraModel->getMateriales();
 $tecnicas = $obraModel->getTecnicas();
 $dataciones = $obraModel->getdatacion();
 $formasIngreso = $obraModel->getFormasIngreso();
+$estadosConservacion = $obraModel->getEstadosConservacion();
 $imagen_url = $obraModel->obtenerImagen($obra['numero_registro']);
 
 // Selección de valores de listas
@@ -38,8 +39,30 @@ foreach ($dataciones as $datacion) {
     }
 }
 
+$clasificacionSeleccionada = '';
+                foreach ($clasificaciones_genericas as $clasificacion) {
+                    if ($obra['classificacion_generica'] == $clasificacion['id_clasificacion']) {
+                        $clasificacionSeleccionada = $clasificacion['texto_clasificacion'];
+                        break; // Salir del bucle una vez encontrada la clasificación
+                    }
+                }
+                $tecnicaseleccionado = '';
+                foreach ($tecnicas as $tecnica){
+                    if ($obra['tecnica'] == $tecnica['codigo_getty_tecnica']) {
+                        $tecnicaseleccionado = $tecnica['texto_tecnica'];
+                        break;
+                    }
+                }
+
 $ingresoseleccionado = array_column(array_filter($formasIngreso, fn($f) => $f['id_forma_ingreso'] === $obra['forma_ingreso']), 'texto_forma_ingreso')[0] ?? '';
 
+$estadosSeleccionado = '';
+foreach ($estadosConservacion as $estadoConservacion) {
+    if ($obra['estado_conservacion'] == $estadoConservacion['id_estado']) {
+        $estadosSeleccionado = $estadoConservacion['nombre_estado'];
+        break;
+    }
+}
 
 // Iniciar PDF
 $pdf->SetCreator(PDF_CREATOR);
@@ -55,9 +78,9 @@ $pdf->AddPage();
 $imagen_html = '';
 if (file_exists($imagen_url)) {
     // Generar el HTML para la imagen centrada con margen superior
-    $imagen_html = '<div style="text-align: center; <br><br><br><br>"><img src="' . $imagen_url . '" width="100" height="100"/></div>'; // Ajusta '20px' según sea necesario
+    $imagen_html = '<div class="imagen" style="text-align: center; margin-top: 200px;"><img src="' . $imagen_url . '" width="100" height="100"/></div>'; // Ajusta '20px' según sea necesario
 } else {
-    $imagen_html = '<div style="text-align: center; margin-top: 20px;">No disponible</div>'; // Añadir margen también aquí
+    $imagen_html = '<div style="text-align: center;">No disponible</div>'; // Añadir margen también aquí
 }
 
 
@@ -80,6 +103,7 @@ $html = <<<EOD
     .bold {
         font-weight: bold;
     }
+
     table {
         width: 100%;
         border-collapse: separate; /* Cambiado a 'separate' para usar los bordes de las celdas */
@@ -101,9 +125,10 @@ $html = <<<EOD
 
 <h1>Ficha de Obra</h1>
 
- $imagen_html
+ 
 
 <h2 class="section-title">Informació Principal</h2>
+$imagen_html
 <table>
     <tr><th>Nº de registre:</th><td>{$obra['numero_registro']}</td></tr>
     <tr><th>Nom de l'objecte:</th><td>{$obra['nombre_objeto']}</td></tr>
@@ -121,7 +146,7 @@ $html = <<<EOD
     <tr><th>Máxima Profundidad:</th><td>{$obra['maxima_profundidad']}</td></tr>
     <tr><th>Material:</th><td>{$materialseleccionado}</td></tr>
     <tr><th>Tècnica:</th><td>{$tecnicaseleccionado}</td></tr>
-    <tr><th>Nombre d'exemplars:</th><td>{$obra['numero_ejemplares']}</td></tr>
+    <tr><th>Nombre d'exemplars:</th><td>{$obra['numero_ejemplares']}</td></tr><br>
 </table>
 
 <h2 class="section-title">Datació</h2>
