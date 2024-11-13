@@ -14,8 +14,7 @@
         <img src="images/login/logo.png" alt="Museu Apel·les Fenosa">
     </div>
     <h1>Llistat d'obres</h1>
-    <form method="POST" action="index.php?controller=Exposiciones&action=anadirObra">
-        <input type="hidden" name="id_exposicion" value="<?php echo $id_exposicion; ?>">
+    <form method="POST" action="index.php?controller=Exposiciones&action=anadirObra&id_exposicion=<?php echo $id_exposicion; ?>">
         <table>
             <thead>
                 <tr>
@@ -31,14 +30,7 @@
                 </tr>
             </thead>
             <tbody>
-                <?php
-                    // Asegúrate de que $id_exposicion esté definido
-                    if (!isset($id_exposicion)) {
-                        $id_exposicion = ''; // O un valor por defecto
-                    }
-                ?>
                 <?php if (!empty($obras)): ?>
-                    
                     <?php foreach ($obras as $obra): ?>
                         <tr>
                             <td>

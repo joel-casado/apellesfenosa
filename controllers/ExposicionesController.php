@@ -13,20 +13,29 @@ class ExposicionesController {
     }
 
     public function anadirObra() {
+        // Verificar que el id_exposicion esté en la URL
+        if (isset($_GET['id_exposicion'])) {
+            $id_exposicion = $_GET['id_exposicion'];
+        } else {
+            echo "Error: ID de exposición no válido.";
+            exit();
+        }
+    
+        // Verificar que se haya enviado el formulario y que haya obras seleccionadas
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['exposicion_ids'])) {
             $obras = $_POST['exposicion_ids']; // Obtener las IDs de las obras seleccionadas
-            $id_exposicion = $_POST['id_exposicion']; // Asegúrate de que el ID de exposición sea enviado
-    
+            
             // Verificar que el ID de la exposición no esté vacío
             if (empty($id_exposicion)) {
                 echo "No se ha recibido el ID de la exposición.";
                 return;
             }
     
+            // Añadir cada obra a la exposición
             foreach ($obras as $numero_registro) {
                 $this->modelo->addObraToExposicion($numero_registro, $id_exposicion);
             }
-            echo ("obras añadidas correctamente");
+            echo "Obras añadidas correctamente.";
         }
     
         // Obtener las obras que no están adscritas a ninguna exposición
@@ -35,6 +44,7 @@ class ExposicionesController {
         // Cargar la vista y pasarle el id_exposicion
         require_once 'views/exposiciones/añadir_obra.php';
     }
+    
     
     
         public function crea_expo() {

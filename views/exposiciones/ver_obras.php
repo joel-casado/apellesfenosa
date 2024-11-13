@@ -14,8 +14,17 @@
         <a href="index.php?controller=Login&action=logout" class="logout-link">Cerrar sesión</a>
     </div>
     <h1>Exposició seleccionada</h1> 
-    <a href="index.php?controller=Exposiciones&action=anadirObra" class="btn btn-success">Añadir obra</a>
-
+    <?php
+// Asegurémonos de que $id_exposicion tiene un valor
+        if (!isset($id_exposicion) || empty($id_exposicion)) {
+            echo "El ID de exposición no está definido o está vacío.";
+            return; // Detener la ejecución si no se tiene el ID
+        }
+    ?>
+    <?php
+        echo "El ID de exposición en la vista es: " . $id_exposicion;
+    ?>
+    <a  href="index.php?controller=Exposiciones&action=anadirObra&id_exposicion=<?php echo $id_exposicion; ?>" class="btn btn-success">Añadir obra</a>
     <table>
         <thead>
             <tr>
