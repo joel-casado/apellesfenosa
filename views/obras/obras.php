@@ -18,7 +18,14 @@ if (!isset($_SESSION['admin']) && !isset($_SESSION['tecnic']) && !isset($_SESSIO
     <link rel="stylesheet" href="styles/obras/obras.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
-
+<style>.actions {
+  margin-right: 540px;
+  margin-top: 100px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: flex-end; /* Alinea a la derecha */
+  margin-bottom: -90px;
+}</style>
 <body>
 
     <div class="header">
@@ -30,9 +37,10 @@ if (!isset($_SESSION['admin']) && !isset($_SESSION['tecnic']) && !isset($_SESSIO
 
     
     <h1>OBRAS DISPONIBLES</h1>
-    <form class="search-bar">
-			<input type="text" id="q" placeholder="Busca per titol de obra" onkeyup="search()">
+        <form class="search-bar">
+			<input type="text" id="q" placeholder="Buscador de obra" onkeyup="search()">
 		</form>
+
         <div class="actions">
         <a href="index.php?controller=Obras&action=crear" class="edit-button">Crear</a>
     </div>
