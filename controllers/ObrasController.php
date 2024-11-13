@@ -224,7 +224,14 @@ class ObrasController {
         );
 
       
-        if ($resultado && $rutaArchivo) {
+        if ($resultado) {
+            if ($rutaArchivo) {
+                $archivoGuardado = $obraModel->guardarArchivo($numero_registro, $rutaArchivo);
+                if (!$archivoGuardado) {
+                    echo json_encode(['success' => false, 'message' => 'Error al guardar el archivo en la base de datos']);
+                    exit();
+                }
+            }
             echo json_encode(['success' => true, 'message' => 'Obra y archivo creados con éxito', 'redirect' => 'index.php?controller=Obras&action=verObras']);
         } elseif ($resultado) {
             echo json_encode(['success' => true, 'message' => 'Obra creada con éxito, sin archivo', 'redirect' => 'index.php?controller=Obras&action=verObras']);
@@ -238,6 +245,7 @@ class ObrasController {
 }
 
         
+    
 
 
     public function mostrarFormulario() {

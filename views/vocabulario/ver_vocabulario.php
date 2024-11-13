@@ -34,7 +34,9 @@ if (!isset($_SESSION['admin']) && !isset($_SESSION['tecnic']) && !isset($_SESSIO
         <a href="../../views/vocabulario/ver_vocabulario.php?id=" class="edit-button">Vocabulario</a>
         <a href="../../index.php?controller=Obras&action=verObras&admin" class="edit-button">Obras</a><br>
     </div>
-    
+    <form class="search-bar">
+			<input type="text" id="q" placeholder="Busca Vocabulari" onkeyup="search()">
+		</form>
     <table>
         <thead>
             <tr>
@@ -42,7 +44,7 @@ if (!isset($_SESSION['admin']) && !isset($_SESSION['tecnic']) && !isset($_SESSIO
                 <th></th>
             </tr>
         </thead>
-        <tbody>
+        <tbody id="the_table_body">
                 <tr>
                     <td>Materiales</td>
                     <td><a href="/Crea%20una%20carpeta/apellesfenosa/index.php?controller=materiales&action=mostrarMateriales" class="edit-button">Editar</a></td>
@@ -55,9 +57,8 @@ if (!isset($_SESSION['admin']) && !isset($_SESSION['tecnic']) && !isset($_SESSIO
                 <tr><td>Tecnicas</td><td><a href="/Crea%20una%20carpeta/apellesfenosa/index.php?controller=tecnicas&action=mostrartecnicas" class="edit-button">Editar</a></td></tr>
                 <tr><td>Ubicaciones</td><td><a href="/Crea%20una%20carpeta/apellesfenosa/index.php?controller=ubicaciones&action=mostrarubicaciones" class="edit-button">Editar</a></td></tr>
                 <tr><td>Formas de ingreso</td><td><a href="/Crea%20una%20carpeta/apellesfenosa/index.php?controller=ingresos&action=mostraringresos" class="edit-button">Editar</a></td></tr>
-                    
-
         </tbody>
     </table>
+    <script src="scripts/busqueda.js"></script>
 </body>
 </html>

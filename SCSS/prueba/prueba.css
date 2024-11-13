@@ -12,6 +12,34 @@ h1 {
   color: #333;
 }
 
+/* Header */
+.header {
+  text-align: left;
+  padding: 30px;
+  background-color: rgb(255, 255, 255);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.header img {
+  height: 80px;
+}
+
+.search-bar {
+  margin-right: 540px;
+  margin-top: 100px;
+  display: flex;
+  justify-content: flex-end; /* Alinea a la derecha */
+  margin-bottom: -90px;
+}
+
+.actions {
+  margin-right: 540px;
+  margin-top: 100px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: flex-end; /* Alinea a la derecha */
+  margin-bottom: -90px;
+}
+
 form {
   background-color: white;
   border-radius: 8px;
@@ -69,6 +97,21 @@ textarea:focus {
 textarea {
   height: 80px;
   resize: vertical;
+}
+
+/* Button Styles */
+.edit-button {
+  padding: 6px 12px;
+  background-color: #6589C4;
+  color: #fff;
+  border-radius: 4px;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: background-color 0.3s ease;
+}
+
+.edit-button:hover {
+  background-color: #2D4F6F;
 }
 
 button[type=submit] {

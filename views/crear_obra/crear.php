@@ -25,6 +25,12 @@ $dataciones = $obraModel->getdatacion();
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
+    <div class="header">
+        <img src="images/login/logo.png" alt="Museu Apel·les Fenosa">
+        <a href="index.php?controller=Login&action=logout" class="edit-button">Cerrar sesión</a>
+        <a href="views/vocabulario/ver_vocabulario.php?id=" class="edit-button">Vocabulario</a>
+        <a href="index.php?controller=Obras&action=verObras&admin" class="edit-button">Obras</a><br>
+    </div>
     <h1>Crear Ficha</h1>
     
     <form id="crearObraForm" action="index.php?controller=Obras&action=crear" method="POST" enctype="multipart/form-data">

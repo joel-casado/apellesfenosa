@@ -13,6 +13,28 @@ h1 {
   color: #333;
 }
 
+/* Header */
+.header {
+  @include header;
+}
+
+.search-bar{
+  margin-right: 540px;
+  margin-top: 100px;
+  display: flex;
+  justify-content: flex-end; /* Alinea a la derecha */
+  margin-bottom: -90px;
+}
+
+.actions {
+  margin-right: 540px;
+  margin-top: 100px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: flex-end; /* Alinea a la derecha */
+  margin-bottom: -90px;
+}
+
 form {
   background-color: white;
   border-radius: 8px;
@@ -70,6 +92,21 @@ textarea:focus {
 textarea {
   height: 80px;
   resize: vertical;
+}
+
+/* Button Styles */
+.edit-button {
+  padding: 6px 12px;
+  background-color:$button-bg;
+  color: #fff;
+  border-radius: 4px;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: background-color 0.3s ease;
+}
+
+.edit-button:hover {
+  background-color:$button_hv;
 }
 
 button[type="submit"] {
