@@ -39,12 +39,12 @@ class ObrasController {
             $ano_inicio = $_POST['ano_inicio'];
             $ano_final = $_POST['ano_final'];
             $dataciones = $_POST['datacion'];
-            $formas_ingreso = $_POST['id_forma_ingreso'];
+            $formas_ingreso = $_POST['forma_ingreso'];
             $fecha_registro = $_POST['fecha_registro'];
             $descripcion = $_POST['descripcion'];
             $numero_ejemplares = $_POST['numero_ejemplares'];
             $fuente_ingreso = $_POST['fuente_ingreso'];
-            $estado_conservacion = $_POST['estado']; // Asegúrate de que el nombre del campo es correcto.
+            $estado_conservacion = $_POST['estado_conservacion']; // Asegúrate de que el nombre del campo es correcto.
             $lugar_procedencia = $_POST['lugar_procedencia'];
             $lugar_ejecucion = $_POST['lugar_ejecucion'];
             $valoracion_econ = $_POST['valoracion_econ'];
@@ -57,7 +57,7 @@ class ObrasController {
             // actualizar la obra
             $resultado = $obraModel->actualizarObra($numero_registro, $titulo, $autor, $clasificaciones_genericas, 
             $coleccion_procedencia, $maxima_altura, $maxima_anchura, $maxima_profundidad, $materiales, $tecnicas, 
-            $ano_inicio, $ano_final, $dataciones, $ubicacion, $formas_ingreso, $fecha_registro, $descripcion,$numero_ejemplares, $fuente_ingreso, $estado_conservacion,
+            $ano_inicio, $ano_final, $dataciones, $formas_ingreso, $fecha_registro, $descripcion,$numero_ejemplares, $fuente_ingreso, $estado_conservacion,
             $lugar_procedencia, $lugar_ejecucion, $valoracion_econ, $bibliografia, $historia_obra );
 
             if ($resultado) {
@@ -147,14 +147,14 @@ class ObrasController {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             header('Content-Type: application/json');
-           
+            ob_clean(); 
 
             $titulo = isset($_POST['titulo']) ? trim($_POST['titulo']) : null;
             $numero_registro = isset($_POST['n_registro']) ? trim($_POST['n_registro']) : null;
             $codigo_autor = isset($_POST['codigo_autor']) ? trim($_POST['codigo_autor']) : null;
+            $nombre = isset($_POST['nombre_objeto']) ? trim($_POST['nombre_objeto']) : null;
             $classificacion_generica = isset($_POST['classificacion_generica']) ? trim($_POST['classificacion_generica']) : null;
             $coleccion_procedencia = isset($_POST['coleccion_procedencia']) ? trim($_POST['coleccion_procedencia']) : null;
-            $dataciones = isset($_POST['id_datacion']) ? trim($_POST['id_datacion']) : null;
             $maxima_altura = isset($_POST['maxima_altura']) ? trim($_POST['maxima_altura']) : null;
             $maxima_anchura = isset($_POST['maxima_anchura']) ? trim($_POST['maxima_anchura']) : null;
             $maxima_profundidad = isset($_POST['maxima_profundidad']) ? trim($_POST['maxima_profundidad']) : null;
@@ -162,6 +162,7 @@ class ObrasController {
             $tecnica = isset($_POST['tecnica']) ? trim($_POST['tecnica']) : null;
             $ano_inicio = isset($_POST['ano_inicio']) ? trim($_POST['ano_inicio']) : null;
             $ano_final = isset($_POST['ano_final']) ? trim($_POST['ano_final']) : null;
+            $dataciones = isset($_POST['datacion']) ? trim($_POST['datacion']) : null;
             $formas_ingreso = isset($_POST['forma_ingreso']) ? trim($_POST['forma_ingreso']) : null;
             $fecha_registro = isset($_POST['fecha_registro']) ? trim($_POST['fecha_registro']) : null;
             $descripcion = isset($_POST['descripcion']) ? trim($_POST['descripcion']) : null;
@@ -188,7 +189,6 @@ class ObrasController {
             }
 
             if (!empty($errors)) {
-                echo json_encode(['success' => false, 'errors' => $errors]);
                 exit();
             }
     
@@ -213,24 +213,21 @@ class ObrasController {
 
         $obraModel = new ObrasModel($this->conn);
         $resultado = $obraModel->crearObra(
-            $numero_registro, $titulo, $codigo_autor, $classificacion_generica, 
+            $numero_registro, $titulo,  $nombre, $codigo_autor, $classificacion_generica, 
             $coleccion_procedencia, $maxima_altura, $maxima_anchura, 
             $maxima_profundidad, $materiales, $tecnica, 
-            $ano_inicio, $ano_final,
+            $ano_inicio, $ano_final, $dataciones,
             $formas_ingreso, $fecha_registro, $descripcion,
             $numero_ejemplares, $fecha_ingreso, $fuente_ingreso, 
             $estado_conservacion, $lugar_ejecucion, $lugar_procedencia, 
-            $valoracion_econ, $bibliografia, $historia_obra,  $dataciones
+            $valoracion_econ, $bibliografia, $historia_obra
         );
 
       
         if ($resultado && $rutaArchivo) {
-            // Guardar el enlace del archivo en la tabla 'archivos'
-            $obraModel->guardarArchivo($numero_registro, $rutaArchivo);
-            echo json_encode(['success' => true, 'message' => 'Obra y archivo creados con éxito']);
-            header('Location: index.php?controller=Obras&action=verObras');
+            echo json_encode(['success' => true, 'message' => 'Obra y archivo creados con éxito', 'redirect' => 'index.php?controller=Obras&action=verObras']);
         } elseif ($resultado) {
-            echo json_encode(['success' => true, 'message' => 'Obra creada con éxito, sin archivo']);
+            echo json_encode(['success' => true, 'message' => 'Obra creada con éxito, sin archivo', 'redirect' => 'index.php?controller=Obras&action=verObras']);
         } else {
             echo json_encode(['success' => false, 'message' => 'Error al crear la obra']);
         }

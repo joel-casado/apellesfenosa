@@ -18,14 +18,7 @@ if (!isset($_SESSION['admin']) && !isset($_SESSION['tecnic']) && !isset($_SESSIO
     <link rel="stylesheet" href="styles/obras/obras.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
-<style>.actions {
-  margin-right: 540px;
-  margin-top: 100px;
-  margin-bottom: 20px;
-  display: flex;
-  justify-content: flex-end; /* Alinea a la derecha */
-  margin-bottom: -90px;
-}</style>
+
 <body>
 
     <div class="header">
@@ -35,11 +28,14 @@ if (!isset($_SESSION['admin']) && !isset($_SESSION['tecnic']) && !isset($_SESSIO
         <a href="index.php?controller=Obras&action=verObras&admin" class="edit-button">Obras</a><br>
     </div>
 
-    <div class="actions">
+    
+    <h1>OBRAS DISPONIBLES</h1>
+    <form class="search-bar">
+			<input type="text" id="q" placeholder="Busca per titol de obra" onkeyup="search()">
+		</form>
+        <div class="actions">
         <a href="index.php?controller=Obras&action=crear" class="edit-button">Crear</a>
     </div>
-    
-    
     <table>
         <thead>
             <tr>
@@ -55,7 +51,7 @@ if (!isset($_SESSION['admin']) && !isset($_SESSION['tecnic']) && !isset($_SESSIO
                 <th colspan="3">Acció</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody id="the_table_body">
             <?php foreach ($obras as $obra): ?>
                 <tr>
                 <td>
@@ -66,9 +62,6 @@ if (!isset($_SESSION['admin']) && !isset($_SESSION['tecnic']) && !isset($_SESSIO
                         <p>Sin imagen disponible</p>
                     <?php endif; ?>
                 </td>
-
-
-                
                     <td><?php echo $obra["numero_registro"]; ?></td>
                     <td><?php echo $obra["nombre_objeto"]; ?></td>
                     <td><?php echo $obra['titulo']; ?></td>
@@ -83,5 +76,9 @@ if (!isset($_SESSION['admin']) && !isset($_SESSION['tecnic']) && !isset($_SESSIO
             <?php endforeach; ?>
         </tbody>
     </table>
+
+
+
+    <script src="scripts/busqueda.js"></script>
 </body>
 </html>
