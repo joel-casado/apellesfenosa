@@ -12,6 +12,7 @@
         <a href="views/vocabulario/ver_vocabulario.php?id=" class="create-button">Vocabulario</a>
         <a href="index.php?controller=Obras&action=verObras&admin" class="create-button">Obras</a><br>
     </div>
+    <h1>Editar exposició</h1>
     <div class="editar">
     <form action="index.php?controller=Exposiciones&action=update" method="POST">
             <input type="hidden" name="id_exposicion" value="<?php echo $expo['id_exposicion']; ?>">

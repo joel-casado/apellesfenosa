@@ -106,7 +106,26 @@ class Exposiciones {
         }
     }
     public function addObraToExposicion($numero_registro, $id_exposicion) {
-        $query = "UPDATE obras SET id_exposicion = :id_exposicion WHERE id_obra = :obra_id";
+        // Primero, obtenemos las fechas de la exposición destino
+        $expo = $this->getExposicionById($id_exposicion);
+        
+        // Verifica que la exposición existe
+        if (!$expo) {
+            echo "La exposición no existe.";
+            return;
+        }
+    
+        $fecha_inicio = $expo['fecha_inicio_expo'];
+        $fecha_fin = $expo['fecha_fin_expo'];
+    
+        // Verificamos si hay conflicto de fechas
+        if ($this->existeConflictoFechas($numero_registro, $fecha_inicio, $fecha_fin)) {
+            echo "La obra no puede ser añadida debido a un conflicto de fechas.";
+            return;
+        }
+    
+        // Procede a añadir la obra si no hay conflicto
+        $query = "UPDATE obras SET id_exposicion = :id_exposicion WHERE numero_registro = :numero_registro";
         try {
             $stmt = $this->db->prepare($query);
             $stmt->bindParam(':id_exposicion', $id_exposicion, PDO::PARAM_INT);
@@ -117,10 +136,30 @@ class Exposiciones {
         }
     }
     
+    
     public function getObrasSinExposicion() {
         $query = "SELECT * FROM obras WHERE id_exposicion IS NULL"; // Ajusta según tu esquema de base de datos
         $result = $this->db->query($query);
         return $result->fetchAll(PDO::FETCH_ASSOC); // Devuelve las obras como un array asociativo
+    }
+    public function existeConflictoFechas($numero_registro, $fecha_inicio, $fecha_fin) {
+        $query = "SELECT 1 FROM exposiciones e
+                INNER JOIN obras o ON e.id_exposicion = o.id_exposicion
+                WHERE o.numero_registro = :numero_registro
+                    AND (
+                        (e.fecha_inicio_expo <= :fecha_fin AND e.fecha_fin_expo >= :fecha_inicio)
+                    )";
+        try {
+            $stmt = $this->db->prepare($query);
+            $stmt->bindParam(':numero_registro', $numero_registro, PDO::PARAM_INT);
+            $stmt->bindParam(':fecha_inicio', $fecha_inicio);
+            $stmt->bindParam(':fecha_fin', $fecha_fin);
+            $stmt->execute();
+            return $stmt->fetch() !== false; // Retorna verdadero si hay conflicto
+        } catch (PDOException $e) {
+            echo "Error al verificar conflicto de fechas: " . $e->getMessage();
+            return true;
+        }
     }
     
 }
