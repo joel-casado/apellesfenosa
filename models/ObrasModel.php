@@ -7,11 +7,11 @@ class ObrasModel {
     }
 
     public function getObras() { 
-        $query = "SELECT obras.*,materiales.texto_material,autores.nombre_autor, dataciones.nombre_datacion, archivos.enlace AS imagen_url
+        $query = "SELECT obras.*,materiales.texto_material,autores.nombre_autor, tecnicas.texto_tecnica, archivos.enlace AS imagen_url
                 FROM obras 
                 JOIN materiales ON obras.material = materiales.codigo_getty_material
                 JOIN autores ON obras.autor = autores.codigo_autor
-                JOIN dataciones ON obras.datacion = dataciones.id_datacion
+                JOIN tecnicas ON obras.tecnica = tecnicas.codigo_getty_tecnica
                 LEFT JOIN archivos ON obras.numero_registro = archivos.numero_registro";
                 
         $stmt = $this->conn->prepare($query);
@@ -92,6 +92,36 @@ class ObrasModel {
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+
+    public function obtenerTodasLasObras() {
+        $query = "SELECT obras.*, materiales.texto_material,autores.nombre_autor, exposiciones.exposicion, clasificaciones_genericas.texto_clasificacion, 
+        dataciones.nombre_datacion, 
+        formas_ingreso.texto_forma_ingreso, 
+        tecnicas.texto_tecnica, 
+        archivos.enlace AS imagen_url
+        FROM obras
+        JOIN clasificaciones_genericas 
+            ON obras.classificacion_generica = clasificaciones_genericas.id_clasificacion
+        JOIN dataciones 
+            ON obras.datacion = dataciones.id_datacion
+        JOIN exposiciones 
+            ON obras.id_exposicion = exposiciones.id_exposicion
+        JOIN materiales 
+            ON obras.material = materiales.codigo_getty_material
+        JOIN formas_ingreso 
+            ON obras.forma_ingreso = formas_ingreso.id_forma_ingreso
+        JOIN autores 
+            ON obras.autor = autores.codigo_autor
+        JOIN tecnicas 
+            ON obras.tecnica = tecnicas.codigo_getty_tecnica
+        LEFT JOIN archivos 
+            ON obras.numero_registro = archivos.numero_registro;";
+        
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    
 
     public function obtenerImagen($numeroRegistro) {
         $sql = "SELECT enlace FROM archivos WHERE numero_registro = :numero_registro LIMIT 1";

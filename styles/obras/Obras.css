@@ -29,7 +29,8 @@ body {
 
 .search-bar {
   max-width: 600px;
-  margin-left: 200px;
+  margin-left: 1200px;
+  border-radius: 20px;
 }
 
 /* Main Heading */
