@@ -34,14 +34,16 @@ $imagen_url = $obraModel->obtenerImagen($obra['numero_registro']);
         <img src="images/login/logo.png" alt="Museu Apel·les Fenosa">
         <a href="index.php?controller=Login&action=logout" class="edit-button">Cerrar sesión</a>
         <a href="views/vocabulario/ver_vocabulario.php?id=" class="edit-button">Vocabulario</a>
-        <a href="index.php?controller=Obras&action=verObras&admin" class="edit-button">Obras</a><br>
+        <a href="index.php?controller=Obras&action=verObras&admin" class="edit-button">Obras</a>
+        <a href="index.php?controller=Exposiciones&action=listado_exposiciones" class="edit-button">Exposiciones</a>
+        <a href="index.php?controller=Ubicacion&action=verArbol" class="edit-button">Ubicaciones</a>
     </div>
-
+<br>
     <div class="actions">
-    <a href="index.php?controller=Obras&action=mostrarpdfGeneral&id=<?php echo $obra['numero_registro']; ?>" class="download-button">Descargar PDF</a>
+    <a class="edit-button" href="index.php?controller=Obras&action=mostrarpdfGeneral&id=<?php echo $obra['numero_registro']; ?>" class="download-button">Descargar PDF</a>
     </div>
 
-
+    <br>
     <div class="form-container">
 
 
@@ -288,8 +290,33 @@ $imagen_url = $obraModel->obtenerImagen($obra['numero_registro']);
         <div class="section-content">
         <div class="grid-container">
 
+        <label>Classificació genèrica:</label>
+            <span>
+                <?php 
+                // Buscar la clasificación seleccionada
+                $clasificacionSeleccionada = '';
+                foreach ($clasificaciones_genericas as $clasificacion) {
+                    if ($obra['classificacion_generica'] == $clasificacion['id_clasificacion']) {
+                        $clasificacionSeleccionada = $clasificacion['texto_clasificacion'];
+                        break; // Salir del bucle una vez encontrada la clasificación
+                    }
+                }
+                ?> 
+                <input type="text" id="classificacion_generica" name="classificacion_generica" value="<?php echo $clasificacionSeleccionada ?>" readonly>
+            </span>
+
         <label for="estado_conservacion">Estat de conservació:</label>
-        <input type="text" id="estado_conservacion" name="estado_conservacion" value="<?php echo $obra['estado_conservacion']; ?>" readonly>
+        <span>
+        <?php 
+        $estadosSeleccionado = '';
+        foreach ($estadosConservacion as $estadoConservacion) {
+            if ($obra['estado_conservacion'] == $estadoConservacion['id_estado']) {
+                $estadosSeleccionado = $estadoConservacion['nombre_estado'];
+                break;
+            }
+        }
+        ?> 
+        <input type="text" id="estado_conservacion" name="estado_conservacion" value="<?php echo  $estadosSeleccionado ?>" readonly>
 
         Registre de moviments
 

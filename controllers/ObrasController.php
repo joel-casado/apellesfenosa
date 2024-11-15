@@ -138,6 +138,20 @@ class ObrasController {
         }
     }
 
+    public function mostrarPdfTodasLasObras() {
+        $obraModel = new ObrasModel($this->conn);
+        $obras = $obraModel->obtenerTodasLasObras();
+    
+        if (empty($obras)) {
+            echo "No hay obras disponibles para generar el PDF.";
+            return;
+        }
+        $query .= " LIMIT 100";
+
+         // Cargar la vista de edición con los datose la obra
+         require_once 'views/ficha/libro-registro.php';
+    }
+
 
     //FUNCION CREAR CON TODOS LOS PARAMETROS//
 

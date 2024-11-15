@@ -56,7 +56,7 @@ $dataciones = $datacionesModel->getdataciones();
                 <th>Acción</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody id="the_table_body">
             <?php foreach ($dataciones as $datacion): ?>
                 <tr>
                     <td><?php echo $datacion['id_datacion']; ?></td>

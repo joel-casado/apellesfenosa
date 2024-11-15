@@ -40,24 +40,26 @@ if (!isset($_SESSION['admin']) && !isset($_SESSION['tecnic']) && !isset($_SESSIO
     
     <h1>OBRAS DISPONIBLES</h1>
         <form class="search-bar">
-			<input type="text" id="q" placeholder="Buscador de obra" onkeyup="search()">
-		</form>
+            <input type="text" id="q" placeholder="Buscador de obra" onkeyup="search()">
+        </form>
+
 
         <div class="actions">
-        <a href="index.php?controller=Obras&action=crear" class="edit-button">Crear</a>
-    </div>
+            <a href="index.php?controller=Obras&action=crear" class="edit-button">Crear</a>
+            <a href="index.php?controller=Obras&action=mostrarPdfTodasLasObras" class="edit-button">Generar PDF Todas las Obras</a>
+         </div>
     <table>
         <thead>
             <tr>
                
                 <th>Imatge</th>
-                <th>Número Registre</th>
                 <th>Nom Objecte</th>
                 <th>Títol</th>
                 <th>Autor</th>
-                <th>Datació</th>
+                <th>Técnica</th>
                 <th>Ubicació</th>
                 <th>Material</th>
+                <th>Tècnica</th>
                 <th colspan="3">Acció</th>
             </tr>
         </thead>
@@ -73,12 +75,12 @@ if (!isset($_SESSION['admin']) && !isset($_SESSION['tecnic']) && !isset($_SESSIO
                     <?php endif; ?>
                 </td>
                     <td><?php echo $obra["numero_registro"]; ?></td>
-                    <td><?php echo $obra["nombre_objeto"]; ?></td>
                     <td><?php echo $obra['titulo']; ?></td>
                     <td><?php echo $obra['nombre_autor']; ?></td>
-                    <td><?php echo $obra['nombre_datacion']; ?></td>
+                    <td><?php echo $obra['texto_tecnica']; ?></td>
                     <td><?php echo $obra['ubicacion']; ?></td>
                     <td><?php echo $obra['texto_material']; ?></td>
+                    <td><?php echo $obra["texto_tecnica"]; ?></td>
                     <td><a href="index.php?controller=Obras&action=mostrarFormulario&id=<?php echo $obra['numero_registro']; ?>" class="edit-button">Editar</a>
                     <td><a href="index.php?controller=Obras&action=mostrarFicha&id=<?php echo $obra['numero_registro']; ?>" class="edit-button">FichaBásica</a></td>
                     <td><a href="index.php?controller=Obras&action=mostrarFichaGeneral&id=<?php echo $obra['numero_registro']; ?>" class="edit-button">FichaGeneral</a></td>
