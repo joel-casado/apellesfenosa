@@ -19,6 +19,55 @@ class ObrasModel {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function getFilteredObras($filters) {
+        $baseQuery = "SELECT obras.*, materiales.texto_material, autores.nombre_autor, 
+                             dataciones.nombre_datacion, archivos.enlace AS imagen_url
+                      FROM obras 
+                      JOIN materiales ON obras.material = materiales.codigo_getty_material
+                      JOIN autores ON obras.autor = autores.codigo_autor
+                      JOIN dataciones ON obras.datacion = dataciones.id_datacion
+                      LEFT JOIN archivos ON obras.numero_registro = archivos.numero_registro";
+    
+        $whereClauses = [];
+        $params = [];
+    
+        foreach ($filters as $filter) {
+            $field = $filter['field'];
+            $value = $filter['value'];
+    
+            // Add filtering conditions based on field type
+            if (in_array($field, ['nombre_objeto', 'titulo', 'descripcion'])) { // Text fields
+                $whereClauses[] = "$field LIKE :$field";
+                $params[":$field"] = "%$value%";
+            } elseif (in_array($field, ['valoracion_econ', 'maxima_altura', 'maxima_anchura'])) { // Numeric fields
+                $ranges = explode('-', $value);
+                if (count($ranges) === 2) {
+                    $whereClauses[] = "$field BETWEEN :{$field}_min AND :{$field}_max";
+                    $params[":{$field}_min"] = (float)$ranges[0];
+                    $params[":{$field}_max"] = (float)$ranges[1];
+                }
+            } elseif ($field === 'fecha_registro') { // Date field
+                $whereClauses[] = "DATE($field) = :$field";
+                $params[":$field"] = date('Y-m-d', strtotime($value));
+            }
+        }
+    
+        // Add WHERE clause if filters exist
+        if (!empty($whereClauses)) {
+            $baseQuery .= " WHERE " . implode(' AND ', $whereClauses);
+        }
+    
+        $stmt = $this->conn->prepare($baseQuery);
+        foreach ($params as $key => $val) {
+            $stmt->bindValue($key, $val);
+        }
+    
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    
+
+
     public function guardarArchivo($numero_registro, $rutaArchivo) {
         $query = "INSERT INTO archivos (enlace, numero_registro) VALUES (:enlace, :numero_registro)";
         $stmt = $this->conn->prepare($query);
