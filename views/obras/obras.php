@@ -65,11 +65,13 @@ if (!isset($_SESSION['admin']) && !isset($_SESSION['tecnic']) && !isset($_SESSIO
         <div class="actions">
             <a href="index.php?controller=Obras&action=crear" class="edit-button">Crear</a>
             <a href="index.php?controller=Obras&action=mostrarPdfTodasLasObras" class="edit-button">Generar PDF Todas las Obras</a>
-         </div>
+            <button class="pdf">Generar PDF</button>
+        </div>
+
     <table>
         <thead>
             <tr>
-               
+            
                 <th>Imatge</th>
                 <th>Nom Objecte</th>
                 <th>Títol</th>
