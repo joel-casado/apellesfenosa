@@ -23,9 +23,9 @@ class ObrasModel {
         $baseQuery = "SELECT obras.*, materiales.texto_material, autores.nombre_autor, 
                              dataciones.nombre_datacion, archivos.enlace AS imagen_url
                       FROM obras 
-                      JOIN materiales ON obras.material = materiales.codigo_getty_material
-                      JOIN autores ON obras.autor = autores.codigo_autor
-                      JOIN dataciones ON obras.datacion = dataciones.id_datacion
+                      LEFT JOIN materiales ON obras.material = materiales.codigo_getty_material
+                      LEFT JOIN autores ON obras.autor = autores.codigo_autor
+                      LEFT JOIN dataciones ON obras.datacion = dataciones.id_datacion
                       LEFT JOIN archivos ON obras.numero_registro = archivos.numero_registro";
     
         $whereClauses = [];
@@ -97,7 +97,7 @@ class ObrasModel {
         $query = "SELECT obras.*, materiales.texto_material,autores.nombre_autor, exposiciones.exposicion, clasificaciones_genericas.texto_clasificacion, 
         dataciones.nombre_datacion, 
         formas_ingreso.texto_forma_ingreso, 
-        tecnicas.texto_tecnica, 
+        tecnicas.texto_tecnica, estado_conservacion.nombre_estado,
         archivos.enlace AS imagen_url
         FROM obras
         LEFT JOIN clasificaciones_genericas 
@@ -114,6 +114,8 @@ class ObrasModel {
             ON obras.autor = autores.codigo_autor
         LEFT JOIN tecnicas 
             ON obras.tecnica = tecnicas.codigo_getty_tecnica
+        LEFT JOIN estado_conservacion
+            ON obras.estado_conservacion = estado_conservacion.id_estado
         LEFT JOIN archivos 
             ON obras.numero_registro = archivos.numero_registro;";
         
@@ -366,9 +368,9 @@ class ObrasModel {
             public function getObrasExpo($id_exposicion) {
                 $query = "SELECT obras.*, materiales.texto_material, autores.nombre_autor, dataciones.nombre_datacion
                 FROM obras 
-                JOIN materiales ON obras.material = materiales.codigo_getty_material
-                JOIN autores ON obras.autor = autores.codigo_autor
-                JOIN dataciones ON obras.datacion = dataciones.id_datacion
+                LEFT JOIN  materiales ON obras.material = materiales.codigo_getty_material
+                LEFT JOIN autores ON obras.autor = autores.codigo_autor
+                LEFT JOIN dataciones ON obras.datacion = dataciones.id_datacion
                 WHERE obras.id_exposicion = :id_exposicion"; // Asegúrate de que 'id_exposicion' sea un campo válido
             
                 $stmt = $this->conn->prepare($query);

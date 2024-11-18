@@ -126,6 +126,7 @@ $dataciones = $obraModel->getdatacion();
         <div class="grid-container">
 
            
+        
 
             <label for="ano_inicio">Año Inicio:</label>
             <select name="ano_inicio" id="ano_inicio"required>
@@ -147,15 +148,19 @@ $dataciones = $obraModel->getdatacion();
                 <?php endforeach; ?>
             </select>
 
-            <label for="datacion">Datacion:</label>
-            <select name="datacion" id="datacion"required>
-                <option value="">Selecciona Datacion</option>
+           
+            <label for="datacion">Datación:</label>
+            <select name="datacion" id="datacion" required>
+                <option value="">Selecciona Datación</option>
                 <?php foreach ($dataciones as $datacion): ?>
-                    <option value="<?= $datacion['id_datacion'] ?>">
-                        <?= $datacion['nombre_datacion']. ' / ' .$datacion['ano_inicio']. ' / ' .$datacion['ano_final']  ?>
+                    <option value="<?= $datacion['id_datacion'] ?>"
+                            data-ano-inicio="<?= $datacion['ano_inicio'] ?>"
+                            data-ano-final="<?= $datacion['ano_final'] ?>">
+                        <?= $datacion['nombre_datacion'] . ' / ' . $datacion['ano_inicio'] . ' / ' . $datacion['ano_final'] ?>
                     </option>
                 <?php endforeach; ?>
             </select>
+
             
         
 
@@ -231,6 +236,29 @@ $dataciones = $obraModel->getdatacion();
     <div id="crearResponseMessage"></div>
 
     <script src="scripts/formulario.js"></script>
+
+    <script>
+    // Obtén los selectores
+    const datacionSelect = document.getElementById('datacion');
+    const anoInicioSelect = document.getElementById('ano_inicio');
+    const anoFinalSelect = document.getElementById('ano_final');
+
+    // Escucha el evento de cambio en el selector de datación
+    datacionSelect.addEventListener('change', function () {
+        // Obtén la opción seleccionada
+        const selectedOption = datacionSelect.options[datacionSelect.selectedIndex];
+
+        // Extrae los valores de data-ano-inicio y data-ano-final
+        const anoInicio = selectedOption.getAttribute('data-ano-inicio');
+        const anoFinal = selectedOption.getAttribute('data-ano-final');
+
+        // Actualiza los selectores de Año Inicio y Año Final
+        if (anoInicio && anoFinal) {
+            anoInicioSelect.value = anoInicio;
+            anoFinalSelect.value = anoFinal;
+        }
+    });
+</script>
 
 </body>
 </html>
