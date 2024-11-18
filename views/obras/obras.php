@@ -45,18 +45,9 @@ if (!isset($_SESSION['admin']) && !isset($_SESSION['tecnic']) && !isset($_SESSIO
 
     <div class="filters">
         <form id="filterForm" method="POST" action="index.php?controller=Obras&action=filter">
-            <div class="filter-group">
-                <label for="filterField1">Campo 1:</label>
-                <select name="filterField1" id="filterField1">
-                    <option value="">Seleccione un campo</option>
-                    <option value="nombre_objeto">Nombre Objeto</option>
-                    <option value="valoracion_econ">Valoración Económica</option>
-                    <option value="fecha_registro">Fecha Registro</option>
-                    <!-- Add more fields as needed -->
-                </select>
-                <input type="text" name="filterValue1" id="filterValue1" placeholder="Valor" />
-            </div>
-            <!-- Repeat for up to 5 fields -->
+            <!-- Grupos filtros en archivo js-->
+            <div id="filterGroups"></div>
+
             <button type="submit">Filtrar</button>
         </form>
     </div>
@@ -119,21 +110,6 @@ if (!isset($_SESSION['admin']) && !isset($_SESSION['tecnic']) && !isset($_SESSIO
 
 
     <script src="scripts/busqueda.js"></script>
-    <script>
-    document.getElementById('filterField1').addEventListener('change', function () {
-    const fieldType = this.value;
-    const input = document.getElementById('filterValue1');
-
-    if (['valoracion_econ', 'maxima_altura', 'maxima_anchura'].includes(fieldType)) {
-        input.placeholder = "Rango (ej, 10-50)";
-    } else if (fieldType === 'fecha_registro') {
-        input.type = "date";
-        input.placeholder = "Fecha";
-    } else {
-        input.type = "text";
-        input.placeholder = "Texto";
-    }
-    });
-    </script>
+    <script src="scripts/busquedaAvanzada.js"></script>
 </body>
 </html>

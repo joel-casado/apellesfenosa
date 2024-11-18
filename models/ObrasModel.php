@@ -20,13 +20,29 @@ class ObrasModel {
     }
 
     public function getFilteredObras($filters) {
-        $baseQuery = "SELECT obras.*, materiales.texto_material, autores.nombre_autor, 
-                             dataciones.nombre_datacion, archivos.enlace AS imagen_url
-                      FROM obras 
-                      JOIN materiales ON obras.material = materiales.codigo_getty_material
-                      JOIN autores ON obras.autor = autores.codigo_autor
-                      JOIN dataciones ON obras.datacion = dataciones.id_datacion
-                      LEFT JOIN archivos ON obras.numero_registro = archivos.numero_registro";
+        $baseQuery = "
+            SELECT 
+                obras.*, 
+                clasificaciones_genericas.texto_clasificacion AS classificacion_generica_name,
+                materiales.texto_material AS material_name, 
+                tecnicas.texto_tecnica AS tecnica_name,
+                autores.nombre_autor AS autor_name, 
+                dataciones.nombre_datacion AS datacion_name, 
+                ubicaciones.nombre_ubicacion AS ubicacion_name,
+                formas_ingreso.texto_forma_ingreso AS forma_ingreso_name, 
+                exposiciones.sitio_exposicion AS exposicion_name,
+                estado_conservacion.nombre_estado AS estado_conservacion_name
+            FROM obras
+            LEFT JOIN clasificaciones_genericas ON obras.classificacion_generica = clasificaciones_genericas.id_clasificacion
+            LEFT JOIN materiales ON obras.material = materiales.codigo_getty_material
+            LEFT JOIN tecnicas ON obras.tecnica = tecnicas.codigo_getty_tecnica
+            LEFT JOIN autores ON obras.autor = autores.codigo_autor
+            LEFT JOIN dataciones ON obras.datacion = dataciones.id_datacion
+            LEFT JOIN ubicaciones ON obras.ubicacion = ubicaciones.id_ubicacion
+            LEFT JOIN formas_ingreso ON obras.forma_ingreso = formas_ingreso.id_forma_ingreso
+            LEFT JOIN exposiciones ON obras.id_exposicion = exposiciones.id_exposicion
+            LEFT JOIN estado_conservacion ON obras.estado_conservacion = estado_conservacion.id_estado
+        ";
     
         $whereClauses = [];
         $params = [];
@@ -35,8 +51,23 @@ class ObrasModel {
             $field = $filter['field'];
             $value = $filter['value'];
     
-            // Add filtering conditions based on field type
-            if (in_array($field, ['nombre_objeto', 'titulo', 'descripcion'])) { // Text fields
+            // Foreign key fields mapped to their descriptive names
+            $foreignKeyFields = [
+                'classificacion_generica' => 'clasificaciones_genericas.texto_clasificacion',
+                'material' => 'materiales.texto_material',
+                'tecnica' => 'tecnicas.texto_tecnica',
+                'autor' => 'autores.nombre_autor',
+                'datacion' => 'dataciones.nombre_datacion',
+                'ubicacion' => 'ubicaciones.nombre_ubicacion',
+                'forma_ingreso' => 'formas_ingreso.texto_forma_ingreso',
+                'id_exposicion' => 'exposiciones.sitio_exposicion',
+                'estado_conservacion' => 'estado_conservacion.nombre_estado'
+            ];
+    
+            if (array_key_exists($field, $foreignKeyFields)) {
+                $whereClauses[] = "{$foreignKeyFields[$field]} LIKE :$field";
+                $params[":$field"] = "%$value%";
+            } elseif (in_array($field, ['nombre_objeto', 'titulo', 'descripcion'])) { // Text fields
                 $whereClauses[] = "$field LIKE :$field";
                 $params[":$field"] = "%$value%";
             } elseif (in_array($field, ['valoracion_econ', 'maxima_altura', 'maxima_anchura'])) { // Numeric fields
@@ -52,7 +83,6 @@ class ObrasModel {
             }
         }
     
-        // Add WHERE clause if filters exist
         if (!empty($whereClauses)) {
             $baseQuery .= " WHERE " . implode(' AND ', $whereClauses);
         }
@@ -65,6 +95,7 @@ class ObrasModel {
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+    
     
 
 
@@ -97,23 +128,25 @@ class ObrasModel {
         $query = "SELECT obras.*, materiales.texto_material,autores.nombre_autor, exposiciones.exposicion, clasificaciones_genericas.texto_clasificacion, 
         dataciones.nombre_datacion, 
         formas_ingreso.texto_forma_ingreso, 
-        tecnicas.texto_tecnica, 
+        tecnicas.texto_tecnica, estado_conservacion.nombre_estado,
         archivos.enlace AS imagen_url
         FROM obras
-        JOIN clasificaciones_genericas 
+        LEFT JOIN clasificaciones_genericas 
             ON obras.classificacion_generica = clasificaciones_genericas.id_clasificacion
-        JOIN dataciones 
+        LEFT JOIN dataciones 
             ON obras.datacion = dataciones.id_datacion
-        JOIN exposiciones 
+        LEFT JOIN exposiciones 
             ON obras.id_exposicion = exposiciones.id_exposicion
-        JOIN materiales 
+        LEFT JOIN materiales 
             ON obras.material = materiales.codigo_getty_material
-        JOIN formas_ingreso 
+        LEFT JOIN formas_ingreso 
             ON obras.forma_ingreso = formas_ingreso.id_forma_ingreso
-        JOIN autores 
+        LEFT JOIN autores 
             ON obras.autor = autores.codigo_autor
-        JOIN tecnicas 
+        LEFT JOIN tecnicas 
             ON obras.tecnica = tecnicas.codigo_getty_tecnica
+        LEFT JOIN estado_conservacion
+            ON obras.estado_conservacion = estado_conservacion.id_estado
         LEFT JOIN archivos 
             ON obras.numero_registro = archivos.numero_registro;";
         
@@ -122,6 +155,7 @@ class ObrasModel {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
     
+
 
     public function obtenerImagen($numeroRegistro) {
         $sql = "SELECT enlace FROM archivos WHERE numero_registro = :numero_registro LIMIT 1";
@@ -365,9 +399,9 @@ class ObrasModel {
             public function getObrasExpo($id_exposicion) {
                 $query = "SELECT obras.*, materiales.texto_material, autores.nombre_autor, dataciones.nombre_datacion
                 FROM obras 
-                JOIN materiales ON obras.material = materiales.codigo_getty_material
-                JOIN autores ON obras.autor = autores.codigo_autor
-                JOIN dataciones ON obras.datacion = dataciones.id_datacion
+                LEFT JOIN  materiales ON obras.material = materiales.codigo_getty_material
+                LEFT JOIN autores ON obras.autor = autores.codigo_autor
+                LEFT JOIN dataciones ON obras.datacion = dataciones.id_datacion
                 WHERE obras.id_exposicion = :id_exposicion"; // Asegúrate de que 'id_exposicion' sea un campo válido
             
                 $stmt = $this->conn->prepare($query);

@@ -166,7 +166,6 @@ class ObrasController {
             echo "No hay obras disponibles para generar el PDF.";
             return;
         }
-        $query .= " LIMIT 100";
 
          // Cargar la vista de edición con los datose la obra
          require_once 'views/ficha/libro-registro.php';
