@@ -20,13 +20,29 @@ class ObrasModel {
     }
 
     public function getFilteredObras($filters) {
-        $baseQuery = "SELECT obras.*, materiales.texto_material, autores.nombre_autor, 
-                             dataciones.nombre_datacion, archivos.enlace AS imagen_url
-                      FROM obras 
-                      JOIN materiales ON obras.material = materiales.codigo_getty_material
-                      JOIN autores ON obras.autor = autores.codigo_autor
-                      JOIN dataciones ON obras.datacion = dataciones.id_datacion
-                      LEFT JOIN archivos ON obras.numero_registro = archivos.numero_registro";
+        $baseQuery = "
+            SELECT 
+                obras.*, 
+                clasificaciones_genericas.texto_clasificacion AS classificacion_generica_name,
+                materiales.texto_material AS material_name, 
+                tecnicas.texto_tecnica AS tecnica_name,
+                autores.nombre_autor AS autor_name, 
+                dataciones.nombre_datacion AS datacion_name, 
+                ubicaciones.nombre_ubicacion AS ubicacion_name,
+                formas_ingreso.texto_forma_ingreso AS forma_ingreso_name, 
+                exposiciones.sitio_exposicion AS exposicion_name,
+                estado_conservacion.nombre_estado AS estado_conservacion_name
+            FROM obras
+            LEFT JOIN clasificaciones_genericas ON obras.classificacion_generica = clasificaciones_genericas.id_clasificacion
+            LEFT JOIN materiales ON obras.material = materiales.codigo_getty_material
+            LEFT JOIN tecnicas ON obras.tecnica = tecnicas.codigo_getty_tecnica
+            LEFT JOIN autores ON obras.autor = autores.codigo_autor
+            LEFT JOIN dataciones ON obras.datacion = dataciones.id_datacion
+            LEFT JOIN ubicaciones ON obras.ubicacion = ubicaciones.id_ubicacion
+            LEFT JOIN formas_ingreso ON obras.forma_ingreso = formas_ingreso.id_forma_ingreso
+            LEFT JOIN exposiciones ON obras.id_exposicion = exposiciones.id_exposicion
+            LEFT JOIN estado_conservacion ON obras.estado_conservacion = estado_conservacion.id_estado
+        ";
     
         $whereClauses = [];
         $params = [];
@@ -35,8 +51,23 @@ class ObrasModel {
             $field = $filter['field'];
             $value = $filter['value'];
     
-            // Add filtering conditions based on field type
-            if (in_array($field, ['nombre_objeto', 'titulo', 'descripcion'])) { // Text fields
+            // Foreign key fields mapped to their descriptive names
+            $foreignKeyFields = [
+                'classificacion_generica' => 'clasificaciones_genericas.texto_clasificacion',
+                'material' => 'materiales.texto_material',
+                'tecnica' => 'tecnicas.texto_tecnica',
+                'autor' => 'autores.nombre_autor',
+                'datacion' => 'dataciones.nombre_datacion',
+                'ubicacion' => 'ubicaciones.nombre_ubicacion',
+                'forma_ingreso' => 'formas_ingreso.texto_forma_ingreso',
+                'id_exposicion' => 'exposiciones.sitio_exposicion',
+                'estado_conservacion' => 'estado_conservacion.nombre_estado'
+            ];
+    
+            if (array_key_exists($field, $foreignKeyFields)) {
+                $whereClauses[] = "{$foreignKeyFields[$field]} LIKE :$field";
+                $params[":$field"] = "%$value%";
+            } elseif (in_array($field, ['nombre_objeto', 'titulo', 'descripcion'])) { // Text fields
                 $whereClauses[] = "$field LIKE :$field";
                 $params[":$field"] = "%$value%";
             } elseif (in_array($field, ['valoracion_econ', 'maxima_altura', 'maxima_anchura'])) { // Numeric fields
@@ -52,7 +83,6 @@ class ObrasModel {
             }
         }
     
-        // Add WHERE clause if filters exist
         if (!empty($whereClauses)) {
             $baseQuery .= " WHERE " . implode(' AND ', $whereClauses);
         }
@@ -65,6 +95,7 @@ class ObrasModel {
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+    
     
 
 
