@@ -309,12 +309,17 @@ class ObrasController {
         }
     }
     public function generarPdf() {
-        require_once('tcpdf/tcpdf.php');
+        require_once("vendor/autoload.php");
     
-        // Obtener las exposiciones desde el modelo
-        $exposiciones = $this->modelo->getObras(); // O datos filtrados si corresponde
+        // Decodificar las obras visibles enviadas desde la vista
+        $filteredData = json_decode($_POST['filteredData'], true);
     
-        // Configuración básica de TCPDF
+        if (empty($filteredData)) {
+            echo "No hay datos para generar el PDF.";
+            return;
+        }
+    
+        // Configuración básica del PDF
         $pdf = new TCPDF();
         $pdf->SetCreator(PDF_CREATOR);
         $pdf->SetAuthor('Museu Apel·les Fenosa');
@@ -326,8 +331,8 @@ class ObrasController {
         $pdf->AddPage();
     
         // Crear el contenido del PDF
-        $html = '<h1>Obras</h1>
-                <table border="1" cellpadding="5">
+        $html = '<h1>Obras Disponibles</h1>
+                 <table border="1" cellpadding="5">
                     <thead>
                         <tr>
                             <th>Imatge</th>
@@ -341,24 +346,26 @@ class ObrasController {
                         </tr>
                     </thead>
                     <tbody>';
-        foreach ($obras as $obrao) {
+        foreach ($filteredData as $obra) {
             $html .= '<tr>
-                        <td>' . $obra['numero_registro'] . '</td>
-                        <td>' . $obra['titulo'] . '</td>
-                        <td>' . $obra['nombre_autor'] . '</td>
-                        <td>' . $obra['texto_tecnica'] . '</td>
-                        <td>' . $obra['ubicacion'] . '</td>
-                        <td>' . $obra['texto_material'] . '</td>
-                        <td>' . $obra['texto_tecnica'] . '</td>
-                    </tr>';
+                        <td>' . htmlspecialchars($obra['imagen_url']) . '</td>
+                        <td>' . htmlspecialchars($obra['numero_registro']) . '</td>
+                        <td>' . htmlspecialchars($obra['titulo']) . '</td>
+                        <td>' . htmlspecialchars($obra['nombre_autor']) . '</td>
+                        <td>' . htmlspecialchars($obra['texto_tecnica']) . '</td>
+                        <td>' . htmlspecialchars($obra['ubicacion']) . '</td>
+                        <td>' . htmlspecialchars($obra['texto_material']) . '</td>
+                        <td>' . htmlspecialchars($obra['texto_tecnica']) . '</td>
+                      </tr>';
         }
         $html .= '</tbody></table>';
     
-        // Añadir el contenido al PDF
+        // Añadir contenido al PDF
         $pdf->writeHTML($html, true, false, true, false, '');
-        $pdf->Output('obras.pdf', 'D'); // Descargar el PDF
+        $pdf->Output('obras_filtradas.pdf', 'D');
         exit;
     }
+    
     
 }
 ?>

@@ -206,13 +206,13 @@ form img {
   object-fit: cover;
   border-radius: 4px;
 }
-.pdf {
+#generate-pdf {
   background-color: grey;
   color: white;
   cursor: not-allowed;
 }
 
-.pdf.active {
+#generate-pdf.active {
   background-color: blue;
   cursor: pointer;
 }
