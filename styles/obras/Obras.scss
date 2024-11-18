@@ -200,11 +200,19 @@ button[type="submit"]:hover {
   cursor: pointer; /* Cambia el cursor al pasar sobre el título */
 }
 
-
-
 form img {
   height: 150px;
   width: 250px;
   object-fit: cover;
   border-radius: 4px;
+}
+.pdf {
+  background-color: grey;
+  color: white;
+  cursor: not-allowed;
+}
+
+.pdf.active {
+  background-color: blue;
+  cursor: pointer;
 }

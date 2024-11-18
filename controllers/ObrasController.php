@@ -308,6 +308,57 @@ class ObrasController {
             echo "ID no proporcionado.";
         }
     }
+    public function generarPdf() {
+        require_once('tcpdf/tcpdf.php');
+    
+        // Obtener las exposiciones desde el modelo
+        $exposiciones = $this->modelo->getObras(); // O datos filtrados si corresponde
+    
+        // Configuración básica de TCPDF
+        $pdf = new TCPDF();
+        $pdf->SetCreator(PDF_CREATOR);
+        $pdf->SetAuthor('Museu Apel·les Fenosa');
+        $pdf->SetTitle('Obras');
+        $pdf->SetHeaderData('', 0, 'Obras', '');
+        $pdf->setHeaderFont([PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN]);
+        $pdf->setFooterFont([PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA]);
+        $pdf->SetMargins(10, 10, 10);
+        $pdf->AddPage();
+    
+        // Crear el contenido del PDF
+        $html = '<h1>Obras</h1>
+                <table border="1" cellpadding="5">
+                    <thead>
+                        <tr>
+                            <th>Imatge</th>
+                            <th>Nom Objecte</th>
+                            <th>Títol</th>
+                            <th>Autor</th>
+                            <th>Técnica</th>
+                            <th>Ubicació</th>
+                            <th>Material</th>
+                            <th>Tècnica</th>
+                        </tr>
+                    </thead>
+                    <tbody>';
+        foreach ($obras as $obrao) {
+            $html .= '<tr>
+                        <td>' . $obra['numero_registro'] . '</td>
+                        <td>' . $obra['titulo'] . '</td>
+                        <td>' . $obra['nombre_autor'] . '</td>
+                        <td>' . $obra['texto_tecnica'] . '</td>
+                        <td>' . $obra['ubicacion'] . '</td>
+                        <td>' . $obra['texto_material'] . '</td>
+                        <td>' . $obra['texto_tecnica'] . '</td>
+                    </tr>';
+        }
+        $html .= '</tbody></table>';
+    
+        // Añadir el contenido al PDF
+        $pdf->writeHTML($html, true, false, true, false, '');
+        $pdf->Output('obras.pdf', 'D'); // Descargar el PDF
+        exit;
+    }
     
 }
 ?>
