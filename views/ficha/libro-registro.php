@@ -38,71 +38,68 @@ foreach ($obras as $obra) {
     // Crear tabla en HTML
     $html = '<table border="1" cellpadding="10" style="width:100%;">
                 <tr>
-                    <td style="width:33%;">Número de Registro: ' . $obra['numero_registro'] . '</td>
-                    <td style="width:33%;">Clasificación Genérica: ' . $obra['texto_clasificacion'] . '</td>
-                    <td style="width:33%;">Col·lecció de procedència: ' . $obra['coleccion_procedencia'] . '</td>
+                    <td><b>Número de Registro:</b> ' . $obra['numero_registro'] . '</td>
+                    <td ><b>Clasificación Genérica:</b> ' . $obra['texto_clasificacion'] . '</td>
+                    <td ><b>Col·lecció de procedència:</b> ' . $obra['coleccion_procedencia'] . '</td>
                 </tr>
                 <tr>
-                    <td>Máxima altura: ' . $obra['maxima_altura'] . '</td>
-                    <td>Máxima anchura: ' . $obra['maxima_anchura'] . '</td>
-                    <td>Máxima profundidad: ' . $obra['maxima_profundidad'] . '</td>
+                    <td><b>Máxima altura:</b> ' . $obra['maxima_altura'] . '</td>
+                    <td><b>Máxima anchura:</b> ' . $obra['maxima_anchura'] . '</td>
+                    <td><b>Máxima profundidad:</b> ' . $obra['maxima_profundidad'] . '</td>
                 </tr>
                 <tr>
-                    <td>Material: ' . $obra['texto_material'] . '</td>
-                    <td>Técnica: ' . $obra['texto_tecnica'] . '</td>
-                    <td>Autor: ' . $obra['nombre_autor'] . '</td>
+                    <td><b>Material:</b> ' . $obra['texto_material'] . '</td>
+                    <td><b>Técnica: </b>' . $obra['texto_tecnica'] . '</td>
+                    <td><b>Autor: </b>' . $obra['nombre_autor'] . '</td>
                 </tr>
                 <tr>
-                    <td>Título: ' . $obra['titulo'] . '</td>
-                    <td>Año Inicio: ' . $obra['ano_inicio'] . '</td>
-                    <td>Año Final: ' . $obra['ano_final'] . '</td>
+                    <td><b>Título:</b> ' . $obra['titulo'] . '</td>
+                    <td><b>Año Inicio:</b> ' . $obra['ano_inicio'] . '</td>
+                    <td><b>Año Final:</b> ' . $obra['ano_final'] . '</td>
                 </tr>
                 <tr>
-                    <td>Datación: ' . $obra['nombre_datacion'] . '</td>
-                    <td>Ubicación: ' . $obra['ubicacion'] . '</td>
-                    <td>Fecha de registro: ' . $obra['fecha_registro'] . '</td>
+                    <td><b>Datación:</b> ' . $obra['nombre_datacion'] . '</td>
+                    <td><b>Ubicación:</b> ' . $obra['ubicacion'] . '</td>
+                    <td><b>Fecha de registro:</b> ' . $obra['fecha_registro'] . '</td>
                 </tr>
                 <tr>
-                    <td>Número de ejemplares: ' . $obra['numero_ejemplares'] . '</td>
-                    <td>Forma de ingreso: ' . $obra['texto_forma_ingreso'] . '</td>
-                    <td>Fecha de ingreso: ' . $obra['fecha_ingreso'] . '</td>
+                    <td><b>Número de ejemplares:</b> ' . $obra['numero_ejemplares'] . '</td>
+                    <td><b>Forma de ingreso:</b> ' . $obra['texto_forma_ingreso'] . '</td>
+                    <td><b>Fecha de ingreso:</b> ' . $obra['fecha_ingreso'] . '</td>
                 </tr>
                 <tr>
-                    <td>Fuente de ingreso: ' . $obra['fuente_ingreso'] . '</td>
-                    <td>Baja: ' . $obra['baja'] . '</td>
-                    <td>Causa de baja: ' . $obra['causa_baja'] . '</td>
+                    <td><b>Fuente de ingreso: </b>' . $obra['fuente_ingreso'] . '</td>
+                    <td><b>Baja:</b> ' . $obra['baja'] . '</td>
+                    <td><b>Causa de baja:</b> ' . $obra['causa_baja'] . '</td>
                 </tr>
                 <tr>
-                    <td>Fecha de baja: ' . $obra['fecha_baja'] . '</td>
-                    <td>Persona autorizada baja: ' . $obra['persona_aut_baja'] . '</td>
-                    <td>Estado de conservación: ' . $obra['estado_conservacion'] . '</td>
+                    <td><b>Fecha de baja:</b> ' . $obra['fecha_baja'] . '</td>
+                    <td><b>Persona autorizada baja:</b> ' . $obra['persona_aut_baja'] . '</td>
+                    <td><b>Estado de conservación: </b>' . $obra['nombre_estado'] . '</td>
                 </tr>
                 <tr>
-                    <td>Lugar de ejecución: ' . $obra['lugar_ejecucion'] . '</td>
-                    <td>Lugar de procedencia: ' . $obra['lugar_procedencia'] . '</td>
-                    <td>Nº Tiraje: ' . $obra['num_tirada'] . '</td>
+                    <td><b>Lugar de ejecución:</b> ' . $obra['lugar_ejecucion'] . '</td>
+                    <td><b>Lugar de procedencia:</b> ' . $obra['lugar_procedencia'] . '</td>
+                    <td><b>Nº Tiraje:</b> ' . $obra['num_tirada'] . '</td>
                 </tr>
                 <tr>
-                    <td>Otros números de identificación: ' . $obra['otros_num_id'] . '</td>
-                    <td>Valoración económica: ' . $obra['valoracion_econ'] . ' €</td>
-                    <td>Exposiciones: ' . $obra['exposicion'] . '</td>
+                    <td><b>Otros números de identificación:</b> ' . $obra['otros_num_id'] . '</td>
+                    <td><b>Valoración económica:</b> ' . $obra['valoracion_econ'] . ' €</td>
+                    <td><b>Exposiciones:</b> ' . $obra['exposicion'] . '</td>
                 </tr>
                 <tr>
-                    <td colspan="3" rowspan="2">Bibliografía: ' . $obra['bibliografia'] . '</td>
+                   <td colspan="3"  style="height:150px;" ><b>Bibliografía:</b> ' . $obra['bibliografia'] . '</td>
+                </tr>
+                
+                <tr>
+                    <td colspan="3" style="height:150px;" ><b>Descripción:</b> ' . $obra['descripcion'] . '</td>
                 </tr>
                 <tr>
-                    <td colspan="3">Descripción: ' . $obra['descripcion'] . '</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td colspan="3">Historia de la obra: ' . $obra['historia_obra'] . '</td>
-                    <td></td>
+                    <td colspan="3" style="height:150px;" ><b>Historia de la obra:</b> ' . $obra['historia_obra'] . '</td>
                 </tr>
             </table>';
 
     $pdf->writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);
-
-    $pdf->Ln(10); // Espacio entre registros en la misma página
 }
 
 $pdf->Output('listado_obras.pdf', 'I');

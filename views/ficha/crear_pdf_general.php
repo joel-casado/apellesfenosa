@@ -30,7 +30,7 @@ $imagen_url = $obraModel->obtenerImagen($obra['numero_registro']);
 
 // Selección de valores de listas
 $autorseleccionado = array_column(array_filter($autores, fn($a) => $a['codigo_autor'] === $obra['autor']), 'nombre_autor')[0] ?? '';
-$materialseleccionado = array_column(array_filter($materiales, fn($m) => $m['codigo_getty_material'] === $obra['material']), 'texto_material')[0] ?? '';                
+$materialseleccionado = array_column(array_filter($materiales, fn($m) => $m['codigo_getty_material'] === $obra['material']), 'texto_material')[0] ?? '';
 $datacionseleccionado = '';
 foreach ($dataciones as $datacion) {
     if ($obra['datacion'] == $datacion['id_datacion']) {
