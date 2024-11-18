@@ -88,15 +88,14 @@ foreach ($obras as $obra) {
                     <td>Exposiciones: ' . $obra['exposicion'] . '</td>
                 </tr>
                 <tr>
-                    <td colspan="3" rowspan="2">Bibliografía: ' . $obra['bibliografia'] . '</td>
+                    <td colspan="3"  style="height:150px;" >Bibliografía: ' . $obra['bibliografia'] . '</td>
+                </tr>
+                
+                <tr>
+                    <td colspan="3" style="height:150px;" >Descripción: ' . $obra['descripcion'] . '</td>
                 </tr>
                 <tr>
-                    <td colspan="3">Descripción: ' . $obra['descripcion'] . '</td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td colspan="3">Historia de la obra: ' . $obra['historia_obra'] . '</td>
-                    <td></td>
+                    <td colspan="3" style="height:150px;" >Historia de la obra: ' . $obra['historia_obra'] . '</td>
                 </tr>
             </table>';
 
