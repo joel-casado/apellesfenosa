@@ -197,6 +197,26 @@ button[type=submit]:hover {
   cursor: pointer; /* Cambia el cursor al pasar sobre el título */
 }
 
+.pdf button {
+  background-color: #6589C4;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  font-size: 0.9em;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.pdf button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.pdf button:hover:not(:disabled) {
+  background-color: #0056b3;
+}
+
 form img {
   height: 150px;
   width: 250px;
