@@ -60,7 +60,7 @@ table tr:hover {
 .btn-success {
   position: absolute;
   top: 20px;
-  right: 390px;
+  right: 410px;
   z-index: 1;
   background-color: #6589C4;
   border: none;
@@ -76,4 +76,29 @@ table tr:hover {
 }
 .btn-primary:hover {
   background-color: #2D4F6F;
+}
+
+.edit-button {
+  padding: 6px 12px;
+  background-color: #6589C4;
+  color: #fff;
+  border-radius: 4px;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: background-color 0.3s ease;
+}
+
+.edit-button:hover {
+  background-color: #2D4F6F;
+}
+
+button.pdf {
+  background-color: grey;
+  color: white;
+  cursor: not-allowed;
+}
+
+button.pdf.active {
+  background-color: blue;
+  cursor: pointer;
 }/*# sourceMappingURL=listado_exposiciones.css.map */

@@ -116,6 +116,54 @@ class ExposicionesController {
         // Cargar la vista y pasarle los datos de las obras
         require_once "views/exposiciones/ver_obras.php";
     }
+    public function generarPdf() {
+        require_once('tcpdf/tcpdf.php');
+    
+        // Obtener las exposiciones desde el modelo
+        $exposiciones = $this->modelo->getExposiciones(); // O datos filtrados si corresponde
+    
+        // Configuración básica de TCPDF
+        $pdf = new TCPDF();
+        $pdf->SetCreator(PDF_CREATOR);
+        $pdf->SetAuthor('Museu Apel·les Fenosa');
+        $pdf->SetTitle('Listado de Exposiciones');
+        $pdf->SetHeaderData('', 0, 'Listado de Exposiciones', '');
+        $pdf->setHeaderFont([PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN]);
+        $pdf->setFooterFont([PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA]);
+        $pdf->SetMargins(10, 10, 10);
+        $pdf->AddPage();
+    
+        // Crear el contenido del PDF
+        $html = '<h1>Listado de Exposiciones</h1>
+                <table border="1" cellpadding="5">
+                    <thead>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Exposició</th>
+                            <th>Data Inici</th>
+                            <th>Data Fi</th>
+                            <th>Tipus</th>
+                            <th>Lloc</th>
+                        </tr>
+                    </thead>
+                    <tbody>';
+        foreach ($exposiciones as $expo) {
+            $html .= '<tr>
+                        <td>' . $expo['exposicion'] . '</td>
+                        <td>' . $expo['id_exposicion'] . '</td>
+                        <td>' . $expo['fecha_inicio_expo'] . '</td>
+                        <td>' . $expo['fecha_fin_expo'] . '</td>
+                        <td>' . $expo['tipo_exposicion'] . '</td>
+                        <td>' . $expo['sitio_exposicion'] . '</td>
+                    </tr>';
+        }
+        $html .= '</tbody></table>';
+    
+        // Añadir el contenido al PDF
+        $pdf->writeHTML($html, true, false, true, false, '');
+        $pdf->Output('listado_exposiciones.pdf', 'D'); // Descargar el PDF
+        exit;
+    }
     
 }
 ?>
