@@ -23,3 +23,49 @@ function search() {
         tr[i].style.display = rowMatches ? "" : "none";
     }
 }
+document.getElementById('q').addEventListener('keyup', function () {
+    search(); // Esta es la función que ya tienes implementada para la búsqueda
+    toggleGeneratePdfButton(); // Verifica si el botón debe habilitarse
+});
+
+// Habilita/deshabilita el botón según el estado de la tabla
+function toggleGeneratePdfButton() {
+    const tableBody = document.getElementById('the_table_body');
+    const rows = tableBody.querySelectorAll('tr');
+    const generatePdfButton = document.getElementById('generate-pdf');
+
+    // Verifica si alguna fila está visible
+    const hasVisibleRows = Array.from(rows).some(row => row.style.display !== 'none');
+
+    // Habilita o deshabilita el botón
+    generatePdfButton.disabled = !hasVisibleRows;
+
+    // Opcional: cambia el estilo del botón
+    generatePdfButton.classList.toggle('disabled', !hasVisibleRows);
+}
+// Antes de enviar el formulario, llena el campo hidden con los datos visibles
+document.getElementById('generate-pdf').addEventListener('click', function () {
+    const tableBody = document.getElementById('the_table_body');
+    const rows = tableBody.querySelectorAll('tr');
+    const filteredData = [];
+
+    // Recorre las filas visibles y extrae sus datos
+    rows.forEach(row => {
+        if (row.style.display !== 'none') {
+            const rowData = {};
+            const cells = row.querySelectorAll('td');
+            rowData.imagen_url = cells[0].querySelector('img')?.src || '';
+            rowData.numero_registro = cells[1]?.textContent.trim();
+            rowData.titulo = cells[2]?.textContent.trim();
+            rowData.nombre_autor = cells[3]?.textContent.trim();
+            rowData.texto_tecnica = cells[4]?.textContent.trim();
+            rowData.ubicacion = cells[5]?.textContent.trim();
+            rowData.texto_material = cells[6]?.textContent.trim();
+            filteredData.push(rowData);
+        }
+    });
+
+    // Asigna los datos visibles al campo hidden
+    document.getElementById('filteredData').value = JSON.stringify(filteredData);
+});
+

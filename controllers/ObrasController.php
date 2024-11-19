@@ -242,7 +242,7 @@ class ObrasController {
                     echo json_encode(['success' => false, 'message' => 'Error al subir la foto']);
                     exit();
                 }
-            }
+            }           
 
         $obraModel = new ObrasModel($this->conn);
         $resultado = $obraModel->crearObra(
@@ -265,6 +265,31 @@ class ObrasController {
                     exit();
                 }
             }
+            
+            if ($resultado) {
+                   
+                // Crear carpeta para archivos secundarios
+                $carpetaObra = "archivos/obra_" . $numero_registro;
+                if (!is_dir($carpetaObra)) {
+                    mkdir($carpetaObra, 0777, true);
+                }
+    
+                // Guardar archivos secundarios
+                if (!empty($_FILES['archivos_extra']['name'][0])) {
+                    foreach ($_FILES['archivos_extra']['tmp_name'] as $key => $tmpName) {
+                        $nombreArchivoSecundario = basename($_FILES['archivos_extra']['name'][$key]);
+                        $rutaDestinoSecundario = $carpetaObra . "/" . $nombreArchivoSecundario;
+    
+                        if (move_uploaded_file($tmpName, $rutaDestinoSecundario)) {
+                            $obraModel->guardarArchivoSecundario($numero_registro, $rutaDestinoSecundario);
+                        } else {
+                            echo json_encode(['success' => false, 'message' => 'Error al subir archivo secundario: ' . $nombreArchivoSecundario]);
+                            exit();
+                        }
+                    }
+                }
+            }                
+
             echo json_encode(['success' => true, 'message' => 'Obra y archivo creados con éxito', 'redirect' => 'index.php?controller=Obras&action=verObras']);
         } elseif ($resultado) {
             echo json_encode(['success' => true, 'message' => 'Obra creada con éxito, sin archivo', 'redirect' => 'index.php?controller=Obras&action=verObras']);
@@ -276,8 +301,7 @@ class ObrasController {
         require_once 'views/crear_obra/crear.php';
     }
 }
-
-        
+       
     
 
 
@@ -307,6 +331,66 @@ class ObrasController {
             echo "ID no proporcionado.";
         }
     }
+    public function generarPdf() {
+        require_once("vendor/autoload.php");
+        if (ob_get_length()) {
+            ob_clean();
+        }
+        // Decodificar las obras visibles enviadas desde la vista
+        $filteredData = json_decode($_POST['filteredData'], true);
+
+        if (empty($filteredData)) {
+            echo "No hay datos para generar el PDF.";
+            return;
+        }
+    
+        // Configuración básica del PDF
+        $pdf = new TCPDF();
+        $pdf->SetCreator(PDF_CREATOR);
+        $pdf->SetAuthor('Museu Apel·les Fenosa');
+        $pdf->SetTitle('Obras');
+        $pdf->SetHeaderData('', 0, 'Obras', '');
+        $pdf->setHeaderFont([PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN]);
+        $pdf->setFooterFont([PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA]);
+        $pdf->SetMargins(10, 10, 10);
+        $pdf->AddPage();
+    
+        // Crear el contenido del PDF
+        $html = '<h1>Obras Disponibles</h1>
+                 <table border="1" cellpadding="5">
+                    <thead>
+                        <tr>
+                            <th>Imatge</th>
+                            <th>Nom Objecte</th>
+                            <th>Títol</th>
+                            <th>Autor</th>
+                            <th>Técnica</th>
+                            <th>Ubicació</th>
+                            <th>Material</th>
+                            <th>Tècnica</th>
+                        </tr>
+                    </thead>
+                    <tbody>';
+        foreach ($filteredData as $obra) {
+            $html .= '<tr>
+                        <td><img src="' . htmlspecialchars($obra['imagen_url']) . '" alt="Imagen"></td>
+                        <td>' . htmlspecialchars($obra['numero_registro']) . '</td>
+                        <td>' . htmlspecialchars($obra['titulo']) . '</td>
+                        <td>' . htmlspecialchars($obra['nombre_autor']) . '</td>
+                        <td>' . htmlspecialchars($obra['texto_tecnica']) . '</td>
+                        <td>' . htmlspecialchars($obra['ubicacion']) . '</td>
+                        <td>' . htmlspecialchars($obra['texto_material']) . '</td>
+                        <td>' . htmlspecialchars($obra['texto_tecnica']) . '</td>
+                      </tr>';
+        }
+        $html .= '</tbody></table>';
+    
+        // Añadir contenido al PDF
+        $pdf->writeHTML($html, true, false, true, false, '');
+        $pdf->Output('obras.pdf', 'D');
+        exit;
+    }
+    
     
 }
 ?>

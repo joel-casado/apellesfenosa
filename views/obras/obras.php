@@ -56,11 +56,17 @@ if (!isset($_SESSION['admin']) && !isset($_SESSION['tecnic']) && !isset($_SESSIO
         <div class="actions">
             <a href="index.php?controller=Obras&action=crear" class="edit-button">Crear</a>
             <a href="index.php?controller=Obras&action=mostrarPdfTodasLasObras" class="edit-button">Generar PDF Todas las Obras</a>
-         </div>
+            <form method="POST" action="index.php?controller=Obras&action=generarPdf">
+                <!-- Enviar datos visibles como JSON -->
+                <input type="hidden" name="filteredData" id="filteredData" />
+                <button type="submit" class="pdf" id="generate-pdf" disabled>Generar PDF</button>
+            </form>
+
+        </div>        
     <table>
         <thead>
             <tr>
-               
+            
                 <th>Imatge</th>
                 <th>Nom Objecte</th>
                 <th>Títol</th>
@@ -79,7 +85,7 @@ if (!isset($_SESSION['admin']) && !isset($_SESSION['tecnic']) && !isset($_SESSIO
                     <?php if (!empty($obra['imagen_url'])): ?>
                         <img src="<?php echo htmlspecialchars($obra['imagen_url']); ?>" alt="<?php echo htmlspecialchars($obra['titulo']); ?>">
                     <?php else: ?>
-                        <img src="ruta/a/la/imagen/por_defecto.jpg" alt="Sin imagen" style="width: 100px; height: auto;">
+                        <img src="<?php echo htmlspecialchars("images/default.png");?>">
                         <p>Sin imagen disponible</p>
                     <?php endif; ?>
                 </td>

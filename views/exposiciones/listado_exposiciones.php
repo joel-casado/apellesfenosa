@@ -17,7 +17,7 @@
         <a href="index.php?controller=Exposiciones&action=crea_expo" class="btn btn-success">Crear exposició</a>
     </div>
 </div>
-  
+
     
     <h1>Exposicions</h1>
     <form method="POST" action="index.php?controller=Exposiciones&action=generarPdf">
