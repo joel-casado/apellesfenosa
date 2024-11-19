@@ -333,10 +333,12 @@ class ObrasController {
     }
     public function generarPdf() {
         require_once("vendor/autoload.php");
-    
+        if (ob_get_length()) {
+            ob_clean();
+        }
         // Decodificar las obras visibles enviadas desde la vista
         $filteredData = json_decode($_POST['filteredData'], true);
-    
+
         if (empty($filteredData)) {
             echo "No hay datos para generar el PDF.";
             return;
@@ -371,7 +373,7 @@ class ObrasController {
                     <tbody>';
         foreach ($filteredData as $obra) {
             $html .= '<tr>
-                        <td>' . htmlspecialchars($obra['imagen_url']) . '</td>
+                        <td><img src="' . htmlspecialchars($obra['imagen_url']) . '" alt="Imagen"></td>
                         <td>' . htmlspecialchars($obra['numero_registro']) . '</td>
                         <td>' . htmlspecialchars($obra['titulo']) . '</td>
                         <td>' . htmlspecialchars($obra['nombre_autor']) . '</td>
@@ -385,7 +387,7 @@ class ObrasController {
     
         // Añadir contenido al PDF
         $pdf->writeHTML($html, true, false, true, false, '');
-        $pdf->Output('obras_filtradas.pdf', 'D');
+        $pdf->Output('obras.pdf', 'D');
         exit;
     }
     
