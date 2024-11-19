@@ -331,6 +331,64 @@ class ObrasController {
             echo "ID no proporcionado.";
         }
     }
+    public function generarPdf() {
+        require_once("vendor/autoload.php");
+    
+        // Decodificar las obras visibles enviadas desde la vista
+        $filteredData = json_decode($_POST['filteredData'], true);
+    
+        if (empty($filteredData)) {
+            echo "No hay datos para generar el PDF.";
+            return;
+        }
+    
+        // Configuración básica del PDF
+        $pdf = new TCPDF();
+        $pdf->SetCreator(PDF_CREATOR);
+        $pdf->SetAuthor('Museu Apel·les Fenosa');
+        $pdf->SetTitle('Obras');
+        $pdf->SetHeaderData('', 0, 'Obras', '');
+        $pdf->setHeaderFont([PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN]);
+        $pdf->setFooterFont([PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA]);
+        $pdf->SetMargins(10, 10, 10);
+        $pdf->AddPage();
+    
+        // Crear el contenido del PDF
+        $html = '<h1>Obras Disponibles</h1>
+                 <table border="1" cellpadding="5">
+                    <thead>
+                        <tr>
+                            <th>Imatge</th>
+                            <th>Nom Objecte</th>
+                            <th>Títol</th>
+                            <th>Autor</th>
+                            <th>Técnica</th>
+                            <th>Ubicació</th>
+                            <th>Material</th>
+                            <th>Tècnica</th>
+                        </tr>
+                    </thead>
+                    <tbody>';
+        foreach ($filteredData as $obra) {
+            $html .= '<tr>
+                        <td>' . htmlspecialchars($obra['imagen_url']) . '</td>
+                        <td>' . htmlspecialchars($obra['numero_registro']) . '</td>
+                        <td>' . htmlspecialchars($obra['titulo']) . '</td>
+                        <td>' . htmlspecialchars($obra['nombre_autor']) . '</td>
+                        <td>' . htmlspecialchars($obra['texto_tecnica']) . '</td>
+                        <td>' . htmlspecialchars($obra['ubicacion']) . '</td>
+                        <td>' . htmlspecialchars($obra['texto_material']) . '</td>
+                        <td>' . htmlspecialchars($obra['texto_tecnica']) . '</td>
+                      </tr>';
+        }
+        $html .= '</tbody></table>';
+    
+        // Añadir contenido al PDF
+        $pdf->writeHTML($html, true, false, true, false, '');
+        $pdf->Output('obras_filtradas.pdf', 'D');
+        exit;
+    }
+    
     
 }
 ?>

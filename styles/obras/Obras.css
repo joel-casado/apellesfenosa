@@ -203,4 +203,15 @@ form img {
   -o-object-fit: cover;
      object-fit: cover;
   border-radius: 4px;
+}
+
+#generate-pdf {
+  background-color: grey;
+  color: white;
+  cursor: not-allowed;
+}
+
+#generate-pdf.active {
+  background-color: blue;
+  cursor: pointer;
 }/*# sourceMappingURL=Obras.css.map */

@@ -56,11 +56,20 @@ if (!isset($_SESSION['admin']) && !isset($_SESSION['tecnic']) && !isset($_SESSIO
         <div class="actions">
             <a href="index.php?controller=Obras&action=crear" class="edit-button">Crear</a>
             <a href="index.php?controller=Obras&action=mostrarPdfTodasLasObras" class="edit-button">Generar PDF Todas las Obras</a>
-         </div>
+            <form method="POST" action="index.php?controller=Obras&action=generarPdf">
+    <!-- Datos visibles en la tabla codificados como JSON -->
+                <input type="hidden" name="filteredData" value="<?php echo htmlspecialchars(json_encode($obras ?? [])); ?>">
+                <button type="submit" class="pdf" id="generate-pdf" <?php echo empty($obras) ? 'disabled' : ''; ?>>
+                    Generar PDF
+                </button>
+            </form>
+
+        </div>
+        
     <table>
         <thead>
             <tr>
-               
+            
                 <th>Imatge</th>
                 <th>Nom Objecte</th>
                 <th>Títol</th>
