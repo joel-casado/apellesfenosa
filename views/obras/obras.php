@@ -88,7 +88,7 @@ if (!isset($_SESSION['admin']) && !isset($_SESSION['tecnic']) && !isset($_SESSIO
                     <?php if (!empty($obra['imagen_url'])): ?>
                         <img src="<?php echo htmlspecialchars($obra['imagen_url']); ?>" alt="<?php echo htmlspecialchars($obra['titulo']); ?>">
                     <?php else: ?>
-                        <img src="ruta/a/la/imagen/por_defecto.jpg" alt="Sin imagen" style="width: 100px; height: auto;">
+                        <img src="<?php echo htmlspecialchars("images/default.png");?>">
                         <p>Sin imagen disponible</p>
                     <?php endif; ?>
                 </td>

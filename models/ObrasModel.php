@@ -8,12 +8,18 @@ class ObrasModel {
     }
 
     public function getObras() { 
-        $query = "SELECT obras.*,materiales.texto_material,autores.nombre_autor, tecnicas.texto_tecnica, archivos.enlace AS imagen_url
-                FROM obras 
-                LEFT JOIN materiales ON obras.material = materiales.codigo_getty_material
-                LEFT JOIN autores ON obras.autor = autores.codigo_autor
-                LEFT JOIN tecnicas ON obras.tecnica = tecnicas.codigo_getty_tecnica
-                LEFT JOIN archivos ON obras.numero_registro = archivos.numero_registro";
+        $query = "SELECT obras.*, 
+                     materiales.texto_material, 
+                     autores.nombre_autor, 
+                     tecnicas.texto_tecnica, 
+                     COALESCE(archivos.enlace, 'images/default.jpg') AS imagen_url
+              FROM obras 
+              JOIN materiales ON obras.material = materiales.codigo_getty_material
+              JOIN autores ON obras.autor = autores.codigo_autor
+              JOIN tecnicas ON obras.tecnica = tecnicas.codigo_getty_tecnica
+              LEFT JOIN archivos ON obras.numero_registro = archivos.numero_registro 
+              AND archivos.enlace LIKE 'images/%'
+              GROUP BY obras.numero_registro";
                 
         $stmt = $this->conn->prepare($query);
         $stmt->execute();

@@ -31,6 +31,8 @@ foreach ($obras as $obra) {
     // Agregar imagen si está disponible
     if (!empty($obra['imagen_url'])) {
         $pdf->Image($obra['imagen_url'], '', '', 50, 50, '', '', 'T', false, 300, '', false, false, 1, false, false, false);
+    }else{
+        $pdf->Image('images/default.png');
     }
 
     $pdf->Ln(55); // Espacio después de la imagen
