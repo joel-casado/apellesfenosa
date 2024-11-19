@@ -225,9 +225,17 @@ $dataciones = $obraModel->getdatacion();
         
         <label for="historia_obra">Historia de la Obra:</label>
         <textarea id="historia_obra" name="historia_obra"required></textarea>
-
-
             
+        </div>
+        </div>
+
+        <h2 class="section-title" onclick="toggleSection(this)">Otro archivos <span class="arrow">▼</span></h2>
+        <div class="section-content">
+        <div class="grid-container">
+
+            <label for="archivos_extra">Otros archivos:</label>
+            <input type="file" id="archivos_extra" name="archivos_extra[]" multiple>
+
         </div>
         </div>
         <button type="submit">Crear Obra</button>

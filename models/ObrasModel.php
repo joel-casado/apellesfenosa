@@ -1,6 +1,7 @@
 <?php
 class ObrasModel {
     private $db;
+    private $conn;
 
     public function __construct($db) {
         $this->conn = $db;
@@ -9,9 +10,9 @@ class ObrasModel {
     public function getObras() { 
         $query = "SELECT obras.*,materiales.texto_material,autores.nombre_autor, tecnicas.texto_tecnica, archivos.enlace AS imagen_url
                 FROM obras 
-                JOIN materiales ON obras.material = materiales.codigo_getty_material
-                JOIN autores ON obras.autor = autores.codigo_autor
-                JOIN tecnicas ON obras.tecnica = tecnicas.codigo_getty_tecnica
+                LEFT JOIN materiales ON obras.material = materiales.codigo_getty_material
+                LEFT JOIN autores ON obras.autor = autores.codigo_autor
+                LEFT JOIN tecnicas ON obras.tecnica = tecnicas.codigo_getty_tecnica
                 LEFT JOIN archivos ON obras.numero_registro = archivos.numero_registro";
                 
         $stmt = $this->conn->prepare($query);
@@ -94,27 +95,7 @@ class ObrasModel {
     
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
-    
-    
-
-
-    public function guardarArchivo($numero_registro, $rutaArchivo) {
-        $query = "INSERT INTO archivos (enlace, numero_registro) VALUES (:enlace, :numero_registro)";
-        $stmt = $this->conn->prepare($query);
-    
-        $stmt->bindParam(':enlace', $rutaArchivo);
-        $stmt->bindParam(':numero_registro', $numero_registro);
-    
-        if ($stmt->execute()) {
-            error_log("Archivo guardado en la base de datos correctamente");
-            return true;
-        } else {
-            error_log("Error al guardar el archivo en la base de datos");
-            return false;
-        }
-    }
-    
+    }    
     
         public function obtenerObra($id) {
         $query = "SELECT * FROM obras WHERE numero_registro = :id";
@@ -318,7 +299,37 @@ class ObrasModel {
         }
     }
 
+    public function guardarArchivo($numero_registro, $rutaArchivo) {
+        $query = "INSERT INTO archivos (enlace, numero_registro) VALUES (:enlace, :numero_registro)";
+        $stmt = $this->conn->prepare($query);
+    
+        $stmt->bindParam(':enlace', $rutaArchivo);
+        $stmt->bindParam(':numero_registro', $numero_registro);
+    
+        if ($stmt->execute()) {
+            error_log("Archivo guardado en la base de datos correctamente");
+            return true;
+        } else {
+            error_log("Error al guardar el archivo en la base de datos");
+            return false;
+        }
+    }
 
+    public function guardarArchivoSecundario($numero_registro, $rutaDestinoSecundario) {
+        $query = "INSERT INTO archivos (enlace, numero_registro) VALUES (:enlace, :numero_registro)";
+        $stmt = $this->conn->prepare($query);
+    
+        $stmt->bindParam(':numero_registro', $numero_registro);
+        $stmt->bindParam(':enlace', $rutaDestinoSecundario);
+    
+        if ($stmt->execute()) {
+            error_log("Archivo secundario guardado en la base de datos correctamente");
+            return true;
+        } else {
+            error_log("Error al guardar el archivo secundario en la base de datos");
+            return false;
+        }
+    }
 
     public function crearObra(
         $numero_registro, $titulo, $nombre, $codigo_autor, $classificacion_generica, 
@@ -384,6 +395,8 @@ class ObrasModel {
             if ($stmt->execute()) {
                 // Si la inserción fue exitosa
                 error_log("Inserción exitosa en la base de datos");
+                $idObra = $this->conn->lastInsertId();
+                error_log("Obra creada correctamente con ID: " . $idObra);
                 return json_encode(['success' => true, 'message' => 'Obra creada correctamente.']);
 
             } else {
