@@ -242,7 +242,7 @@ class ObrasController {
                     echo json_encode(['success' => false, 'message' => 'Error al subir la foto']);
                     exit();
                 }
-            }
+            }           
 
         $obraModel = new ObrasModel($this->conn);
         $resultado = $obraModel->crearObra(
@@ -265,6 +265,31 @@ class ObrasController {
                     exit();
                 }
             }
+            
+            if ($resultado) {
+                   
+                // Crear carpeta para archivos secundarios
+                $carpetaObra = "archivos/obra_" . $numero_registro;
+                if (!is_dir($carpetaObra)) {
+                    mkdir($carpetaObra, 0777, true);
+                }
+    
+                // Guardar archivos secundarios
+                if (!empty($_FILES['archivos_extra']['name'][0])) {
+                    foreach ($_FILES['archivos_extra']['tmp_name'] as $key => $tmpName) {
+                        $nombreArchivoSecundario = basename($_FILES['archivos_extra']['name'][$key]);
+                        $rutaDestinoSecundario = $carpetaObra . "/" . $nombreArchivoSecundario;
+    
+                        if (move_uploaded_file($tmpName, $rutaDestinoSecundario)) {
+                            $obraModel->guardarArchivoSecundario($numero_registro, $rutaDestinoSecundario);
+                        } else {
+                            echo json_encode(['success' => false, 'message' => 'Error al subir archivo secundario: ' . $nombreArchivoSecundario]);
+                            exit();
+                        }
+                    }
+                }
+            }                
+
             echo json_encode(['success' => true, 'message' => 'Obra y archivo creados con éxito', 'redirect' => 'index.php?controller=Obras&action=verObras']);
         } elseif ($resultado) {
             echo json_encode(['success' => true, 'message' => 'Obra creada con éxito, sin archivo', 'redirect' => 'index.php?controller=Obras&action=verObras']);
@@ -276,8 +301,7 @@ class ObrasController {
         require_once 'views/crear_obra/crear.php';
     }
 }
-
-        
+       
     
 
 
