@@ -1,25 +1,23 @@
 <?php
 
-class Database{
+class Database {
+    // Declare the $db property
+    private $db;
 
-    
-    public function conectar(){
+    public function conectar() {
         $servername = "localhost";
-        $dbname= "apellesfenosa";
+        $dbname = "apellesfenosa";
         $username = "root";
         $password = "";
 
-        //creem una nova connexió instancinat l'objecte PDO
-		$this->db = new PDO("mysql:host=$servername;dbname=$dbname",$username, $password);
-		// establim el mode PDO error a exception per poder
-		// recuperar les excepccions
-		$this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        // Create a new PDO connection
+        $this->db = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+        // Set PDO error mode to exception for better error handling
+        $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        
         return $this->db;
-    
     }
-    
-    
-    
 }
+
 
 ?>

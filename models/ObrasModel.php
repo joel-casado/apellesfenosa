@@ -1,6 +1,7 @@
 <?php
 class ObrasModel {
     private $db;
+    private $conn;
 
     public function __construct($db) {
         $this->conn = $db;

@@ -16,6 +16,13 @@
     <div class="container">
         <div class="login-box">
             <div class="form-container">
+                <!-- Mensaje de error-->
+                <?php if (!empty($error_message)): ?>
+                    <div class="error-message" style="color: red; text-align: center; margin-bottom: 10px;">
+                        <?= htmlspecialchars($error_message) ?>
+                    </div>
+                <?php endif; ?>
+
                 <form action="index.php?controller=Login&action=login" method="post" class="signin-form">
                     <div class="input-group">
                         <label for="username">Usuari</label>
