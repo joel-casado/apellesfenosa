@@ -3,7 +3,7 @@
 class LoginController {
 
     public function verLogin() {
-        // Check for error messages passed as query parameters or session
+        // Mira si se ha pasado algun mensaje de eerror.
         $error_message = isset($_GET['error']) ? $_GET['error'] : '';
         require_once "views/login/login.php";
     }
@@ -13,14 +13,14 @@ class LoginController {
             $username = $_POST['username'];
             $password = $_POST['password'];
 
-            $login_model = new Login();
+            $login_model = new LoginModel();
 
-            // Validate user existence and password
+            // Llama a la funcion de validacion del modelo.
             $rol_usuario = $login_model->validar_usuario($username, $password);
 
             if ($rol_usuario) {
                 session_start();
-
+                //Creacion de sesiones dependiendo del rol del usuario
                 if ($rol_usuario == 'admin') {
                     $_SESSION['admin'] = $username;
                     header("Location: index.php?controller=Obras&action=verObras&admin");
@@ -32,7 +32,7 @@ class LoginController {
                     header("Location: index.php?controller=Obras&action=verObras&convidat");
                 }
             } else {
-                // Check if the user exists
+                // Validacion extra para mirar si el usuario existe, si no, mensaje de error.
                 if (!$login_model->usuario_existe($username)) {
                     header("Location: index.php?controller=Login&action=verLogin&error=Usuari no trobat");
                 } else {
@@ -42,6 +42,7 @@ class LoginController {
         }
     }
 
+    //Funcion para destruir sesion
     public function logout() {
         session_start();
         session_unset();
@@ -49,6 +50,4 @@ class LoginController {
         header("Location: index.php?controller=Login&action=verLogin");
     }
 }
-
-
 ?>

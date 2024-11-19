@@ -9,15 +9,14 @@
 <?php
 
 require_once "autoload.php";
-require_once "models/database.php"; // Include your database class
-// Create the database connection using the conectar() method
+require_once "models/database.php";
+
 $db = new Database();
-$connection = $db->conectar(); // Call the conectar method
+$connection = $db->conectar();
 
 if (isset($_GET['controller'])) {
     $nombreController = $_GET['controller'] . "Controller";
 } else {
-    // Default controller
     $nombreController = "LoginController";
 }
 
