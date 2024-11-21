@@ -21,7 +21,7 @@ $dataciones = $obraModel->getdatacion();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crear Ficha</title>
-    <link rel="stylesheet" href="SCSS/prueba/prueba.css">
+    <link rel="stylesheet" href="styles/editar_obras/editar.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -126,7 +126,17 @@ $dataciones = $obraModel->getdatacion();
         <div class="grid-container">
 
            
-        
+        <label for="datacion">Datación:</label>
+            <select name="datacion" id="datacion" required>
+                <option value="">Selecciona Datación</option>
+                <?php foreach ($dataciones as $datacion): ?>
+                    <option value="<?= $datacion['id_datacion'] ?>"
+                            data-ano-inicio="<?= $datacion['ano_inicio'] ?>"
+                            data-ano-final="<?= $datacion['ano_final'] ?>">
+                        <?= $datacion['nombre_datacion'] . ' / ' . $datacion['ano_inicio'] . ' / ' . $datacion['ano_final'] ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
 
             <label for="ano_inicio">Año Inicio:</label>
             <select name="ano_inicio" id="ano_inicio"required>
@@ -147,22 +157,6 @@ $dataciones = $obraModel->getdatacion();
                     </option>
                 <?php endforeach; ?>
             </select>
-
-           
-            <label for="datacion">Datación:</label>
-            <select name="datacion" id="datacion" required>
-                <option value="">Selecciona Datación</option>
-                <?php foreach ($dataciones as $datacion): ?>
-                    <option value="<?= $datacion['id_datacion'] ?>"
-                            data-ano-inicio="<?= $datacion['ano_inicio'] ?>"
-                            data-ano-final="<?= $datacion['ano_final'] ?>">
-                        <?= $datacion['nombre_datacion'] . ' / ' . $datacion['ano_inicio'] . ' / ' . $datacion['ano_final'] ?>
-                    </option>
-                <?php endforeach; ?>
-            </select>
-
-            
-        
 
             <label for="fecha_registro">Fecha Registro:</label>
             <input type="date" id="fecha_registro" name="fecha_registro"required>

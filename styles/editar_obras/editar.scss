@@ -1,94 +1,139 @@
 @import "../../SCSS/_variables.scss";
 @import "../../SCSS/_mixins.scss";
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  body {
-    font-family: 'Roboto', sans-serif;
-    background-color: #f9f9f9;
-    color: #333;
-    display: flex;
-    flex-direction: column;
-    align-items: left;
-    
-  }
-
-  /* Main Heading */
-h1 {
-    font-size: 2rem;
-    color: #444;
-    margin: 20px 0;
-    text-align: center;
-  }
-
-  
-.form-container {
-    width: 60%; /* Ajusta el ancho según tu preferencia */
-    margin: 0 auto;
-    background-color: #f8f8f8;
-    border-radius: 10px;
-    padding: 30px;
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #f8f8f8;
+  padding: 20px;
 }
 
 h1 {
-    text-align: center;
-    margin-bottom: 20px;
-    font-size: 1.5em;
-    font-weight: 500;
+  text-align: center;
+  font-weight: 500;
+  color: #333;
 }
 
+/* Header */
+.header {
+  @include header;
+}
+
+.search-bar{
+  margin-right: 540px;
+  margin-top: 100px;
+  display: flex;
+  justify-content: flex-end; /* Alinea a la derecha */
+  margin-bottom: -90px;
+}
+
+.actions {
+  margin-right: 540px;
+  margin-top: 100px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: flex-end; /* Alinea a la derecha */
+  margin-bottom: -90px;
+}
 
 form {
-    display: grid;
-    grid-template-columns: 4fr; /* Una sola columna */
-    grid-gap: 25px;
-    width: 80%; /* Reduce el ancho del formulario */
-    max-width: 500px; /* Limita el ancho máximo */
-}
-
-form label {
-    font-size: 1em;
+    background-color: white;
+    border-radius: 8px;
+    padding: 40px; // Aumenta el padding para espaciar mejor los elementos
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    max-width: 800px; // Limita el ancho máximo del formulario
+    margin: 0 auto; // Centra el formulario horizontalmente
+  }
+  
+  h2 {
+    margin-top: 30px;
+    font-size: 18px;
     font-weight: 500;
     color: #333;
-    display: block;
-    margin-bottom: 5px;
-    text-align: center; /* Centra las etiquetas */
-}
+    text-align: left; // Mantén los títulos alineados a la izquierda
+  }
+  
+  .grid-container {
+    display: grid;
+    grid-template-columns: 150px 1fr; // Ajusta el ancho de las columnas
+    grid-column-gap: 30px;
+    grid-row-gap: 20px;
+    align-items: center;
+    justify-content: center; // Centra los elementos en su contenedor
+    margin-top: 20px; // Espaciado adicional entre el título y el contenido
+  }
+  
+  label {
+    font-size: 14px;
+    color: #666;
+    display: block; // Asegura que el label ocupe toda su columna
+    text-align: right; // Alinea las etiquetas a la derecha
+  }
 
-form input, form select, form textarea {
-    width: 100%;
-    padding: 10px; /* Ajusta el padding */
-    border: 1px solid rgba(75, 74, 74, 0.1);
+  select {
+    width: 73.5%; // Igual que los inputs de texto
+    padding: 10px; // Ajustar el espacio interno
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
     border-radius: 5px;
-    background-color: #f0f0f0; /* Fondo gris claro en los campos */
-    font-family: "Roboto", sans-serif;
-    font-size: 1em;
+    background-color: #f9f9f9;
+    font-size: 14px; // Misma fuente que los inputs
+    color: #333;
+  }
+  
+  select:focus {
+    border-color: #999;
     outline: none;
-    text-align: center; /* Centra el texto en los campos de entrada */
+  }
+  
+
+input[type="text"],
+input[type="date"],
+input[type="number"],
+textarea {
+  width: 70%; // Incrementa el ancho de los campos para mayor visibilidad
+  padding: 10px; // Añade más padding para una mejor apariencia
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  font-size: 14px;
+  color: #333;
 }
 
-form input:focus, form select:focus, form textarea:focus {
-    border-color: #6589C4;
+input[type="file"] {
+  width: 50%;
 }
 
-form textarea {
-    height: 80px; /* Ajusta el área de texto */
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: #999;
+  outline: none;
 }
 
-.submit-container {
-    text-align: center;
+textarea {
+  height: 80px;
+  resize: vertical;
 }
-.download-button {
+
+/* Button Styles */
+.edit-button {
+  padding: 6px 12px;
+  background-color:$button-bg;
+  color: #fff;
+  border-radius: 4px;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: background-color 0.3s ease;
+}
+
+.edit-button:hover {
+  background-color:$button_hv;
+}
+
+button[type="submit"] {
     display: block;
-    width: 100%;
+    width: 100%; // Hace que el botón ocupe todo el ancho disponible
     padding: 12px;
     background-color: #007bff;
     color: white;
@@ -99,20 +144,53 @@ form textarea {
     cursor: pointer;
     margin-top: 20px;
     transition: background-color 0.3s ease;
+  }
+
+button[type="submit"]:hover {
+  background-color: #0056b3;
 }
 
-.download-button:hover {
-    background-color: #0056b3;
+.section-content {
+  display: none; /* Oculta el contenido por defecto */
+  margin-bottom: 15px; /* Espacio entre secciones */
+}
+
+.section-title {
+  cursor: pointer; /* Cambia el cursor al pasar sobre el título */
 }
 
 
-/* Estilos para la imagen */
-img {
-    margin-bottom: 20px;
-    display: block;  /* Convierte la imagen en un elemento de bloque */
-    margin-left: auto;
-    margin-right: auto;
-    width: auto;     /* Ajusta la anchura según el contenedor */
-    max-width: 100%; /* Evita que la imagen se desborde del contenedor */
-    height: 350px;    /* Mantiene las proporciones de la imagen */
+@media (max-width: 400px) {
+  .grid-container {
+    grid-template-columns: 2fr; /* Para pantallas más pequeñas, hacer que las filas ocupen todo el ancho */
+  }
+}
+
+
+form img {
+  height: 150px;
+  width: 250px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.image-container {
+  display: flex;
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center; /* Centra verticalmente (si tiene altura definida) */
+  text-align: center; /* Centra el texto en el contenedor */
+  flex-direction: column; /* Asegura que la imagen y el texto estén en columna */
+  margin: 20px auto; /* Centra el contenedor respecto a la página */
+}
+
+.image-container img {
+  width: 200px;
+  height: auto;
+  border-radius: 8px; /* Opcional: para bordes redondeados */
+}
+
+.image-container p {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #666;
 }

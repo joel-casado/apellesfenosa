@@ -25,12 +25,12 @@ $imagen_url = $obraModel->obtenerImagen($obra['numero_registro']);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Ficha</title>
-    <link rel="stylesheet" href="styles/obras/obras.css">
+    <link rel="stylesheet" href="styles/editar_obras/editar.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <div class="header">
+<div class="header">
         <img src="images/login/logo.png" alt="Museu Apel·les Fenosa">
         <a href="index.php?controller=Login&action=logout" class="edit-button">Cerrar sesión</a>
         <a href="views/vocabulario/ver_vocabulario.php?id=" class="edit-button">Vocabulario</a>
@@ -38,26 +38,30 @@ $imagen_url = $obraModel->obtenerImagen($obra['numero_registro']);
         <a href="index.php?controller=Exposiciones&action=listado_exposiciones" class="edit-button">Exposiciones</a>
         <a href="index.php?controller=Ubicacion&action=verArbol" class="edit-button">Ubicaciones</a>
     </div>
-    <br>
-    <div class="ACTIONS">
-    <a class="edit-button" href="index.php?controller=Obras&action=mostrarpdf&id=<?php echo $obra['numero_registro']; ?>" class="download-button">Descargar PDF</a>
+    <div class="actions">
+    <a class="edit-button" href="index.php?controller=Obras&action=mostrarpdfGeneral&id=<?php echo $obra['numero_registro']; ?>" class="download-button">Descargar PDF</a>
     </div>
 
-<br>
-    <div class="form-container">
+    <br>
+    <div class="form-container"> 
 
 
     <h1>FICHA BASICA OBRA</h1>
-
+    <br>
 
     <form>
     
-        <?php if (!empty($imagen_url)): ?>
-            <img src="<?php echo htmlspecialchars($imagen_url); ?>" alt="<?php echo htmlspecialchars($obra['titulo']); ?>" style="width: 100px; height: auto;">
+    <?php if (!empty($imagen_url)): ?>
+    <div class="image-container">
+        <img src="<?php echo htmlspecialchars($imagen_url); ?>" alt="<?php echo htmlspecialchars($obra['titulo']); ?>">
+    </div>
         <?php else: ?>
-            <img src="ruta/a/la/imagen/por_defecto.jpg" alt="Sin imagen disponible" style="width: 100px; height: auto;">
-            <p>Sin imagen disponible</p>
+            <div class="image-container">
+                <img src="ruta/a/la/imagen/por_defecto.jpg" alt="Sin imagen disponible">
+                <p>Sin imagen disponible</p>
+            </div>
         <?php endif; ?>
+
 
 
     <h2 class="section-title" onclick="toggleSection(this)">Información Principal  <span class="arrow">▼</span></h2>
@@ -195,6 +199,26 @@ $imagen_url = $obraModel->obtenerImagen($obra['numero_registro']);
         </div>
         </div>
 
+        <h2 class="section-title" onclick="toggleSection(this)">Otros archivos <span class="arrow">▼</span></h2>
+            <div class="section-content">
+                <div class="grid-container">
+                    <label for="otros_archivos">Archivos asociados:</label>
+                    <div id="otros_archivos">
+                        <?php
+                        $archivos = $obraModel->getArchivos($id); // Llama al método del modelo.
+                        if (!empty($archivos)) {
+                            foreach ($archivos as $archivo) {
+                                echo '<p><a href="' . htmlspecialchars($archivo['enlace']) . '" target="_blank">'
+                                    . basename($archivo['enlace'])
+                                    . '</a></p>';
+                            }
+                        } else {
+                            echo '<p>No hay archivos asociados para esta obra.</p>';
+                        }
+                        ?>
+                    </div>
+                </div>
+            </div>
     </form>
 
     </div>

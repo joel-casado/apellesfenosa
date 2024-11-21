@@ -39,10 +39,6 @@ if (!isset($_SESSION['admin']) && !isset($_SESSION['tecnic']) && !isset($_SESSIO
 
     
     <h1>OBRAS DISPONIBLES</h1>
-    <form class="search-bar">
-		<input type="text" id="q" placeholder="Buscador de obra" onkeyup="search()">
-	</form>
-
     <div class="filters">
         <form id="filterForm" method="POST" action="index.php?controller=Obras&action=filter">
             <!-- Grupos filtros en archivo js-->
@@ -52,16 +48,18 @@ if (!isset($_SESSION['admin']) && !isset($_SESSION['tecnic']) && !isset($_SESSIO
         </form>
     </div>
 
-
-        <div class="actions">
-            <a href="index.php?controller=Obras&action=crear" class="edit-button">Crear</a>
-            <a href="index.php?controller=Obras&action=mostrarPdfTodasLasObras" class="edit-button">Generar PDF Todas las Obras</a>
-            <form method="POST" action="index.php?controller=Obras&action=generarPdf">
+    <form method="POST" action="index.php?controller=Obras&action=generarPdf">
                 <!-- Enviar datos visibles como JSON -->
                 <input type="hidden" name="filteredData" id="filteredData" />
                 <button type="submit" class="pdf" id="generate-pdf" disabled>Generar PDF</button>
             </form>
-
+    <form class="search-bar">
+		<input type="text" id="q" placeholder="Buscador de obra" onkeyup="search()">
+	</form>
+    
+        <div class="actions">
+            <a href="index.php?controller=Obras&action=crear" class="edit-button">Crear</a>
+            <a href="index.php?controller=Obras&action=mostrarPdfTodasLasObras" class="edit-button">Generar libro-registro</a>
         </div>        
     <table>
         <thead>

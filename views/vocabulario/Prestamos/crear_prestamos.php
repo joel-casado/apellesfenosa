@@ -13,12 +13,12 @@ $prestamosController = new prestamosController();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crear prestamos</title>
-    <link rel="stylesheet" href="styles/editar_obras/editar.css">
+    <link rel="stylesheet" href="styles/materiales/materiales.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
     <h1>Crear prestamos</h1>
-
+    <div class="editar">
     <form action="index.php?controller=prestamos&action=crearprestamos" method="POST">
 
                 
@@ -36,6 +36,6 @@ $prestamosController = new prestamosController();
 
         <button type="submit">Agregar prestamo</button>
     </form>
-
+</div>
 </body>
 </html>

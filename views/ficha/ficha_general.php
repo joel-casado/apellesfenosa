@@ -25,7 +25,7 @@ $imagen_url = $obraModel->obtenerImagen($obra['numero_registro']);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Ficha</title>
-    <link rel="stylesheet" href="styles/obras/obras.css">
+    <link rel="stylesheet" href="styles/editar_obras/editar.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -57,10 +57,14 @@ $imagen_url = $obraModel->obtenerImagen($obra['numero_registro']);
         ?>
 
         <?php if (!empty($imagen_url)): ?>
-            <img src="<?php echo htmlspecialchars($imagen_url); ?>" alt="<?php echo htmlspecialchars($obra['titulo']); ?>" style="width: 100px; height: auto;">
+        <div class="image-container">
+            <img src="<?php echo htmlspecialchars($imagen_url); ?>" alt="<?php echo htmlspecialchars($obra['titulo']); ?>">
+        </div>
         <?php else: ?>
-            <img src="ruta/a/la/imagen/por_defecto.jpg" alt="Sin imagen disponible" style="width: 100px; height: auto;">
-            <p>Sin imagen disponible</p>
+            <div class="image-container">
+                <img src="ruta/a/la/imagen/por_defecto.jpg" alt="Sin imagen disponible">
+                <p>Sin imagen disponible</p>
+            </div>
         <?php endif; ?>
 
 

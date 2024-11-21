@@ -70,25 +70,47 @@ class ObrasController {
             $valoracion_econ = $_POST['valoracion_econ'];
             $bibliografia = $_POST['bibliografia'];
             $historia_obra = $_POST['historia_obra'];
-
+    
             // Instanciar el modelo con la conexión
             $obraModel = new ObrasModel($this->conn);
-
-            // actualizar la obra
+    
+            // Actualizar la obra
             $resultado = $obraModel->actualizarObra($numero_registro, $titulo, $autor, $clasificaciones_genericas, 
-            $coleccion_procedencia, $maxima_altura, $maxima_anchura, $maxima_profundidad, $materiales, $tecnicas, 
-            $ano_inicio, $ano_final, $dataciones, $formas_ingreso, $fecha_registro, $descripcion,$numero_ejemplares, $fuente_ingreso, $estado_conservacion,
-            $lugar_procedencia, $lugar_ejecucion, $valoracion_econ, $bibliografia, $historia_obra );
-
-            if ($resultado) {
-                // Redirigir a la lista de obras después de la actualización
-                header('Location: index.php?controller=Obras&action=verObras');
-                exit();
-            } else {
-                echo "Error al actualizar la obra.";
-            }
+                $coleccion_procedencia, $maxima_altura, $maxima_anchura, $maxima_profundidad, $materiales, $tecnicas, 
+                $ano_inicio, $ano_final, $dataciones, $formas_ingreso, $fecha_registro, $descripcion,
+                $numero_ejemplares, $fuente_ingreso, $estado_conservacion,
+                $lugar_procedencia, $lugar_ejecucion, $valoracion_econ, $bibliografia, $historia_obra);
+    
+                if ($resultado) {
+                    // Procesar archivos secundarios
+                    if (!empty($_FILES['archivos_extra']['name'][0])) {
+                        $carpetaObra = "archivos/obra_" . $numero_registro;
+                        if (!is_dir($carpetaObra)) {
+                            mkdir($carpetaObra, 0777, true);
+                        }
+                
+                        foreach ($_FILES['archivos_extra']['tmp_name'] as $key => $tmpName) {
+                            $nombreArchivoSecundario = basename($_FILES['archivos_extra']['name'][$key]);
+                            $rutaDestinoSecundario = $carpetaObra . "/" . $nombreArchivoSecundario;
+                
+                            if (move_uploaded_file($tmpName, $rutaDestinoSecundario)) {
+                                $obraModel->guardarArchivoSecundario($numero_registro, $rutaDestinoSecundario);
+                            } else {
+                                error_log("Error al mover archivo secundario: " . $nombreArchivoSecundario);
+                            }
+                        }
+                    }
+                
+                    // Redirigir después de la actualización
+                    header('Location: index.php?controller=Obras&action=verObras');
+                    exit();
+                } else {
+                    echo "Error al actualizar la obra.";
+                }
+                
         }
     }
+    
     
     public function mostrarFicha() {
         if (isset($_GET['id'])) {
@@ -387,7 +409,7 @@ class ObrasController {
     
         // Añadir contenido al PDF
         $pdf->writeHTML($html, true, false, true, false, '');
-        $pdf->Output('obras.pdf', 'D');
+        $pdf->Output('obras.pdf', 'I');
         exit;
     }
     
