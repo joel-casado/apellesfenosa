@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Museu Apel·les Fenosa</title>
+    <title>Inicia Sessió</title>
     <link rel="stylesheet" href="styles/login/login.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,7 +13,7 @@
 <body>
 
     <div class="header">
-        <img src="images/login/logo.png" alt="Museu Apel·les Fenosa">
+        <img src="images/login/logo.png" alt="LogoMuseu Apel·les Fenosa">
     </div>
     <div class="container">
         <div class="login-box">

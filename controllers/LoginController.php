@@ -1,53 +1,68 @@
 <?php
 
 class LoginController {
+    public function __construct() {
+        $this->startSession();
+    }
+
+    private function startSession() {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+    }
+
+    private function redirectToRolePage($role, $username) {
+        $_SESSION[$role] = $username;
+        header("Location: index.php?controller=Obras&action=verObras&$role");
+        exit();
+    }
 
     public function verLogin() {
-        // Mira si se ha pasado algun mensaje de eerror.
-        $error_message = isset($_GET['error']) ? $_GET['error'] : '';
+        // Redirecció si ja s'ha iniciat sessió.
+        foreach (['admin', 'tecnic', 'convidat'] as $role) {
+            if (isset($_SESSION[$role])) {
+                header("Location: index.php?controller=Obras&action=verObras&$role");
+                exit();
+            }
+        }
+
+        // Mostrar missatge d'error
+        $error_message = $_SESSION['error'] ?? '';
+        unset($_SESSION['error']); // Neteja d'error després d'utilitzar-ho
         require_once "views/login/login.php";
     }
 
     public function login() {
-        if (isset($_POST['username']) && isset($_POST['password'])) {
-            $username = $_POST['username'];
-            $password = $_POST['password'];
-
+        // Validació i netejeda dels inputs
+        $username = htmlspecialchars($_POST['username'] ?? '', ENT_QUOTES, 'UTF-8');
+        $password = htmlspecialchars($_POST['password'] ?? '', ENT_QUOTES, 'UTF-8');
+    
+        if (!empty($username) && !empty($password)) {
             $login_model = new LoginModel();
-
-            // Llama a la funcion de validacion del modelo.
             $rol_usuario = $login_model->validar_usuario($username, $password);
-
+    
             if ($rol_usuario) {
-                session_start();
-                //Creacion de sesiones dependiendo del rol del usuario
-                if ($rol_usuario == 'admin') {
-                    $_SESSION['admin'] = $username;
-                    header("Location: index.php?controller=Obras&action=verObras&admin");
-                } elseif ($rol_usuario == 'tecnic') {
-                    $_SESSION['tecnic'] = $username;
-                    header("Location: index.php?controller=Obras&action=verObras&tecnic");
-                } elseif ($rol_usuario == 'convidat') {
-                    $_SESSION['convidat'] = $username;
-                    header("Location: index.php?controller=Obras&action=verObras&convidat");
-                }
+                $this->redirectToRolePage($rol_usuario, $username);
             } else {
-                // Validacion extra para mirar si el usuario existe, si no, mensaje de error.
-                if (!$login_model->usuario_existe($username)) {
-                    header("Location: index.php?controller=Login&action=verLogin&error=Usuari no trobat");
-                } else {
-                    header("Location: index.php?controller=Login&action=verLogin&error=Contrasenya incorrecta");
-                }
+                $_SESSION['error'] = !$login_model->usuario_existe($username) 
+                    ? 'Usuari no trobat' 
+                    : 'Contrasenya incorrecta';
+                header("Location: index.php?controller=Login&action=verLogin");
+                exit();
             }
+        } else {
+            $_SESSION['error'] = 'Missing credentials';
+            header("Location: index.php?controller=Login&action=verLogin");
+            exit();
         }
-    }
+    }    
 
-    //Funcion para destruir sesion
     public function logout() {
         session_start();
         session_unset();
         session_destroy();
         header("Location: index.php?controller=Login&action=verLogin");
+        exit();
     }
 }
 ?>
