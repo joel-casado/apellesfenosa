@@ -65,7 +65,7 @@ document.getElementById('generate-pdf').addEventListener('click', function () {
         }
     });
 
-    // Asigna los datos visibles al campo hidden
+    
     document.getElementById('filteredData').value = JSON.stringify(filteredData);
 });
 function toggleGeneratePdfButton() {

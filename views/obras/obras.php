@@ -74,29 +74,9 @@ if (!isset($_SESSION['admin']) && !isset($_SESSION['tecnic']) && !isset($_SESSIO
                 <button type="submit" class="pdf" id="generate-pdf" disabled>Generar PDF</button>
             </form>
 
-    <form class="search-bar">
-        <input type="text" id="q" placeholder="Buscador de obra" onkeyup="search()">
-    </form>
-
-    <div class="actions">
-        <a href="index.php?controller=Obras&action=crear" class="edit-button">Crear</a>
-        <a href="index.php?controller=Obras&action=mostrarPdfTodasLasObras" class="edit-button">Generar libro-registro</a>
-        <a href="index.php?controller=Prestec&action=procesarFormulario" class="edit-button">Generar prestec</a>
-    </div>
-
+        </div>        
     <table>
         <thead>
-        <tr>
-            <th>Imatge</th>
-            <th>Num Registre</th>
-            <th>Títol</th>
-            <th>Autor</th>
-            <th>Técnica</th>
-            <th>Ubicació</th>
-            <th>Material</th>
-            <th>Tècnica</th>
-            <th colspan="3">Acció</th>
-        </tr>
             <tr>
             
                 <th>Imatge</th>
