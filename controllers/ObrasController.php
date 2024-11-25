@@ -81,25 +81,39 @@ class ObrasController {
                 $numero_ejemplares, $fuente_ingreso, $estado_conservacion,
                 $lugar_procedencia, $lugar_ejecucion, $valoracion_econ, $bibliografia, $historia_obra);
     
+                $rutaArchivo = null; // Ruta del archivo guardado
                 if ($resultado) {
-                    // Procesar archivos secundarios
-                    if (!empty($_FILES['archivos_extra']['name'][0])) {
+                    if ($rutaArchivo) {
+                        $archivoGuardado = $obraModel->guardarArchivo($numero_registro, $rutaArchivo);
+                        if (!$archivoGuardado) {
+                            echo json_encode(['success' => false, 'message' => 'Error al guardar el archivo en la base de datos']);
+                            exit();
+                        }
+                    }
+                    
+                    if ($resultado) {
+                           
+                        // Crear carpeta para archivos secundarios
                         $carpetaObra = "archivos/obra_" . $numero_registro;
                         if (!is_dir($carpetaObra)) {
                             mkdir($carpetaObra, 0777, true);
                         }
-                
-                        foreach ($_FILES['archivos_extra']['tmp_name'] as $key => $tmpName) {
-                            $nombreArchivoSecundario = basename($_FILES['archivos_extra']['name'][$key]);
-                            $rutaDestinoSecundario = $carpetaObra . "/" . $nombreArchivoSecundario;
-                
-                            if (move_uploaded_file($tmpName, $rutaDestinoSecundario)) {
-                                $obraModel->guardarArchivoSecundario($numero_registro, $rutaDestinoSecundario);
-                            } else {
-                                error_log("Error al mover archivo secundario: " . $nombreArchivoSecundario);
+            
+                        // Guardar archivos secundarios
+                        if (!empty($_FILES['archivos_extra']['name'][0])) {
+                            foreach ($_FILES['archivos_extra']['tmp_name'] as $key => $tmpName) {
+                                $nombreArchivoSecundario = basename($_FILES['archivos_extra']['name'][$key]);
+                                $rutaDestinoSecundario = $carpetaObra . "/" . $nombreArchivoSecundario;
+            
+                                if (move_uploaded_file($tmpName, $rutaDestinoSecundario)) {
+                                    $obraModel->guardarArchivoSecundario($numero_registro, $rutaDestinoSecundario);
+                                } else {
+                                    echo json_encode(['success' => false, 'message' => 'Error al subir archivo secundario: ' . $nombreArchivoSecundario]);
+                                    exit();
+                                }
                             }
                         }
-                    }
+                    } 
                 
                     // Redirigir después de la actualización
                     header('Location: index.php?controller=Obras&action=verObras');

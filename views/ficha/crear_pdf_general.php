@@ -89,62 +89,72 @@ $html ='<h1>Ficha de Obra</h1>
 <h2 class="section-title">Informació Principal</h2>
 <table><tr><td>'.$imagen_html.'</td></tr></table>
 <table border="1" cellpadding="6">
-    <tr><th>Nº de registre:</th><td>'.$obra['numero_registro'].'</td></tr>
-    <tr><th>Nom objecte:</th><td>'.$obra['nombre_objeto'].'</td></tr>
-    <tr><th>Títol:</th><td>'.$obra['titulo'].'</td></tr>
-    <tr><th>Classificació genèrica:</th><td>'.$clasificacionSeleccionada.'</td></tr>
-    <tr><th>Nombre Autor:</th><td>'.$autorseleccionado.'</td></tr>
-    <tr><th>Col·lecció de procedència:</th><td>'.$obra['coleccion_procedencia'].'</td></tr>
-    <tr><th>Ubicació Actual:</th><td>'.$obra['ubicacion'].'</td></tr>
+    <tr><th><b>Nº de registre:</b></th><td>'.$obra['numero_registro'].'</td></tr>
+    <tr><th><b>Nom objecte:</b></th><td>'.$obra['nombre_objeto'].'</td></tr>
+    <tr><th><b>Títol:</b></th><td>'.$obra['titulo'].'</td></tr>
+    <tr><th><b>Classificació genèrica:</b></th><td>'.$clasificacionSeleccionada.'</td></tr>
+    <tr><th><b>Nombre Autor:</b></th><td>'.$autorseleccionado.'</td></tr>
+    <tr><th><b>Col·lecció de procedència:</b></th><td>'.$obra['coleccion_procedencia'].'</td></tr>
+    <tr><th><b>Ubicació Actual:</b></th><td>'.$obra['ubicacion'].'</td></tr>
 </table>
 
 <h2 class="section-title">Detalls de Realizació</h2>
 <table border="1" cellpadding="6">
-    <tr><th>Máxima Altura:</th><td>'.$obra['maxima_altura'].'</td></tr>
-    <tr><th>Máxima Anchura:</th><td>'.$obra['maxima_anchura'].'</td></tr>
-    <tr><th>Máxima Profundidad:</th><td>'.$obra['maxima_profundidad'].'</td></tr>
-    <tr><th>Material:</th><td>'.$materialseleccionado.'</td></tr>
-    <tr><th>Tècnica:</th><td>'.$tecnicaseleccionado.'</td></tr>
-    <tr><th>Nombre exemplars:</th><td>'.$obra['numero_ejemplares'].'</td></tr><br>
+    <tr><th><b>Máxima Altura:</b></th><td>'.$obra['maxima_altura'].'</td></tr>
+    <tr><th><b>Máxima Anchura:</b></th><td>'.$obra['maxima_anchura'].'</td></tr>
+    <tr><th><b>Máxima Profundidad:</b></th><td>'.$obra['maxima_profundidad'].'</td></tr>
+    <tr><th><b>Material:</b></th><td>'.$materialseleccionado.'</td></tr>
+    <tr><th><b>Tècnica:</b></th><td>'.$tecnicaseleccionado.'</td></tr>
+    <tr><th><b>Nombre exemplars:</b></th><td>'.$obra['numero_ejemplares'].'</td></tr><br>
 </table>
 
 <h2 class="section-title">Datació</h2>
 <table border="1" cellpadding="6">
-    <tr><th>Any inici:</th><td>'.$obra['ano_inicio'].'</td></tr>
-    <tr><th>Any final:</th><td>'.$obra['ano_final'].'</td></tr>
-    <tr><th>Datación:</th><td>'.$datacionseleccionado.'</td></tr>
-    <tr><th>Data de registre:</th><td>'.$obra['fecha_registro'].'</td></tr>
+    <tr><th><b>Any inici:</b></th><td>'.$obra['ano_inicio'].'</td></tr>
+    <tr><th><b>Any final:</b></th><td>'.$obra['ano_final'].'</td></tr>
+    <tr><th><b>Datación:</b></th><td>'.$datacionseleccionado.'</td></tr>
+    <tr><th><b>Data de registre:</b></th><td>'.$obra['fecha_registro'].'</td></tr>
 </table>
 
 <h2 class="section-title">Ingrés</h2>
 <table border="1" cellpadding="6">
-    <tr><th>Forma ingrés:</th><td>'.$ingresoseleccionado.'</td></tr>
-    <tr><th>Data ingrés:</th><td>'.$obra['fecha_ingreso'].'</td></tr>
-    <tr><th>Font ingrés:</th><td>'.$obra['fuente_ingreso'].'</td></tr>
+    <tr><th><b>Forma ingrés:</b></th><td>'.$ingresoseleccionado.'</td></tr>
+    <tr><th><b>Data ingrés:</b></th><td>'.$obra['fecha_ingreso'].'</td></tr>
+    <tr><th><b>Font ingrés:</b></th><td>'.$obra['fuente_ingreso'].'</td></tr>
 </table>
 
 <h2 class="section-title">Baixa</h2>
 <table border="1" cellpadding="6">
-    <tr><th>Baixa:</th><td>'.$obra['baja'].'</td></tr>
-    <tr><th>Causa de Baixa:</th><td>'.$obra['causa_baja'].'</td></tr>
-    <tr><th>Data de baixa:</th><td>'.$obra['fecha_baja'].'</td></tr>
-    <tr><th>Persona autoritz. baixa:</th><td>'.$obra['persona_aut_baja'].'</td></tr>
+    <tr><th><b>Baixa:</b></th><td>'.$obra['baja'].'</td></tr>
+    <tr><th><b>Causa de Baixa:</b></th><td>'.$obra['causa_baja'].'</td></tr>
+    <tr><th><b>Data de baixa:</b></th><td>'.$obra['fecha_baja'].'</td></tr>
+    <tr><th><b>Persona autoritz. baixa:</b></th><td>'.$obra['persona_aut_baja'].'</td></tr>
 </table>
 
 <h2 class="section-title">Altre informació</h2>
 <table border="1" cellpadding="6">
-    <tr><th>Estat de conservació:</th><td>'.$estadosSeleccionado.'</td></tr>
-    <tr><th>Lloc execució:</th><td>'.$obra['lugar_ejecucion'].'</td></tr>
-    <tr><th>Lloc de procedència:</th><td>'.$obra['lugar_procedencia'].'</td></tr>
-    <tr><th>Nº Tiratge:</th><td>'.$obra['num_tirada'].'</td></tr>
-    <tr><th>Altres números identificació:</th><td>'.$obra['otros_num_id'].'</td></tr>
-    <tr><th>Valoración Económica:</th><td>'.$obra['valoracion_econ'].'</td></tr>
-    <tr><th>Exposicions:</th><td>'.$exposicionseleccionado.'</td></tr>
-    <tr><th>Bibliografía:</th><td>'.$obra['bibliografia'].'</td></tr>
-    <tr><th>Descripción:</th><td>'.$obra['descripcion'].'</td></tr>
-    <tr><th>Historia de la Obra:</th><td>'.$obra['historia_obra'].'</td></tr>
+    <tr><th><b>Estat de conservació:</b></th><td>'.$estadosSeleccionado.'</td></tr>
+    <tr><th><b>Lloc execució:</b></th><td>'.$obra['lugar_ejecucion'].'</td></tr>
+    <tr><th><b>Lloc de procedència:</b></th><td>'.$obra['lugar_procedencia'].'</td></tr>
+    <tr><th><b>Nº Tiratge:</b></th><td>'.$obra['num_tirada'].'</td></tr>
+    <tr><th><b>Altres números identificació:</b></th><td>'.$obra['otros_num_id'].'</td></tr>
+    <tr><th><b>Valoración Económica:</b></th><td>'.$obra['valoracion_econ'].'</td></tr>
+    <tr><th><b>Exposicions:</b></th><td>'.$exposicionseleccionado.'</td></tr>
+       <tr>
+        <th style="width: 20%; padding: 12px; text-align: left;"><b>Bibliografía:</b></th>
+        <td style="width: 80%; padding: 12px;">'.$obra['bibliografia'].'</td>
+    </tr>
+    <tr>
+        <th style="width: 20%; padding: 12px; text-align: left;"><b>Descripción:</b></th>
+        <td style="width: 80%; padding: 12px;">'.$obra['descripcion'].'</td>
+    </tr>
+    <tr>
+        <th style="width: 20%; padding: 12px; text-align: left;"><b>Historia Obra:</b></th>
+        <td style="width: 80%; padding: 12px;">'.$obra['historia_obra'].'</td>
+    </tr>
 </table>
 ';
+
 // Generar PDF
 $pdf->writeHTML($html, true, false, true, false, '');
 ob_end_clean(); // Limpia el buffer antes de generar el PDF

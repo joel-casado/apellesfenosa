@@ -185,13 +185,14 @@
     <div class="actions">
         <a href="index.php?controller=Obras&action=crear" class="edit-button">Crear</a>
         <a href="index.php?controller=Obras&action=mostrarPdfTodasLasObras" class="edit-button">Generar libro-registro</a>
+        <a href="index.php?controller=Prestec&action=procesarFormulario" class="edit-button">Generar prestec</a>
     </div>
 
     <table>
         <thead>
         <tr>
             <th>Imatge</th>
-            <th>Nom Objecte</th>
+            <th>Num Registre</th>
             <th>Títol</th>
             <th>Autor</th>
             <th>Técnica</th>
