@@ -17,7 +17,7 @@ if (!$obras || count($obras) === 0) {
 }
 
 
-$pdf = new TCPDF('L', 'mm', 'A3', true, 'UTF-8', false);
+$pdf = new TCPDF('P', 'mm', 'A3', true, 'UTF-8', false);
 $pdf->SetCreator(PDF_CREATOR);
 $pdf->SetAuthor('Apel·les Fenosa');
 $pdf->SetTitle('Listado de Obras');
@@ -32,13 +32,13 @@ foreach ($obras as $obra) {
     if (!empty($obra['imagen_url'])) {
         $pdf->Image($obra['imagen_url'], '', '', 50, 50, '', '', 'T', false, 300, '', false, false, 1, false, false, false);
     }else{
-        $pdf->Image('images/default.jpg');
+        $pdf->Image('images/default.png');
     }
 
     $pdf->Ln(55); // Espacio después de la imagen
     
     // Crear tabla en HTML
-    $html = '<table border="1" cellpadding="8" style="width:100%;">
+    $html = '<table border="1" cellpadding="10" style="width:100%;">
                 <tr>
                     <td><b>Número de Registro:</b> ' . $obra['numero_registro'] . '</td>
                     <td ><b>Clasificación Genérica:</b> ' . $obra['texto_clasificacion'] . '</td>
@@ -90,14 +90,14 @@ foreach ($obras as $obra) {
                     <td><b>Exposiciones:</b> ' . $obra['exposicion'] . '</td>
                 </tr>
                 <tr>
-                   <td colspan="3"  style="height:100px;" ><b>Bibliografía:</b> ' . $obra['bibliografia'] . '</td>
+                   <td colspan="3"  style="height:150px;" ><b>Bibliografía:</b> ' . $obra['bibliografia'] . '</td>
                 </tr>
                 
                 <tr>
-                    <td colspan="3" style="height:100px;" ><b>Descripción:</b> ' . $obra['descripcion'] . '</td>
+                    <td colspan="3" style="height:150px;" ><b>Descripción:</b> ' . $obra['descripcion'] . '</td>
                 </tr>
                 <tr>
-                    <td colspan="3" style="height:100px;" ><b>Historia de la obra:</b> ' . $obra['historia_obra'] . '</td>
+                    <td colspan="3" style="height:150px;" ><b>Historia de la obra:</b> ' . $obra['historia_obra'] . '</td>
                 </tr>
             </table>';
 

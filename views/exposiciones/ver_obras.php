@@ -12,6 +12,7 @@
     <div class="header">
         <img src="images/login/logo.png" alt="Museu Apel·les Fenosa">
         <a href="index.php?controller=Login&action=logout" class="logout-link">Cerrar sesión</a>
+        
     </div>
     <h1>Exposició seleccionada</h1> 
     <?php
@@ -21,10 +22,8 @@
             return; // Detener la ejecución si no se tiene el ID
         }
     ?>
-    <?php
-        echo "El ID de exposición en la vista es: " . $id_exposicion;
-    ?>
-    <a  href="index.php?controller=Exposiciones&action=anadirObra&id_exposicion=<?php echo $id_exposicion; ?>" class="btn btn-success">Añadir obra</a>
+   
+    <a  href="index.php?controller=Exposiciones&action=anadirObra&id_exposicion=<?php echo $id_exposicion; ?>" class="btn btn-success">Afegir obra</a>
     <table>
         <thead>
             <tr>

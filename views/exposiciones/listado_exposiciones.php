@@ -20,10 +20,6 @@
 
     
     <h1>Exposicions</h1>
-    <form method="POST" action="index.php?controller=Exposiciones&action=generarPdf">
-        <button type="submit" class="pdf" id="generate-pdf" disabled>Generar PDF</button>
-    </form>
-
 
     <div class="expo_box">
         
@@ -52,8 +48,8 @@
                         <td><?php echo $expo['sitio_exposicion']; ?></td>
                         
                         <td>
-                            <a href="index.php?controller=Exposiciones&action=editar_expo&id=<?= $expo['id_exposicion']; ?>" class="btn btn-primary">Editar</a>
-                            <a href="index.php?controller=Exposiciones&action=ver_obras&id=<?= $expo['id_exposicion']; ?>" class="btn btn-primary">Ver</a>
+                            <a href="index.php?controller=Exposiciones&action=editar_expo&id=<?= $expo['id_exposicion']; ?>" class="btn btn-primary">Editar exposició</a>
+                            <a href="index.php?controller=Exposiciones&action=ver_obras&id=<?= $expo['id_exposicion']; ?>" class="btn btn-primary">Afegir obra</a>
                         </td>
                         
                     </tr>

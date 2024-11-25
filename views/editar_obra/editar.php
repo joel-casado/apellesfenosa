@@ -15,7 +15,6 @@ $anoFinal = $obraModel->getAnoFinal();
 $formasIngreso = $obraModel->getFormasIngreso();
 $estadosConservacion = $obraModel->getEstadosConservacion();
 $exposiciones = $obraModel->getexposicion();
-$archivos = $obraModel->getarchivos($id);
 ?>
 
 <!DOCTYPE html>
@@ -24,7 +23,7 @@ $archivos = $obraModel->getarchivos($id);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Obra</title>
-    <link rel="stylesheet" href="styles/editar_obras/editar.css">
+    <link rel="stylesheet" href="SCSS/prueba/prueba.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -183,13 +182,15 @@ $archivos = $obraModel->getarchivos($id);
 
 
         <label for="estado_conservacion">Estado de Conservación:</label>
-        <select name="estado_conservacion" id="estado_conservacion"required>
-            <?php foreach ($estadosConservacion as $estadoConservacion): ?>
-                <option value="<?= $estadoConservacion['id_estado'] ?>"<?= $obra['estado_conservacion'] == $estadoConservacion['nombre_estado'] ? 'selected' : '' ?>>
-                    <?= $estadoConservacion['nombre_estado'] ?>
-                </option>
-            <?php endforeach; ?>
-        </select>
+        <input list="estado_conservacion" id="estado_conservacion" name="estado_conservacion" value="<?php echo $obra['estado_conservacion']; ?>">
+            <datalist id="estados">
+                <option value="Bo">
+                <option value="Dolent">
+                <option value="Excel·lent">
+                <option value="Indeterminat">
+                <option value="desconeguda">
+                <option value="Regular">
+            </datalist>
 
         <label for="lugar_ejecucion">Lugar de Ejecución:</label>
         <input type="text" id="lugar_ejecucion" name="lugar_ejecucion" value="<?php echo $obra['lugar_ejecucion']; ?>">
@@ -221,29 +222,6 @@ $archivos = $obraModel->getarchivos($id);
         </div>
         </div>
 
-        <h2 class="section-title" onclick="toggleSection(this)">Otros archivos <span class="arrow">▼</span></h2>
-            <div class="section-content">
-                <div class="grid-container">
-                    <label for="otros_archivos">Archivos asociados:</label>
-                    <div id="otros_archivos">
-                        <?php
-                        $archivos = $obraModel->getArchivos($id); // Llama al método del modelo.
-                        if (!empty($archivos)) {
-                            foreach ($archivos as $archivo) {
-                                echo '<p><a href="' . htmlspecialchars($archivo['enlace']) . '" target="_blank">'
-                                    . basename($archivo['enlace'])
-                                    . '</a></p>';
-                            }
-                        } else {
-                            echo '<p>No hay archivos asociados para esta obra.</p>';
-                        }
-                        ?>
-                    </div>
-                    
-                    <label for="archivos_extra">Añadir archivos:</label>
-                    <input type="file" id="archivos_extra" name="archivos_extra[]" multiple>
-                </div>
-            </div>
         <button type="submit">Actualizar</button>
     </form>
 

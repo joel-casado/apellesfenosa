@@ -70,11 +70,11 @@ class ObrasController {
             $valoracion_econ = $_POST['valoracion_econ'];
             $bibliografia = $_POST['bibliografia'];
             $historia_obra = $_POST['historia_obra'];
-    
+
             // Instanciar el modelo con la conexión
             $obraModel = new ObrasModel($this->conn);
-    
-            // Actualizar la obra
+
+            // actualizar la obra
             $resultado = $obraModel->actualizarObra($numero_registro, $titulo, $autor, $clasificaciones_genericas, 
                 $coleccion_procedencia, $maxima_altura, $maxima_anchura, $maxima_profundidad, $materiales, $tecnicas, 
                 $ano_inicio, $ano_final, $dataciones, $formas_ingreso, $fecha_registro, $descripcion,
@@ -124,7 +124,6 @@ class ObrasController {
                 
         }
     }
-    
     
     public function mostrarFicha() {
         if (isset($_GET['id'])) {

@@ -55,7 +55,7 @@
                 <?php endif; ?>
             </tbody>
         </table>
-        <button type="submit" class="btn btn-success">Añadir</button>
+        <button type="submit" class="btn btn-success">Afegir</button>
     </form>
 
 </body>
