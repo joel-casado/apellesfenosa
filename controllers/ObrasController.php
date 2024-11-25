@@ -387,7 +387,7 @@ class ObrasController {
     
         // Añadir contenido al PDF
         $pdf->writeHTML($html, true, false, true, false, '');
-        $pdf->Output('obras.pdf', 'D');
+        $pdf->Output('obras.pdf', 'I');
         exit;
     }
     
