@@ -53,6 +53,7 @@ if (!isset($_SESSION['admin']) && !isset($_SESSION['tecnic']) && !isset($_SESSIO
     <h1>OBRAS DISPONIBLES</h1>
     <form class="search-bar">
 		<input type="text" id="q" placeholder="Buscador de obra" onkeyup="search()">
+
 	</form>
 
     <div class="filters">
@@ -73,6 +74,8 @@ if (!isset($_SESSION['admin']) && !isset($_SESSION['tecnic']) && !isset($_SESSIO
                 <input type="hidden" name="filteredData" id="filteredData" />
                 <button type="submit" class="pdf" id="generate-pdf" disabled>Generar PDF</button>
             </form>
+            <a href="index.php?controller=Prestec&action=procesarFormulario" class="edit-button">Generar prestec</a>
+    </div>
 
         </div>        
     <table>
