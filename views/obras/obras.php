@@ -74,7 +74,7 @@ if (!isset($_SESSION['admin']) && !isset($_SESSION['tecnic']) && !isset($_SESSIO
                 <input type="hidden" name="filteredData" id="filteredData" />
                 <button type="submit" class="pdf" id="generate-pdf" disabled>Generar PDF</button>
             </form>
-            <a href="index.php?controller=Prestec&action=procesarFormulario" class="edit-button">Generar prestec</a>
+            <a href="index.php?controller=prestec&action=generarWord" class="edit-button">Generar prestec</a>
     </div>
 
         </div>        
