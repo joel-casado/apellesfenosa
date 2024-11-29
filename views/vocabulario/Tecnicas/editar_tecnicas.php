@@ -16,7 +16,7 @@ $tecnicas = $tecnicaModel->gettecnicaPorId($id);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar tecnica</title>
-    <<link rel="stylesheet" href="styles/materiales/materiales.css">
+    <link rel="stylesheet" href="styles/editar_obras/editar.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>

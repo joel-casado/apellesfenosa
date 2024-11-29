@@ -1,21 +1,6 @@
 <?php
 
 class LoginController {
-    public function __construct() {
-        $this->startSession();
-    }
-
-    private function startSession() {
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
-    }
-
-    private function redirectToRolePage($role, $username) {
-        $_SESSION[$role] = $username;
-        header("Location: index.php?controller=Obras&action=verObras&$role");
-        exit();
-    }
 
     public function verLogin() {
         // Si l'usuari ja está logejat porta a la pagina de obres
@@ -61,7 +46,7 @@ class LoginController {
         session_unset();
         session_destroy();
         header("Location: index.php?controller=Login&action=verLogin");
-        exit();
     }
 }
 ?>
+

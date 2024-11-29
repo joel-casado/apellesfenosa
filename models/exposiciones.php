@@ -115,14 +115,6 @@ class Exposiciones {
             return;
         }
     
-        $fecha_inicio = $expo['fecha_inicio_expo'];
-        $fecha_fin = $expo['fecha_fin_expo'];
-    
-        // Verificamos si hay conflicto de fechas
-        if ($this->existeConflictoFechas($numero_registro, $fecha_inicio, $fecha_fin)) {
-            echo "La obra no puede ser añadida debido a un conflicto de fechas.";
-            return;
-        }
     
         // Procede a añadir la obra si no hay conflicto
         $query = "UPDATE obras SET id_exposicion = :id_exposicion WHERE numero_registro = :numero_registro";

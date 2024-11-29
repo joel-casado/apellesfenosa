@@ -13,13 +13,12 @@ $materialController = new MaterialesController();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crear Material</title>
-    <link rel="stylesheet" href="styles/materiales/materiales.css">
+    <link rel="stylesheet" href="styles/exposiciones/crear_expo.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 </head>
-<body> 
-    <h1>Crear Material</h1>
-    <div class="editar">
-       
+<body>
+    <div class="expo_box">
+        <h1>Crear Material</h1>
 
         <form action="index.php?controller=Materiales&action=crearMaterial" method="POST">
             <label for="codigo_getty_material">Código Getty Material:</label>
@@ -30,9 +29,6 @@ $materialController = new MaterialesController();
 
             <button type="submit">Agregar Material</button>
         </form>
-        <div class="image_editar">
-            <img src="images/3.-Busto-de-Dora-Maar.jpg" alt="Statue">
-        </div>
     </div>
 </body>
 </html>

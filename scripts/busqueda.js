@@ -65,7 +65,25 @@ document.getElementById('generate-pdf').addEventListener('click', function () {
         }
     });
 
-    // Asigna los datos visibles al campo hidden
+    
     document.getElementById('filteredData').value = JSON.stringify(filteredData);
 });
+function toggleGeneratePdfButton() {
+    const tableBody = document.getElementById('the_table_body');
+    const rows = tableBody.querySelectorAll('tr');
+    const generatePdfButton = document.getElementById('generate-pdf');
+
+    // Verifica si alguna fila está visible
+    const hasVisibleRows = Array.from(rows).some(row => row.style.display !== 'none');
+
+    // Habilita o deshabilita el botón
+    generatePdfButton.disabled = !hasVisibleRows;
+
+    // Cambia el estilo del botón
+    if (hasVisibleRows) {
+        generatePdfButton.classList.add('active'); // Agrega la clase activa
+    } else {
+        generatePdfButton.classList.remove('active'); // Remueve la clase activa
+    }
+}
 

@@ -112,42 +112,35 @@ class ObrasModel {
     }
 
     public function obtenerTodasLasObras() {
-        $query = "SELECT obras.*, 
-                    materiales.texto_material,
-                    autores.nombre_autor, 
-                    exposiciones.exposicion, 
-                    clasificaciones_genericas.texto_clasificacion, 
-                    dataciones.nombre_datacion, 
-                    formas_ingreso.texto_forma_ingreso, 
-                    tecnicas.texto_tecnica, 
-                    estado_conservacion.nombre_estado,
-                    -- Usamos un alias para imagen_url
-                    COALESCE(archivos.enlace, 'images/default.jpg') AS imagen_url
-                FROM obras
-                LEFT JOIN clasificaciones_genericas 
-                    ON obras.classificacion_generica = clasificaciones_genericas.id_clasificacion
-                LEFT JOIN dataciones 
-                    ON obras.datacion = dataciones.id_datacion
-                LEFT JOIN exposiciones 
-                    ON obras.id_exposicion = exposiciones.id_exposicion
-                LEFT JOIN materiales 
-                    ON obras.material = materiales.codigo_getty_material
-                LEFT JOIN formas_ingreso 
-                    ON obras.forma_ingreso = formas_ingreso.id_forma_ingreso
-                LEFT JOIN autores 
-                    ON obras.autor = autores.codigo_autor
-                LEFT JOIN tecnicas 
-                    ON obras.tecnica = tecnicas.codigo_getty_tecnica
-                LEFT JOIN estado_conservacion
-                    ON obras.estado_conservacion = estado_conservacion.id_estado
-                LEFT JOIN archivos 
-                    ON obras.numero_registro = archivos.numero_registro";
+        $query = "SELECT obras.*, materiales.texto_material,autores.nombre_autor, exposiciones.exposicion, clasificaciones_genericas.texto_clasificacion, 
+        dataciones.nombre_datacion, 
+        formas_ingreso.texto_forma_ingreso, 
+        tecnicas.texto_tecnica, estado_conservacion.nombre_estado,
+        archivos.enlace AS imagen_url
+        FROM obras
+        LEFT JOIN clasificaciones_genericas 
+            ON obras.classificacion_generica = clasificaciones_genericas.id_clasificacion
+        LEFT JOIN dataciones 
+            ON obras.datacion = dataciones.id_datacion
+        LEFT JOIN exposiciones 
+            ON obras.id_exposicion = exposiciones.id_exposicion
+        LEFT JOIN materiales 
+            ON obras.material = materiales.codigo_getty_material
+        LEFT JOIN formas_ingreso 
+            ON obras.forma_ingreso = formas_ingreso.id_forma_ingreso
+        LEFT JOIN autores 
+            ON obras.autor = autores.codigo_autor
+        LEFT JOIN tecnicas 
+            ON obras.tecnica = tecnicas.codigo_getty_tecnica
+        LEFT JOIN estado_conservacion
+            ON obras.estado_conservacion = estado_conservacion.id_estado
+        LEFT JOIN archivos 
+            ON obras.numero_registro = archivos.numero_registro;";
         
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-    
     
 
 
@@ -165,15 +158,6 @@ class ObrasModel {
         }
     }
     
-        // Obtener todos los autores únicos
-        public function getArchivos($id) {
-            $sql = "SELECT DISTINCT enlace, numero_registro FROM archivos
-                    WHERE enlace LIKE :ruta";
-            $stmt = $this->conn->prepare($sql);
-            $stmt->execute([':ruta' => 'archivos/obra_' . $id . '%']);
-            return $stmt->fetchAll(PDO::FETCH_ASSOC);
-        }
-        
 
         // Obtener todos los autores únicos
         public function getAutores() {
@@ -250,7 +234,7 @@ class ObrasModel {
             return $result->fetchAll(PDO::FETCH_ASSOC);
         }
         
-    public function actualizarObra($numero_registro, $titulo, $autor, $clasificaciones_genericas, $coleccion_procedencia, 
+        public function actualizarObra($numero_registro, $titulo, $autor, $clasificaciones_genericas, $coleccion_procedencia, 
                                    $maxima_altura, $maxima_anchura, $maxima_profundidad, $materiales, $tecnicas, 
                                    $ano_inicio, $ano_final, $dataciones, $formas_ingreso, $fecha_registro, 
                                    $descripcion, $numero_ejemplares, $fuente_ingreso, $estado_conservacion, 
