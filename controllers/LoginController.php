@@ -18,7 +18,7 @@ class LoginController {
     }
 
     public function verLogin() {
-        // Redirecció si ja s'ha iniciat sessió.
+        // Si l'usuari ja está logejat porta a la pagina de obres
         foreach (['admin', 'tecnic', 'convidat'] as $role) {
             if (isset($_SESSION[$role])) {
                 header("Location: index.php?controller=Obras&action=verObras&$role");
@@ -26,27 +26,26 @@ class LoginController {
             }
         }
 
-        // Mostrar missatge d'error
+        // Mostra errors de credencials
         $error_message = $_SESSION['error'] ?? '';
-        unset($_SESSION['error']); // Neteja d'error després d'utilitzar-ho
+        unset($_SESSION['error']);
         require_once "views/login/login.php";
     }
 
     public function login() {
-        // Validació i netejeda dels inputs
         $username = htmlspecialchars($_POST['username'] ?? '', ENT_QUOTES, 'UTF-8');
         $password = htmlspecialchars($_POST['password'] ?? '', ENT_QUOTES, 'UTF-8');
-    
+
         if (!empty($username) && !empty($password)) {
             $login_model = new LoginModel();
-            $rol_usuario = $login_model->validar_usuario($username, $password);
-    
-            if ($rol_usuario) {
-                $this->redirectToRolePage($rol_usuario, $username);
+            $role = $login_model->usuarioExisteYValido($username, $password);
+
+            if ($role) {
+                $this->redirectToRolePage($role, $username);
             } else {
-                $_SESSION['error'] = !$login_model->usuario_existe($username) 
-                    ? 'Usuari no trobat' 
-                    : 'Contrasenya incorrecta';
+                $_SESSION['error'] = $login_model->usuarioExiste($username)
+                    ? 'Contrasenya incorrecta'
+                    : 'Usuari no trobat';
                 header("Location: index.php?controller=Login&action=verLogin");
                 exit();
             }
@@ -55,7 +54,7 @@ class LoginController {
             header("Location: index.php?controller=Login&action=verLogin");
             exit();
         }
-    }    
+    }
 
     public function logout() {
         session_start();
