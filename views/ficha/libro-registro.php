@@ -21,7 +21,10 @@ $pdf = new TCPDF('P', 'mm', 'A3', true, 'UTF-8', false);
 $pdf->SetCreator(PDF_CREATOR);
 $pdf->SetAuthor('Apel·les Fenosa');
 $pdf->SetTitle('Listado de Obras');
-$pdf->SetHeaderData('', 0, 'Listado de Obras', '');
+foreach ($obras as $obra) {
+$numeroRegistro = $obra['numero_registro']; // Asumiendo que ya tienes $obra definido
+$pdf->SetHeaderData('', 0, 'Número de Registro: ' . $numeroRegistro, '');
+}
 
 $pdf->SetFont('helvetica', '', 10);
 
@@ -38,7 +41,7 @@ foreach ($obras as $obra) {
     $pdf->Ln(55); // Espacio después de la imagen
     
     // Crear tabla en HTML
-    $html = '<table border="1" cellpadding="10" style="width:100%;">
+    $html = '<table border="0" cellpadding="10" style="width:100%;">
                 <tr>
                     <td><b>Número de Registro:</b> ' . $obra['numero_registro'] . '</td>
                     <td ><b>Clasificación Genérica:</b> ' . $obra['texto_clasificacion'] . '</td>
