@@ -1,25 +1,26 @@
 <?php
 
-function autocargar($nombreClase){
-    // Directories to search for classes
-    $directories = ['controllers', 'models', 'core'];
+function autocargar($nombreClase) {
+    // Directoris base que mira
+    $baseDirectories = ['controllers', 'models', 'core'];
 
-    foreach ($directories as $directory) {
-        $file = "$directory/$nombreClase.php";
+    // Normalització de noms i espais
+    $normalizedClassName = str_replace("\\", DIRECTORY_SEPARATOR, $nombreClase);
 
-         // Depuración: imprime las rutas que se están buscando
-         error_log("Buscando: $file");
-
+    foreach ($baseDirectories as $directory) {
+        $file = "$directory/$normalizedClassName.php";
 
         if (file_exists($file)) {
             include $file;
             return;
         }
     }
-    
-    // If the file is not found, throw an error for easier debugging
-    throw new Exception("File for class $nombreClase not found.");
-}
-spl_autoload_register("autocargar");
 
+    // Loggeja error i mostra excepció
+    error_log("No s'ha trobat cap archiu de la clase: $nombreClase");
+    throw new Exception("Autoload fallat: La classe $nombreClase no s'ha trobat.");
+}
+
+// Registra l'autoloader
+spl_autoload_register("autocargar");
 ?>

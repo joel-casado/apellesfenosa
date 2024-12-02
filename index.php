@@ -11,33 +11,39 @@
 require_once "autoload.php";
 require_once "models/database.php";
 
-$db = new Database();
-$connection = $db->conectar();
+try {
+    $db = new Database();
+    $connection = $db->conectar();
 
-if (isset($_GET['controller'])) {
-    $nombreController = $_GET['controller'] . "Controller";
-} else {
-    $nombreController = "LoginController";
-}
+    // Aconsegueix i neteja el nom del controlador
+    $controller = isset($_GET['controller']) 
+        ? htmlspecialchars($_GET['controller'], ENT_QUOTES, 'UTF-8') 
+        : 'Login';
+    $controllerClass = ucfirst($controller) . "Controller";
 
-if (class_exists($nombreController)) {
-    // Pass the database connection to the controller
-    $controlador = new $nombreController($connection);
+    // Mira si la classe del controlador existeix
+    if (class_exists($controllerClass)) {
+        $controlador = new $controllerClass($connection);
 
-    if (isset($_GET['action'])) {
-        $action = $_GET['action'];
+        // Aconsegueix el nom de l'acció i el neteja
+        $action = isset($_GET['action']) 
+            ? htmlspecialchars($_GET['action'], ENT_QUOTES, 'UTF-8') 
+            : 'verLogin';
+
+        // Mira si l'acció existeix en el controlador
+        if (method_exists($controlador, $action)) {
+            $controlador->$action();
+        } else {
+            throw new Exception("L'acció '$action' no existeix en $controllerClass.");
+        }
     } else {
-        $action = "verLogin";
+        throw new Exception("El controlador '$controllerClass' no existeix");
     }
-    
-    // Check if the action exists in the controller before calling it
-    if (method_exists($controlador, $action)) {
-        $controlador->$action();
-    } else {
-        echo "No existe la acción";
-    }
-} else {
-    echo "No existe el controlador";
+} catch (Exception $e) {
+    // Mostra d'errors
+    echo "<h1>Error</h1>";
+    echo "<p>" . htmlspecialchars($e->getMessage(), ENT_QUOTES, 'UTF-8') . "</p>";
+    error_log($e->getMessage());
 }
 ?>
 </body>
