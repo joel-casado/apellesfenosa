@@ -1,77 +1,95 @@
 <?php
 
 class Usuario extends Database {
+    private $db;
     private $nombre;
     private $password;
     private $rol;
 
-    function getNombre() {
+    public function __construct() {
+        $this->db = $this->conectar(); // Reuse the database connection
+    }
+
+    // Getters and Setters
+    public function getNombre() {
         return $this->nombre;
     }
-    function setRol($rol) {
-        $this->rol = $rol;
+
+    public function setNombre($nombre) {
+        if (strlen($nombre) < 3 || strlen($nombre) > 50) {
+            throw new Exception("Nombre debe tener entre 3 y 50 caracteres.");
+        }
+        $this->nombre = htmlspecialchars($nombre, ENT_QUOTES, 'UTF-8');
     }
-    
-    function getPassword() {
+
+    public function getPassword() {
         return $this->password;
     }
-    function setNombre($nombre) {
-        $this->nombre = $nombre;
+
+    public function setPassword($password) {
+        if (strlen($password) < 6) {
+            throw new Exception("La contraseña debe tener al menos 6 caracteres.");
+        }
+        $this->password = password_hash($password, PASSWORD_BCRYPT);
     }
 
-    function setPassword($password) {
-        $this->password = $password;
+    public function setRol($rol) {
+        $this->rol = htmlspecialchars($rol, ENT_QUOTES, 'UTF-8');
     }
-    
-    function mostrarTodos() {
+
+    // CRUD Methods
+    public function mostrarTodos() {
         $sql = "SELECT * FROM usuarios";
-        $db = $this->conectar();
-        $stmt = $db->query($sql);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC); // Devolver resultados como un arreglo asociativo
-    }
-    public function getByUsername($nombre) {
-        $db = $this->conectar();
-        $sql = "SELECT * FROM usuarios WHERE nombre_usuario = :username";
-        $stmt = $db->prepare($sql);
-        $stmt->bindParam(':username', $nombre);
-        $stmt->execute();
-
-        $user = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        return $user ? $user : null; // Devuelve el usuario encontrado o null si no existe
-    }
-    
-    function insertar($nombre, $rol, $password) {
-        $db = $this->conectar();
-        $sql = "INSERT INTO usuarios (nombre_usuario, rol_usuario, password) VALUES (:nombre_usuario, :rol_usuario, :password)";
-        $stmt = $db->prepare($sql);
-        $stmt->bindParam(':nombre_usuario', $nombre);
-        $stmt->bindParam(':rol_usuario', $rol);
-        $stmt->bindParam(':password', $password);
-                        
-        // Ejecuta la consulta
         try {
-            $stmt->execute(); // Ejecutar la inserción
-            echo "Usuario creado exitosamente."; // Mensaje de éxito
-            return true; // Retornar verdadero si se ejecutó correctamente
+            $stmt = $this->db->query($sql);
+            return $stmt->fetchAll(PDO::FETCH_ASSOC); // Return all users as an associative array
         } catch (PDOException $e) {
-            // Manejo de errores de inserción
-            echo "Error al insertar el usuario: " . $e->getMessage();
-            return false; // Retornar falso si hubo un error
+            error_log("Error fetching all users: " . $e->getMessage());
+            return false;
         }
     }
+
+    public function getByUsername($nombre) {
+        $sql = "SELECT * FROM usuarios WHERE nombre_usuario = :username";
+        try {
+            $stmt = $this->db->prepare($sql);
+            $stmt->bindParam(':username', $nombre);
+            $stmt->execute();
+            return $stmt->fetch(PDO::FETCH_ASSOC) ?: null;
+        } catch (PDOException $e) {
+            error_log("Error fetching user by username: " . $e->getMessage());
+            return false;
+        }
+    }
+
+    public function insertar($nombre, $rol, $password) {
+        $sql = "INSERT INTO usuarios (nombre_usuario, rol_usuario, password) VALUES (:nombre_usuario, :rol_usuario, :password)";
+        try {
+            $stmt = $this->db->prepare($sql);
+            $stmt->bindParam(':nombre_usuario', $nombre);
+            $stmt->bindParam(':rol_usuario', $rol);
+            $stmt->bindParam(':password', $password);
+            $stmt->execute();
+            return true;
+        } catch (PDOException $e) {
+            error_log("Error inserting user: " . $e->getMessage());
+            return false;
+        }
+    }
+
     public function actualizar($nombreOriginal, $nombreNuevo, $rol, $activo) {
         $sql = "UPDATE usuarios SET nombre_usuario = :nombreNuevo, rol_usuario = :rol, estado = :activo WHERE nombre_usuario = :nombreOriginal";
-        $db = $this->conectar();
-        $stmt = $db->prepare($sql);
-        $stmt->bindParam(':nombreNuevo', $nombreNuevo);
-        $stmt->bindParam(':rol', $rol);
-        $stmt->bindParam(':activo', $activo);
-        $stmt->bindParam(':nombreOriginal', $nombreOriginal); // Este es el nombre con el que filtras al usuario
-        return $stmt->execute();
+        try {
+            $stmt = $this->db->prepare($sql);
+            $stmt->bindParam(':nombreNuevo', $nombreNuevo);
+            $stmt->bindParam(':rol', $rol);
+            $stmt->bindParam(':activo', $activo, PDO::PARAM_BOOL);
+            $stmt->bindParam(':nombreOriginal', $nombreOriginal);
+            return $stmt->execute();
+        } catch (PDOException $e) {
+            error_log("Error updating user: " . $e->getMessage());
+            return false;
+        }
     }
-    
 }
-
-
 ?>
