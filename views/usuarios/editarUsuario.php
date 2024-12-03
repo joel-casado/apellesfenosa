@@ -12,7 +12,11 @@
     <div class="editar">
         <form action="index.php?controller=Usuaris&action=updateUser" method="POST">
             <input type="hidden" name="nombre_original" value="<?= $user['nombre_usuario']; ?>">
-            <input type="text" name="name" value="<?= $user['nombre_usuario']; ?>" required placeholder="Nombre de usuario">            
+            <input type="text" name="name" value="<?= $user['nombre_usuario']; ?>" required placeholder="Nombre de usuario">
+            <div class="input-group">
+                <label for="password">Nueva contraseña (opcional)</label>
+                <input type="password" name="password" id="password" placeholder="Dejar en blanco para no cambiar">
+            </div>            
             <select id="rol" name="rol">
                 <option value="convidat" <?= $user['rol_usuario'] == 'convidat' ? 'selected' : '' ?>>Convidat</option>
                 <option value="tecnic" <?= $user['rol_usuario'] == 'tecnic' ? 'selected' : '' ?>>Tècnic</option>

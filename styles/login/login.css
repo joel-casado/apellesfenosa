@@ -61,11 +61,11 @@ body {
 .form-container .input-group i, .form-container .input-group svg {
   position: absolute;
   left: 20px;
-  top: 65%;
+  top: 64%;
   transform: translateY(-50%);
   color: #666;
 }
-.form-container .input-group input {
+.form-container .input-group input, .form-container .input-group select {
   width: 100%;
   padding: 10px 10px 10px 50px;
   border: 1px solid white;
@@ -74,7 +74,7 @@ body {
   border-radius: 4px;
   font-size: 16px;
 }
-.form-container .input-group input:focus {
+.form-container .input-group input:focus, .form-container .input-group select:focus {
   border-color: #2D4F6F;
   outline: none;
 }

@@ -59,12 +59,12 @@ body {
         i, svg {
             position: absolute;
             left: 20px;
-            top: 65%;
+            top: 64%;
             transform: translateY(-50%);
             color: #666;
         }
 
-        input {
+        input, select {
             width: 100%;
             padding: 10px 10px 10px 50px;
             border: 1px solid white;
@@ -78,6 +78,7 @@ body {
                 outline: none;
             }
         }
+
     }
 
     .login-btn {
