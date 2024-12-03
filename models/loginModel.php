@@ -1,6 +1,6 @@
 <?php
 
-class LoginModel extends Database {
+class loginModel extends Database {
     private $db;
 
     public function __construct() {

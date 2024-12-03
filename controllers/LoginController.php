@@ -37,7 +37,7 @@ class LoginController {
         $password = htmlspecialchars($_POST['password'] ?? '', ENT_QUOTES, 'UTF-8');
 
         if (!empty($username) && !empty($password)) {
-            $login_model = new LoginModel();
+            $login_model = new loginModel();
             $role = $login_model->usuarioExisteYValido($username, $password);
 
             if ($role) {
