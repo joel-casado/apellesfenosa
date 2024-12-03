@@ -151,7 +151,8 @@
         <li><a href="views/vocabulario/ver_vocabulario.php"><i class="fas fa-book"></i> <span>Vocabulari</span></a></li>
         <li><a href="index.php?controller=Exposiciones&action=listado_exposiciones"><i class="fas fa-university"></i> <span>Exposicions</span></a></li>
         <li><a href="index.php?controller=Ubicacion&action=verArbol"><i class="fas fa-map-marker-alt"></i> <span>Ubicacions</span></a></li>
-        <li><a href="index.php?controller=Backup&action=createBackup"><i class="fas fa-map-marker-alt"></i> <span>Backup</span></a></li>
+        <li><a href="index.php?controller=usuaris&action=listar_usuarios"><i class="fa-solid fa-user"></i> <span>Usuaris</span></a></li>
+        <li><a href="index.php?controller=Backup&action=createBackup"><i class="fa-solid fa-file"></i> <span>Backup</span></a></li>
         <li><a href="index.php?controller=Login&action=logout"><i class="fas fa-sign-out-alt"></i> <span>Cerrar sesión</span></a></li>
     </ul>
     <div class="toggle-btn">
