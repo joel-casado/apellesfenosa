@@ -7,10 +7,10 @@ class Usuario extends Database {
     private $rol;
 
     public function __construct() {
-        $this->db = $this->conectar(); // Reuse the database connection
+        $this->db = $this->conectar();
     }
 
-    // Getters and Setters
+ 
     public function getNombre() {
         return $this->nombre;
     }
@@ -77,19 +77,32 @@ class Usuario extends Database {
         }
     }
 
-    public function actualizar($nombreOriginal, $nombreNuevo, $rol, $activo) {
-        $sql = "UPDATE usuarios SET nombre_usuario = :nombreNuevo, rol_usuario = :rol, estado = :activo WHERE nombre_usuario = :nombreOriginal";
+    public function actualizar($nombreOriginal, $nombreNuevo, $rol, $activo, $hashedPassword = null) {
+        // Base query
+        $sql = "UPDATE usuarios SET nombre_usuario = :nombreNuevo, rol_usuario = :rol, estado = :activo";
+        
+        // Add password update if a new password is provided
+        if ($hashedPassword) {
+            $sql .= ", password = :hashedPassword";
+        }
+        
+        $sql .= " WHERE nombre_usuario = :nombreOriginal";
+    
         try {
             $stmt = $this->db->prepare($sql);
             $stmt->bindParam(':nombreNuevo', $nombreNuevo);
             $stmt->bindParam(':rol', $rol);
             $stmt->bindParam(':activo', $activo, PDO::PARAM_BOOL);
             $stmt->bindParam(':nombreOriginal', $nombreOriginal);
+            if ($hashedPassword) {
+                $stmt->bindParam(':hashedPassword', $hashedPassword);
+            }
             return $stmt->execute();
         } catch (PDOException $e) {
             error_log("Error updating user: " . $e->getMessage());
             return false;
         }
     }
+    
 }
 ?>

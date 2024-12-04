@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Usuarios</title>
+    <title>Crear Usuari</title>
     <link rel="stylesheet" href="styles/login/login.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
@@ -14,15 +14,20 @@
     <div class="container">
         <div class="login-box">
             <div class="form-container">
+                <?php if (!empty($errorMessage)): ?>
+                    <div class="error-message">
+                        <?= htmlspecialchars($errorMessage) ?>
+                    </div>
+                <?php endif; ?>
                 <form action="index.php?controller=Usuaris&action=createUser" method="POST" onsubmit="return validarFormulario()">
                     <div class="input-group">
                         <label for="username">Usuari</label>
                         <i class="fas fa-user"></i>
                         <input type="text" name="name" id="username" required placeholder="Nom d'usuari">
-                        <span id="username-error" style="color: red;"><?php echo isset($errorMessage) ? $errorMessage : ''; ?></span>
                     </div>
                     <div class="input-group">
                         <label for="rol">Rol</label>
+                        <i class="fa-solid fa-star"></i>
                         <select id="rol" name="rol">
                         <option value="convidat">Convidat</option>
                         <option value="tecnic">Tècnic</option>

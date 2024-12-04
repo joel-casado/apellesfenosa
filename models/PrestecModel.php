@@ -5,28 +5,52 @@ class PrestecModel {
         require_once 'vendor/autoload.php';
 
         $phpWord = new PhpOffice\PhpWord\PhpWord();
-        $section = $phpWord->addSection();
         
+        
+        
+
         // Fuente por defecto
         $phpWord->setDefaultFontName('Arial');
-        $phpWord->setDefaultFontSize(9);
+        $phpWord->setDefaultFontSize(8);
         $underlineStyle = ['underline' => true];
-        $blueFontStyle = ['color' => '0000FF', 'underline' => true, 'size' => 14]; // Azul y subrayado
-        $largeFontStyle = ['size' => 11, 'bold' => true]; // Texto grande y en negrita
+        $blueFontStyle = ['color' => '0000FF', 'underline' => true, 'size' => 13]; // Azul y subrayado
+        $largeFontStyle = ['size' => 12, 'bold' => true]; // Texto grande y en negrita
         $boldStyle = array('bold' => true);
         $italicStyle = array('italic' => true);
-        // Estilo de la línea separadora
-        $separatorStyle = ['borderBottom' => '2px solid #000000', 'spaceAfter' => 100];
 
         // Estilos
         $bold = ['bold' => true];
+        // Ajustar márgenes de la sección
+        $sectionStyle = [
+                    'marginTop' => 1300,    // Márgenes superiores
+                    'marginBottom' => 1300, // Márgenes inferiores
+                    'marginLeft' => 2200,   // Márgenes izquierdo
+                    'marginRight' => 800,  // Márgenes derecho
+                ];
+
+        $section = $phpWord->addSection($sectionStyle);
+        $imageStyle = array(
+            'posHorizontal' => \PhpOffice\PhpWord\Style\Image::POSITION_HORIZONTAL_LEFT,
+            'posVertical' => \PhpOffice\PhpWord\Style\Image::POSITION_VERTICAL_TOP,
+            'alignment' => \PhpOffice\PhpWord\SimpleType\Jc::LEFT, // Alineación a la izquierda
+    'offsetX' => -1150,  // Desplazamiento horizontal negativo
+    'offsetY' => 0,    // Desplazamiento vertical
+            'width' => 90,
+            'height' => 60,
+        );
+        $section->addImage('images/login/logo.png', $imageStyle);
+        
+        // Ajustar estilo de la tabla principal
         $tableStyle = [
             'borderSize' => 0, // Borde invisible
             'borderColor' => 'FFFFFF', // Blanco (invisible en la mayoría de los casos)
-            'cellMargin' => 80,
-            'spaceLeft' => 1000,
+            'cellMargin' => 50,  // Reducir márgenes internos de las celdas
+            'alignment' => \PhpOffice\PhpWord\SimpleType\JcTable::START
         ];
+$phpWord->addTableStyle('FormularioTable', $tableStyle);
 
+// Reducir tamaño de fuente en celdas de texto largas
+$textStyle = ['size' => 12, 'bold' => false];
         $tableStyle2 = [
             'borderSize' => 0,
             'borderColor' => 'FFFFFF', // Sin bordes
@@ -45,17 +69,21 @@ class PrestecModel {
         $section->addText('FORMULARIO DE PRÉSTAMO PARA DEVOLVER AL CENTRO', ['bold' => true]);
         $section->addText('FORMULARY OF LOAN TO RETURN TO CENTRE', ['bold' => true]);
         $section->addTextBreak(1);
-        
+    
         // Crear la tabla principal
         $table = $section->addTable('FormularioTable');
         
+        $table->addRow();
+        $cell = $table->addCell(9000, ['borderBottomSize' => 20, 'borderBottomColor' => '000000']);
+        $cell->addText('');
+
         // Fila 1: Institución solicitante
         $table->addRow();
         $cell = $table->addCell(14000, );
         $textRun = $cell->addTextRun();
         $textRun->addText('Institució sol·licitant /', $boldStyle);
-        $textRun->addText(' Institución solicitante / Applicant Institution', $italicStyle);
-        
+        $textRun->addText(' Institución solicitante', $italicStyle);
+        $textRun->addText(' / Applicant Institution:');
         $table->addRow();
         $table->addCell(14000)->addText('____________________________________________________________________________', $boldStyle);
         
@@ -64,7 +92,8 @@ class PrestecModel {
         $cell = $table->addCell(14000, );
         $textRun = $cell->addTextRun();
         $textRun->addText('Responsable del préstec / ' , $boldStyle);
-        $textRun->addText('Responsable del préstamo / Responsible of loan:' , $italicStyle);
+        $textRun->addText('Responsable del préstamo ' , $italicStyle);
+        $textRun->addText('/ Responsible of loan:');
         $table->addRow();
         $table->addCell(14000)->addText('____________________________________________________________________________');
         
@@ -73,7 +102,8 @@ class PrestecModel {
         $cell = $table->addCell(14000, );
         $textRun = $cell->addTextRun();
         $textRun->addText('Càrrec / ' , $boldStyle);
-        $textRun->addText('Cargo / Job title:' , $italicStyle);
+        $textRun->addText('Cargo ' , $italicStyle);
+        $textRun->addText('/ Job title:');
         $table->addRow();
         $table->addCell(14000)->addText('____________________________________________________________________________');
         
@@ -82,26 +112,35 @@ class PrestecModel {
         $cell = $table->addCell(14000, );
         $textRun = $cell->addTextRun();
         $textRun->addText('Exposició / ' , $boldStyle);
-        $textRun->addText('Exposición / Exhibition:' , $italicStyle);
+        $textRun->addText('Exposición ' , $italicStyle);
+        $textRun->addText('/ Exhibition:');
         $table->addRow();
         $table->addCell(14000)->addText('____________________________________________________________________________');
         
         // Fila 5: Lugar
         $table->addRow();
-        $table->addCell(3000, )->addText('Lloc / Lugar / Place:');
+        $cell = $table->addCell(14000, );
+        $textRun = $cell->addTextRun();
+        $textRun->addText('Lloc / ');
+        $textRun->addText('Lugar ', $italicStyle);
+        $textRun->addText('/ Place:');
         $table->addRow();
         $table->addCell(14000)->addText('____________________________________________________');
         
         // Fila 6: Fechas
         $table->addRow();
-        $table->addCell(3000, )->addText('Dates / Fechas / Dates:');
+        $cell = $table->addCell(14000, );
+        $textRun = $cell->addTextRun();
+        $textRun->addText('Dates / ');
+        $textRun->addText('Fechas ', $italicStyle);
+        $textRun->addText('/ Dates:');
         $table->addRow();
         $table->addCell(14000)->addText('___________________ - ___________________');
         
-        // Fila 7: Nombre del prestador
         $table->addRow();
-        $table->addCell(3000, $separatorStyle); // Línea separadora arriba
-        $table->addCell(14000, $separatorStyle); // Línea separadora arriba
+        $cell = $table->addCell(9000, ['borderBottomSize' => 20, 'borderBottomColor' => '000000']);
+        $cell->addText('');
+        $table->addRow();
        
         $table->addRow();
         $cell = $table->addCell(4000); // Celda ancha para "Telèfon"
@@ -124,7 +163,7 @@ class PrestecModel {
         $cell->addText('Dirección / Address', $italicStyle);
 
         // Celda ancha para "Telèfon"
-        $cell = $table->addCell(4000);
+        $cell = $table->addCell(5000);
         $textRun = $cell->addTextRun();
         $textRun->addText('Telèfon: ', $boldStyle);
         $textRun->addText('+34 977 15 41 92', $largeFontStyle);
@@ -132,10 +171,6 @@ class PrestecModel {
         // Subtítulo "Teléfono / Telephone" en la misma celda
         $cell->addText('Teléfono / Telephone', $italicStyle);
 
-        // Línea separadora
-        $table->addRow();
-        $cell = $table->addCell(17000, $separatorStyle);
-        $cell->addText('');
 
         // Fila siguiente: "Correu electrònic" en la misma línea con el subtítulo
         $table->addRow();
@@ -143,51 +178,77 @@ class PrestecModel {
         $textRun = $cell->addTextRun();
         $textRun->addText('Correu electrònic: ', $boldStyle);
         $textRun->addText('info@museuapellesfenosa.cat', $blueFontStyle);
-
+        $table->addRow();
         // Subtítulo "Correo electrónico / Electronic mail" en la misma celda
         $cell->addText('Correo electrónico / Electronic mail', $italicStyle);
 
-        // Línea separadora
         $table->addRow();
-        $cell = $table->addCell(17000, $separatorStyle);
-        // Agregar datos de la tabla
+        $cell = $table->addCell(9000, ['borderBottomSize' => 20, 'borderBottomColor' => '000000']);
+        $cell->addText('');
+
+        $table->addRow();
         $table->addRow();
         $cell = $table->addCell(3000, );
         $cell->addText('Número de registre:', $boldStyle);
         $table->addRow();
-        $cell->addText('Número de registro / Inventory number', $italicStyle);
-        
+        $cell->addText('Número de registro',$italicStyle);
         $table->addRow();
+        $cell->addText('Inventory number');
+
+   
         $cell = $table->addCell(3000, );
         $cell->addText("Nom de l'objecte i títol:", $boldStyle);
         $table->addRow();
-        $cell->addText('Nombre del objeto y título / Object name and title', $italicStyle);
-
+        $cell->addText('Nombre del objeto y título ',$italicStyle);
         $table->addRow();
+        $cell->addText('Object name and title');
+        
         $cell = $table->addCell(3000, );
-        $cell->addText('Autor:', $boldStyle);
+        $cell->addText("Autor:", $boldStyle);
         $table->addRow();
-        $cell->addText('Autor / Author', $italicStyle);
+        $cell->addText('Autor',$italicStyle);
+        $table->addRow();
+        $cell->addText('Author');
 
-        $table->addRow();
+
         $cell = $table->addCell(3000, );
-        $cell->addText('Dimensions màx. (Alçada/Amplada/Fondària):', $boldStyle);
+        $cell->addText("Dimensions màx. (Alçada/Amplada/Fondària):", $boldStyle);
         $table->addRow();
-        $cell->addText('Dimensiones (Altura / Ancho / Fondo) / Dimensions (Height / Width / Depth)', $italicStyle);
+        $cell->addText('Dimensiones (Altura / Ancho / Fondo)',$italicStyle);
+        $table->addRow();
+        $cell->addText('Dimensions (Height / Width / Depth)');
+
+        $cell = $table->addCell(5000); // Celda ancha para "Adreça"
+        $textRun = $cell->addTextRun();
+        $textRun->addText('Materials: ', $boldStyle);
+        $cell->addText('Materiales ', $italicStyle);
+        $cell->addText('Materials ');
+        // Celda ancha para "Telèfon"
+        $cell = $table->addCell(5000);
+        $textRun = $cell->addTextRun();
+        $textRun->addText('Datació: ', $boldStyle);
+        $cell->addText('Datación', $italicStyle);
+        $cell->addText('Dating');
 
         $table->addRow();
-        $cell = $table->addCell(3000, );
-        $cell->addText('Materials: Datació:', $boldStyle);
-        $table->addRow();
-        $cell->addText('Materials / Dating', $italicStyle);
+        $cell = $table->addCell(5000);
+        // Crear un TextRun para controlar el contenido dentro de la celda
+        $textRun = $cell->addTextRun(['alignment' => \PhpOffice\PhpWord\SimpleType\Jc::BOTH]);
+
+        // Añadir las líneas de texto
+        $textRun->addText('Necessitat d’embalatge especial:    ', $boldStyle);
+        // Añadir el checkbox al final, dentro del mismo TextRun
+        $textRun->addCheckBox('checkbox_si', '', null, ['alignment' => \PhpOffice\PhpWord\SimpleType\Jc::RIGHT]);
+        $cell->addText('Necesidad de embalado especial', $italicStyle);
+        $cell->addText('Need of packed special');
 
         $table->addRow();
-        $cell = $table->addCell(3000, );
-        $cell->addText('Necessitat d’embalatge especial:', $boldStyle);
+        $cell = $table->addCell(9000, ['borderBottomSize' => 20, 'borderBottomColor' => '000000']);
+        $cell->addText('');
+
         $table->addRow();
-        $cell->addText('Necesidad de embalado especial / Need of packed special', $italicStyle);
-
-
+        $cell = $table->addCell(9000, ['borderBottomSize' => 20, 'borderBottomColor' => '000000']);
+        $cell->addText('');
 
         $table->addRow();
         $cell = $table->addCell(3000,);
@@ -199,38 +260,35 @@ class PrestecModel {
         $cell->addText('Form in which the lender wishes to feature in the catalogue');
 
         $table->addRow();
-        $cell = $table->addCell(3000, );
-        $cell->addText('Número de registre:', $boldStyle);
-        $table->addRow();
-        $cell->addText('Número de registro / Inventory number', $italicStyle);
-
-
-        $table->addRow();
         $cell = $table->addCell(3000,);
         $textRun = $cell->addTextRun();
         $textRun->addText('El prestador admet que es fotografïi per a:', $boldStyle);
         $textRun->addText(' / El prestador admite que se fotografie para: / The lender allows to be photographed for:',$italicStyle);
 
         $table->addRow();
-        $table->addCell(3000, )->addText('Publicacions de l’exposició');
-        $table->addCell(3000)->addText('☐ Sí'); 
-        $table->addCell(3000)->addText('☐ No');  
+        $table->addCell(3000, )->addText('        Publicacions de l’exposició');
+        $table->addCell(3000)->addCheckBox('checkbox_si', '   Sí');
+        $table->addCell(3000)->addCheckBox('checkbox_no', '   No');  
 
         $table->addRow();
-        $table->addCell(3000)->addText('Mitjans de comunicació');
-        $table->addCell(3000)->addText('☐ Sí');
-        $table->addCell(3000)->addText('☐ No');
+        $table->addCell(3000)->addText('        Mitjans de comunicació');
+        $table->addCell(3000)->addCheckBox('checkbox_si', '   Sí');
+        $table->addCell(3000)->addCheckBox('checkbox_no', '   No'); 
 
         $table->addRow();
-        $table->addCell(3000)->addText('Arxius');
-        $table->addCell(3000)->addText('☐ Sí');
-        $table->addCell(3000)->addText('☐ No');
+        $table->addCell(3000)->addText('        Arxius');
+        $table->addCell(3000)->addCheckBox('checkbox_si', '   Sí');
+        $table->addCell(3000)->addCheckBox('checkbox_no', '   No'); 
 
 
         $table->addRow();
-        $table->addCell(3000)->addText('Finalitats privades Sí No');
-        $table->addCell(3000)->addText('☐ Sí');
-        $table->addCell(3000)->addText('☐ No');
+        $table->addCell(3000)->addText('        Finalitats privades');
+        $table->addCell(3000)->addCheckBox('checkbox_si', '   Sí');
+        $table->addCell(3000)->addCheckBox('checkbox_no', '   No'); 
+
+        $table->addRow();
+        $cell = $table->addCell(9000, ['borderBottomSize' => 20, 'borderBottomColor' => '000000']);
+        $cell->addText('');
 
 
         $table->addRow();$table->addRow();
@@ -248,7 +306,6 @@ class PrestecModel {
         $cell->addText('Dirección donde debe recogerse el objeto',$italicStyle);
         $table->addRow();
         $cell->addText('Address from which the object is to be picked up');
-        $table->addRow();
 
         $cell = $table->addCell(3000, );
         $cell->addText('Telèfon:', $boldStyle);
@@ -256,7 +313,6 @@ class PrestecModel {
         $cell->addText('Teléfono',$italicStyle);
         $table->addRow();
         $cell->addText('Telephone');
-        $table->addRow();
 
         $cell = $table->addCell(3000, );
         $cell->addText("Adreça on s'ha de retornar l'objecte:", $boldStyle);
@@ -264,7 +320,6 @@ class PrestecModel {
         $cell->addText('Dirección donde debe devolverse el objeto',$italicStyle);
         $table->addRow();
         $cell->addText('Address from which the object is to be returned');
-        $table->addRow();
 
         $cell = $table->addCell(3000, );
         $cell->addText('Telèfon:', $boldStyle);
@@ -273,10 +328,25 @@ class PrestecModel {
         $table->addRow();
         $cell->addText('Telephone');
 
-        
+        $table->addRow();
+        $cell = $table->addCell(9000, ['borderBottomSize' => 20, 'borderBottomColor' => '000000']);
+
+
+
         // Primera fila: líneas de firma
         $table->addRow();
         $cell = $table->addCell(5000, $tableStyle2); // Celda para la firma izquierda
+        $cell->addText('');
+        $cell->addText('');
+        $cell->addText('');
+        $cell->addText('');
+        $cell->addText('');
+        $cell->addText('');
+        $cell->addText('');
+        $cell->addText('');
+        $cell->addText('');
+        $cell->addText('');
+        $cell->addText('');
         $textRun = $cell->addTextRun();
         $textRun->addText('_____________________________________');
         // Subtítulo "Dirección / Address" en la misma celda
@@ -285,11 +355,24 @@ class PrestecModel {
         $cell->addText('Date and signature of lender', $italicStyle);
 
         $cell = $table->addCell(5000, $tableStyle2); // Celda para la firma derecha
+        $cell->addText('');
+        $cell->addText('');
+        $cell->addText('');
+        $cell->addText('');
+        $cell->addText('');
+        $cell->addText('');
+        $cell->addText('');
+        $cell->addText('');
+        $cell->addText('');
+        $cell->addText('');
+        $cell->addText('');
         $cell->addText('_____________________________________');
 
         $cell->addText('Data i firma del prestatari del préstec', $boldStyle);
         $cell->addText('Fecha y firma del prestatario del préstamo', $italicStyle);
         $cell->addText('Date and signature of borrower', $italicStyle);
+
+        
 
         
 

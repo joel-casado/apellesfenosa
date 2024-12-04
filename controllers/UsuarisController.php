@@ -10,8 +10,20 @@ class UsuarisController {
     }
 
     public function formularioCrearUsuario() {
+
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+    
+        // Verificar si l'usuari es administrador
+        if (!isset($_SESSION['admin'])) {
+            header("Location: index.php?controller=Obras&action=verObras");
+            exit();
+        }
+
         require_once "views/usuarios/crearUsuario.php";
     }
+    
 
     public function listar_usuarios() {
         // Crear instancia del modelo Usuario
@@ -70,20 +82,42 @@ class UsuarisController {
             echo "Usuario no encontrado.";
         }
     }
-
+    
     public function updateUser() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $nombreOriginal = $_POST['nombre_original']; // El nombre antes de editar
-            $nombreNuevo = $_POST['name']; // El nuevo nombre
+            $nombreOriginal = $_POST['nombre_original']; // Original username
+            $nombreNuevo = $_POST['name']; // New username
             $rol = $_POST['rol'];
             $activo = $_POST['activo'];
+            $password = $_POST['password']; // New password (optional)
     
             $usuarioModel = new Usuario();
-            $usuarioModel->actualizar($nombreOriginal, $nombreNuevo, $rol, $activo);
     
-            header('Location: index.php?controller=Usuaris&action=listar_usuarios');
-
+            // Check if the new username already exists and is not the current user's username
+            $existingUser = $usuarioModel->getByUsername($nombreNuevo);
+            if ($existingUser && $nombreOriginal !== $nombreNuevo) {
+                $errorMessage = "Error: El nombre de usuario '$nombreNuevo' ya existe.";
+                $user = $usuarioModel->getByUsername($nombreOriginal); // Reload current user info
+                include 'views/usuarios/editarUsuario.php';
+                return;
+            }
+    
+            // Hash the password if it's provided
+            $hashedPassword = null;
+            if (!empty($password)) {
+                $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+            }
+    
+            // Update the user
+            if ($usuarioModel->actualizar($nombreOriginal, $nombreNuevo, $rol, $activo, $hashedPassword)) {
+                header('Location: index.php?controller=Usuaris&action=listar_usuarios');
+                exit();
+            } else {
+                echo "Error al actualizar el usuario.";
+            }
         }
     }
+    
+    
     
 }
