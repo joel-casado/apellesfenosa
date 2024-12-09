@@ -11,7 +11,6 @@ require_once 'models/BackupModel.php';
                 session_start();
             }
         }
-    
         public function createBackup() {
             $backupModel = new BackupModel();
             $backupFile = $backupModel->backupDatabase();
@@ -19,7 +18,6 @@ require_once 'models/BackupModel.php';
             if ($backupFile && file_exists($backupFile)) {
                 // Log para depuración
                 error_log("Archivo de respaldo generado: $backupFile (Tamaño: " . filesize($backupFile) . " bytes)");
-    
                 // Configurar cabeceras para la descarga
                 header('Content-Description: File Transfer');
                 header('Content-Type: application/octet-stream'); // Tipo MIME genérico
