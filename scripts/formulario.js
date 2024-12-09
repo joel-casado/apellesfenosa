@@ -17,6 +17,36 @@ function toggleSection(titleElement) {
     }
 }
 
+
+document.querySelectorAll('input[type="text"]').forEach(input => {
+    input.addEventListener('input', () => {
+        // Transforma la primera letra de cada palabra en mayúscula
+        input.value = input.value.replace(/\b\w/g, char => char.toUpperCase());
+    });
+});
+
+// Obtén los selectores
+const datacionSelect = document.getElementById('datacion');
+const anoInicioSelect = document.getElementById('ano_inicio');
+const anoFinalSelect = document.getElementById('ano_final');
+
+// Escucha el evento de cambio en el selector de datación
+datacionSelect.addEventListener('change', function () {
+    // Obtén la opción seleccionada
+    const selectedOption = datacionSelect.options[datacionSelect.selectedIndex];
+
+    // Extrae los valores de data-ano-inicio y data-ano-final
+    const anoInicio = selectedOption.getAttribute('data-ano-inicio');
+    const anoFinal = selectedOption.getAttribute('data-ano-final');
+
+    // Actualiza los selectores de Año Inicio y Año Final
+    if (anoInicio && anoFinal) {
+        anoInicioSelect.value = anoInicio;
+        anoFinalSelect.value = anoFinal;
+    }
+});
+
+
 document.getElementById("crearObraForm").addEventListener("submit", function(event) {
     event.preventDefault();
     console.log('Formulario enviado, validando campos...');
