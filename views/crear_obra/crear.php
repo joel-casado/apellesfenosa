@@ -55,6 +55,10 @@ $dataciones = $obraModel->getdatacion();
             <label for="n_registro">Nº Registro:</label>
             <input type="text" id="n_registro" name="n_registro" required>
 
+
+
+            
+
             <label for="codigo_autor">Código Autor:</label>
             <select name="codigo_autor" id="codigo_autor" required>
                 <option value="">Selecciona Autor</option>

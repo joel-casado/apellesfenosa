@@ -259,6 +259,12 @@ class ObrasController {
             if (!empty($errors)) {
                 exit();
             }
+
+            if ($obraModel->mirarid($numero_registro)) {
+                echo json_encode(['success' => false, 'message' => 'El número de registro ya existe']);
+                exit();
+            }
+            
     
 
 

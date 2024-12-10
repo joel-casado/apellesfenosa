@@ -194,7 +194,7 @@
         <thead>
         <tr>
             <th>Imatge</th>
-            <th>Nom Objecte</th>
+            <th>Nº registre</th>
             <th>Títol</th>
             <th>Autor</th>
             <th>Técnica</th>

@@ -23,41 +23,38 @@ class PrestecModel {
         // Ajustar márgenes de la sección
         $sectionStyle = [
                     'marginLeft' => 2200,   // Márgenes izquierdo
-                ];
-
-        
+                'marginTop' => -2000,     // Reducir margen superior
+                'marginRight' => 200,   // Reducir margen derecho
+                'marginBottom' => 200   // Reducir margen inferior
+          ];
         // Celda para la imagen
-        $section = $phpWord->addSection();
+        $section = $phpWord->addSection($sectionStyle);
 
+        
         // Añadir la primera imagen
-        $section->addImage('images/login/logo.png', [
-            'width' => 90,
-            'height' => 60,
-            'positioning' => 'relative',
-            'posHorizontalRel' => 'page', // Relativo a la página
-            'posVerticalRel' => 'page',   // Relativo a la página
-            'posHorizontal' => 'left',   // Posicionado a la izquierda
-            'posVertical' => 'top',      // Desde la parte superior
-        ]);
-        
-        // Añadir un salto de línea o margen entre elementos si es necesario
-        $section->addTextBreak(40);
-        
-        // Añadir la segunda imagen con margen ajustado
-        $section->addImage('images/login/texto.png', [
-            'width' => 90,
-            'height' => 200,
-            'positioning' => 'relative',
-            'posHorizontalRel' => 'page', // Relativo a la página
-            'posVerticalRel' => 'page',   // Relativo a la página
-            'posHorizontal' => 'left',   // Posicionado a la izquierda
-            'posVertical' => 'top',      // Desde la parte superior
-        ]);
-        
-        
+                $section->addImage('images/login/logo.png', [
+                    'width' => 90,
+                    'height' => 60,
+                    'positioning' => 'relative',
+                    'posHorizontalRel' => 'page', // Relativo a la página
+                    'posVerticalRel' => 'page',   // Relativo a la página
+                    'posHorizontal' => 'left',   // Posicionado a la izquierda
+                    'posVertical' => 'top',      // Desde la parte superior
+                ]);
+            
+
+                $section->addImage('images/login/texto.png', [
+                    'width' => 100,
+                    'height' => 400,
+                    'positioning' => 'absolute',
+                    'posHorizontalRel' => 'page', // Relativo a la página
+                    'posVerticalRel' => 'page',   // Relativo a la página
+                    'posHorizontal' => 'left',   // Posicionado a la izquierda
+                    'posVertical' => 'bottom',   // Relativo al fondo
+                ]);
+                
         
 
-/*
          // Crear tabla sin rotación
          $table = $section->addTable([
            'positioning' => 'relative',
@@ -66,43 +63,6 @@ class PrestecModel {
             'posHorizontal' => 'left',   // Posicionado a la izquierda
             'posVertical' => 'top',      // Desde la parte superior
         ]);
-
-        
-       
-        $section->AddRow();
- 
-                    $section->addImage(
-                'images/login/logo.png',
-                [
-                    'width' => 90,
-                    'height' => 60,
-                    'positioning' => 'relative',
-                    'posHorizontalRel' => 'page', // Relativo a la página
-                    'posVerticalRel' => 'page',   // Relativo a la página
-                    'posHorizontal' => 'left',   // Posicionado a la izquierda
-                    'posVertical' => 'top',      // Desde la parte superior
-                ]
-            );
-
-            $section->addTextBreak(40);
-            
-
-            $section->addImage(
-            'images/login/texto.png',
-            [
-                'width' => 90,
-                'height' => 200,
-                'positioning' => 'relative',
-                'posHorizontalRel' => 'page', // Relativo a la página
-                'posVerticalRel' => 'page',   // Relativo a la página
-                'posHorizontal' => 'left',   // Posicionado a la izquierda
-                'posVertical' => 'top',      // Desde la parte superior
-            ]
-        );
-        
-        $section->addTextBreak(40);
-        
-        */
         $footer = $section->addFooter();
         
         $footer->addPreserveText('{PAGE} / {NUMPAGES}', null, ['alignment' => \PhpOffice\PhpWord\SimpleType\Jc::CENTER]);
@@ -113,20 +73,20 @@ class PrestecModel {
             'cellMargin' => 45,  // Reducir márgenes internos de las celdas
             'alignment' => \PhpOffice\PhpWord\SimpleType\JcTable::START
         ];
-$phpWord->addTableStyle('FormularioTable', $tableStyle);
+        $phpWord->addTableStyle('FormularioTable', $tableStyle);
 
-// Reducir tamaño de fuente en celdas de texto largas
-$textStyle = ['size' => 12, 'bold' => false];
-        $tableStyle2 = [
-            'borderSize' => 0,
-            'borderColor' => 'FFFFFF', // Sin bordes
-            'cellMarginTop' => 0,      // Sin margen superior
-            'cellMarginBottom' => 0,   // Sin margen inferior
-            'cellMarginLeft' => 50,    // Margen interno izquierdo
-            'cellMarginRight' => 50,   // Margen interno derecho
-        ];
-        
-        
+        // Reducir tamaño de fuente en celdas de texto largas
+        $textStyle = ['size' => 12, 'bold' => false];
+                $tableStyle2 = [
+                    'borderSize' => 0,
+                    'borderColor' => 'FFFFFF', // Sin bordes
+                    'cellMarginTop' => 0,      // Sin margen superior
+                    'cellMarginBottom' => 0,   // Sin margen inferior
+                    'cellMarginLeft' => 50,    // Margen interno izquierdo
+                    'cellMarginRight' => 50,   // Margen interno derecho
+                ];
+                
+                
         // Título principal con fuente más grande
         $section->addText('FORMULARI DE PRÉSTEC PER RETORNAR AL CENTRE', [
             'bold' => true,
@@ -310,6 +270,28 @@ $textStyle = ['size' => 12, 'bold' => false];
         $table->addRow();
         $cell = $table->addCell(9000, ['borderBottomSize' => 20, 'borderBottomColor' => '000000']);
         $cell->addText('');
+
+        $section->addImage('images/login/logo2.png', [
+            'width' => 90,
+            'height' => 170,
+            'positioning' => 'absolute',
+            'posHorizontalRel' => 'page', // Relativo a la página
+            'posVerticalRel' => 'page',   // Relativo a la página
+            'posHorizontal' => 'left',   // Posicionado a la izquierda
+            'posVertical' => 'top',      // Desde la parte superior
+        ]);
+    
+
+        $section->addImage('images/login/texto.png', [
+            'width' => 100,
+            'height' => 400,
+            'positioning' => 'absolute',
+            'posHorizontalRel' => 'page', // Relativo a la página
+            'posVerticalRel' => 'page',   // Relativo a la página
+            'posHorizontal' => 'left',   // Posicionado a la izquierda
+            'posVertical' => 'bottom',   // Relativo al fondo
+        ]);
+        
 
         $table->addRow();
         $cell = $table->addCell(9000, ['borderBottomSize' => 20, 'borderBottomColor' => '000000']);

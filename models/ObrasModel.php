@@ -19,7 +19,7 @@ class ObrasModel {
               JOIN tecnicas ON obras.tecnica = tecnicas.codigo_getty_tecnica
               LEFT JOIN archivos ON obras.numero_registro = archivos.numero_registro 
               AND archivos.enlace LIKE 'images/%'
-              GROUP BY obras.numero_registro";
+              ORDER BY obras.numero_registro DESC;";
                 
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
@@ -415,6 +415,15 @@ class ObrasModel {
             
         }
             
+
+        public function mirarid($numero_registro){
+            $query = "SELECT COUNT (*) FROM obras WHERE numero_registro = :n_regisro";
+            $stmt = $this->conn->prepare($query);
+            $stmt->bindParam(':n_registro', $numero_registro);
+            $stmt->execute();
+            return $stmt->fetchColumn() > 0;
+
+        }
             public function getObrasExpo($id_exposicion) {
                 $query = "SELECT obras.*, materiales.texto_material, autores.nombre_autor, dataciones.nombre_datacion
                 FROM obras 
