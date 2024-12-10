@@ -73,21 +73,27 @@ class MaterialesController {
         $materialModel = new materialModel($this->conn);
         $resultado = $materialModel->deshabilitarmaterial($codigo_getty_material);
         
-        if ($this->esAjax()) {
-            header('Content-Type: application/json');
-            if ($resultado) {
-                echo json_encode(['status' => 'success']);
-            } else {
-                echo json_encode(['status' => 'error', 'message' => 'Error al deshabilitar material.']);
-            }
-            exit();
+        // Preparar la respuesta
+        header('Content-Type: application/json');
+        if ($resultado) {
+            echo json_encode(['status' => 'success', 'message' => 'Material deshabilitado correctamente.']);
         } else {
-            if ($resultado) {
-                header("Location: index.php?controller=materiales&action=mostrarmateriales");
-                exit();
-            } else {
-                echo "Error al deshabilitar la técnica.";
-            }
+            echo json_encode(['status' => 'error', 'message' => 'No se pudo deshabilitar el material.']);
+        }
+    }
+
+    public function habilitar() {
+        $codigo_getty_material = $_GET['id'];
+        
+        $materialModel = new materialModel($this->conn);
+        $resultado = $materialModel->habilitarmaterial($codigo_getty_material);
+        
+         // Preparar la respuesta
+        header('Content-Type: application/json');
+        if ($resultado) {
+            echo json_encode(['status' => 'success', 'message' => 'Material habilitado correctamente.']);
+        } else {
+            echo json_encode(['status' => 'error', 'message' => 'No se pudo habilitar el material.']);
         }
     }
     
