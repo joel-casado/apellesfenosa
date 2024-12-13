@@ -44,5 +44,3 @@ require_once 'models/BackupModel.php';
         }
     }
     ?>
-    
-    

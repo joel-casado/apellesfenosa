@@ -12,13 +12,11 @@ body {
     @include header;
 }
 
-
 .editar-usuario {
-        display: flex;
-        justify-content: flex-end; /* Alinea el botón a la derecha */
-        margin: 20px auto; /* Ajusta el margen superior e inferior */
-        width: 1000px; /* El ancho máximo del contenedor */
-    
+    display: flex;
+    justify-content: flex-end; /* Alinea el botón a la derecha */
+    margin: 20px auto; /* Ajusta el margen superior e inferior */
+    width: 1000px; /* El ancho máximo del contenedor */
 }
 
 .btn {
@@ -27,16 +25,13 @@ body {
     text-decoration: none;
     color: white;
     display: inline-flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .btn-success {
-    position: absolute;
-    top: 20px;
-    right: 400px;
-    z-index: 1;
     background-color: $button-bg;
     border: none;
-    margin-top: 185px;
 
     &:hover {
         background-color: $button_hv;
@@ -55,7 +50,7 @@ body {
 /* Contenedor principal */
 .usuaris_box {
     max-width: 1000px;
-    margin: 120px auto;
+    margin: 20px auto; /* Asegura que hay suficiente espacio alrededor */
     padding: 20px;
     background-color: $header-bg;
     box-shadow: -2px 4px 4px 4px rgba(0, 0, 0, 0.1);
@@ -67,7 +62,7 @@ body {
     width: 100%;
     border-collapse: collapse;
     border-radius: 8px;
-    
+
     th {
         padding: 25px;
         text-align: left;
@@ -97,12 +92,49 @@ body {
     }
 }
 
-/* Estilo para el botón de "Editar" */
-.editar {
-    max-width: 1000px;
-    margin: 150px auto;
-    padding: 20px;
-    background-color: $header-bg;
-    box-shadow: -2px 4px 4px 4px rgba(0, 0, 0, 0.1);
+/* Estilo para el botón de "Crear Usuario" */
+.crear-usuario {
+    display: flex;
+    justify-content: flex-end; /* Alinea el botón a la derecha */
+    margin: 20px auto 10px auto; /* Espaciado adecuado */
+    width: 1000px; /* Igual ancho que el contenedor principal */
+}
+.search-bar-container {
+    display: flex;
+    justify-content: flex-start; /* Align the search bar to the left */
+    align-items: center;
+    margin-bottom: 20px;
+    width: 100%; /* Full width */
+    max-width: 1000px; /* Match the table's max width */
+    margin: 0 auto; /* Center the container horizontally */
+    padding-top: 20px; /* Add top padding to ensure alignment with table */
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: 300px; /* Adjust the width as needed */
+}
+
+.search-bar i {
+    position: absolute;
+    left: 15px; /* Icon position */
+    font-size: 16px;
+    color: #aaa;
+}
+
+.search-bar input {
+    width: 100%; /* Fill the container width */
+    padding: 10px 15px 10px 35px; /* Add padding for the icon */
+    border: 1px solid #ccc;
     border-radius: 8px;
+    font-size: 16px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    outline: none;
+    transition: box-shadow 0.2s;
+
+    &:focus {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
 }

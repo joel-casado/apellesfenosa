@@ -31,46 +31,27 @@ $Materiales = $MaterialModel->getMateriales();
     }
 }
 
-function deshabilitarmaterial(codigo, button) {
-    // Paso 1: Mostrar un cuadro de confirmación al usuario
-    if (confirm('¿Estás seguro de que quieres deshabilitar este material?')) {
-        
-        // Paso 2: Crear un nuevo objeto XMLHttpRequest para realizar la petición AJAX
+function habilitarmaterial(codigo, button) {
+    if (confirm('¿Estás seguro de que quieres habilitar este material?')) {
         var xhr = new XMLHttpRequest();
-        
-        // Paso 3: Configurar la petición como POST
-        xhr.open("POST", "index.php?controller=materiales&action=deshabilitar&id=" + codigo, true);
-        
-        // Paso 4: Establecer el tipo de contenido que se enviará en la petición
+        xhr.open("POST", "index.php?controller=materiales&action=habilitar&id=" + codigo, true);
         xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
-        // Paso 5: Definir lo que sucederá cuando la petición cambie de estado
         xhr.onreadystatechange = function () {
-            // Verificar que la petición ha sido completada y ha sido exitosa (estado 200)
             if (xhr.readyState == 4 && xhr.status == 200) {
-                
-                // Paso 6: Analizar la respuesta JSON del servidor
                 var response = JSON.parse(xhr.responseText);
 
-                // Paso 7: Verificar si la respuesta del servidor indica éxito
                 if (response.status === 'success') {
-                    // Si la respuesta es exitosa, eliminar la fila correspondiente en la tabla del DOM
-                    var row = button.closest('tr');
-                    row.parentNode.removeChild(row);
+                    alert("Material habilitado correctamente.");
                 } else {
-                    // Si hubo un error, mostrar un mensaje de error
                     alert("Error: " + response.message);
                 }
             }
         };
 
-        // Paso 8: Enviar la petición al servidor
         xhr.send();
     }
 }
-
-
-
 
 </script>
 <!DOCTYPE html>
@@ -104,7 +85,7 @@ function deshabilitarmaterial(codigo, button) {
             <tr>
                 <th>Código Material</th>
                 <th>Nombre Material</th>
-                <th>Acción</th>
+                <th colspan = "3">Acciónes</th>
             </tr>
         </thead>
         <tbody id="the_table_body">
@@ -114,8 +95,15 @@ function deshabilitarmaterial(codigo, button) {
                     <td><?php echo($Material['texto_material']); ?></td>
                     <td>
                         <a href="index.php?controller=Materiales&action=mostrarFormulario&id=<?php echo $Material['codigo_getty_material']; ?>" class="edit-button">Editar</a>
+                    </td>
+                    <td>
                         <form onsubmit="return false;" style="display:inline-block;">
                             <button type="button" class="edit-button" onclick="deshabilitarmaterial('<?php echo $Material['codigo_getty_material']; ?>', this)">Deshabilitar</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form onsubmit="return false;" style="display:inline-block;">
+                            <button type="button" class="edit-button" onclick="habilitarmaterial('<?php echo $Material['codigo_getty_material']; ?>', this)">Habilitar</button>
                         </form>
                     </td>
                 </tr>

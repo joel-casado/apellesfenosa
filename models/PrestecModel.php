@@ -22,45 +22,71 @@ class PrestecModel {
         $bold = ['bold' => true];
         // Ajustar márgenes de la sección
         $sectionStyle = [
-                    'marginTop' => 1300,    // Márgenes superiores
-                    'marginBottom' => 1300, // Márgenes inferiores
                     'marginLeft' => 2200,   // Márgenes izquierdo
-                    'marginRight' => 800,  // Márgenes derecho
-                ];
-
+                'marginTop' => -2000,     // Reducir margen superior
+                'marginRight' => 200,   // Reducir margen derecho
+                'marginBottom' => 200   // Reducir margen inferior
+          ];
+        // Celda para la imagen
         $section = $phpWord->addSection($sectionStyle);
-        $imageStyle = array(
-            'posHorizontal' => \PhpOffice\PhpWord\Style\Image::POSITION_HORIZONTAL_LEFT,
-            'posVertical' => \PhpOffice\PhpWord\Style\Image::POSITION_VERTICAL_TOP,
-            'alignment' => \PhpOffice\PhpWord\SimpleType\Jc::LEFT, // Alineación a la izquierda
-    'offsetX' => -1150,  // Desplazamiento horizontal negativo
-    'offsetY' => 0,    // Desplazamiento vertical
-            'width' => 90,
-            'height' => 60,
-        );
-        $section->addImage('images/login/logo.png', $imageStyle);
+
         
+        // Añadir la primera imagen
+                $section->addImage('images/login/logo.png', [
+                    'width' => 90,
+                    'height' => 60,
+                    'positioning' => 'relative',
+                    'posHorizontalRel' => 'page', // Relativo a la página
+                    'posVerticalRel' => 'page',   // Relativo a la página
+                    'posHorizontal' => 'left',   // Posicionado a la izquierda
+                    'posVertical' => 'top',      // Desde la parte superior
+                ]);
+            
+
+                $section->addImage('images/login/texto.png', [
+                    'width' => 100,
+                    'height' => 400,
+                    'positioning' => 'absolute',
+                    'posHorizontalRel' => 'page', // Relativo a la página
+                    'posVerticalRel' => 'page',   // Relativo a la página
+                    'posHorizontal' => 'left',   // Posicionado a la izquierda
+                    'posVertical' => 'bottom',   // Relativo al fondo
+                ]);
+                
+        
+
+         // Crear tabla sin rotación
+         $table = $section->addTable([
+           'positioning' => 'relative',
+            'posHorizontalRel' => 'page', // Relativo a la página
+            'posVerticalRel' => 'page',   // Relativo a la página
+            'posHorizontal' => 'left',   // Posicionado a la izquierda
+            'posVertical' => 'top',      // Desde la parte superior
+        ]);
+        $footer = $section->addFooter();
+        
+        $footer->addPreserveText('{PAGE} / {NUMPAGES}', null, ['alignment' => \PhpOffice\PhpWord\SimpleType\Jc::CENTER]);
         // Ajustar estilo de la tabla principal
         $tableStyle = [
             'borderSize' => 0, // Borde invisible
             'borderColor' => 'FFFFFF', // Blanco (invisible en la mayoría de los casos)
-            'cellMargin' => 50,  // Reducir márgenes internos de las celdas
+            'cellMargin' => 45,  // Reducir márgenes internos de las celdas
             'alignment' => \PhpOffice\PhpWord\SimpleType\JcTable::START
         ];
-$phpWord->addTableStyle('FormularioTable', $tableStyle);
-
-// Reducir tamaño de fuente en celdas de texto largas
-$textStyle = ['size' => 12, 'bold' => false];
-        $tableStyle2 = [
-            'borderSize' => 0,
-            'borderColor' => 'FFFFFF', // Sin bordes
-            'cellMarginTop' => 0,      // Sin margen superior
-            'cellMarginBottom' => 0,   // Sin margen inferior
-            'cellMarginLeft' => 50,    // Margen interno izquierdo
-            'cellMarginRight' => 50,   // Margen interno derecho
-        ];
         $phpWord->addTableStyle('FormularioTable', $tableStyle);
-        
+
+        // Reducir tamaño de fuente en celdas de texto largas
+        $textStyle = ['size' => 12, 'bold' => false];
+                $tableStyle2 = [
+                    'borderSize' => 0,
+                    'borderColor' => 'FFFFFF', // Sin bordes
+                    'cellMarginTop' => 0,      // Sin margen superior
+                    'cellMarginBottom' => 0,   // Sin margen inferior
+                    'cellMarginLeft' => 50,    // Margen interno izquierdo
+                    'cellMarginRight' => 50,   // Margen interno derecho
+                ];
+                
+                
         // Título principal con fuente más grande
         $section->addText('FORMULARI DE PRÉSTEC PER RETORNAR AL CENTRE', [
             'bold' => true,
@@ -182,7 +208,6 @@ $textStyle = ['size' => 12, 'bold' => false];
         // Subtítulo "Correo electrónico / Electronic mail" en la misma celda
         $cell->addText('Correo electrónico / Electronic mail', $italicStyle);
 
-        $table->addRow();
         $cell = $table->addCell(9000, ['borderBottomSize' => 20, 'borderBottomColor' => '000000']);
         $cell->addText('');
 
@@ -246,10 +271,33 @@ $textStyle = ['size' => 12, 'bold' => false];
         $cell = $table->addCell(9000, ['borderBottomSize' => 20, 'borderBottomColor' => '000000']);
         $cell->addText('');
 
+        $section->addImage('images/login/logo2.png', [
+            'width' => 90,
+            'height' => 170,
+            'positioning' => 'absolute',
+            'posHorizontalRel' => 'page', // Relativo a la página
+            'posVerticalRel' => 'page',   // Relativo a la página
+            'posHorizontal' => 'left',   // Posicionado a la izquierda
+            'posVertical' => 'top',      // Desde la parte superior
+        ]);
+    
+
+        $section->addImage('images/login/texto.png', [
+            'width' => 100,
+            'height' => 400,
+            'positioning' => 'absolute',
+            'posHorizontalRel' => 'page', // Relativo a la página
+            'posVerticalRel' => 'page',   // Relativo a la página
+            'posHorizontal' => 'left',   // Posicionado a la izquierda
+            'posVertical' => 'bottom',   // Relativo al fondo
+        ]);
+        
+
         $table->addRow();
         $cell = $table->addCell(9000, ['borderBottomSize' => 20, 'borderBottomColor' => '000000']);
         $cell->addText('');
 
+        $table->addRow();
         $table->addRow();
         $cell = $table->addCell(3000,);
         $textRun = $cell->addTextRun();
@@ -374,34 +422,6 @@ $textStyle = ['size' => 12, 'bold' => false];
 
         
 
-        
-
-    /*
-        $cell = $table->addCell(5000); // Celda derecha
-        $cell->addText('Data i firma del prestatari del préstec', $boldStyle);
-        $table->addRow();
-        $cell->addText('Date and signature of lender');
-        $table->addRow();
-        $cell->addText('Date and signature of borrower');
-        
-        
-        
-        
-        $table->addRow();
-        $cell = $table->addCell(5000); // Celda izquierda
-        $cell->addText('Data i firma del prestador del préstec', $boldStyle);
-        $table->addRow();
-        $cell->addText('Fecha y firma del prestador del préstamo',$italicStyle);
-        $table->addRow();
-        $cell->addText('Fecha y firma del prestatario del préstamo');
-        
-        
-        
-        */
-
-
-
-
         // Guardar el archivo Word
         $tempFile = tempnam(sys_get_temp_dir(), 'word_') . '.docx';
         $writer = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
@@ -411,4 +431,3 @@ $textStyle = ['size' => 12, 'bold' => false];
         
     }
 }
-

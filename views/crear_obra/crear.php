@@ -55,6 +55,10 @@ $dataciones = $obraModel->getdatacion();
             <label for="n_registro">Nº Registro:</label>
             <input type="text" id="n_registro" name="n_registro" required>
 
+
+
+            
+
             <label for="codigo_autor">Código Autor:</label>
             <select name="codigo_autor" id="codigo_autor" required>
                 <option value="">Selecciona Autor</option>
@@ -73,6 +77,7 @@ $dataciones = $obraModel->getdatacion();
 
             <label for="coleccion_procedencia">Colección Procedencia:</label>
             <input type="text" id="coleccion_procedencia" name="coleccion_procedencia"required>
+            
 
         </div>
         </div>
@@ -244,29 +249,6 @@ $dataciones = $obraModel->getdatacion();
     <div id="crearResponseMessage"></div>
 
     <script src="scripts/formulario.js"></script>
-
-    <script>
-    // Obtén los selectores
-    const datacionSelect = document.getElementById('datacion');
-    const anoInicioSelect = document.getElementById('ano_inicio');
-    const anoFinalSelect = document.getElementById('ano_final');
-
-    // Escucha el evento de cambio en el selector de datación
-    datacionSelect.addEventListener('change', function () {
-        // Obtén la opción seleccionada
-        const selectedOption = datacionSelect.options[datacionSelect.selectedIndex];
-
-        // Extrae los valores de data-ano-inicio y data-ano-final
-        const anoInicio = selectedOption.getAttribute('data-ano-inicio');
-        const anoFinal = selectedOption.getAttribute('data-ano-final');
-
-        // Actualiza los selectores de Año Inicio y Año Final
-        if (anoInicio && anoFinal) {
-            anoInicioSelect.value = anoInicio;
-            anoFinalSelect.value = anoFinal;
-        }
-    });
-</script>
 
 </body>
 </html>
