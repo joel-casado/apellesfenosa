@@ -2,21 +2,32 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Listado de Usuarios</title>
+    <title>Usuaris</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="styles/usuarios/listado_usuarios.css">
 </head>
 <body>
     <div class="header">
         <img src="views/obras/Logo2.png" alt="Logo">
     </div>
+
+    <div class="search-bar-container">
+        <form class="search-bar">
+            <i class="fa fa-search"></i>
+            <input type="text" id="q" placeholder="Buscador de obra" onkeyup="search()">
+        </form>
+    </div>
+
     
-    <a href="index.php?controller=Usuaris&action=formularioCrearUsuario" class="btn btn-success">Crear Usuario</a>
-    
+    <div class="crear-usuario">
+        <a href="index.php?controller=Usuaris&action=formularioCrearUsuario" class="btn btn-success">Crear Usuari</a>
+    </div>
+
     <div class="usuaris_box">
         <table class="table">
             <thead>
                 <tr>
-                    <th>Nom de Usuari</th>
+                    <th>Nom d'Usuari</th>
                     <th>Rol</th>
                     <th>Estat</th>
                     <th class="acciones-header">Accions</th>
@@ -36,5 +47,6 @@
             </tbody>
         </table>
     </div>
+    <script src="scripts/busqui.js"></script>
 </body>
 </html>

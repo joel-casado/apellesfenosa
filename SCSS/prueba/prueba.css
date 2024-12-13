@@ -140,6 +140,10 @@ button[type=submit] {
   margin: 0 auto; /* Centra horizontalmente */
 }
 
+input[type=text] {
+  text-transform: capitalize;
+}
+
 button[type=submit]:hover {
   background-color: #0056b3;
 }
