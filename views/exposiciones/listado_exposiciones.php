@@ -3,30 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <title>Llistat de Exposicions</title>
-    <link rel="stylesheet" href="styles/exposiciones/listado_exposiciones.css">
+    <link rel="stylesheet" href="styles/usuarios/listado_usuarios.css">
 </head>
 <body>
-<div class="header">
-    <img src="images/login/logo.png" alt="Museu Apel·les Fenosa">
-    <a href="index.php?controller=Login&action=logout" class="edit-button">Cerrar sesión</a>
-    <a href="views/vocabulario/ver_vocabulario.php?id=" class="edit-button">Vocabulario</a>
-    <a href="index.php?controller=Obras&action=verObras&admin" class="edit-button">Obras</a>
-    <a href="index.php?controller=Exposiciones&action=listado_exposiciones" class="edit-button">Exposiciones</a>
-    <a href="index.php?controller=Ubicacion&action=verArbol" class="edit-button">Ubicaciones</a>
-    <div class="crear-expo">
-        <a href="index.php?controller=Exposiciones&action=crea_expo" class="btn btn-success">Crear exposició</a>
-    </div>
-</div>
-
     
-    <h1>Exposicions</h1>
+    <div class="header">
+        <img src="views/obras/Logo2.png" alt="Logo">
+    </div>
 
-    <div class="expo_box">
-        
+    <div class="search-bar-container">
+        <form class="search-bar">
+            <i class="fa fa-search"></i>
+            <input type="text" id="q" placeholder="Buscador de obra" onkeyup="search()">
+        </form>
+    </div>
+
+
+    <div class="crear-usuario">
+        <a href="index.php?controller=Usuaris&action=formularioCrearUsuario" class="btn btn-success">Exposició</a>
+    </div>
+
+    <div class="usuaris_box">
         <table class="table">
             <thead>
-                <tr>
-                    
+                <tr> 
                     <th>Nom</th>
                     <th>Exposició</th>
                     <th>Data Inici</th>
@@ -39,24 +39,21 @@
             <tbody>
                 <?php foreach ($exposiciones as $expo): ?>
                     <tr>
-                        
                         <td><?php echo $expo['exposicion']; ?></td>
                         <td><?php echo $expo['id_exposicion']; ?></td>
                         <td><?php echo $expo['fecha_inicio_expo']; ?></td>
                         <td><?php echo $expo['fecha_fin_expo']; ?></td>
                         <td><?php echo $expo['tipo_exposicion']; ?></td>
-                        <td><?php echo $expo['sitio_exposicion']; ?></td>
-                        
-                        <td>
+                        <td><?php echo $expo['sitio_exposicion']; ?></td> 
+                        <td class="acciones">
                             <a href="index.php?controller=Exposiciones&action=editar_expo&id=<?= $expo['id_exposicion']; ?>" class="btn btn-primary">Editar exposició</a>
                             <a href="index.php?controller=Exposiciones&action=ver_obras&id=<?= $expo['id_exposicion']; ?>" class="btn btn-primary">Afegir obra</a>
-                        </td>
-                        
+                        </td>  
                     </tr>
                 <?php endforeach; ?>
             </tbody>
         </table>
-       
     </div>
+    <script src="scripts/busqui.js"></script>
 </body>
 </html>
