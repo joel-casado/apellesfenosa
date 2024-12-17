@@ -22,27 +22,22 @@
                 <form action="index.php?controller=Usuaris&action=createUser" method="POST" onsubmit="return validarFormulario()">
                     <div class="input-group">
                         <label for="username">Codi restauració/conservació</label>
-                        <i class="fas fa-user"></i>
                         <input type="text" name="name" id="username" required placeholder="Codi">
                     </div>
                     <div class="input-group">
                         <label for="rol">Data inici restauració</label>
-                        <i class="fa-solid fa-star"></i>
                         <input type="date" name="name" id="username" required placeholder="Inici">
                     </div>
                     <div class="input-group" id="contraBox">
-                        <label for="password">Data fi restauració</label>
-                        <i class="fas fa-lock"></i> 
+                        <label for="password">Data fi restauració</label> 
                         <input type="date" name="password" required placeholder="Fí">
                     </div>
                     <div class="input-group">
                         <label for="username">Comentari restauració</label>
-                        <i class="fas fa-user"></i>
                         <input type="text" name="name" id="username" required placeholder="Comentari">
                     </div>
                     <div class="input-group">
                         <label for="username">Nom restaurador-conservador</label>
-                        <i class="fas fa-user"></i>
                         <input type="text" name="name" id="username" required placeholder="Nom restaurador">
                     </div>
                     <button type="submit" class="login-btn">Crear</button>

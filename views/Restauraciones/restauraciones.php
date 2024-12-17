@@ -37,8 +37,7 @@
             </thead>
             <tbody>
                 <?php foreach ($restauraciones as $restauracion): ?>
-                    <tr>
-                       
+                    <tr>   
                         <td><?php echo $expo['codigo_restauracion']; ?></td>
                         <td><?php echo $expo['fecha_inicio_restauracion']; ?></td>
                         <td><?php echo $expo['fecha_fin_restauracion']; ?></td>
