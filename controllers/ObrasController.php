@@ -158,6 +158,36 @@ class ObrasController {
             echo "ID no proporcionado.";
         }
     }
+    public function restauraciones() {
+        if (isset($_GET['id'])) {
+            $id = $_GET['id'];
+            
+            $obraModel = new ObrasModel($this->conn);
+            $obra = $obraModel->obtenerObra($id);
+            $imagen_url = $obraModel->obtenerImagen($id);
+    
+            // Depuración: Verificar si la URL de la imagen se pasa correctamente a la vista
+            echo "<script>console.log('URL de imagen en el controlador: " . $imagen_url . "');</script>";
+    
+            require_once 'views/Restauraciones/restauraciones.php';
+        } else {
+            echo "ID no proporcionado.";
+        }
+    }
+    public function formularioCrearRestauracion() {
+
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+    
+        // Verificar si l'usuari es administrador
+        if (!isset($_SESSION['admin'])) {
+            header("Location: index.php?controller=Obras&action=verObras");
+            exit();
+        }
+
+        require_once "views/Restauraciones/crearRestauracion.php";
+    }
     
     
 

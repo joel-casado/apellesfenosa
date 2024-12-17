@@ -229,6 +229,8 @@
                        class="edit-button">FichaBásica</a></td>
                 <td><a href="index.php?controller=Obras&action=mostrarFichaGeneral&id=<?php echo $obra['numero_registro']; ?>"
                        class="edit-button">FichaGeneral</a></td>
+                <td><a href="index.php?controller=Obras&action=restauraciones&id=<?php echo $obra['numero_registro']; ?>"
+                       class="edit-button">Restauracions</a></td>
             </tr>
         <?php endforeach; ?>
         </tbody>
