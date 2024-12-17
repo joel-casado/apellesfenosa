@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Crear Restauració</title>
-    <link rel="stylesheet" href="styles/login/login.css">
+    <link rel="stylesheet" href="styles/restauraciones/restauraciones.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
@@ -44,7 +44,7 @@
                 </form>
             </div>
             <div class="image_usuaris_box">
-                <img src="images/2.-Petite-Tete-de-Jean-Cocteau_2-1.png" alt="Petite Tete de Jean Cocteau">
+                <img src="images/prueb.jpg" alt="prueba">
             </div>
         </div>
     </div>
