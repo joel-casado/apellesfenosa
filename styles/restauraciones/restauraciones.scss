@@ -1,0 +1,112 @@
+@import "../../SCSS/_variables.scss";
+@import "../../SCSS/_mixins.scss";
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    background-color: white;
+}
+
+.header {
+    @include header;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+}
+
+.login-box {
+    margin-top: 90px;
+    display: flex;
+    background-color: white;
+    box-shadow: 4px 4px 8px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+    width: 43%;
+}
+
+#contraBox{
+    margin-top: 12%;
+    margin-bottom: 12%;
+}
+
+.form-container {
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;  // Center content horizontally
+    width: 100%;
+
+    .error-message {
+        color: red;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+    .input-group {
+        position: relative;
+        margin-bottom: 20px;
+
+
+        i, svg {
+            position: absolute;
+            left: 20px;
+            top: 64%;
+            transform: translateY(-50%);
+            color: #666;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px 10px 10px 50px;
+            border: 1px solid white;
+            height: 50px;
+            background-color: #F2F2F2;
+            border-radius: 4px;
+            font-size: 16px;
+
+            &:focus {
+                border-color: $button_hv;
+                outline: none;
+            }
+        }
+
+    }
+
+    .login-btn {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px;
+        padding: 13px;
+        width: 55%; 
+        background-color: $button-bg;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        font-size: 14px;
+        cursor: pointer;
+        margin: 0 auto;
+    
+        &:hover {
+            background-color: $button_hv;
+        }
+    }    
+}
+
+.image_usuaris_box {
+    img {
+        height: 100%;
+        width: 300px;
+        object-fit: cover;
+    }
+}
