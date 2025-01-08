@@ -20,7 +20,7 @@
 
 
     <div class="crear-usuario">
-        <a href="index.php?controller=Usuaris&action=formularioCrearUsuario" class="btn btn-success">Exposició</a>
+        <a href="index.php?controller=Exposiciones&action=crea_expo" class="btn btn-success">Exposició</a>
     </div>
 
     <div class="usuaris_box">
