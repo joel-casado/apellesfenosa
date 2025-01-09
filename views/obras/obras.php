@@ -188,7 +188,9 @@
         <a href="index.php?controller=Obras&action=crear" class="edit-button">Crear</a>
         <a href="index.php?controller=Obras&action=mostrarPdfTodasLasObras" class="edit-button">Generar libro-registro</a>
         <a href="index.php?controller=Prestec&action=generarWord" class="edit-button">Prestec</a>
+        <a href="index.php?action=exportarCsv" class="btn btn-success">Exportar Obras (CSV)</a>
     </div>
+    
 
     <table>
         <thead>

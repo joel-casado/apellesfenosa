@@ -461,7 +461,44 @@ class ObrasController {
         $pdf->Output('obras.pdf', 'I');
         exit;
     }
-    
+    public function exportarCsv()
+{
+    // Crear la conexión a la base de datos
+    $db = new PDO('mysql:host=localhost;dbname=apellesfenosa;charset=utf8', 'root', '');
+    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    // Importar el modelo y pasar la conexión
+    require_once 'models/ObrasModel.php';
+    $obraModel = new ObrasModel($db);
+
+    // Obtener las obras desde el modelo
+    $obras = $obraModel->getAll();
+
+    // Nombre del archivo CSV
+    $filename = "obras_" . date('Ymd_His') . ".csv";
+
+    // Configurar headers para la descarga
+    header('Content-Type: text/csv; charset=utf-8');
+    header('Content-Disposition: attachment; filename=' . $filename);
+
+    // Abrir el archivo de salida
+    $output = fopen('php://output', 'w');
+
+    // Escribir el encabezado (columnas)
+    if (!empty($obras)) {
+        fputcsv($output, array_keys($obras[0]));
+    }
+
+    // Escribir los datos
+    foreach ($obras as $obra) {
+        fputcsv($output, $obra);
+    }
+
+    // Cerrar el archivo
+    fclose($output);
+    exit;
+}
+
     
 }
 ?>

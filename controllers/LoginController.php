@@ -63,5 +63,6 @@ class LoginController {
         header("Location: index.php?controller=Login&action=verLogin");
         exit();
     }
+    
 }
 ?>

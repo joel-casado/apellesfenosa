@@ -45,6 +45,10 @@ try {
     echo "<p>" . htmlspecialchars($e->getMessage(), ENT_QUOTES, 'UTF-8') . "</p>";
     error_log($e->getMessage());
 }
+if ($_GET['action'] == 'exportarCsv') {
+    $controller = new ObrasController();
+    $controller->exportarCsv();
+}
 ?>
 </body>
 </html>
