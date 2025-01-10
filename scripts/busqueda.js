@@ -39,29 +39,34 @@ document.getElementById('q').addEventListener('keypress', function (event) {
 function toggleGeneratePdfButton() {
     const rows = document.getElementById('the_table_body').querySelectorAll('tr');
     const generatePdfButton = document.getElementById('generate-pdf');
-    const hasVisibleRows = Array.from(rows).some(row => row.style.display !== 'none');
-    generatePdfButton.disabled = !hasVisibleRows;
-    generatePdfButton.classList.toggle('disabled', !hasVisibleRows);
+    if (generatePdfButton) {
+        const hasVisibleRows = Array.from(rows).some(row => row.style.display !== 'none');
+        generatePdfButton.disabled = !hasVisibleRows;
+        generatePdfButton.classList.toggle('disabled', !hasVisibleRows);
+    }
 }
 
-document.getElementById('generate-pdf').addEventListener('click', function () {
-    const rows = document.getElementById('the_table_body').querySelectorAll('tr');
-    const filteredData = [];
+const generatePdfButton = document.getElementById('generate-pdf');
+if (generatePdfButton) {
+    generatePdfButton.addEventListener('click', function () {
+        const rows = document.getElementById('the_table_body').querySelectorAll('tr');
+        const filteredData = [];
 
-    rows.forEach(row => {
-        if (row.style.display !== 'none') {
-            const cells = row.querySelectorAll('td');
-            filteredData.push({
-                imagen_url: cells[0].querySelector('img')?.src || '',
-                numero_registro: cells[1]?.textContent.trim(),
-                titulo: cells[2]?.textContent.trim(),
-                nombre_autor: cells[3]?.textContent.trim(),
-                texto_tecnica: cells[4]?.textContent.trim(),
-                ubicacion: cells[5]?.textContent.trim(),
-                texto_material: cells[6]?.textContent.trim()
-            });
-        }
+        rows.forEach(row => {
+            if (row.style.display !== 'none') {
+                const cells = row.querySelectorAll('td');
+                filteredData.push({
+                    imagen_url: cells[0].querySelector('img')?.src || '',
+                    numero_registro: cells[1]?.textContent.trim(),
+                    titulo: cells[2]?.textContent.trim(),
+                    nombre_autor: cells[3]?.textContent.trim(),
+                    texto_tecnica: cells[4]?.textContent.trim(),
+                    ubicacion: cells[5]?.textContent.trim(),
+                    texto_material: cells[6]?.textContent.trim()
+                });
+            }
+        });
+
+        document.getElementById('filteredData').value = JSON.stringify(filteredData);
     });
-
-    document.getElementById('filteredData').value = JSON.stringify(filteredData);
-});
+}
