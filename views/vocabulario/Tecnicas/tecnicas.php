@@ -22,7 +22,9 @@ $Tecnicas = $tecnicaModel->getTecnicas();
 <div class="actions">
     <a href="index.php?controller=tecnicas&action=crearTecnica" class="edit-button">Crear</a>
 </div>
-
+<form class="search-bar">
+    <input type="text" id="q" placeholder="Busca Técnica" onkeyup="search()">
+</form>
 <table>
     <thead>
         <tr>
@@ -31,7 +33,7 @@ $Tecnicas = $tecnicaModel->getTecnicas();
             <th>Acción</th>
         </tr>
     </thead>
-    <tbody>
+    <tbody id="the_table_body">
         <?php foreach ($Tecnicas as $tecnica): ?>
             <tr>
                 <td><?php echo($tecnica['codigo_getty_tecnica']); ?></td>
@@ -52,5 +54,6 @@ $Tecnicas = $tecnicaModel->getTecnicas();
         <?php endforeach; ?>
     </tbody>
 </table>
+<script src="scripts/busqueda.js"></script>
 </body>
 </html>

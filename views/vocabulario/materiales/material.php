@@ -1,11 +1,3 @@
-<?php
-
-$dbConnection = new Database();
-$conn = $dbConnection->conectar(); 
-
-$MaterialModel = new MaterialModel($conn);
-$Materiales = $MaterialModel->getMateriales();
-?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -24,7 +16,7 @@ $Materiales = $MaterialModel->getMateriales();
     <a href="index.php?controller=Obras&action=verObras&admin" class="edit-button">Obras</a><br>
 </div>
 
-<h1>Listado de Materiales</h1>
+<h1>Llistat de Materials</h1>
 
 <div class="actions">
     <a href="index.php?controller=materiales&action=crearMaterial" class="edit-button">Crear</a>
@@ -35,27 +27,21 @@ $Materiales = $MaterialModel->getMateriales();
 <table>
     <thead>
         <tr>
-            <th>Código Getty Material</th>
-            <th>Texto Material</th>
-            <th>Acción</th>
+            <th>Codi Getty Material</th>
+            <th>Text Material</th>
+            <th>Acció</th>
         </tr>
     </thead>
     <tbody id="the_table_body">
-        <?php foreach ($Materiales as $Material): ?>
+        <?php foreach ($materiales as $Material): ?>
             <tr>
-                <td><?php echo($Material['codigo_getty_material']); ?></td>
-                <td><?php echo($Material['texto_material']); ?></td>
+                <td><?php echo htmlspecialchars($Material['codigo_getty_material'], ENT_QUOTES, 'UTF-8'); ?></td>
+                <td><?php echo htmlspecialchars($Material['texto_material'], ENT_QUOTES, 'UTF-8'); ?></td>
                 <td>
-                    <a href="index.php?controller=Materiales&action=mostrarFormulario&id=<?php echo $Material['codigo_getty_material']; ?>" class="edit-button">Editar</a>
-                    <?php if ($Material['activo']): ?>
-                        <form action="index.php?controller=materiales&action=deshabilitar&id=<?php echo $Material['codigo_getty_material']; ?>" method="post" style="display:inline-block;" onsubmit="return confirm('¿Estás seguro de que quieres deshabilitar este material?');">
-                            <button type="submit" id="deshabilitar">Deshabilitar</button>
-                        </form>
-                    <?php else: ?>
-                        <form action="index.php?controller=materiales&action=habilitar&id=<?php echo $Material['codigo_getty_material']; ?>" method="post" style="display:inline-block;" onsubmit="return confirm('¿Estás seguro de que quieres habilitar este material?');">
-                            <button type="submit" id="habilitar">Habilitar</button>
-                        </form>
-                    <?php endif; ?>
+                    <a href="index.php?controller=Materiales&action=mostrarFormulario&id=<?php echo htmlspecialchars($Material['codigo_getty_material'], ENT_QUOTES, 'UTF-8'); ?>" class="edit-button">Editar</a>
+                    <form action="index.php?controller=materiales&action=<?php echo $Material['activo'] ? 'deshabilitar' : 'habilitar'; ?>&id=<?php echo htmlspecialchars($Material['codigo_getty_material'], ENT_QUOTES, 'UTF-8'); ?>" method="post" class="inline-form" onsubmit="return confirm('¿Estás seguro de que quieres <?php echo $Material['activo'] ? 'deshabilitar' : 'habilitar'; ?> este material?');">
+                        <button type="submit" class="edit-button"><?php echo $Material['activo'] ? 'Deshabilitar' : 'Habilitar'; ?></button>
+                    </form>
                 </td>
             </tr>
         <?php endforeach; ?>

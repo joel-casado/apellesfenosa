@@ -21,7 +21,9 @@ $dataciones = $datacionesModel->getDataciones();
     <div class="actions">
         <a href="index.php?controller=dataciones&action=crearDataciones" class="edit-button">Crear</a>
     </div>
-
+    <form class="search-bar">
+        <input type="text" id="q" placeholder="Busca Datación" onkeyup="search()">
+    </form>
     <table>
         <thead>
             <tr>
@@ -32,7 +34,7 @@ $dataciones = $datacionesModel->getDataciones();
                 <th>Acción</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody id="the_table_body">
             <?php foreach ($dataciones as $datacion): ?>
                 <tr>
                     <td><?php echo($datacion['id_datacion']); ?></td>
@@ -55,5 +57,6 @@ $dataciones = $datacionesModel->getDataciones();
             <?php endforeach; ?>
         </tbody>
     </table>
+    <script src="scripts/busqueda.js"></script>
 </body>
 </html>

@@ -1,11 +1,3 @@
-<?php
-$dbConnection = new Database();
-$conn = $dbConnection->conectar(); 
-
-$ClasificacionesModel = new ClasificacionesModel($conn);
-$Clasificaciones = $ClasificacionesModel->getClasificaciones();
-?>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -18,26 +10,28 @@ $Clasificaciones = $ClasificacionesModel->getClasificaciones();
 </head>
 <body>
 <a href="views/vocabulario/ver_vocabulario.php" class="edit-button">Vocabulario</a>
-    <h1>Listado de Clasificaciones</h1>
+<h1>Listado de Clasificaciones</h1>
 
-    <div class="actions">
-        <a href="index.php?controller=clasificaciones&action=crearClasificaciones" class="edit-button">Crear</a>
-    </div>
-
-    <table>
-        <thead>
+<div class="actions">
+    <a href="index.php?controller=clasificaciones&action=crearClasificaciones" class="edit-button">Crear</a>
+</div>
+<form class="search-bar">
+    <input type="text" id="q" placeholder="Busca Clasificación" onkeyup="search()">
+</form>
+<table>
+    <thead>
+        <tr>
+            <th>ID Clasificación</th>
+            <th>Texto Clasificación</th>
+            <th>Acción</th>
+        </tr>
+    </thead>
+    <tbody id="the_table_body">
+        <?php foreach ($Clasificaciones as $clasificacion): ?>
             <tr>
-                <th>ID Clasificación</th>
-                <th>Texto Clasificación</th>
-                <th>Acción</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($Clasificaciones as $clasificacion): ?>
-                <tr>
-                    <td><?php echo($clasificacion['id_clasificacion']); ?></td>
-                    <td><?php echo($clasificacion['texto_clasificacion']); ?></td>
-                    <td>
+                <td><?php echo($clasificacion['id_clasificacion']); ?></td>
+                <td><?php echo($clasificacion['texto_clasificacion']); ?></td>
+                <td>
                     <a href="index.php?controller=clasificaciones&action=mostrarFormulario&id=<?php echo $clasificacion['id_clasificacion']; ?>" class="edit-button">Editar</a>
                     <?php if ($clasificacion['activo']): ?>
                         <form action="index.php?controller=clasificaciones&action=deshabilitar&id=<?php echo $clasificacion['id_clasificacion']; ?>" method="post" style="display:inline-block;" onsubmit="return confirm('¿Estás seguro de que quieres deshabilitar esta clasificación?');">
@@ -48,12 +42,11 @@ $Clasificaciones = $ClasificacionesModel->getClasificaciones();
                             <button type="submit" id="habilitar">Habilitar</button>
                         </form>
                     <?php endif; ?>
-                    </td>
-                </tr>
-            <?php endforeach; ?>
-        </tbody>
-
-    </table>
-
+                </td>
+            </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>
+<script src="scripts/busqueda.js"></script>
 </body>
 </html>

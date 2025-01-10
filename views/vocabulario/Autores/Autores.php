@@ -25,8 +25,9 @@ $autores = $AutoresModel->getAutores();
     <div class="actions">
     <a href="index.php?controller=autores&action=crearAutores" class="edit-button">Crear</a>
     </div>
-
-
+    <form class="search-bar">
+        <input type="text" id="q" placeholder="Busca Autor" onkeyup="search()">
+    </form>
     <table>
         <thead>
             <tr>
@@ -35,7 +36,7 @@ $autores = $AutoresModel->getAutores();
                 <th>Acción</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody id="the_table_body">
             <?php foreach ($autores as $autor): ?>
                 <tr>
                     <td><?php echo($autor['codigo_autor']); ?></td>
@@ -57,6 +58,6 @@ $autores = $AutoresModel->getAutores();
         </tbody>
 
     </table>
-
+    <script src="scripts/busqueda.js"></script>
 </body>
 </html>
