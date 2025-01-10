@@ -4,29 +4,21 @@ class MaterialesController {
     private $conn;
 
     public function __construct() {
-        // Inicializar la conexión a la base de datos
         $this->conn = (new Database())->conectar();
     }
 
-    // Método que obtiene los materiales y los pasa a la vista
     public function mostrarMateriales() {
-        // Instanciamos el modelo y pasamos la conexión
         $materialModel = new MaterialModel($this->conn);
 
-        // Obtenemos los materiales desde el modelo
         $materiales = $materialModel->getMateriales();
 
-        // Pasamos los datos a la vista
         require_once "views/vocabulario/materiales/material.php";
     }
 
-    // Método para actualizar el material
     public function actualizar() {
-        // Recibir datos del formulario
         $codigo_getty_material = $_POST['codigo_getty_material'];
         $texto_material = $_POST['texto_material'];
 
-        // Instanciar el modelo
         $materialModel = new MaterialModel($this->conn);
 
         // Llamar al método del modelo para actualizar el material
@@ -70,30 +62,30 @@ class MaterialesController {
     public function deshabilitar() {
         $codigo_getty_material = $_GET['id'];
         
-        $materialModel = new materialModel($this->conn);
-        $resultado = $materialModel->deshabilitarmaterial($codigo_getty_material);
+        $materialModel = new MaterialModel($this->conn);
+        $resultado = $materialModel->deshabilitarMaterial($codigo_getty_material);
         
-        // Preparar la respuesta
-        header('Content-Type: application/json');
+        // Redirigir a una página de confirmación o de listado
         if ($resultado) {
-            echo json_encode(['status' => 'success', 'message' => 'Material deshabilitado correctamente.']);
+            header("Location: index.php?controller=Materiales&action=mostrarMateriales");
+            exit();
         } else {
-            echo json_encode(['status' => 'error', 'message' => 'No se pudo deshabilitar el material.']);
+            echo "Error al deshabilitar el material.";
         }
     }
 
     public function habilitar() {
         $codigo_getty_material = $_GET['id'];
         
-        $materialModel = new materialModel($this->conn);
-        $resultado = $materialModel->habilitarmaterial($codigo_getty_material);
+        $materialModel = new MaterialModel($this->conn);
+        $resultado = $materialModel->habilitarMaterial($codigo_getty_material);
         
-         // Preparar la respuesta
-        header('Content-Type: application/json');
+         // Redirigir a una página de confirmación o de listado
         if ($resultado) {
-            echo json_encode(['status' => 'success', 'message' => 'Material habilitado correctamente.']);
+            header("Location: index.php?controller=Materiales&action=mostrarMateriales");
+            exit();
         } else {
-            echo json_encode(['status' => 'error', 'message' => 'No se pudo habilitar el material.']);
+            echo "Error al habilitar el material.";
         }
     }
     
@@ -114,7 +106,7 @@ class MaterialesController {
             // Validar si se encontró la obra
             if ($material) {
                 // Cargar la vista de edición con los datos de la obra
-                require_once 'views/vocabulario/materiales/editar_vocabulario.php';
+                require_once 'views/vocabulario/materiales/editar_material.php';
             } else {
                 echo "Obra no encontrada.";
             }
@@ -122,10 +114,5 @@ class MaterialesController {
             echo "ID no proporcionado.";
         }
     }
-    
-    
-    
-
-
-
 }
+?>

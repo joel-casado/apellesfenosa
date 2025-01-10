@@ -8,14 +8,14 @@ class MaterialModel {
     }
     
     public function getMateriales() {
-        $query = "SELECT DISTINCT codigo_getty_material, texto_material FROM materiales";
+        $query = "SELECT DISTINCT codigo_getty_material, texto_material, activo FROM materiales";
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function getMaterialPorId($codigo_getty_material) {
-        $query = "SELECT codigo_getty_material, texto_material FROM materiales WHERE codigo_getty_material = :codigo_getty_material";
+        $query = "SELECT codigo_getty_material, texto_material, activo FROM materiales WHERE codigo_getty_material = :codigo_getty_material";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':codigo_getty_material', $codigo_getty_material, PDO::PARAM_STR);
         $stmt->execute();
@@ -23,7 +23,7 @@ class MaterialModel {
     }
     
     public function obtenerMaterial($id) {
-        $query = "SELECT codigo_getty_material, texto_material FROM materiales WHERE codigo_getty_material = :codigo_getty_material";
+        $query = "SELECT codigo_getty_material, texto_material, activo FROM materiales WHERE codigo_getty_material = :codigo_getty_material";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':codigo_getty_material', $id, PDO::PARAM_INT);
         $stmt->execute();
@@ -65,13 +65,5 @@ class MaterialModel {
         $stmt->bindParam(':codigo_getty_material', $codigo_getty_material, PDO::PARAM_STR);
         return $stmt->execute();
     }
-    
 }
-
-
-
-
-
-
-
 ?>

@@ -85,6 +85,18 @@ class AutoresController {
         }
     }
 
+    public function habilitar() {
+        $codigo_autor = $_GET['id'];
+        $AutoresModel = new AutoresModel($this->conn);
+        $resultado = $AutoresModel->habilitarAutores($codigo_autor);
+        if ($resultado) {
+            header("Location: index.php?controller=autores&action=mostrarAutores");
+            exit();
+        } else {
+            echo "Error al habilitar el autor.";
+        }
+    }
+
     public function mostrarFormulario() {
         // Capturar el ID de la URL
         if (isset($_GET['id'])) {
@@ -107,3 +119,4 @@ class AutoresController {
     }
     
 }
+?>

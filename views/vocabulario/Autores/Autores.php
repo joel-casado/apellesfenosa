@@ -42,9 +42,15 @@ $autores = $AutoresModel->getAutores();
                     <td><?php echo($autor['nombre_autor']); ?></td>
                     <td>
                         <a href="index.php?controller=autores&action=mostrarFormulario&id=<?php echo $autor['codigo_autor']; ?>" class="edit-button">Editar</a>
-                        <form action="index.php?controller=autores&action=deshabilitar&id=<?php echo $autor['codigo_autor']; ?>" method="post" style="display:inline-block;" onsubmit="return confirm('¿Estás seguro de que quieres deshabilitar este autor?');">
-                            <button type="submit" id="deshabilitar">Deshabilitar</button>
-                        </form>
+                        <?php if ($autor['activo']): ?>
+                            <form action="index.php?controller=autores&action=deshabilitar&id=<?php echo $autor['codigo_autor']; ?>" method="post" style="display:inline-block;" onsubmit="return confirm('¿Estás seguro de que quieres deshabilitar este autor?');">
+                                <button type="submit" id="deshabilitar">Deshabilitar</button>
+                            </form>
+                        <?php else: ?>
+                            <form action="index.php?controller=autores&action=habilitar&id=<?php echo $autor['codigo_autor']; ?>" method="post" style="display:inline-block;" onsubmit="return confirm('¿Estás seguro de que quieres habilitar este autor?');">
+                                <button type="submit" id="habilitar">Habilitar</button>
+                            </form>
+                        <?php endif; ?>
                     </td>
                 </tr>
             <?php endforeach; ?>

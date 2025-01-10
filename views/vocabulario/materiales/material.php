@@ -6,54 +6,6 @@ $conn = $dbConnection->conectar();
 $MaterialModel = new MaterialModel($conn);
 $Materiales = $MaterialModel->getMateriales();
 ?>
-<script>
-    function deshabilitarmaterial(codigo, button) {
-    if (confirm('¿Estás seguro de que quieres deshabilitar este material?')) {
-        var xhr = new XMLHttpRequest();
-        xhr.open("POST", "index.php?controller=materiales&action=deshabilitar&id=" + codigo, true);
-        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState == 4 && xhr.status == 200) {
-                var response = JSON.parse(xhr.responseText);
-
-                if (response.status === 'success') {
-                    // Si la respuesta es exitosa, eliminamos la fila del DOM
-                    var row = button.closest('tr');
-                    row.parentNode.removeChild(row);
-                } else {
-                    alert("Error: " + response.message);
-                }
-            }
-        };
-
-        xhr.send();
-    }
-}
-
-function habilitarmaterial(codigo, button) {
-    if (confirm('¿Estás seguro de que quieres habilitar este material?')) {
-        var xhr = new XMLHttpRequest();
-        xhr.open("POST", "index.php?controller=materiales&action=habilitar&id=" + codigo, true);
-        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState == 4 && xhr.status == 200) {
-                var response = JSON.parse(xhr.responseText);
-
-                if (response.status === 'success') {
-                    alert("Material habilitado correctamente.");
-                } else {
-                    alert("Error: " + response.message);
-                }
-            }
-        };
-
-        xhr.send();
-    }
-}
-
-</script>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -66,51 +18,49 @@ function habilitarmaterial(codigo, button) {
 </head>
 <body>
 <div class="header">
-        <img src="images/login/logo.png" alt="Museu Apel·les Fenosa">
-        <a href="index.php?controller=Login&action=logout" class="edit-button">Cerrar sesión</a>
-        <a href="views/vocabulario/ver_vocabulario.php?id=" class="edit-button">Vocabulario</a>
-        <a href="index.php?controller=Obras&action=verObras&admin" class="edit-button">Obras</a><br>
-    </div>
+    <img src="images/login/logo.png" alt="Museu Apel·les Fenosa">
+    <a href="index.php?controller=Login&action=logout" class="edit-button">Cerrar sesión</a>
+    <a href="views/vocabulario/ver_vocabulario.php" class="edit-button">Vocabulario</a>
+    <a href="index.php?controller=Obras&action=verObras&admin" class="edit-button">Obras</a><br>
+</div>
 
-    <h1>Listado de Materiales</h1>
+<h1>Listado de Materiales</h1>
 
-    <div class="actions">
-        <a href="index.php?controller=materiales&action=crearMaterial" class="edit-button">Crear</a>
-    </div>
-    <form class="search-bar">
-			<input type="text" id="q" placeholder="Busca Material" onkeyup="search()">
-	</form>
-    <table>
-        <thead>
+<div class="actions">
+    <a href="index.php?controller=materiales&action=crearMaterial" class="edit-button">Crear</a>
+</div>
+<form class="search-bar">
+    <input type="text" id="q" placeholder="Busca Material" onkeyup="search()">
+</form>
+<table>
+    <thead>
+        <tr>
+            <th>Código Getty Material</th>
+            <th>Texto Material</th>
+            <th>Acción</th>
+        </tr>
+    </thead>
+    <tbody id="the_table_body">
+        <?php foreach ($Materiales as $Material): ?>
             <tr>
-                <th>Código Material</th>
-                <th>Nombre Material</th>
-                <th colspan = "3">Acciónes</th>
+                <td><?php echo($Material['codigo_getty_material']); ?></td>
+                <td><?php echo($Material['texto_material']); ?></td>
+                <td>
+                    <a href="index.php?controller=Materiales&action=mostrarFormulario&id=<?php echo $Material['codigo_getty_material']; ?>" class="edit-button">Editar</a>
+                    <?php if ($Material['activo']): ?>
+                        <form action="index.php?controller=materiales&action=deshabilitar&id=<?php echo $Material['codigo_getty_material']; ?>" method="post" style="display:inline-block;" onsubmit="return confirm('¿Estás seguro de que quieres deshabilitar este material?');">
+                            <button type="submit" id="deshabilitar">Deshabilitar</button>
+                        </form>
+                    <?php else: ?>
+                        <form action="index.php?controller=materiales&action=habilitar&id=<?php echo $Material['codigo_getty_material']; ?>" method="post" style="display:inline-block;" onsubmit="return confirm('¿Estás seguro de que quieres habilitar este material?');">
+                            <button type="submit" id="habilitar">Habilitar</button>
+                        </form>
+                    <?php endif; ?>
+                </td>
             </tr>
-        </thead>
-        <tbody id="the_table_body">
-            <?php foreach ($Materiales as $Material): ?>
-                <tr>
-                    <td><?php echo($Material['codigo_getty_material']); ?></td>
-                    <td><?php echo($Material['texto_material']); ?></td>
-                    <td>
-                        <a href="index.php?controller=Materiales&action=mostrarFormulario&id=<?php echo $Material['codigo_getty_material']; ?>" class="edit-button">Editar</a>
-                    </td>
-                    <td>
-                        <form onsubmit="return false;" style="display:inline-block;">
-                            <button type="button" class="edit-button" onclick="deshabilitarmaterial('<?php echo $Material['codigo_getty_material']; ?>', this)">Deshabilitar</button>
-                        </form>
-                    </td>
-                    <td>
-                        <form onsubmit="return false;" style="display:inline-block;">
-                            <button type="button" class="edit-button" onclick="habilitarmaterial('<?php echo $Material['codigo_getty_material']; ?>', this)">Habilitar</button>
-                        </form>
-                    </td>
-                </tr>
-            <?php endforeach; ?>
-        </tbody>
-
-    </table>
-    <script src="scripts/busqueda.js"></script>
+        <?php endforeach; ?>
+    </tbody>
+</table>
+<script src="scripts/busqueda.js"></script>
 </body>
 </html>
