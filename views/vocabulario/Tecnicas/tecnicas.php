@@ -2,39 +2,9 @@
 $dbConnection = new Database();
 $conn = $dbConnection->conectar(); 
 
-$tecnicaModel = new tecnicasModel($conn);
+$tecnicaModel = new TecnicasModel($conn);
 $Tecnicas = $tecnicaModel->getTecnicas();
 ?>
-<script>
-    function deshabilitartecnica(codigo, button) {
-    if (confirm('¿Estás seguro de que quieres deshabilitar esta técnica?')) {
-        var xhr = new XMLHttpRequest();
-        xhr.open("POST", "index.php?controller=tecnicas&action=deshabilitar&id=" + codigo, true);
-        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState == 4 && xhr.status == 200) {
-                var response = JSON.parse(xhr.responseText);
-
-                if (response.status === 'success') {
-                    // Si la respuesta es exitosa, eliminamos la fila del DOM
-                    var row = button.closest('tr');
-                    row.parentNode.removeChild(row);
-                } else {
-                    alert("Error: " + response.message);
-                }
-            }
-        };
-
-        xhr.send();
-    }
-}
-
-
-
-</script>
-
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -47,39 +17,40 @@ $Tecnicas = $tecnicaModel->getTecnicas();
 </head>
 <body>
 <a href="views/vocabulario/ver_vocabulario.php" class="edit-button">Vocabulario</a>
+<h1>Listado de Técnicas</h1>
 
-    <h1>Listado de Tecnicas</h1>
+<div class="actions">
+    <a href="index.php?controller=tecnicas&action=crearTecnica" class="edit-button">Crear</a>
+</div>
 
-    <div class="actions">
-        <a href="index.php?controller=tecnicas&action=creartecnica" class="edit-button">Crear</a>
-    </div>
-
-    <table>
-        <thead>
+<table>
+    <thead>
+        <tr>
+            <th>Código Getty Técnica</th>
+            <th>Texto Técnica</th>
+            <th>Acción</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach ($Tecnicas as $tecnica): ?>
             <tr>
-                <th>Código Getty</th>
-                <th>Texto tecnica</th>
-                <th>Acción</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($Tecnicas as $tecnica): ?>
-                <tr>
-                    <td><?php echo($tecnica['codigo_getty_tecnica']); ?></td>
-                    <td><?php echo($tecnica['texto_tecnica']); ?></td>
-                    <td>
-                        <a href="index.php?controller=tecnicas&action=mostrarFormulario&id=<?php echo $tecnica['codigo_getty_tecnica']; ?>" class="edit-button">Editar</a>
-                        <form onsubmit="return false;" style="display:inline-block;">
-                            <button type="button" class="edit-button" onclick="deshabilitartecnica('<?php echo $tecnica['codigo_getty_tecnica']; ?>', this)">Deshabilitar</button>
+                <td><?php echo($tecnica['codigo_getty_tecnica']); ?></td>
+                <td><?php echo($tecnica['texto_tecnica']); ?></td>
+                <td>
+                    <a href="index.php?controller=tecnicas&action=mostrarFormulario&id=<?php echo $tecnica['codigo_getty_tecnica']; ?>" class="edit-button">Editar</a>
+                    <?php if ($tecnica['activo']): ?>
+                        <form action="index.php?controller=tecnicas&action=deshabilitar&id=<?php echo $tecnica['codigo_getty_tecnica']; ?>" method="post" style="display:inline-block;" onsubmit="return confirm('¿Estás seguro de que quieres deshabilitar esta técnica?');">
+                            <button type="submit" id="deshabilitar">Deshabilitar</button>
                         </form>
-
-                    </td>
-                </tr>
-            <?php endforeach; ?>
-        </tbody>
-
-
-    </table>
-
+                    <?php else: ?>
+                        <form action="index.php?controller=tecnicas&action=habilitar&id=<?php echo $tecnica['codigo_getty_tecnica']; ?>" method="post" style="display:inline-block;" onsubmit="return confirm('¿Estás seguro de que quieres habilitar esta técnica?');">
+                            <button type="submit" id="habilitar">Habilitar</button>
+                        </form>
+                    <?php endif; ?>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>
 </body>
 </html>

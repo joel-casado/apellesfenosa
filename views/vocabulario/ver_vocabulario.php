@@ -22,7 +22,7 @@
                 <td><a href="index.php?controller=materiales&action=mostrarMateriales" class="edit-button"><i class="fas fa-edit"></i> Editar</a></td>
             </tr>
             <tr>
-                <td>Autors</td>
+                <td>Autories</td>
                 <td><a href="index.php?controller=autores&action=mostrarautores" class="edit-button"><i class="fas fa-edit"></i> Editar</a></td>
             </tr>
             <tr>
@@ -32,14 +32,6 @@
             <tr>
                 <td>Classificacions genèriques</td>
                 <td><a href="index.php?controller=clasificaciones&action=mostrarclasificaciones" class="edit-button"><i class="fas fa-edit"></i> Editar</a></td>
-            </tr>
-            <tr>
-                <td>Exposicions</td>
-                <td><a href="index.php?controller=Exposiciones&action=listado_exposiciones" class="edit-button"><i class="fas fa-edit"></i> Editar</a></td>
-            </tr>
-            <tr>
-                <td>Préstecs</td>
-                <td><a href="index.php?controller=prestamos&action=mostrarprestamos" class="edit-button"><i class="fas fa-edit"></i> Editar</a></td>
             </tr>
             <tr>
                 <td>Tècniques</td>

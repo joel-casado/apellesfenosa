@@ -27,8 +27,8 @@ $Clasificaciones = $ClasificacionesModel->getClasificaciones();
     <table>
         <thead>
             <tr>
-                <th>ID</th>
-                <th>Texto Clasificaciones</th>
+                <th>ID Clasificación</th>
+                <th>Texto Clasificación</th>
                 <th>Acción</th>
             </tr>
         </thead>
@@ -39,9 +39,15 @@ $Clasificaciones = $ClasificacionesModel->getClasificaciones();
                     <td><?php echo($clasificacion['texto_clasificacion']); ?></td>
                     <td>
                     <a href="index.php?controller=clasificaciones&action=mostrarFormulario&id=<?php echo $clasificacion['id_clasificacion']; ?>" class="edit-button">Editar</a>
-                        <form action="index.php?controller=Clasificaciones&action=deshabilitar&id=<?php echo $clasificacion['id_clasificacion']; ?>" method="post" style="display:inline-block;" onsubmit="return confirm('¿Estás seguro de que quieres deshabilitar este autor?');">
-                            <button type="submit" class="edit-button">Deshabilitar</button>
+                    <?php if ($clasificacion['activo']): ?>
+                        <form action="index.php?controller=clasificaciones&action=deshabilitar&id=<?php echo $clasificacion['id_clasificacion']; ?>" method="post" style="display:inline-block;" onsubmit="return confirm('¿Estás seguro de que quieres deshabilitar esta clasificación?');">
+                            <button type="submit" id="deshabilitar">Deshabilitar</button>
                         </form>
+                    <?php else: ?>
+                        <form action="index.php?controller=clasificaciones&action=habilitar&id=<?php echo $clasificacion['id_clasificacion']; ?>" method="post" style="display:inline-block;" onsubmit="return confirm('¿Estás seguro de que quieres habilitar esta clasificación?');">
+                            <button type="submit" id="habilitar">Habilitar</button>
+                        </form>
+                    <?php endif; ?>
                     </td>
                 </tr>
             <?php endforeach; ?>
