@@ -20,7 +20,7 @@
 
 
     <div class="crear-usuario">
-        <a href="index.php?controller=Obras&action=formularioCrearRestauracion" class="btn btn-success">Restauracions</a>
+        <a href="index.php?controller=Restauraciones&action=formularioCrearRestauracion&id=<?php echo $obra['numero_registro']; ?>" class="btn btn-success">Restauracions</a>
     </div>
 
     <div class="usuaris_box">
@@ -36,19 +36,26 @@
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($restauraciones as $restauracion): ?>
-                    <tr>   
-                        <td><?php echo $expo['codigo_restauracion']; ?></td>
-                        <td><?php echo $expo['fecha_inicio_restauracion']; ?></td>
-                        <td><?php echo $expo['fecha_fin_restauracion']; ?></td>
-                        <td><?php echo $expo['comentario_restauracion']; ?></td>
-                        <td><?php echo $expo['nommbre_restauracion']; ?></td>
-                        <td>
-                            <a href="index.php?controller=Obras&action=editar_restauracio&id=<?= $restauracion['id_exposicion']; ?>" class="btn btn-primary">Editar restauració</a>
-                            <a href="index.php?controller=Obras&action=ver_obras&id=<?= $restauracion['id_exposicion']; ?>" class="btn btn-primary">Finalitzar restauració</a>
-                        </td>
-                    </tr>
-                <?php endforeach; ?>
+            <?php if (!empty($restauraciones) && is_array($restauraciones)): ?>
+    <?php foreach ($restauraciones as $restauracion): ?>
+        <tr>
+            <td><?php echo $restauracion['codigo_restauracion']; ?></td>
+            <td><?php echo $restauracion['fecha_inicio_restauracion']; ?></td>
+            <td><?php echo $restauracion['fecha_fin_restauracion']; ?></td>
+            <td><?php echo $restauracion['comentario_restauracion']; ?></td>
+            <td><?php echo $restauracion['nombre_restauracion']; ?></td>
+            <td>
+                <a href="index.php?controller=Restauraciones&action=editar_restauracio&id=<?php echo $obra['numero_registro']; ?>" class="btn btn-primary">Editar restauració</a>
+                <a href="index.php?controller=Restauraciones&action=ver_obras&id=<?php echo $obra['numero_registro']; ?>" class="btn btn-primary">Finalitzar restauració</a>
+            </td>
+        </tr>
+    <?php endforeach; ?>
+<?php else: ?>
+    <tr>
+        <td colspan="6" style="text-align: center;">No hay datos para mostrar.</td>
+    </tr>
+<?php endif; ?>
+
             </tbody>
         </table>
     </div>

@@ -19,29 +19,31 @@
                         <?= htmlspecialchars($errorMessage) ?>
                     </div>
                 <?php endif; ?>
-                <form action="index.php?controller=Usuaris&action=createUser" method="POST" onsubmit="return validarFormulario()">
+                <form action="index.php?controller=Restauraciones&action=crearRestauracion" method="POST">
+                <input type="hidden" name="numero_registro" value="<?php echo $obra['numero_registro']; ?>">
                     <div class="input-group">
-                        <label for="username">Codi restauració/conservació</label>
-                        <input type="text" name="name" id="username" required placeholder="Codi">
+                        <label for="codigo_restauracion">Codi restauració/conservació</label>
+                        <input type="text" name="codigo_restauracion" id="codigo_restauracion" required placeholder="Codi">
                     </div>
                     <div class="input-group">
-                        <label for="rol">Data inici restauració</label>
-                        <input type="date" name="name" id="username" required placeholder="Inici">
+                        <label for="fecha_inicio_restauracion">Data inici restauració</label>
+                        <input type="date" name="fecha_inicio_restauracion" id="fecha_inicio_restauracion" required placeholder="Inici">
                     </div>
                     <div class="input-group" id="contraBox">
-                        <label for="password">Data fi restauració</label> 
-                        <input type="date" name="password" required placeholder="Fí">
+                        <label for="fecha_fin_restauracion">Data fi restauració</label> 
+                        <input type="date" name="fecha_fin_restauracion" placeholder="Fí">
                     </div>
                     <div class="input-group">
-                        <label for="username">Comentari restauració</label>
-                        <input type="text" name="name" id="username" required placeholder="Comentari">
+                        <label for="comentario_restauracion">Comentari restauració</label>
+                        <input type="text" name="comentario_restauracion" id="comentario_restauracion" required placeholder="Comentari">
                     </div>
                     <div class="input-group">
-                        <label for="username">Nom restaurador-conservador</label>
-                        <input type="text" name="name" id="username" required placeholder="Nom restaurador">
+                        <label for="nombre_restaurador">Nom restaurador-conservador</label>
+                        <input type="text" name="nombre_restaurador" id="nombre_restaurador" required placeholder="Nom restaurador">
                     </div>
                     <button type="submit" class="login-btn">Crear</button>
                 </form>
+
             </div>
             <div class="image_usuaris_box">
                 <img src="images/prueb.jpg" alt="prueba">

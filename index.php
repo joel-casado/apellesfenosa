@@ -11,6 +11,7 @@
 require_once "autoload.php";
 require_once "models/database.php";
 
+
 try {
     $db = new Database();
     $connection = $db->conectar();
