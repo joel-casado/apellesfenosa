@@ -68,13 +68,13 @@ body {
 }
 .table th {
   padding: 25px;
-  text-align: left;
+  text-align: center;
   background-color: #f4f4f4;
   color: #555;
 }
 .table td {
   padding: 15px;
-  text-align: left;
+  text-align: center;
 }
 .table tr {
   background-color: #FFFFFF;
@@ -82,7 +82,7 @@ body {
   box-shadow: 0 0px 5px 0px rgba(0, 0, 0, 0.1);
 }
 .table .acciones-header {
-  text-align: left;
+  text-align: center;
   padding-left: 120px;
 }
 .table .acciones {

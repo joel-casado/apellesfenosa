@@ -16,7 +16,7 @@
     </div>
     <h1>Exposició seleccionada</h1> 
     <?php
-// Asegurémonos de que $id_exposicion tiene un valor
+        // Asegurémonos de que $id_exposicion tiene un valor
         if (!isset($id_exposicion) || empty($id_exposicion)) {
             echo "El ID de exposición no está definido o está vacío.";
             return; // Detener la ejecución si no se tiene el ID
