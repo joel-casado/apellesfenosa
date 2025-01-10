@@ -100,15 +100,12 @@
 </head>
 <body>
 
-    <!-- Header with Logo -->
     <div class="header">
         <img src="images/login/Logo.png" alt="Logo">
     </div>
 
-    <!-- Main Title -->
     <h1>Crear Nueva Ubicación</h1>
 
-    <!-- Form Container -->
     <div class="form_container">
         <form action="index.php?controller=ubicacion&action=crearUbicacion&padre_id=<?php echo isset($_GET['padre_id']) ? $_GET['padre_id'] : ''; ?>" method="POST">
             <label for="nombre_ubicacion">Nombre de Ubicación:</label>
