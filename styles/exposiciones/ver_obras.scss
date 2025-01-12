@@ -1,81 +1,191 @@
-@import "../../SCSS/_variables.scss";
-@import "../../SCSS/_mixins.scss";
+$font-family: 'Roboto', sans-serif;
+$background-color: #f5f5f5;
+$table-background: #fff;
+$form-background: #fff;
+$table-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 -2px 4px rgba(0, 0, 0, 0.1);
+$form-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 -2px 4px rgba(0, 0, 0, 0.1);
+$primary-color: #6589C4;
+$secondary-color: #f0f0f0;
+$text-color: #333;
+$muted-text-color: #555;
+$error-color: #ff0000;
+
+@mixin transition($properties, $duration: 0.2s, $ease: ease-in-out) {
+  transition: $properties $duration $ease;
+}
 
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: $header-bg;
-    margin: 0;
-    padding: 0;
+  font-family: $font-family;
+  background-color: $background-color;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0;
+  padding: 20px;
 }
 
-.header {
-    @include header; // Asegúrate de que 'header' esté definido en _mixins.scss
-    display: flex;
-    justify-content: space-between; 
-    align-items: center;
-    padding: 10px 20px;
-}
 h1 {
-    text-align:center;
-    margin-top: 50px;
+  color: $text-color;
+  margin-bottom: 20px;
+  text-align: center;
 }
+
+.search-bar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; // Ensure vertical alignment
+  margin-bottom: 20px;
+  width: 100%;
+  max-width: 1200px;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center; // Ensure vertical alignment
+  gap: 10px;
+  width: 100%;
+}
+
+.search-bar input {
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  width: 100%;
+  max-width: 400px;
+}
+
+.crear-usuario {
+  display: flex; // Ensure the button is aligned properly
+  align-items: center; // Ensure vertical alignment
+  margin-bottom: 0; // Remove bottom margin to align with search bar
+}
+
+.crear-usuario .btn {
+  padding: 10px 20px;
+  font-size: 14px;
+  color: #fff;
+  background: $primary-color;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none; // Remove underline
+  display: inline-flex;
+  align-items: center;
+  @include transition(all);
+}
+
+.crear-usuario .btn:hover {
+  background: darken($primary-color, 10%);
+}
+
+.usuaris_box {
+  width: 100%;
+  max-width: 1200px;
+  margin: 20px auto;
+}
+
 table {
-    width: 60%;
-    border-collapse: collapse; // Asegura que no haya espacios entre las celdas
-    border-radius: 8px;
-    margin-left: 350px;
-    margin-top: 150px;
+  width: 100%;
+  border-collapse: collapse;
+  background: $form-background;
+  border-radius: 9px;
+  overflow: hidden;
+  box-shadow: $form-shadow;
+  border: none;
 
-    th, td {
-        padding: 15px;
-        text-align: center; // Alinea el texto a la izquierda
-        border: 1px solid #ddd; // Añade bordes a las celdas
-    }
-
+  thead {
     th {
-        background-color: #f4f4f4; // Color de fondo del encabezado
-        color: #555;
+      background: $secondary-color;
+      text-align: center;
+      padding: 12px;
+      font-weight: 500;
+      font-size: 14px;
+      color: $text-color;
+      border-bottom: 1px solid #ddd;
     }
+  }
 
+  tbody {
     tr {
-        background-color: $header-bg; // Color de fondo de las filas
-        box-shadow: 0 0px 5px 0px rgba(0, 0, 0, 0.1); // Sombra difus
-    }
+      border-bottom: 1px solid #ddd;
 
-    tr:hover {
-        background-color: lighten($header-bg, 10%); // Cambia el color al pasar el ratón
+      &:last-child {
+        border-bottom: none;
+      }
+
+      td {
+        text-align: center;
+        padding: 12px;
+        font-size: 14px;
+        color: $muted-text-color;
+
+        &:first-child {
+          font-weight: 500;
+          color: $text-color;
+        }
+
+        a {
+          text-decoration: none;
+          color: $primary-color;
+          font-size: 14px;
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          padding: 6px 10px;
+          border: 1px solid $primary-color;
+          border-radius: 4px;
+
+          @include transition(all);
+
+          &:hover {
+            background: $primary-color;
+            color: #fff;
+          }
+
+          i {
+            font-size: 12px;
+          }
+        }
+      }
     }
+  }
 }
 
-.btn {
-    padding: 10px 40px;
-    border-radius: 8px;
-    text-decoration: none;
-    color: white;
-    display: inline-flex;
-    
-}
-.btn-success {
-    position: absolute;
-    top: 20px;
-    right: 390px;
-    z-index: 1;
-    background-color: $button-bg;
-    border: none;
-    margin-top: 275px;
-
-    &:hover {
-        background-color: $button_hv;
-    }
+.edit-button {
+  text-decoration: none;
+  color: $primary-color;
+  font-size: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border: 1px solid $primary-color;
+  border-radius: 4px;
+  transition: all 0.2s ease-in-out;
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-bottom: 20px; // Add margin to create distance from the title
 }
 
-.btn-primary {
-    
-    background-color: $button-bg;
-    border: none;
-
-    &:hover {
-        background-color: $button_hv;
-    }
+.edit-button:hover {
+  background: $primary-color;
+  color: #fff;
 }
 
+.edit-button i {
+  font-size: 18px;
+}
+
+.action-icons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  align-items: center;
+}
+
+.inline-form {
+  display: inline;
+}

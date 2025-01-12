@@ -460,4 +460,24 @@ class ObrasModel {
                 return $stmt->fetchAll(PDO::FETCH_ASSOC);
             }
 
+    public function getObrasByUbicacion($ubicacionId) {
+        $query = "
+            SELECT 
+                obras.*, 
+                autores.nombre_autor, 
+                materiales.texto_material, 
+                tecnicas.texto_tecnica 
+            FROM obras
+            LEFT JOIN autores ON obras.autor = autores.codigo_autor
+            LEFT JOIN materiales ON obras.material = materiales.codigo_getty_material
+            LEFT JOIN tecnicas ON obras.tecnica = tecnicas.codigo_getty_tecnica
+            WHERE obras.ubicacion = :ubicacionId
+        ";
+
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':ubicacionId', $ubicacionId, PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }

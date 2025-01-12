@@ -10,7 +10,6 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.3.12/jstree.min.js"></script>
     <style>
-        /* General styles */
         body {
             font-family: 'Roboto', sans-serif;
             background-color: #f5f5f5;
@@ -104,6 +103,7 @@
         <div class="action-buttons">
             <button id="btnCrearUbicacion">Crear Ubicación</button>
             <button id="btnEditarUbicacion" disabled>Editar Ubicación</button>
+            <button id="btnListarObras" disabled>Listar Obras</button>
         </div>
     </div>
 
@@ -121,6 +121,7 @@
         $('#jstree').on("select_node.jstree", function(e, data) {
             selectedNodeId = data.node.id;
             $("#btnEditarUbicacion").prop("disabled", false);
+            $("#btnListarObras").prop("disabled", false);
         });
 
         // Deselect the selected node when clicking outside of jsTree
@@ -129,6 +130,7 @@
                 $('#jstree').jstree("deselect_all");
                 selectedNodeId = null;
                 $("#btnEditarUbicacion").prop("disabled", true);
+                $("#btnListarObras").prop("disabled", true);
             }
         });
 
@@ -145,6 +147,13 @@
         $('#btnEditarUbicacion').on('click', function() {
             if (selectedNodeId) {
                 window.location.href = `index.php?controller=ubicacion&action=editarUbicacion&id=${selectedNodeId}`;
+            }
+        });
+
+        // List Obras button action
+        $('#btnListarObras').on('click', function() {
+            if (selectedNodeId) {
+                window.location.href = `index.php?controller=ubicacion&action=listarObras&id=${selectedNodeId}`;
             }
         });
     });

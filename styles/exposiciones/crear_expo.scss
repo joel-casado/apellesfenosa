@@ -1,81 +1,120 @@
-@import "../../SCSS/_variables.scss";
-@import "../../SCSS/_mixins.scss";
+$font-family: 'Roboto', sans-serif;
+$background-color: #f5f5f5;
+$form-background: #fff;
+$form-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 -2px 4px rgba(0, 0, 0, 0.1);
+$primary-color: #6589C4;
+$text-color: #333;
+$error-color: #ff0000;
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
+
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: $header-bg;
+    font-family: $font-family;
+    background-color: $background-color;
     margin: 0;
     padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    height: 100vh;
+    padding-top: 50px;
 }
-.header {
-    @include header; // Asegúrate de que 'header' esté definido en _mixins.scss
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 90%;
+    max-width: 900px;
 }
+
+.edit-button {
+    text-decoration: none;
+    color: $primary-color;
+    font-size: 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 10px;
+    border: 1px solid $primary-color;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    transition: all 0.2s ease-in-out;
+}
+
+.edit-button:hover {
+    background: $primary-color;
+    color: #fff;
+}
+
 h1 {
-    text-align:center;
-    margin-top: 50px;
+    text-align: center;
+    color: $text-color;
+    margin-bottom: 20px;
 }
+
 .expo_box {
     display: flex;
-    width: 900px;
-    margin: 100px auto;
-    background-color: $header-bg;
-    border-radius: 10px;
-    box-shadow: 0px 8px 12px 4px rgba(0, 0, 0, 0.2); // Sombra más uniforme en todos los lados
+    background: $form-background;
+    padding: 20px;
+    border-radius: 9px;
+    box-shadow: $form-shadow;
+    width: 100%;
     text-align: center;
 }
 
-.image_expo_box {
-    position: relative;
-    width: 100%; // Cambia max-width a width
-    height: auto; // Cambia height a auto
-    border-radius: 8px;
-    overflow: hidden; // Asegúrate de que no se desborde
-}
-.image_expo_box img {
-    width: 100%; // Asegúrate de que la imagen ocupe el 100% del contenedor
-    height: auto; // Mantiene la proporción
-    object-fit: cover; // O 'contain', según lo que necesites
-    margin-left: 30px;
-}
 form {
-    margin-left: 10px;
-    padding: 40px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-input {
-    margin:20px auto;
-    padding: 10px;
-    border: 1px solid #F2F2F2;
-    border-radius: 5px;
-    background-color: #F2F2F2;
-    font-size: 16px;
-    width: 320px;
+    gap: 15px;
+    width: 60%;
+    padding-right: 20px;
 
-    &:focus {
-        outline: none;
-        border-color: #F2F2F2;
-        background-color: lighten(#F2F2F2, 5%);
+    label {
+        text-align: center;
+        color: $text-color;
+        font-weight: 500;
     }
+
+    input {
+        padding: 10px;
+        font-size: 14px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        width: calc(100% - 20px);
     }
 
     button {
-    width: 70%;
-    padding: 10px;
-    margin-left: 50px;
-    background-color:$button-bg;
-    color:$header-bg;
-    font-size: 16px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
+        padding: 10px;
+        font-size: 14px;
+        color: #fff;
+        background: $primary-color;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+        width: calc(100% - 20px); // Adjust width to align with input fields
 
-    &:hover {
-        background-color:$button_hv;
+        &:hover {
+            background: darken($primary-color, 10%);
+        }
     }
+}
+
+.image_expo_box {
+    width: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    img {
+        width: 100%;
+        height: auto;
+        border-radius: 8px;
+        object-fit: cover;
     }
 }

@@ -55,6 +55,13 @@ class exposicionesModel {
         return $stmt->execute();
     }
     
+    public function ver_obras($id_exposicion) {
+        $query = "SELECT numero_registro, nombre_objeto, titulo, ubicacion FROM obras WHERE id_exposicion = :id_exposicion";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':id_exposicion', $id_exposicion, PDO::PARAM_STR);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
     
 }
 
