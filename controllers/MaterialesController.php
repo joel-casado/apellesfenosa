@@ -81,7 +81,7 @@ class MaterialesController {
             $MaterialModel = new MaterialModel($this->conn);
             $material = $MaterialModel->obtenerMaterial($id);
             if ($material) {
-                require_once 'views/vocabulario/materiales/editar_material.php';
+                require_once 'views/vocabulario/materiales/editar_vocabulario.php';
             } else {
                 echo "Obra no encontrada.";
             }
