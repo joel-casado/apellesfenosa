@@ -36,7 +36,7 @@
                     <td><?php echo htmlspecialchars($Material['codigo_getty_material'], ENT_QUOTES, 'UTF-8'); ?></td>
                     <td><?php echo htmlspecialchars($Material['texto_material'], ENT_QUOTES, 'UTF-8'); ?></td>
                     <td class="action-icons">
-                        <a href="index.php?controller=Materiales&action=mostrarFormulario&id=<?php echo htmlspecialchars($Material['codigo_getty_material'], ENT_QUOTES, 'UTF-8'); ?>" class="edit-button" title="Editar">
+                        <a href="index.php?controller=Materiales&action=editarMaterial&id=<?php echo htmlspecialchars($Material['codigo_getty_material'], ENT_QUOTES, 'UTF-8'); ?>" class="edit-button" title="Editar">
                             <i class="fas fa-edit"></i>
                         </a>
                         <form action="index.php?controller=materiales&action=<?php echo $Material['activo'] ? 'deshabilitar' : 'habilitar'; ?>&id=<?php echo htmlspecialchars($Material['codigo_getty_material'], ENT_QUOTES, 'UTF-8'); ?>" method="post" class="inline-form" onsubmit="return confirm('Estàs segur de què vols <?php echo $Material['activo'] ? 'deshabilitar' : 'habilitar'; ?> aquesta datació?');">

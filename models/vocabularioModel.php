@@ -2,9 +2,18 @@
 
 class VocabularioModel {
     private $db;
+    private $conn;
+
+    private function conectar() {
+        $this->conn = new mysqli('localhost', 'username', 'password', 'apellesfenosa');
+        if ($this->conn->connect_error) {
+            die("Connection failed: " . $this->conn->connect_error);
+        }
+        return $this->conn;
+    }
 
     public function __construct() {
-        $this->db = Database::connect();
+        $this->db = $this->conectar();
     }
 
     public function getNombresTablas() {
