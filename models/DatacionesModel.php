@@ -33,8 +33,17 @@ class DatacionesModel {
     }
 
     public function crearDataciones($nombre_datacion, $ano_inicio, $ano_final) {
-        $query = "INSERT INTO dataciones (nombre_datacion, ano_inicio, ano_final) VALUES (:nombre_datacion, :ano_inicio, :ano_final)";
+        // Get the latest id_datacion
+        $query = "SELECT MAX(id_datacion) as max_id FROM dataciones";
         $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        $new_id = $result['max_id'] + 1;
+
+        // Insert the new datacion with the new id_datacion
+        $query = "INSERT INTO dataciones (id_datacion, nombre_datacion, ano_inicio, ano_final) VALUES (:id_datacion, :nombre_datacion, :ano_inicio, :ano_final)";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':id_datacion', $new_id, PDO::PARAM_INT);
         $stmt->bindParam(':nombre_datacion', $nombre_datacion, PDO::PARAM_STR);
         $stmt->bindParam(':ano_inicio', $ano_inicio, PDO::PARAM_STR);
         $stmt->bindParam(':ano_final', $ano_final, PDO::PARAM_STR);
