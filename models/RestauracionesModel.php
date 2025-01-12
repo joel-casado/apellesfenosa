@@ -43,14 +43,24 @@ class RestauracionesModel
         }
     }
     public function obtenerObra($numero_registro)
-{
-    $sql = "SELECT * FROM obras WHERE numero_registro = :numero_registro";
-    $stmt = $this->conn->prepare($sql);
-    $stmt->bindParam(':numero_registro', $numero_registro, PDO::PARAM_INT);
-    $stmt->execute();
+    {
+        $sql = "SELECT * FROM restauraciones WHERE numero_registro = :numero_registro";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':numero_registro', $numero_registro, PDO::PARAM_INT);
+        $stmt->execute();
 
-    return $stmt->fetch(PDO::FETCH_ASSOC); // Devuelve la obra si existe
-}
+        return $stmt->fetch(PDO::FETCH_ASSOC); // Devuelve la obra si existe
+    }
+    public function obtenerRestauracionesPorNumeroRegistro($numero_registro)
+    {
+        $sql = "SELECT * FROM restauraciones WHERE numero_registro = :numero_registro";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':numero_registro', $numero_registro, PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC); // Devuelve un array con las restauraciones
+    }
+
 
 
 }

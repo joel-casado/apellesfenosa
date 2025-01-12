@@ -11,19 +11,19 @@ class RestauracionesController
 
     public function restauraciones()
     {
-        if (isset($_GET['id']) && is_numeric($_GET['id'])) {
-            $id = intval($_GET['id']);
+        if (isset($_GET['numero_registro']) && is_numeric($_GET['numero_registro'])) {
+            $id = intval($_GET['numero_registro']);
             require_once 'models/ObrasModel.php';
-
+            require_once 'models/RestauracionesModel.php';
             $obraModel = new ObrasModel($this->db);
-
+            $restauracionesModel = new RestauracionesModel($this->db);
             // Obtener información de la obra
             $obra = $obraModel->obtenerObra($id);
             if (!$obra) {
                 echo "Error: La obra no existe.";
                 return;
             }
-
+            $restauraciones = $restauracionesModel->obtenerRestauracionesPorNumeroRegistro($id);
             $imagen_url = $obraModel->obtenerImagen($id);
 
             // Depuración: Verificar URL de imagen en consola del navegador
