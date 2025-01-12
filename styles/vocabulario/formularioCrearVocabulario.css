@@ -70,6 +70,12 @@ h1 {
   border-radius: 4px;
   width: calc(100% - 20px);
 }
+.expo_box form .error-message {
+  color: #ff0000;
+  font-size: 12px;
+  margin-top: -10px;
+  margin-bottom: 10px;
+}
 .expo_box form button {
   padding: 10px;
   font-size: 14px;

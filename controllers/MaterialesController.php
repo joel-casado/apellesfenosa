@@ -30,8 +30,16 @@ class MaterialesController {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $codigo_getty_material = $_POST['codigo_getty_material'];
             $texto_material = $_POST['texto_material'];
-            $MaterialesModel = new MaterialModel($this->conn);
-            $resultado = $MaterialesModel->crearMaterial($codigo_getty_material, $texto_material);
+            $materialModel = new MaterialModel($this->conn);
+
+            // Verificar si el ID ya existe
+            if ($materialModel->existeMaterial($codigo_getty_material)) {
+                $error = "El codi Getty Material ja està en ús.";
+                require_once "views/vocabulario/materiales/crear_material.php";
+                return;
+            }
+
+            $resultado = $materialModel->crearMaterial($codigo_getty_material, $texto_material);
             if ($resultado) {
                 header("Location: index.php?controller=Materiales&action=mostrarMateriales");
                 exit();

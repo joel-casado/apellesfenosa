@@ -18,8 +18,11 @@
         <form action="index.php?controller=Materiales&action=crearMaterial" method="POST">
             <label for="codigo_getty_material">Codi Getty Material:</label>
             <input type="text" id="codigo_getty_material" name="codigo_getty_material" required>
+            <?php if (isset($error)): ?>
+                <p class="error-message"><?php echo $error; ?></p>
+            <?php endif; ?>
 
-            <label for="texto_material">Nom</label>
+            <label for="texto_material">Nom:</label>
             <input type="text" id="texto_material" name="texto_material" required>
 
             <button type="submit">Afegir Material</button>

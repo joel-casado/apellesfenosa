@@ -5,6 +5,7 @@ $form-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 -2px 4px rgba(0, 0, 0, 0.1);
 $primary-color: #6589C4;
 $text-color: #333;
 $muted-text-color: #555;
+$error-color: #ff0000;
 
 @mixin transition($properties, $duration: 0.2s, $ease: ease-in-out) {
   transition: $properties $duration $ease;
@@ -82,6 +83,13 @@ h1 {
       border: 1px solid #ddd;
       border-radius: 4px;
       width: calc(100% - 20px);
+    }
+
+    .error-message {
+      color: $error-color;
+      font-size: 12px;
+      margin-top: -10px;
+      margin-bottom: 10px;
     }
 
     button {

@@ -41,7 +41,6 @@ class MaterialModel {
         return $stmt->execute();
     }
 
-
     public function crearMaterial($codigo_getty_material, $texto_material) {
         $query = "INSERT INTO materiales (codigo_getty_material, texto_material) VALUES (:codigo_getty_material, :texto_material)";
         $stmt = $this->conn->prepare($query);
@@ -64,6 +63,15 @@ class MaterialModel {
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':codigo_getty_material', $codigo_getty_material, PDO::PARAM_STR);
         return $stmt->execute();
+    }
+
+    // Método para verificar si un ID de material ya existe
+    public function existeMaterial($codigo_getty_material) {
+        $query = "SELECT COUNT(*) FROM materiales WHERE codigo_getty_material = :codigo_getty_material";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':codigo_getty_material', $codigo_getty_material, PDO::PARAM_STR);
+        $stmt->execute();
+        return $stmt->fetchColumn() > 0;
     }
 }
 ?>
