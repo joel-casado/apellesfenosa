@@ -60,6 +60,41 @@ class RestauracionesModel
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC); // Devuelve un array con las restauraciones
     }
+    public function obtenerRestauracionPorId($numero_registro)
+    {
+        $sql = "SELECT * FROM restauraciones WHERE numero_registro = :numero_registro";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindParam(':numero_registro', $numero_registro, PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function actualizarRestauracion($numero_registro, $codigo_restauracion, $fecha_inicio_restauracion, $fecha_fin_restauracion, $comentario_restauracion, $nombre_restaurador)
+    {
+        if (empty($fecha_fin_restauracion)) {
+            $fecha_fin_restauracion = null;
+        }
+        $sql = "UPDATE restauraciones 
+                SET codigo_restauracion = :codigo_restauracion,
+                    fecha_inicio_restauracion = :fecha_inicio_restauracion,
+                    fecha_fin_restauracion = :fecha_fin_restauracion,
+                    comentario_restauracion = :comentario_restauracion,
+                    nombre_restaurador = :nombre_restaurador
+                WHERE numero_registro = :numero_registro";
+
+        $stmt = $this->conn->prepare($sql);
+
+        $stmt->bindParam(':numero_registro', $numero_registro, PDO::PARAM_INT);
+        $stmt->bindParam(':codigo_restauracion', $codigo_restauracion);
+        $stmt->bindParam(':fecha_inicio_restauracion', $fecha_inicio_restauracion);
+        $stmt->bindParam(':fecha_fin_restauracion', $fecha_fin_restauracion);
+        $stmt->bindParam(':comentario_restauracion', $comentario_restauracion);
+        $stmt->bindParam(':nombre_restaurador', $nombre_restaurador);
+
+        return $stmt->execute();
+    }
+
 
 
 

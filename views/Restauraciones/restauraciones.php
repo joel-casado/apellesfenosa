@@ -45,7 +45,7 @@
             <td><?php echo $restauracion['comentario_restauracion']; ?></td>
             <td><?php echo $restauracion['nombre_restaurador']; ?></td>
             <td>
-                <a href="index.php?controller=Restauraciones&action=editar_restauracio&id=<?php echo $obra['numero_registro']; ?>" class="btn btn-primary">Editar restauració</a>
+                <a href="index.php?controller=Restauraciones&action=editarRestauracion&numero_registro=<?php echo $restauracion['numero_registro']; ?>" class="btn btn-primary">Editar restauració</a>
                 <a href="index.php?controller=Restauraciones&action=ver_obras&id=<?php echo $obra['numero_registro']; ?>" class="btn btn-primary">Finalitzar restauració</a>
             </td>
         </tr>

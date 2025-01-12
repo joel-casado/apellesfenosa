@@ -101,5 +101,27 @@ class RestauracionesController
             echo "Error: Método no permitido.";
         }
     }
+    public function editarRestauracion()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['numero_registro']) && is_numeric($_GET['numero_registro'])) {
+            $numero_registro = intval($_GET['numero_registro']);
+    
+            require_once 'models/RestauracionesModel.php';
+            $restauracionesModel = new RestauracionesModel($this->db);
+    
+            $restauracion = $restauracionesModel->obtenerRestauracionPorId($numero_registro);
+    
+            if ($restauracion) {
+                require_once 'views/Restauraciones/editarResaturacion.php';
+            } else {
+                echo "Error: No se encontró una restauración con el número de registro especificado.";
+            }
+        } else {
+            echo "Error: Solicitud no válida.";
+        }
+    }
+    
+
+
     
 }
