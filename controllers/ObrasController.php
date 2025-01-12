@@ -5,14 +5,12 @@ class ObrasController {
     private $conn;
 
     public function __construct() {
-        // Inicializar la conexión a la base de datos
         $this->conn = (new Database())->conectar();
     }
 
     public function filter() {
         $filters = [];
     
-        // Collect up to 5 filters
         for ($i = 1; $i <= 5; $i++) {
             $field = $_POST["filterField$i"] ?? null;
             $value = $_POST["filterValue$i"] ?? null;
@@ -22,25 +20,19 @@ class ObrasController {
             }
         }
     
-        // Pass filters to the model
         $obrasModel = new ObrasModel($this->conn);
         $obras = $obrasModel->getFilteredObras($filters);
     
-        // Load the view with filtered data
         require_once "views/obras/obras.php";
     }
     
     public function verObras() {
-        // Crear una instancia de la clase de base de datos para obtener la conexión
         $db = (new Database())->conectar(); 
 
-        // Crear instancia de ObrasModel y pasarle la conexión a la base de datos
         $obrasModel = new ObrasModel($db);
 
-        // Obtener las obras desde el modelo
         $obras = $obrasModel->getObras();
 
-        // Cargar la vista y pasarle los datos de las obras
         require_once "views/obras/obras.php";
     }
 

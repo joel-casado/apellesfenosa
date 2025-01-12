@@ -12,48 +12,51 @@ $Tecnicas = $tecnicaModel->getTecnicas();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tecnicas</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles/obras/obras.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="styles/vocabulario/material.css">
 </head>
 <body>
-<a href="views/vocabulario/ver_vocabulario.php" class="edit-button">Vocabulario</a>
-<h1>Listado de Técnicas</h1>
+
+<a href="index.php?controller=vocabulario&action=mostrarVocabulario" class="edit-button">Tornar</a>
+
+<h1>Llistat de Tècniques</h1>
 
 <div class="actions">
+    <form class="search-bar">
+        <input type="text" id="q" placeholder="Busca Técnica" onkeyup="search()">
+    </form>
     <a href="index.php?controller=tecnicas&action=crearTecnica" class="edit-button">Crear</a>
 </div>
-<form class="search-bar">
-    <input type="text" id="q" placeholder="Busca Técnica" onkeyup="search()">
-</form>
-<table>
-    <thead>
-        <tr>
-            <th>Código Getty Técnica</th>
-            <th>Texto Técnica</th>
-            <th>Acción</th>
-        </tr>
-    </thead>
-    <tbody id="the_table_body">
-        <?php foreach ($Tecnicas as $tecnica): ?>
+
+<div class="table-container">
+    <table>
+        <thead>
             <tr>
-                <td><?php echo($tecnica['codigo_getty_tecnica']); ?></td>
-                <td><?php echo($tecnica['texto_tecnica']); ?></td>
-                <td>
-                    <a href="index.php?controller=tecnicas&action=mostrarFormulario&id=<?php echo $tecnica['codigo_getty_tecnica']; ?>" class="edit-button">Editar</a>
-                    <?php if ($tecnica['activo']): ?>
-                        <form action="index.php?controller=tecnicas&action=deshabilitar&id=<?php echo $tecnica['codigo_getty_tecnica']; ?>" method="post" style="display:inline-block;" onsubmit="return confirm('¿Estás seguro de que quieres deshabilitar esta técnica?');">
-                            <button type="submit" id="deshabilitar">Deshabilitar</button>
-                        </form>
-                    <?php else: ?>
-                        <form action="index.php?controller=tecnicas&action=habilitar&id=<?php echo $tecnica['codigo_getty_tecnica']; ?>" method="post" style="display:inline-block;" onsubmit="return confirm('¿Estás seguro de que quieres habilitar esta técnica?');">
-                            <button type="submit" id="habilitar">Habilitar</button>
-                        </form>
-                    <?php endif; ?>
-                </td>
+                <th>Código Getty Tècnica</th>
+                <th>Text Tècnica</th>
+                <th>Acció</th>
             </tr>
-        <?php endforeach; ?>
-    </tbody>
-</table>
+        </thead>
+        <tbody id="the_table_body">
+            <?php foreach ($Tecnicas as $tecnica): ?>
+                <tr>
+                    <td><?php echo htmlspecialchars($tecnica['codigo_getty_tecnica'], ENT_QUOTES, 'UTF-8'); ?></td>
+                    <td><?php echo htmlspecialchars($tecnica['texto_tecnica'], ENT_QUOTES, 'UTF-8'); ?></td>
+                    <td class="action-icons">
+                        <a href="index.php?controller=tecnicas&action=mostrarFormulario&id=<?php echo htmlspecialchars($tecnica['codigo_getty_tecnica'], ENT_QUOTES, 'UTF-8'); ?>" class="edit-button" title="Editar">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        <form action="index.php?controller=tecnicas&action=<?php echo $tecnica['activo'] ? 'deshabilitar' : 'habilitar'; ?>&id=<?php echo htmlspecialchars($tecnica['codigo_getty_tecnica'], ENT_QUOTES, 'UTF-8'); ?>" method="post" class="inline-form" onsubmit="return confirm('Estàs segur de què vols <?php echo $tecnica['activo'] ? 'deshabilitar' : 'habilitar'; ?> aquesta tècnica?');">
+                            <button type="submit" class="edit-button" title="<?php echo $tecnica['activo'] ? 'Deshabilitar' : 'Habilitar'; ?>">
+                                <i class="fas fa-<?php echo $tecnica['activo'] ? 'times' : 'check'; ?>"></i>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+</div>
 <script src="scripts/busqueda.js"></script>
 </body>
 </html>
