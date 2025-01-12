@@ -12,18 +12,24 @@ $dataciones = $datacionesModel->getDataciones();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dataciones</title>
-    <link rel="stylesheet" href="styles/obras/obras.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="styles/vocabulario/tabla_vocabulario.css">
 </head>
 <body>
-<a href="views/vocabulario/ver_vocabulario.php" class="edit-button">Vocabulario</a>
-    <h1>Listado de Dataciones</h1>
 
-    <div class="actions">
-        <a href="index.php?controller=dataciones&action=crearDataciones" class="edit-button">Crear</a>
-    </div>
+<a href="index.php?controller=vocabulario&action=mostrarVocabulario" class="edit-button">Tornar</a>
+
+<h1>Llistat de Datacions</h1>
+
+<div class="actions">
     <form class="search-bar">
-        <input type="text" id="q" placeholder="Busca Datación" onkeyup="search()">
+        <input type="text" id="q" placeholder="Cerca de datacions" onkeyup="search()">
     </form>
+    <a href="index.php?controller=dataciones&action=crearDataciones" class="edit-button">Crear</a>
+</div>
+
+<div class="table-container">
     <table>
         <thead>
             <tr>
@@ -31,32 +37,31 @@ $dataciones = $datacionesModel->getDataciones();
                 <th>Nombre Datación</th>
                 <th>Año Inicio</th>
                 <th>Año Final</th>
-                <th>Acción</th>
+                <th>Acció</th>
             </tr>
         </thead>
         <tbody id="the_table_body">
             <?php foreach ($dataciones as $datacion): ?>
                 <tr>
-                    <td><?php echo($datacion['id_datacion']); ?></td>
-                    <td><?php echo($datacion['nombre_datacion']); ?></td>
-                    <td><?php echo($datacion['ano_inicio']); ?></td>
-                    <td><?php echo($datacion['ano_final']); ?></td>
-                    <td>
-                        <a href="index.php?controller=dataciones&action=mostrarFormulario&id=<?php echo $datacion['id_datacion']; ?>" class="edit-button">Editar</a>
-                        <?php if ($datacion['activo']): ?>
-                            <form action="index.php?controller=dataciones&action=deshabilitar&id=<?php echo $datacion['id_datacion']; ?>" method="post" style="display:inline-block;" onsubmit="return confirm('¿Estás seguro de que quieres deshabilitar esta datación?');">
-                                <button type="submit" id="deshabilitar">Deshabilitar</button>
-                            </form>
-                        <?php else: ?>
-                            <form action="index.php?controller=dataciones&action=habilitar&id=<?php echo $datacion['id_datacion']; ?>" method="post" style="display:inline-block;" onsubmit="return confirm('¿Estás seguro de que quieres habilitar esta datación?');">
-                                <button type="submit" id="habilitar">Habilitar</button>
-                            </form>
-                        <?php endif; ?>
+                    <td><?php echo htmlspecialchars($datacion['id_datacion'], ENT_QUOTES, 'UTF-8'); ?></td>
+                    <td><?php echo htmlspecialchars($datacion['nombre_datacion'], ENT_QUOTES, 'UTF-8'); ?></td>
+                    <td><?php echo htmlspecialchars($datacion['ano_inicio'], ENT_QUOTES, 'UTF-8'); ?></td>
+                    <td><?php echo htmlspecialchars($datacion['ano_final'], ENT_QUOTES, 'UTF-8'); ?></td>
+                    <td class="action-icons">
+                        <a href="index.php?controller=dataciones&action=mostrarFormulario&id=<?php echo htmlspecialchars($datacion['id_datacion'], ENT_QUOTES, 'UTF-8'); ?>" class="edit-button" title="Editar">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        <form action="index.php?controller=dataciones&action=<?php echo $datacion['activo'] ? 'deshabilitar' : 'habilitar'; ?>&id=<?php echo htmlspecialchars($datacion['id_datacion'], ENT_QUOTES, 'UTF-8'); ?>" method="post" class="inline-form" onsubmit="return confirm('Estàs segur de què vols <?php echo $datacion['activo'] ? 'deshabilitar' : 'habilitar'; ?> aquesta datació?');">
+                            <button type="submit" class="edit-button" title="<?php echo $datacion['activo'] ? 'Deshabilitar' : 'Habilitar'; ?>">
+                                <i class="fas fa-<?php echo $datacion['activo'] ? 'times' : 'check'; ?>"></i>
+                            </button>
+                        </form>
                     </td>
                 </tr>
             <?php endforeach; ?>
         </tbody>
     </table>
-    <script src="scripts/busqueda.js"></script>
+</div>
+<script src="scripts/busqueda.js"></script>
 </body>
 </html>

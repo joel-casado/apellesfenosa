@@ -14,50 +14,51 @@ $autores = $AutoresModel->getAutores();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Autores</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles/obras/obras.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="styles/vocabulario/tabla_vocabulario.css">
 </head>
 <body>
-<a href="views/vocabulario/ver_vocabulario.php" class="edit-button">Vocabulario</a>
 
-    <h1>Listado de Autores</h1>
+<a href="index.php?controller=vocabulario&action=mostrarVocabulario" class="edit-button">Tornar</a>
 
-    <div class="actions">
-    <a href="index.php?controller=autores&action=crearAutores" class="edit-button">Crear</a>
-    </div>
+<h1>Llistat d'Autors</h1>
+
+<div class="actions">
     <form class="search-bar">
-        <input type="text" id="q" placeholder="Busca Autor" onkeyup="search()">
+        <input type="text" id="q" placeholder="Cerca d'autors" onkeyup="search()">
     </form>
+    <a href="index.php?controller=autores&action=crearAutores" class="edit-button">Crear</a>
+</div>
+
+<div class="table-container">
     <table>
         <thead>
             <tr>
-                <th>Código Autor</th>
-                <th>Nombre Autor</th>
-                <th>Acción</th>
+                <th>Codi Autor</th>
+                <th>Nom Autor</th>
+                <th>Acció</th>
             </tr>
         </thead>
         <tbody id="the_table_body">
             <?php foreach ($autores as $autor): ?>
                 <tr>
-                    <td><?php echo($autor['codigo_autor']); ?></td>
-                    <td><?php echo($autor['nombre_autor']); ?></td>
-                    <td>
-                        <a href="index.php?controller=autores&action=mostrarFormulario&id=<?php echo $autor['codigo_autor']; ?>" class="edit-button">Editar</a>
-                        <?php if ($autor['activo']): ?>
-                            <form action="index.php?controller=autores&action=deshabilitar&id=<?php echo $autor['codigo_autor']; ?>" method="post" style="display:inline-block;" onsubmit="return confirm('¿Estás seguro de que quieres deshabilitar este autor?');">
-                                <button type="submit" id="deshabilitar">Deshabilitar</button>
-                            </form>
-                        <?php else: ?>
-                            <form action="index.php?controller=autores&action=habilitar&id=<?php echo $autor['codigo_autor']; ?>" method="post" style="display:inline-block;" onsubmit="return confirm('¿Estás seguro de que quieres habilitar este autor?');">
-                                <button type="submit" id="habilitar">Habilitar</button>
-                            </form>
-                        <?php endif; ?>
+                    <td><?php echo htmlspecialchars($autor['codigo_autor'], ENT_QUOTES, 'UTF-8'); ?></td>
+                    <td><?php echo htmlspecialchars($autor['nombre_autor'], ENT_QUOTES, 'UTF-8'); ?></td>
+                    <td class="action-icons">
+                        <a href="index.php?controller=autores&action=mostrarFormulario&id=<?php echo htmlspecialchars($autor['codigo_autor'], ENT_QUOTES, 'UTF-8'); ?>" class="edit-button" title="Editar">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        <form action="index.php?controller=autores&action=<?php echo $autor['activo'] ? 'deshabilitar' : 'habilitar'; ?>&id=<?php echo htmlspecialchars($autor['codigo_autor'], ENT_QUOTES, 'UTF-8'); ?>" method="post" class="inline-form" onsubmit="return confirm('Estàs segur de què vols <?php echo $autor['activo'] ? 'deshabilitar' : 'habilitar'; ?> aquest autor?');">
+                            <button type="submit" class="edit-button" title="<?php echo $autor['activo'] ? 'Deshabilitar' : 'Habilitar'; ?>">
+                                <i class="fas fa-<?php echo $autor['activo'] ? 'times' : 'check'; ?>"></i>
+                            </button>
+                        </form>
                     </td>
                 </tr>
             <?php endforeach; ?>
         </tbody>
-
     </table>
-    <script src="scripts/busqueda.js"></script>
+</div>
+<script src="scripts/busqueda.js"></script>
 </body>
 </html>
