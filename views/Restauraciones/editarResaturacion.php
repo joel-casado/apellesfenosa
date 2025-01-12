@@ -40,7 +40,7 @@
                         <label for="nombre_restaurador">Nom restaurador-conservador</label>
                         <input type="text" name="nombre_restaurador" id="nombre_restaurador" required placeholder="Nom restaurador">
                     </div>
-                    <button type="submit">Guardar Cambios</button>
+                    <button type="submit" class="login-btn">Guardar Cambios</button>
                 </form>
             </div>
             <div class="image_usuaris_box">
