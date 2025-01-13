@@ -5,6 +5,23 @@ ini_set('display_errors', 1);
 
 require_once("vendor/autoload.php");
 
+// Extender TCPDF para personalizar el encabezado
+class MyPDF extends TCPDF {
+    protected $headerText = '';
+
+    // Método para establecer el texto del encabezado
+    public function setHeaderText($text) {
+        $this->headerText = $text;
+    }
+
+    // Sobrescribir el método Header()
+    public function Header() {
+        // Configurar el estilo del encabezado
+        $this->SetFont('helvetica', '', 10);
+        $this->Cell(0, 10, $this->headerText, 0, false, 'C', 0, '', 0, false, 'M', 'M');
+    }
+}
+
 $dbConnection = new Database();
 $conn = $dbConnection->conectar();
 $obraModel = new ObrasModel($conn);
@@ -16,23 +33,32 @@ if (!$obras || count($obras) === 0) {
     error_log("Obres trobades: " . count($obras));
 }
 
-$pdf = new TCPDF('P', 'mm', 'A3', true, 'UTF-8', false);
+// Usar la clase personalizada
+$pdf = new MyPDF('P', 'mm', 'A3', true, 'UTF-8', false);
 $pdf->SetCreator(PDF_CREATOR);
 $pdf->SetAuthor('Apel·les Fenosa');
 $pdf->SetTitle('Llistat d\'Obres');
 $pdf->SetFont('helvetica', '', 10);
+$pdf->setPrintHeader(true); // Habilitar el encabezado
+$pdf->SetHeaderMargin(10); // Margen del encabezado
 
 foreach ($obras as $obra) {
-    $numeroRegistro = $obra['numero_registro']; // Ensure $obra['numero_registro'] is correctly retrieved
-    error_log("Número de Registre: " . $numeroRegistro); // Log the numero_registro for debugging
-    $pdf->SetHeaderData('', 0, 'Número de Registre: ' . $numeroRegistro, '');
-    $pdf->AddPage();  // Nova pàgina per a cada obra
+    $numeroRegistro = $obra['numero_registro']; // Obtener el número de registro
+    error_log("Número de Registre: " . $obra['numero_registro']); // Log para depuración
+
+    // Establecer el texto del encabezado para esta página
+    $pdf->setHeaderText('Número de Registre: ' . $numeroRegistro);
+
+    // Agregar una nueva página
+    $pdf->AddPage();
+
+
 
     // Afegir imatge si està disponible
     if (!empty($obra['imagen_url'])) {
         $pdf->Image($obra['imagen_url'], '', '', 50, 50, '', '', 'T', false, 300, '', false, false, 1, false, false, false);
     } else {
-        $pdf->Image('images/default.png');
+        $pdf->Image('images/login/default.png', '', '', 50, 50, '', '', 'T', false, 300, '', false, false, 1, false, false, false);
     }
 
     $pdf->Ln(55); // Espai després de la imatge

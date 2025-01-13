@@ -12,7 +12,7 @@ class ObrasModel {
                      materiales.texto_material, 
                      autores.nombre_autor, 
                      tecnicas.texto_tecnica, 
-                     COALESCE(archivos.enlace, 'images/default.jpg') AS imagen_url
+                     COALESCE(archivos.enlace, 'images/default.png') AS imagen_url
               FROM obras 
               LEFT JOIN materiales ON obras.material = materiales.codigo_getty_material
               LEFT JOIN autores ON obras.autor = autores.codigo_autor
