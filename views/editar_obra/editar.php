@@ -234,7 +234,7 @@ $imagen_url = $obraModel->obtenerImagen($obra['numero_registro']);
             <textarea id="bibliografia" name="bibliografia"><?php echo $obra['bibliografia']; ?></textarea>
 
             <label for="descripcion">Descripció:</label>
-            <textarea id="descripcion" name="descripcion" required><?php echo $obra['descripcion']; ?></textarea>
+            <textarea id="descripcion" name="descripcion"><?php echo $obra['descripcion']; ?></textarea>
 
             <label for="historia_obra">Història de l'Obra:</label>
             <textarea id="historia_obra" name="historia_obra"><?php echo $obra['historia_obra']; ?></textarea>

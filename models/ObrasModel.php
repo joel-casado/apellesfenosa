@@ -234,44 +234,40 @@ class ObrasModel {
             return $result->fetchAll(PDO::FETCH_ASSOC);
         }
         
-        public function actualizarObra($numero_registro, $titulo, $autor, $clasificaciones_genericas, $coleccion_procedencia, 
-                                   $maxima_altura, $maxima_anchura, $maxima_profundidad, $materiales, $tecnicas, 
-                                   $ano_inicio, $ano_final, $dataciones, $formas_ingreso, $fecha_registro, 
-                                   $descripcion, $numero_ejemplares, $fuente_ingreso, $estado_conservacion, 
-                                   $lugar_procedencia, $lugar_ejecucion, $valoracion_econ, $bibliografia, 
-                                   $historia_obra) {
-
-        // Consulta SQL para actualizar la obra
-        $sql = "UPDATE obras SET 
-                    titulo = :titulo,
-                    autor = :autor,
-                    classificacion_generica = :clasificaciones_genericas,
-                    coleccion_procedencia = :coleccion_procedencia,
-                    maxima_altura = :maxima_altura,
-                    maxima_anchura = :maxima_anchura,
-                    maxima_profundidad = :maxima_profundidad,
-                    material = :materiales,
-                    tecnica = :tecnicas,
-                    ano_inicio = :ano_inicio,
-                    ano_final = :ano_final,
-                    datacion = :dataciones,
-                    forma_ingreso = :formas_ingreso,
-                    fecha_registro = :fecha_registro,
-                    descripcion = :descripcion,
-                    numero_ejemplares = :numero_ejemplares,
-                    fuente_ingreso = :fuente_ingreso,
-                    estado_conservacion = :estado_conservacion,
-                    lugar_procedencia = :lugar_procedencia,
-                    lugar_ejecucion = :lugar_ejecucion,
-                    valoracion_econ = :valoracion_econ,
-                    bibliografia = :bibliografia,
-                    historia_obra = :historia_obra
-                WHERE numero_registro = :numero_registro";
-
-        // Preparar la consulta
-        $stmt = $this->conn->prepare($sql);
-
-        // Vincular los parámetros
+        public function actualizarObra($numero_registro, $titulo, $autor, $clasificaciones_genericas, 
+        $coleccion_procedencia, $maxima_altura, $maxima_anchura, $maxima_profundidad, $materiales, $tecnicas, 
+        $ano_inicio, $ano_final, $dataciones, $formas_ingreso, $fecha_registro, $descripcion,
+        $numero_ejemplares, $fuente_ingreso, $estado_conservacion,
+        $lugar_procedencia, $lugar_ejecucion, $valoracion_econ, $bibliografia, $historia_obra) {
+    
+        $query = "UPDATE obras SET 
+            titulo = :titulo,
+            autor = :autor,
+            classificacion_generica = :clasificaciones_genericas,
+            coleccion_procedencia = :coleccion_procedencia,
+            maxima_altura = :maxima_altura,
+            maxima_anchura = :maxima_anchura,
+            maxima_profundidad = :maxima_profundidad,
+            material = :materiales,
+            tecnica = :tecnicas,
+            ano_inicio = :ano_inicio,
+            ano_final = :ano_final,
+            datacion = :dataciones,
+            forma_ingreso = :formas_ingreso,
+            fecha_registro = :fecha_registro,
+            descripcion = :descripcion,
+            numero_ejemplares = :numero_ejemplares,
+            fuente_ingreso = :fuente_ingreso,
+            estado_conservacion = :estado_conservacion,
+            lugar_procedencia = :lugar_procedencia,
+            lugar_ejecucion = :lugar_ejecucion,
+            valoracion_econ = :valoracion_econ,
+            bibliografia = :bibliografia,
+            historia_obra = :historia_obra
+        WHERE numero_registro = :numero_registro";
+    
+        $stmt = $this->conn->prepare($query);
+    
         $stmt->bindParam(':titulo', $titulo);
         $stmt->bindParam(':autor', $autor);
         $stmt->bindParam(':clasificaciones_genericas', $clasificaciones_genericas);
@@ -296,14 +292,18 @@ class ObrasModel {
         $stmt->bindParam(':bibliografia', $bibliografia);
         $stmt->bindParam(':historia_obra', $historia_obra);
         $stmt->bindParam(':numero_registro', $numero_registro); // El número de registro para identificar la obra
-
+    
         // Ejecutar la consulta
         if ($stmt->execute()) {
             return true;
         } else {
+            // Captura el error para depuración
+            $errorInfo = $stmt->errorInfo();
+            error_log("Error en la actualización: " . print_r($errorInfo, true));
             return false;
         }
     }
+
 
     public function guardarArchivo($numero_registro, $rutaArchivo) {
         $query = "INSERT INTO archivos (enlace, numero_registro) VALUES (:enlace, :numero_registro)";
@@ -333,6 +333,19 @@ class ObrasModel {
             return true;
         } else {
             error_log("Error al guardar el archivo secundario en la base de datos");
+            return false;
+        }
+        
+    }
+
+    public function actualizarArchivo($numero_registro, $rutaArchivo) {
+        $query = "UPDATE archivos SET enlace = :enlace WHERE numero_registro = :numero_registro";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':enlace', $rutaArchivo);
+        $stmt->bindParam(':numero_registro', $numero_registro);
+        if ($stmt->execute()) {
+            return true;
+        } else {
             return false;
         }
     }
