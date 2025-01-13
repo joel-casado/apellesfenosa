@@ -25,29 +25,28 @@ $imagen_url = $obraModel->obtenerImagen($obra['numero_registro']);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Ficha</title>
-    <link rel="stylesheet" href="styles/obras/obras.css">
+    <link rel="stylesheet" href="SCSS/prueba/fichas.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
 
     <div class="header">
         <img src="images/login/logo.png" alt="Museu Apel·les Fenosa">
-        <a href="index.php?controller=Login&action=logout" class="edit-button">Cerrar sesión</a>
-        <a href="views/vocabulario/ver_vocabulario.php?id=" class="edit-button">Vocabulario</a>
-        <a href="index.php?controller=Obras&action=verObras&admin" class="edit-button">Obras</a>
-        <a href="index.php?controller=Exposiciones&action=listado_exposiciones" class="edit-button">Exposiciones</a>
-        <a href="index.php?controller=Ubicacion&action=verArbol" class="edit-button">Ubicaciones</a>
     </div>
     <br>
-    <div class="ACTIONS">
-    <a class="edit-button" href="index.php?controller=Obras&action=mostrarpdf&id=<?php echo $obra['numero_registro']; ?>" class="download-button">Descargar PDF</a>
-    </div>
+    <div class="button-bar">
+    <?php if (isset($rol) && ($rol == 'admin' || $rol == 'tecnic')): ?>
+        <a class="edit-button" href="index.php?controller=Obras&action=mostrarpdfGeneral&id=<?php echo $obra['numero_registro']; ?>" class="download-button">Descarregar PDF</a>
+        <a href="index.php?controller=Restauraciones&action=restauraciones&id=<?php echo $obra['numero_registro']; ?>">Restauracions</a>
+    <?php endif; ?>
+</div>
+</div>
 
 <br>
     <div class="form-container">
 
 
-    <h1>FICHA BASICA OBRA</h1>
+    <h1>FICHA BASICA "<?php echo $obra['titulo']; ?>"</h1>
 
 
     <form>
@@ -55,12 +54,12 @@ $imagen_url = $obraModel->obtenerImagen($obra['numero_registro']);
         <?php if (!empty($imagen_url)): ?>
             <img src="<?php echo htmlspecialchars($imagen_url); ?>" alt="<?php echo htmlspecialchars($obra['titulo']); ?>" style="width: 100px; height: auto;">
         <?php else: ?>
-            <img src="ruta/a/la/imagen/por_defecto.jpg" alt="Sin imagen disponible" style="width: 100px; height: auto;">
-            <p>Sin imagen disponible</p>
+            <img src="images/login/default.png" alt="Sin imagen disponible" style="width: 100px; height: auto;">
+            
         <?php endif; ?>
 
 
-    <h2 class="section-title" onclick="toggleSection(this)">Información Principal  <span class="arrow">▼</span></h2>
+    <h2 class="section-title" onclick="toggleSection(this)">Informació Principal   <span class="arrow">▼</span></h2>
 
         <div class="section-content">
         <div class="grid-container">
@@ -70,10 +69,10 @@ $imagen_url = $obraModel->obtenerImagen($obra['numero_registro']);
             <label for="titulo">Nº Registro:</label>
             <input type="text" id="n_registro" name="n_registro" value="<?php echo $obra['numero_registro']; ?>" readonly>
 
-            <label for="objeto">Nombre del objeto:</label>
+            <label for="objeto">Nom de l'objecte:</label>
             <input type="text" id="objeto" name="objeto" value="<?php echo $obra['nombre_objeto']; ?>" readonly>
 
-            <label for="autor">Nombre Autor:</label>
+            <label for="autor">Nom Autor:</label>
             <span>
                 <?php 
                 $autorseleccionado = '';
@@ -88,24 +87,24 @@ $imagen_url = $obraModel->obtenerImagen($obra['numero_registro']);
         
                 </span>
 
-            <label for="titulo">Título:</label>
+            <label for="titulo">Títol:</label>
             <input type="text" id="titulo" name="titulo" value="<?php echo $obra['titulo']; ?>" readonly>
 
         </div>
         </div>
 
-        <h2 class="section-title" onclick="toggleSection(this)">Detalles de Realización  <span class="arrow">▼</span></h2>
+        <h2 class="section-title" onclick="toggleSection(this)">Detalls de Realizació  <span class="arrow">▼</span></h2>
 
         <div class="section-content">
         <div class="grid-container">
 
-        <label for="maxima_altura">Máxima Altura:</label>
+        <label for="maxima_altura">Alçada Màxima:</label>
             <input type="text" id="maxima_altura" name="maxima_altura" value="<?php echo $obra['maxima_altura']; ?>" readonly>
 
-            <label for="maxima_anchura">Máxima Anchura:</label>
+            <label for="maxima_anchura">Amplada Màxima:</label>
             <input type="text" id="maxima_anchura" name="maxima_anchura" value="<?php echo $obra['maxima_anchura']; ?>" readonly>
 
-            <label for="maxima_profundidad">Máxima Profundidad:</label>
+            <label for="maxima_profundidad">Profunditat Màxima:</label>
             <input type="text" id="maxima_profundidad" name="maxima_profundidad" value="<?php echo $obra['maxima_profundidad']; ?>" readonly>
             
             <label for="material">Material:</label>
@@ -125,18 +124,18 @@ $imagen_url = $obraModel->obtenerImagen($obra['numero_registro']);
                 </span>
 
                 
-        <label for="estado_conservacion">Estado de Conservación:</label>
+        <label for="estado_conservacion">Estat de Conservació:</label>
         <input type="text" id="estado_conservacion" name="estado_conservacion" value="<?php echo $obra['estado_conservacion']; ?>" readonly>
 
 
         </div>
         </div>
 
-        <h2 class="section-title" onclick="toggleSection(this)">Datación <span class="arrow">▼</span></h2>
+        <h2 class="section-title" onclick="toggleSection(this)">Datació <span class="arrow">▼</span></h2>
         <div class="section-content">
         <div class="grid-container">
 
-        <label for="datacion">Datación:</label>
+        <label for="datacion">Datació:</label>
 
             <span>
                 <?php 
@@ -156,12 +155,12 @@ $imagen_url = $obraModel->obtenerImagen($obra['numero_registro']);
         </div>
         </div>
 
-        <h2 class="section-title" onclick="toggleSection(this)">Ingreso  <span class="arrow">▼</span></h2>
+        <h2 class="section-title" onclick="toggleSection(this)">Ingrès  <span class="arrow">▼</span></h2>
 
         <div class="section-content">
         <div class="grid-container">
 
-        <label for="formas_ingreso">Forma de Ingreso:</label>
+        <label for="formas_ingreso">Forma d'ingrés:</label>
         <span>
             <?php 
             $ingresoseleccionado = '';
@@ -177,19 +176,19 @@ $imagen_url = $obraModel->obtenerImagen($obra['numero_registro']);
             </span>
 
 
-        <label for="fecha_ingreso">Fecha de Ingreso:</label>
+        <label for="fecha_ingreso">Data d'ingrés:</label>
         <input type="date" id="fecha_ingreso" name="fecha_ingreso" value="<?php echo $obra['fecha_ingreso']; ?>" readonly>
 
-        <label for="fuente_ingreso">Fuente de Ingreso:</label>
+        <label for="fuente_ingreso">Font d'ingrés:</label>
         <input type="text" id="fuente_ingreso" name="fuente_ingreso" value="<?php echo $obra['fuente_ingreso']; ?>" readonly>
 
-        <label for="lugar_procedencia">Lugar de Procedencia:</label>
+        <label for="lugar_procedencia">Lloc de procedència:</label>
         <input type="text" id="lugar_procedencia" name="lugar_procedencia" value="<?php echo $obra['lugar_procedencia']; ?>" readonly>
 
-        <label for="fecha_registro">Fecha Registro:</label>
+        <label for="fecha_registro">Data de Registre:</label>
         <input type="date" id="fecha_registro" name="fecha_registro" value="<?php echo $obra['fecha_registro']; ?>" readonly>
 
-        <label for="persona_registro">Usuario que ha registrado</label>
+        <label for="persona_registro">Usuari que ha registrat</label>
         <input type="text" id="persona_registro" name="persona_registro" value="<?php echo $obra['persona_aut_baja']; ?>" readonly>
 
         </div>

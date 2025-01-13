@@ -1,7 +1,7 @@
 <?php
 $dbConnection = new Database();
 $conn = $dbConnection->conectar(); 
-
+$username = $_SESSION['username'];
 $obraModel = new ObrasModel($conn);
 $autores = $obraModel->getAutores();
 $clasificaciones_genericas = $obraModel->getClasificacionesGenericas();
@@ -20,19 +20,30 @@ $dataciones = $obraModel->getdatacion();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crear Ficha</title>
-    <link rel="stylesheet" href="SCSS/prueba/prueba.css">
+    <title>Crear Obra</title>
+    <link rel="stylesheet" href="SCSS/prueba/fichas.css">
+    <link rel="stylesheet" href="styles/sidebar/sidebar.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <div class="header">
+<div class="sidebar">
+    <div class="logo">
         <img src="images/login/logo.png" alt="Museu Apel·les Fenosa">
-        <a href="index.php?controller=Login&action=logout" class="edit-button">Cerrar sesión</a>
-        <a href="views/vocabulario/ver_vocabulario.php?id=" class="edit-button">Vocabulario</a>
-        <a href="index.php?controller=Obras&action=verObras&admin" class="edit-button">Obras</a>
-        <a href="index.php?controller=Exposiciones&action=listado_exposiciones" class="edit-button">Exposiciones</a>
-        <a href="index.php?controller=Ubicacion&action=verArbol" class="edit-button">Ubicaciones</a>
     </div>
+    <ul class="menu">
+        <li><a href="index.php?controller=Obras&action=verObras"><i class="fas fa-palette"></i> <span>Obres</span></a></li>
+        <li><a href="index.php?controller=vocabulario&action=mostrarVocabulario"><i class="fas fa-book"></i> <span>Vocabulari</span></a></li>
+        <li><a href="index.php?controller=Exposiciones&action=listado_exposiciones"><i class="fas fa-university"></i> <span>Exposicions</span></a></li>
+        <li><a href="index.php?controller=Ubicacion&action=verArbol"><i class="fas fa-map-marker-alt"></i> <span>Ubicacions</span></a></li>
+        <li><a href="index.php?controller=usuaris&action=listar_usuarios"><i class="fa-solid fa-user"></i> <span>Usuaris</span></a></li>
+        <li><a href="index.php?controller=Backup&action=createBackup"><i class="fa-solid fa-file"></i> <span>Backup</span></a></li>
+        <li><a href="index.php?controller=Login&action=logout"><i class="fas fa-sign-out-alt"></i> <span>Cerrar sesión</span></a></li>
+    </ul>
+    <div class="toggle-btn">
+        <i class="fas fa-angle-double-right"></i>
+    </div>
+</div>
     <h1>Crear Ficha</h1>
     
     <form id="crearObraForm" action="index.php?controller=Obras&action=crear" method="POST" enctype="multipart/form-data">
@@ -49,7 +60,7 @@ $dataciones = $obraModel->getdatacion();
             <input type="text" id="titulo" name="titulo" required>
 
             <label for="nombre_objeto">Nombre:</label>
-            <input type="text" id="nombre_objeto" name="nombre_objeto" required>
+            <input type="text" id="nombre_objeto" name="nombre_objeto" >
 
 
             <label for="n_registro">Nº Registro:</label>
@@ -60,7 +71,7 @@ $dataciones = $obraModel->getdatacion();
             
 
             <label for="codigo_autor">Código Autor:</label>
-            <select name="codigo_autor" id="codigo_autor" required>
+            <select name="codigo_autor" id="codigo_autor" >
                 <option value="">Selecciona Autor</option>
                 <?php foreach ($autores as $autor): ?>
                     <option value="<?= $autor['codigo_autor'] ?>"><?= $autor['nombre_autor'] ?></option>
@@ -68,7 +79,7 @@ $dataciones = $obraModel->getdatacion();
             </select>
 
             <label for="classificacion_generica">Clasificación Genérica:</label>
-            <select name="classificacion_generica" id="classificacion_generica" required>
+            <select name="classificacion_generica" id="classificacion_generica" >
                 <option value="">Selecciona Clasificación</option>
                 <?php foreach ($clasificaciones_genericas as $clasificacion_generica): ?>
                     <option value="<?= $clasificacion_generica['id_clasificacion'] ?>"><?= $clasificacion_generica['texto_clasificacion'] ?></option>
@@ -76,7 +87,7 @@ $dataciones = $obraModel->getdatacion();
             </select>
 
             <label for="coleccion_procedencia">Colección Procedencia:</label>
-            <input type="text" id="coleccion_procedencia" name="coleccion_procedencia"required>
+            <input type="text" id="coleccion_procedencia" name="coleccion_procedencia">
             
 
         </div>
@@ -89,16 +100,16 @@ $dataciones = $obraModel->getdatacion();
             
 
             <label for="maxima_altura">Máxima Altura:</label>
-            <input type="text" id="maxima_altura" name="maxima_altura"required>
+            <input type="text" id="maxima_altura" name="maxima_altura">
 
             <label for="maxima_anchura">Máxima Anchura:</label>
-            <input type="text" id="maxima_anchura" name="maxima_anchura"required>
+            <input type="text" id="maxima_anchura" name="maxima_anchura">
 
             <label for="maxima_profundidad">Máxima Profundidad:</label>
-            <input type="text" id="maxima_profundidad" name="maxima_profundidad"required>
+            <input type="text" id="maxima_profundidad" name="maxima_profundidad">
 
             <label for="codigo_getty_material">Material:</label>
-            <select name="codigo_getty_material" id="codigo_getty_material" required>
+            <select name="codigo_getty_material" id="codigo_getty_material" >
                 <option value="">Selecciona Material</option>
                 <?php foreach ($materiales as $material): ?>
                     <option value="<?= $material['codigo_getty_material'] ?>">
@@ -110,7 +121,7 @@ $dataciones = $obraModel->getdatacion();
             
 
             <label for="tecnica">Técnica:</label>
-            <select name="tecnica" id="tecnica" required>
+            <select name="tecnica" id="tecnica" >
                 <option value="">Selecciona Técnica</option>
                 <?php foreach ($tecnicas as $tecnica): ?>
                     <option value="<?= $tecnica['codigo_getty_tecnica'] ?>">
@@ -120,7 +131,7 @@ $dataciones = $obraModel->getdatacion();
             </select>
 
             <label for="numero_ejemplares">Número de Ejemplares:</label>
-            <input type="number" id="numero_ejemplares" name="numero_ejemplares"required>
+            <input type="number" id="numero_ejemplares" name="numero_ejemplares">
 
         </div>
         </div>
@@ -134,7 +145,7 @@ $dataciones = $obraModel->getdatacion();
         
 
             <label for="ano_inicio">Año Inicio:</label>
-            <select name="ano_inicio" id="ano_inicio"required>
+            <select name="ano_inicio" id="ano_inicio">
                 <option value="">Selecciona Año Inicio</option>
                 <?php foreach ($anoInicio as $inicio): ?>
                     <option value="<?= $inicio['ano_inicio'] ?>">
@@ -144,7 +155,7 @@ $dataciones = $obraModel->getdatacion();
             </select>
 
             <label for="ano_final">Año Final:</label>
-            <select name="ano_final" id="ano_final"required>
+            <select name="ano_final" id="ano_final">
                 <option value="">Selecciona Año Final</option>
                 <?php foreach ($anoFinal as $final): ?>
                     <option value="<?= $final['ano_final'] ?>">
@@ -155,7 +166,7 @@ $dataciones = $obraModel->getdatacion();
 
            
             <label for="datacion">Datación:</label>
-            <select name="datacion" id="datacion" required>
+            <select name="datacion" id="datacion" >
                 <option value="">Selecciona Datación</option>
                 <?php foreach ($dataciones as $datacion): ?>
                     <option value="<?= $datacion['id_datacion'] ?>"
@@ -170,7 +181,7 @@ $dataciones = $obraModel->getdatacion();
         
 
             <label for="fecha_registro">Fecha Registro:</label>
-            <input type="date" id="fecha_registro" name="fecha_registro"required>
+            <input type="date" id="fecha_registro" name="fecha_registro">
 
 
         </div>
@@ -184,7 +195,7 @@ $dataciones = $obraModel->getdatacion();
         
 
         <label for="forma_ingreso">Forma de Ingreso:</label>
-        <select name="forma_ingreso" id="forma_ingreso"required>
+        <select name="forma_ingreso" id="forma_ingreso">
             <option value="">Selecciona Forma de Ingreso</option>
             <?php foreach ($formasIngreso as $forma_ingreso): ?>
                 <option value="<?= $forma_ingreso['id_forma_ingreso'] ?>">
@@ -194,13 +205,13 @@ $dataciones = $obraModel->getdatacion();
         </select>
         
         <label for="fecha_ingreso">Fecha de Ingreso:</label>
-        <input type="date" id="fecha_ingreso" name="fecha_ingreso"required>
+        <input type="date" id="fecha_ingreso" name="fecha_ingreso">
 
         <label for="fuente_ingreso">Fuente de Ingreso:</label>
-        <input type="text" id="fuente_ingreso" name="fuente_ingreso"required>
+        <input type="text" id="fuente_ingreso" name="fuente_ingreso">
 
         <label for="estado_conservacion">Estado de Conservación:</label>
-        <select name="estado_conservacion" id="estado_conservacion"required>
+        <select name="estado_conservacion" id="estado_conservacion">
             <option value="">Selecciona Estado de Conservación</option>
             <?php foreach ($estadosConservacion as $estadoConservacion): ?>
                 <option value="<?= $estadoConservacion['id_estado'] ?>">
@@ -212,24 +223,24 @@ $dataciones = $obraModel->getdatacion();
 
 
         <label for="lugar_ejecucion">Lugar de Ejecución:</label>
-        <input type="text" id="lugar_ejecucion" name="lugar_ejecucion"required>
+        <input type="text" id="lugar_ejecucion" name="lugar_ejecucion">
         
         <label for="lugar_procedencia">Lugar de Procedencia:</label>
-        <input type="text" id="lugar_procedencia" name="lugar_procedencia"required>
+        <input type="text" id="lugar_procedencia" name="lugar_procedencia">
 
         <label for="valoracion_econ">Valoración Económica:</label>
-        <input type="text" id="valoracion_econ" name="valoracion_econ"required>
+        <input type="text" id="valoracion_econ" name="valoracion_econ">
 
       
 
         <label for="bibliografia">Bibliografía:</label>
-        <textarea id="bibliografia" name="bibliografia"required></textarea>
+        <textarea id="bibliografia" name="bibliografia"></textarea>
 
         <label for="descripcion">Descripción:</label>
-        <textarea id="descripcion" name="descripcion" required></textarea>
+        <textarea id="descripcion" name="descripcion" ></textarea>
         
         <label for="historia_obra">Historia de la Obra:</label>
-        <textarea id="historia_obra" name="historia_obra"required></textarea>
+        <textarea id="historia_obra" name="historia_obra"></textarea>
             
         </div>
         </div>
@@ -243,7 +254,11 @@ $dataciones = $obraModel->getdatacion();
 
         </div>
         </div>
-        <button type="submit">Crear Obra</button>
+        <input type="hidden" name="usuario" value="<?= $username; ?>">
+
+
+
+        <button type="submit"  class="edit-button" >Crear Obra</button>
     </form>
 
     <div id="crearResponseMessage"></div>

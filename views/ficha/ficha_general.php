@@ -1,8 +1,9 @@
 <?php
 $dbConnection = new Database();
-$conn = $dbConnection->conectar(); 
-
+$conn = $dbConnection->conectar();
+$username = $_SESSION['username'];
 $id = $_GET['id'];
+$_SESSION['username'] = $username;
 $obraModel = new ObrasModel($conn);
 $obra = $obraModel->obtenerObra($id);
 $autores = $obraModel->getAutores();
@@ -24,30 +25,45 @@ $imagen_url = $obraModel->obtenerImagen($obra['numero_registro']);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar Ficha</title>
-    <link rel="stylesheet" href="styles/obras/obras.css">
+    <title>Editar Obra</title>
+    <link rel="stylesheet" href="SCSS/prueba/fichas.css">
+    <link rel="stylesheet" href="styles/sidebar/sidebar.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-
-    <div class="header">
+<div class="sidebar">
+    <div class="logo">
         <img src="images/login/logo.png" alt="Museu Apel·les Fenosa">
-        <a href="index.php?controller=Login&action=logout" class="edit-button">Cerrar sesión</a>
-        <a href="views/vocabulario/ver_vocabulario.php?id=" class="edit-button">Vocabulario</a>
-        <a href="index.php?controller=Obras&action=verObras&admin" class="edit-button">Obras</a>
-        <a href="index.php?controller=Exposiciones&action=listado_exposiciones" class="edit-button">Exposiciones</a>
-        <a href="index.php?controller=Ubicacion&action=verArbol" class="edit-button">Ubicaciones</a>
     </div>
-<br>
-    <div class="actions">
-    <a class="edit-button" href="index.php?controller=Obras&action=mostrarpdfGeneral&id=<?php echo $obra['numero_registro']; ?>" class="download-button">Descargar PDF</a>
+    <ul class="menu">
+        <li><a href="index.php?controller=Obras&action=verObras"><i class="fas fa-palette"></i> <span>Obres</span></a></li>
+        <li><a href="index.php?controller=vocabulario&action=mostrarVocabulario"><i class="fas fa-book"></i> <span>Vocabulari</span></a></li>
+        <li><a href="index.php?controller=Exposiciones&action=listado_exposiciones"><i class="fas fa-university"></i> <span>Exposicions</span></a></li>
+        <li><a href="index.php?controller=Ubicacion&action=verArbol"><i class="fas fa-map-marker-alt"></i> <span>Ubicacions</span></a></li>
+        <li><a href="index.php?controller=usuaris&action=listar_usuarios"><i class="fa-solid fa-user"></i> <span>Usuaris</span></a></li>
+        <li><a href="index.php?controller=Backup&action=createBackup"><i class="fa-solid fa-file"></i> <span>Backup</span></a></li>
+        <li><a href="index.php?controller=Login&action=logout"><i class="fas fa-sign-out-alt"></i> <span>Cerrar sesión</span></a></li>
+    </ul>
+    <div class="toggle-btn">
+        <i class="fas fa-angle-double-right"></i>
     </div>
+</div>
+
+<div class="content">
+<div class="button-bar">
+<a class="edit-button" href="index.php?controller=Obras&action=mostrarpdfGeneral&id=<?php echo $obra['numero_registro']; ?>" class="download-button">Descarregar PDF</a>
+    <?php if (isset($rol) && ($rol == 'admin' || $rol == 'tecnic')): ?>
+        <a href="index.php?controller=Restauraciones&action=restauraciones&id=<?php echo $obra['numero_registro']; ?>">Restauracions</a>
+    <?php endif; ?>
+</div>
 
     <br>
     <div class="form-container">
 
+    <h1> Usuario <?php echo $username; ?></h1>
 
-    <h1>FICHA GENERAL OBRA</h1>  
+    <h1>FICHA GENERAL "<?php echo $obra['titulo']; ?>"</h1>  
 
 
     <form>
@@ -59,8 +75,7 @@ $imagen_url = $obraModel->obtenerImagen($obra['numero_registro']);
         <?php if (!empty($imagen_url)): ?>
             <img src="<?php echo htmlspecialchars($imagen_url); ?>" alt="<?php echo htmlspecialchars($obra['titulo']); ?>" style="width: 100px; height: auto;">
         <?php else: ?>
-            <img src="ruta/a/la/imagen/por_defecto.jpg" alt="Sin imagen disponible" style="width: 100px; height: auto;">
-            <p>Sin imagen disponible</p>
+            <img src="images/login/default.png" alt="Sin imagen disponible" style="width: 100px; height: auto;">
         <?php endif; ?>
 
 
@@ -99,7 +114,7 @@ $imagen_url = $obraModel->obtenerImagen($obra['numero_registro']);
             </span>
            
 
-            <label for="autor">Nombre Autor:</label>
+            <label for="autor">Autor:</label>
             <span>
                 <?php 
                 $autorseleccionado = '';
@@ -305,6 +320,7 @@ $imagen_url = $obraModel->obtenerImagen($obra['numero_registro']);
                 <input type="text" id="classificacion_generica" name="classificacion_generica" value="<?php echo $clasificacionSeleccionada ?>" readonly>
             </span>
 
+        <div class="input-container">
         <label for="estado_conservacion">Estat de conservació:</label>
         <span>
         <?php 
@@ -317,9 +333,8 @@ $imagen_url = $obraModel->obtenerImagen($obra['numero_registro']);
         }
         ?> 
         <input type="text" id="estado_conservacion" name="estado_conservacion" value="<?php echo  $estadosSeleccionado ?>" readonly>
-
-        Registre de moviments
-
+        </div>
+        
         <label for="lugar_ejecucion"> Lloc d'execució:</label>
         <input type="text" id="lugar_ejecucion" name="lugar_ejecucion" value="<?php echo $obra['lugar_ejecucion']; ?>" readonly>
 
@@ -350,8 +365,6 @@ $imagen_url = $obraModel->obtenerImagen($obra['numero_registro']);
             <input type="text" id="exposicion" name="exposicion" value="<?php echo $exposicionseleccionado ?>" readonly >
     
             </span>
-
-            Restauracions  s’hauran de mostrar totes les restauracions associades<br>
 
 
 

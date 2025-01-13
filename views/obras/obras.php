@@ -6,139 +6,8 @@
     <title>Obras</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles/obras/obras.css">
+    <link rel="stylesheet" href="styles/sidebar/sidebar.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style>
-        html, body {
-            margin: 0;
-            padding: 0;
-            overflow-x: hidden; /* Prevent horizontal scroll */
-            width: 100%;
-            background-color: #F3F3F3;
-        }
-
-        .actions {
-            margin-right: 540px;
-            margin-top: 100px;
-            margin-bottom: 20px;
-            display: flex;
-            justify-content: flex-end;
-            margin-bottom: -90px;
-        }
-
-        .sidebar {
-            background-color: #FFFFFF;
-            color: #ecf0f1;
-            width: 60px;
-            min-height: 100vh;
-            transition: width 0.3s;
-            overflow: hidden;
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: 1000;
-        }
-
-        .sidebar .logo {
-            text-align: center;
-            padding: 10px 0;
-        }
-
-        .sidebar img {
-            max-width: 40px;
-        }
-
-        .sidebar ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .sidebar ul li {
-            padding: 15px 20px;
-            text-align: left;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-        }
-
-        .sidebar ul li a {
-            color: #000000;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .sidebar ul li:hover {
-            background-color: #f3f3f3;
-        }
-
-        .sidebar .toggle-btn {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            cursor: pointer;
-            color: #000000;
-            font-size: 20px;
-        }
-
-        .sidebar.expanded {
-            width: 200px;
-        }
-
-        .sidebar.expanded ul li span {
-            display: inline;
-        }
-
-        .sidebar ul li span {
-            display: none;
-        }
-
-        .content {
-            margin-left: 60px;
-            padding: 20px;
-            transition: margin-left 0.3s;
-            box-sizing: border-box; /* Ensure padding/margin is within width */
-            max-width: calc(100vw - 60px); /* Prevent overflow when sidebar is collapsed */
-        }
-
-        .sidebar.expanded ~ .content {
-            margin-left: 200px;
-            max-width: calc(100vw - 200px); /* Adjust for expanded sidebar */
-        }
-
-        .header {
-            box-sizing: border-box;
-            width: calc(100% - 60px); /* Prevent header from overflowing */
-            position: fixed;
-            top: 0;
-            left: 60px;
-            height: 10%;
-            background-color: #ffffff;
-            z-index: 900;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .sidebar.expanded ~ .header {
-            left: 200px;
-            width: calc(100% - 200px); /* Adjust for expanded sidebar */
-        }
-
-        table {
-            width: 100%; /* Ensure table doesn't overflow */
-            table-layout: auto;
-            border-collapse: collapse;
-        }
-
-
-        .filters, .search-bar, form {
-            margin-top: 80px;
-        }
-
-    </style>
 </head>
 <body>
 
@@ -153,7 +22,9 @@
         <li><a href="index.php?controller=Ubicacion&action=verArbol"><i class="fas fa-map-marker-alt"></i> <span>Ubicacions</span></a></li>
         <li><a href="index.php?controller=usuaris&action=listar_usuarios"><i class="fa-solid fa-user"></i> <span>Usuaris</span></a></li>
         <li><a href="index.php?controller=Backup&action=createBackup"><i class="fa-solid fa-file"></i> <span>Backup</span></a></li>
+        <li><a href="index.php?controller=Obras&action=mostrarPdfTodasLasObras"><i class="fa-regular fa-file-pdf"></i><span>Llibre-registre</span></a></li>
         <li><a href="index.php?controller=Login&action=logout"><i class="fas fa-sign-out-alt"></i> <span>Cerrar sesión</span></a></li>
+        
     </ul>
     <div class="toggle-btn">
         <i class="fas fa-angle-double-right"></i>
@@ -227,12 +98,6 @@
                 <td><?php echo $obra["texto_tecnica"]; ?></td>
                 <td><a href="index.php?controller=Obras&action=mostrarFormulario&id=<?php echo $obra['numero_registro']; ?>"
                        class="edit-button">Editar</a></td>
-                <td><a href="index.php?controller=Obras&action=mostrarFicha&id=<?php echo $obra['numero_registro']; ?>"
-                       class="edit-button">FichaBásica</a></td>
-                <td><a href="index.php?controller=Obras&action=mostrarFichaGeneral&id=<?php echo $obra['numero_registro']; ?>"
-                       class="edit-button">FichaGeneral</a></td>
-                <td><a href="index.php?controller=restauraciones&action=restauraciones&numero_registro=<?php echo $obra['numero_registro']; ?>"
-                       class="edit-button">Restauracions</a></td>
             </tr>
         <?php endforeach; ?>
         </tbody>

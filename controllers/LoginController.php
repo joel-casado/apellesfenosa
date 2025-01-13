@@ -13,6 +13,7 @@ class LoginController {
 
     private function redirectToRolePage($role, $username) {
         $_SESSION[$role] = $username;
+        $_SESSION['username'] = $username;
         header("Location: index.php?controller=Obras&action=verObras&$role");
         exit();
     }

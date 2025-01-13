@@ -82,10 +82,15 @@ document.getElementById("crearObraForm").addEventListener("submit", function(eve
     })
     .then(response => {
         console.log('Estado de la respuesta:', response.status);
-        return response.text();  // Cambia a .text() para inspección
+        return response.text();  // Cambiar a .text() para inspección
     })
     .then(data => {
         console.log('Respuesta del servidor (raw):', data);  // Inspecciona si contiene HTML o JSON
+        if (data.trim() === "") {
+            console.error('La respuesta está vacía.');
+            alert("La respuesta del servidor está vacía.");
+            return;
+        }
         try {
             data = JSON.parse(data);  // Intenta parsear JSON
             console.log('Respuesta del servidor (JSON parseado):', data);
@@ -103,5 +108,6 @@ document.getElementById("crearObraForm").addEventListener("submit", function(eve
             alert("Error en la respuesta del servidor.");
         }
     })
+    
     .catch(error => console.error('Error en la solicitud:', error));    
 });

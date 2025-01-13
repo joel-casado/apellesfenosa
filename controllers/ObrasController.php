@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 class ObrasController {
 
     private $conn;
@@ -16,7 +16,7 @@ class ObrasController {
             $value = $_POST["filterValue$i"] ?? null;
     
             if (!empty($field) && !empty($value)) {
-                $filters[] = ['field' => $field, 'value' => $value];
+                $filters[] = ['field' => $field, 'value' => $value];    
             }
         }
     
@@ -27,6 +27,7 @@ class ObrasController {
     }
     
     public function verObras() {
+        $rol = $_SESSION['admin'] ?? $_SESSION['tecnic'] ?? $_SESSION['convidat'] ?? null;
         $db = (new Database())->conectar(); 
 
         $obrasModel = new ObrasModel($db);
@@ -37,6 +38,7 @@ class ObrasController {
     }
 
     public function actualizar() {
+        $rol = $_SESSION['admin'] ?? $_SESSION['tecnic'] ?? $_SESSION['convidat'] ?? null;
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $numero_registro = $_POST['n_registro'];
             $titulo = $_POST['titulo'];
@@ -118,6 +120,7 @@ class ObrasController {
     }
     
     public function mostrarFicha() {
+        $rol = $_SESSION['admin'] ?? $_SESSION['tecnic'] ?? $_SESSION['convidat'] ?? null;
         if (isset($_GET['id'])) {
             $id = $_GET['id'];
             
@@ -135,6 +138,7 @@ class ObrasController {
     }
 
     public function mostrarFichaGeneral() {
+        $rol = $_SESSION['admin'] ?? $_SESSION['tecnic'] ?? $_SESSION['convidat'] ?? null;
         if (isset($_GET['id'])) {
             $id = $_GET['id'];
             
@@ -155,6 +159,7 @@ class ObrasController {
     
 
     public function mostrarpdf() {
+        $rol = $_SESSION['admin'] ?? $_SESSION['tecnic'] ?? $_SESSION['convidat'] ?? null;
         // Capturar el ID de la URL
         if (isset($_GET['id'])) {
             $id = $_GET['id'];  
@@ -171,6 +176,7 @@ class ObrasController {
     }
 
     public function mostrarpdfGeneral() {
+        $rol = $_SESSION['admin'] ?? $_SESSION['tecnic'] ?? $_SESSION['convidat'] ?? null;
         // Capturar el ID de la URL
         if (isset($_GET['id'])) {
             $id = $_GET['id'];  
@@ -187,6 +193,7 @@ class ObrasController {
     }
 
     public function mostrarPdfTodasLasObras() {
+        $rol = $_SESSION['admin'] ?? $_SESSION['tecnic'] ?? $_SESSION['convidat'] ?? null;
         $obraModel = new ObrasModel($this->conn);
         $obras = $obraModel->obtenerTodasLasObras();
     
@@ -200,16 +207,19 @@ class ObrasController {
     }
 
 
-    //FUNCION CREAR CON TODOS LOS PARAMETROS//
 
-    
     public function crear() {
-        
+        $rol = $_SESSION['admin'] ?? $_SESSION['tecnic'] ?? $_SESSION['convidat'] ?? null;
+
+        if (isset($_SESSION['username'])) {
+            $usuari_creador = $_SESSION['username'];
+        }
+    
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
             header('Content-Type: application/json');
-            ob_clean(); 
-
+            ob_clean();
+    
+            $usuari_creador = isset($_POST['usuario']) ? trim($_POST['usuario']) : null;
             $titulo = isset($_POST['titulo']) ? trim($_POST['titulo']) : null;
             $numero_registro = isset($_POST['n_registro']) ? trim($_POST['n_registro']) : null;
             $codigo_autor = isset($_POST['codigo_autor']) ? trim($_POST['codigo_autor']) : null;
@@ -219,7 +229,7 @@ class ObrasController {
             $maxima_altura = isset($_POST['maxima_altura']) ? trim($_POST['maxima_altura']) : null;
             $maxima_anchura = isset($_POST['maxima_anchura']) ? trim($_POST['maxima_anchura']) : null;
             $maxima_profundidad = isset($_POST['maxima_profundidad']) ? trim($_POST['maxima_profundidad']) : null;
-            $materiales = isset($_POST['codigo_getty_material']) ? trim($_POST['codigo_getty_material']) : null; 
+            $materiales = isset($_POST['codigo_getty_material']) ? trim($_POST['codigo_getty_material']) : null;
             $tecnica = isset($_POST['tecnica']) ? trim($_POST['tecnica']) : null;
             $ano_inicio = isset($_POST['ano_inicio']) ? trim($_POST['ano_inicio']) : null;
             $ano_final = isset($_POST['ano_final']) ? trim($_POST['ano_final']) : null;
@@ -236,7 +246,10 @@ class ObrasController {
             $valoracion_econ = isset($_POST['valoracion_econ']) ? trim($_POST['valoracion_econ']) : null;
             $bibliografia = isset($_POST['bibliografia']) ? trim($_POST['bibliografia']) : null;
             $historia_obra = isset($_POST['historia_obra']) ? trim($_POST['historia_obra']) : null;
-
+    
+            // Log de los datos recibidos
+            error_log("Datos del formulario recibidos: " . print_r($_POST, true));
+    
             // Validación de datos
             $errors = [];
             if (empty($titulo)) {
@@ -245,22 +258,15 @@ class ObrasController {
             if (empty($numero_registro)) {
                 $errors[] = 'El Nº de registro es obligatorio';
             }
-            if (empty($codigo_autor)) {
-                $errors[] = 'El código del autor es obligatorio';
-            }
-
-            if (!empty($errors)) {
-                exit();
-            }
-
-            if ($obraModel->mirarid($numero_registro)) {
-                echo json_encode(['success' => false, 'message' => 'El número de registro ya existe']);
-                exit();
-            }
-            
     
-
-
+            // Log de errores de validación
+            error_log("Errores de validación: " . print_r($errors, true));
+    
+            if (!empty($errors)) {
+                echo json_encode(['success' => false, 'message' => 'Errores en los campos', 'errors' => $errors]);
+                exit();
+            }
+    
             $rutaArchivo = null; // Ruta del archivo guardado
 
             // Comprobar si se ha subido un archivo
@@ -277,6 +283,76 @@ class ObrasController {
                     exit();
                 }
             }           
+    
+            // Log de la ejecución del modelo de creación de obra
+            $obraModel = new ObrasModel($this->conn);
+            error_log("Llamando a crearObra() con los siguientes parámetros: " . print_r($_POST, true));
+    
+            $resultado = $obraModel->crearObra(
+                $numero_registro, $titulo,  $nombre, $codigo_autor, $classificacion_generica,
+                $coleccion_procedencia, $maxima_altura, $maxima_anchura,
+                $maxima_profundidad, $materiales, $tecnica,
+                $ano_inicio, $ano_final, $dataciones,
+                $formas_ingreso, $fecha_registro, $descripcion,
+                $numero_ejemplares, $fecha_ingreso, $fuente_ingreso,
+                $estado_conservacion, $lugar_ejecucion, $lugar_procedencia,
+                $valoracion_econ, $bibliografia, $historia_obra, $usuari_creador
+            );
+    
+            // Log del resultado de crearObra
+            if ($resultado) {
+                if ($rutaArchivo) {
+                    $archivoGuardado = $obraModel->guardarArchivo($numero_registro, $rutaArchivo);
+                    if (!$archivoGuardado) {
+                        echo json_encode(['success' => false, 'message' => 'Error al guardar el archivo en la base de datos']);
+                        exit();
+                    }
+                }
+                
+                if ($resultado) {
+                       
+                    // Crear carpeta para archivos secundarios
+                    $carpetaObra = "archivos/obra_" . $numero_registro;
+                    if (!is_dir($carpetaObra)) {
+                        mkdir($carpetaObra, 0777, true);
+                    }
+        
+                    // Guardar archivos secundarios
+                    if (!empty($_FILES['archivos_extra']['name'][0])) {
+                        foreach ($_FILES['archivos_extra']['tmp_name'] as $key => $tmpName) {
+                            $nombreArchivoSecundario = basename($_FILES['archivos_extra']['name'][$key]);
+                            $rutaDestinoSecundario = $carpetaObra . "/" . $nombreArchivoSecundario;
+        
+                            if (move_uploaded_file($tmpName, $rutaDestinoSecundario)) {
+                                $obraModel->guardarArchivoSecundario($numero_registro, $rutaDestinoSecundario);
+                            } else {
+                                echo json_encode(['success' => false, 'message' => 'Error al subir archivo secundario: ' . $nombreArchivoSecundario]);
+                                exit();
+                            }
+                        }
+                    }
+                }                
+    
+                echo json_encode(['success' => true, 'message' => 'Obra y archivo creados con éxito', 'redirect' => 'index.php?controller=Obras&action=verObras']);
+            } elseif ($resultado) {
+                echo json_encode(['success' => true, 'message' => 'Obra creada con éxito, sin archivo', 'redirect' => 'index.php?controller=Obras&action=verObras']);
+            } else {
+                echo json_encode(['success' => false, 'message' => 'Error al crear la obra']);
+            }
+            exit();
+        } else {
+            require_once 'views/crear_obra/crear.php';
+        }
+    }
+    
+
+    //FUNCION CREAR CON TODOS LOS PARAMETROS//
+
+    /*
+    
+
+
+            
 
         $obraModel = new ObrasModel($this->conn);
         $resultado = $obraModel->crearObra(
@@ -335,15 +411,18 @@ class ObrasController {
         require_once 'views/crear_obra/crear.php';
     }
 }
-       
+       */
     
 
 
     public function mostrarFormulario() {
+
+        $rol = $_SESSION['admin'] ?? $_SESSION['tecnic'] ?? $_SESSION['convidat'] ?? null;
         // Capturar el ID de la URL
         if (isset($_GET['id'])) {
             $id = $_GET['id'];  // Obtiene el 'id' desde la URL
-    
+            error_log("ID recibido: " . $id);
+
             // Obtener los valores desde el modelo utilizando el ID
             $obraModel = new ObrasModel($this->conn);
             $obra = $obraModel->obtenerObra($id);
@@ -366,6 +445,7 @@ class ObrasController {
         }
     }
     public function generarPdf() {
+        $rol = $_SESSION['admin'] ?? $_SESSION['tecnic'] ?? $_SESSION['convidat'] ?? null;
         require_once("vendor/autoload.php");
         if (ob_get_length()) {
             ob_clean();

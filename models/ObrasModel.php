@@ -338,82 +338,75 @@ class ObrasModel {
     }
 
     public function crearObra(
-        $numero_registro, $titulo, $nombre, $codigo_autor, $classificacion_generica, 
+        $numero_registro, $titulo, $nombre, $codigo_autor, $classificacion_generica,
         $coleccion_procedencia, $maxima_altura, $maxima_anchura, 
         $maxima_profundidad, $materiales, $tecnica, 
         $ano_inicio, $ano_final, $dataciones, $formas_ingreso, $fecha_registro, 
         $descripcion, $numero_ejemplares, $fecha_ingreso, $fuente_ingreso, 
         $estado_conservacion, $lugar_ejecucion, $lugar_procedencia, 
-        $valoracion_econ, $bibliografia, $historia_obra
+        $valoracion_econ, $bibliografia, $historia_obra, $usuari_creador
     ) {
-            $query = "INSERT INTO obras (
-                numero_registro, titulo, nombre_objeto, classificacion_generica, autor, 
-                coleccion_procedencia, maxima_altura, maxima_anchura, 
-                maxima_profundidad, material, tecnica, ano_inicio, 
-                ano_final, datacion, fecha_registro, descripcion, numero_ejemplares, 
-                fecha_ingreso, fuente_ingreso,  estado_conservacion,  forma_ingreso,
-                lugar_ejecucion, lugar_procedencia, valoracion_econ, 
-                bibliografia, historia_obra
-            ) VALUES (
-                :n_registro, :titulo, :nombre, :classificacion_generica, :autor, 
-                :coleccion_procedencia, :maxima_altura, :maxima_anchura, 
-                :maxima_profundidad, :material, :tecnica,
-                :ano_inicio, :ano_final, :datacion, :fecha_registro, :descripcion, 
-                :numero_ejemplares, :fecha_ingreso, :fuente_ingreso, 
-                :estado_conservacion,:forma_ingreso, :lugar_ejecucion, 
-                :lugar_procedencia, :valoracion_econ, :bibliografia, 
-                :historia_obra
-            )";
-        
-            $stmt = $this->conn->prepare($query);
-            
-            // Vincula los parámetros correctamente
-            $stmt->bindParam(':n_registro', $numero_registro);
-            $stmt->bindParam(':titulo', $titulo);
-            $stmt->bindParam(':nombre', $nombre);
-            $stmt->bindParam(':autor', $codigo_autor); 
-            $stmt->bindParam(':classificacion_generica', $classificacion_generica);
-            $stmt->bindParam(':coleccion_procedencia', $coleccion_procedencia);
-            $stmt->bindParam(':maxima_altura', $maxima_altura); 
-            $stmt->bindParam(':maxima_anchura', $maxima_anchura);
-            $stmt->bindParam(':maxima_profundidad', $maxima_profundidad);
-            $stmt->bindParam(':material', $materiales);  
-            $stmt->bindParam(':tecnica', $tecnica);
-            $stmt->bindParam(':ano_inicio', $ano_inicio);
-            $stmt->bindParam(':ano_final', $ano_final);
-            $stmt->bindParam(':datacion', $dataciones);
-            $stmt->bindParam(':forma_ingreso', $formas_ingreso);
-            $stmt->bindParam(':fecha_registro', $fecha_registro);
-            $stmt->bindParam(':descripcion', $descripcion);
-            $stmt->bindParam(':numero_ejemplares', $numero_ejemplares);
-            $stmt->bindParam(':fecha_ingreso', $fecha_ingreso);
-            $stmt->bindParam(':fuente_ingreso', $fuente_ingreso);
-            $stmt->bindParam(':estado_conservacion', $estado_conservacion);
-            $stmt->bindParam(':lugar_ejecucion', $lugar_ejecucion);
-            $stmt->bindParam(':lugar_procedencia', $lugar_procedencia);
-            $stmt->bindParam(':valoracion_econ', $valoracion_econ);
-            $stmt->bindParam(':bibliografia', $bibliografia);
-            $stmt->bindParam(':historia_obra', $historia_obra);
+        $query = "INSERT INTO obras (
+            numero_registro, titulo, nombre_objeto, classificacion_generica, autor, 
+            coleccion_procedencia, maxima_altura, maxima_anchura, 
+            maxima_profundidad, material, tecnica, ano_inicio, 
+            ano_final, datacion, fecha_registro, descripcion, numero_ejemplares, 
+            fecha_ingreso, fuente_ingreso, estado_conservacion, forma_ingreso,
+            lugar_ejecucion, lugar_procedencia, valoracion_econ, 
+            bibliografia, historia_obra, usuari_creador
+        ) VALUES (
+            :n_registro, :titulo, :nombre, :classificacion_generica, :autor, 
+            :coleccion_procedencia, :maxima_altura, :maxima_anchura, 
+            :maxima_profundidad, :material, :tecnica,
+            :ano_inicio, :ano_final, :datacion, :fecha_registro, :descripcion, 
+            :numero_ejemplares, :fecha_ingreso, :fuente_ingreso, 
+            :estado_conservacion,:forma_ingreso, :lugar_ejecucion, 
+            :lugar_procedencia, :valoracion_econ, :bibliografia, 
+            :historia_obra, :usuario
+        )";
     
-            
-            error_log("Ejecutando consulta de inserción en la base de datos");
-            
-            if ($stmt->execute()) {
-                // Si la inserción fue exitosa
-                error_log("Inserción exitosa en la base de datos");
-                $idObra = $this->conn->lastInsertId();
-                error_log("Obra creada correctamente con ID: " . $idObra);
-                return json_encode(['success' => true, 'message' => 'Obra creada correctamente.']);
-
-            } else {
-                // Si hubo un 
-                $errorInfo = $stmt->errorInfo();
-                error_log("Error al ejecutar la consulta de inserción: " . print_r($errorInfo, true));
-                return json_encode(['success' => false, 'message' => 'Error al crear la obra.', 'error' => $stmt->errorInfo()]);
-            }
-            
-            
+        error_log("Ejecutando consulta de inserción: " . $query); // Log de la consulta SQL
+    
+        $stmt = $this->conn->prepare($query);
+        // Vincula los parámetros correctamente
+        $stmt->bindParam(':usuario', $usuari_creador);
+        $stmt->bindParam(':n_registro', $numero_registro);
+        $stmt->bindParam(':titulo', $titulo);
+        $stmt->bindParam(':nombre', $nombre);
+        $stmt->bindParam(':autor', $codigo_autor);
+        $stmt->bindParam(':classificacion_generica', $classificacion_generica);
+        $stmt->bindParam(':coleccion_procedencia', $coleccion_procedencia);
+        $stmt->bindParam(':maxima_altura', $maxima_altura);
+        $stmt->bindParam(':maxima_anchura', $maxima_anchura);
+        $stmt->bindParam(':maxima_profundidad', $maxima_profundidad);
+        $stmt->bindParam(':material', $materiales);
+        $stmt->bindParam(':tecnica', $tecnica);
+        $stmt->bindParam(':ano_inicio', $ano_inicio);
+        $stmt->bindParam(':ano_final', $ano_final);
+        $stmt->bindParam(':datacion', $dataciones);
+        $stmt->bindParam(':fecha_registro', $fecha_registro);
+        $stmt->bindParam(':descripcion', $descripcion);
+        $stmt->bindParam(':numero_ejemplares', $numero_ejemplares);
+        $stmt->bindParam(':fecha_ingreso', $fecha_ingreso);
+        $stmt->bindParam(':fuente_ingreso', $fuente_ingreso);
+        $stmt->bindParam(':estado_conservacion', $estado_conservacion);
+        $stmt->bindParam(':forma_ingreso', $formas_ingreso);
+        $stmt->bindParam(':lugar_ejecucion', $lugar_ejecucion);
+        $stmt->bindParam(':lugar_procedencia', $lugar_procedencia);
+        $stmt->bindParam(':valoracion_econ', $valoracion_econ);
+        $stmt->bindParam(':bibliografia', $bibliografia);
+        $stmt->bindParam(':historia_obra', $historia_obra);
+    
+        if ($stmt->execute()) {
+            error_log("Obra creada exitosamente con el número de registro: " . $numero_registro); // Log de éxito
+            return true;
+        } else {
+            $errorInfo = $stmt->errorInfo();
+            error_log("Error en la inserción de la obra: " . print_r($errorInfo, true)); // Log de error
+            return false;
         }
+    }
+    
             
 
         public function mirarid($numero_registro){
