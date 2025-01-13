@@ -143,9 +143,6 @@
 <body>
 
 <div class="sidebar">
-    <div class="logo">
-        <img src="images/login/logo.png" alt="Museu Apel·les Fenosa">
-    </div>
     <ul class="menu">
         <li><a href="index.php?controller=Obras&action=verObras"><i class="fas fa-palette"></i> <span>Obres</span></a></li>
         <li><a href="index.php?controller=vocabulario&action=mostrarVocabulario"><i class="fas fa-book"></i> <span>Vocabulari</span></a></li>
@@ -241,22 +238,7 @@
 
     <script src="scripts/busqueda.js"></script>
     <script src="scripts/busquedaAvanzada.js"></script>
-<script>
-    document.addEventListener("DOMContentLoaded", () => {
-        const sidebar = document.querySelector(".sidebar");
-        const toggleBtn = document.querySelector(".toggle-btn i");
-
-        toggleBtn.addEventListener("click", () => {
-            sidebar.classList.toggle("expanded");
-
-            if (sidebar.classList.contains("expanded")) {
-                toggleBtn.classList.replace("fa-angle-double-right", "fa-angle-double-left");
-            } else {
-                toggleBtn.classList.replace("fa-angle-double-left", "fa-angle-double-right");
-            }
-        });
-    });
-</script>
+    <script src="scripts/sidebar.js"></script>
 
 </body>
 </html>

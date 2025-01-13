@@ -7,8 +7,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="styles/vocabulario/ver_vocabulario.css">
+    <link rel="stylesheet" href="styles/header/sidebar_header.css">
 </head>
 <body>
+    <?php include 'views/header/sidebar_header.php'; ?>
     <table>
         <thead>
             <tr>
@@ -43,5 +45,6 @@
             </tr>
         </tbody>
     </table>
+    <script src="scripts/sidebar.js"></script>
 </body>
 </html>
