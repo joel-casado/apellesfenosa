@@ -344,7 +344,7 @@ class ObrasModel {
         $ano_inicio, $ano_final, $dataciones, $formas_ingreso, $fecha_registro, 
         $descripcion, $numero_ejemplares, $fecha_ingreso, $fuente_ingreso, 
         $estado_conservacion, $lugar_ejecucion, $lugar_procedencia, 
-        $valoracion_econ, $bibliografia, $historia_obra, $usuari_creador
+        $valoracion_econ, $bibliografia, $historia_obra, $usuari_creador, $ubicacion
     ) {
         $query = "INSERT INTO obras (
             numero_registro, titulo, nombre_objeto, classificacion_generica, autor, 
@@ -353,7 +353,7 @@ class ObrasModel {
             ano_final, datacion, fecha_registro, descripcion, numero_ejemplares, 
             fecha_ingreso, fuente_ingreso, estado_conservacion, forma_ingreso,
             lugar_ejecucion, lugar_procedencia, valoracion_econ, 
-            bibliografia, historia_obra, usuari_creador
+            bibliografia, historia_obra, usuari_creador, ubicacion
         ) VALUES (
             :n_registro, :titulo, :nombre, :classificacion_generica, :autor, 
             :coleccion_procedencia, :maxima_altura, :maxima_anchura, 
@@ -362,7 +362,7 @@ class ObrasModel {
             :numero_ejemplares, :fecha_ingreso, :fuente_ingreso, 
             :estado_conservacion,:forma_ingreso, :lugar_ejecucion, 
             :lugar_procedencia, :valoracion_econ, :bibliografia, 
-            :historia_obra, :usuario
+            :historia_obra, :usuario, :ubicacion
         )";
     
         error_log("Ejecutando consulta de inserción: " . $query); // Log de la consulta SQL
@@ -396,6 +396,7 @@ class ObrasModel {
         $stmt->bindParam(':valoracion_econ', $valoracion_econ);
         $stmt->bindParam(':bibliografia', $bibliografia);
         $stmt->bindParam(':historia_obra', $historia_obra);
+        $stmt->bindParam(':ubicacion', $ubicacion);
     
         if ($stmt->execute()) {
             error_log("Obra creada exitosamente con el número de registro: " . $numero_registro); // Log de éxito

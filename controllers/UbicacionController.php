@@ -123,6 +123,12 @@ class UbicacionController {
         require_once "views/ubicaciones/listarObras.php";
     }
 
+    public function selectUbicacion() {
+        $ubicaciones = $this->ubicacionModel->getUbicaciones();
+        $ubicacionesData = $this->buildTree($ubicaciones);
+        require_once "views/ubicaciones/selectUbicacion.php";
+    }
+
     private function convertDateFormat($date) {
         if ($date) {
             $formattedDate = DateTime::createFromFormat('d/m/Y', $date);

@@ -64,6 +64,7 @@ class ObrasController {
             $valoracion_econ = $_POST['valoracion_econ'];
             $bibliografia = $_POST['bibliografia'];
             $historia_obra = $_POST['historia_obra'];
+            $ubicacion = $_POST['ubicacion']; // Add this line
 
             // Instanciar el modelo con la conexión
             $obraModel = new ObrasModel($this->conn);
@@ -73,7 +74,7 @@ class ObrasController {
                 $coleccion_procedencia, $maxima_altura, $maxima_anchura, $maxima_profundidad, $materiales, $tecnicas, 
                 $ano_inicio, $ano_final, $dataciones, $formas_ingreso, $fecha_registro, $descripcion,
                 $numero_ejemplares, $fuente_ingreso, $estado_conservacion,
-                $lugar_procedencia, $lugar_ejecucion, $valoracion_econ, $bibliografia, $historia_obra);
+                $lugar_procedencia, $lugar_ejecucion, $valoracion_econ, $bibliografia, $historia_obra, $ubicacion); // Add $ubicacion here
     
                 $rutaArchivo = null; // Ruta del archivo guardado
                 if ($resultado) {
@@ -246,6 +247,7 @@ class ObrasController {
             $valoracion_econ = isset($_POST['valoracion_econ']) ? trim($_POST['valoracion_econ']) : null;
             $bibliografia = isset($_POST['bibliografia']) ? trim($_POST['bibliografia']) : null;
             $historia_obra = isset($_POST['historia_obra']) ? trim($_POST['historia_obra']) : null;
+            $ubicacion = isset($_POST['ubicacion']) ? trim($_POST['ubicacion']) : null;
     
             // Log de los datos recibidos
             error_log("Datos del formulario recibidos: " . print_r($_POST, true));
@@ -296,7 +298,7 @@ class ObrasController {
                 $formas_ingreso, $fecha_registro, $descripcion,
                 $numero_ejemplares, $fecha_ingreso, $fuente_ingreso,
                 $estado_conservacion, $lugar_ejecucion, $lugar_procedencia,
-                $valoracion_econ, $bibliografia, $historia_obra, $usuari_creador
+                $valoracion_econ, $bibliografia, $historia_obra, $usuari_creador, $ubicacion
             );
     
             // Log del resultado de crearObra
@@ -439,6 +441,28 @@ class ObrasController {
 
     
             // Cargar la vista de edición con los datos de la obra
+            require_once 'views/editar_obra/editar.php';
+        } else {
+            echo "ID no proporcionado.";
+        }
+    }
+    public function editar() {
+        $rol = $_SESSION['admin'] ?? $_SESSION['tecnic'] ?? $_SESSION['convidat'] ?? null;
+        if (isset($_GET['id'])) {
+            $id = $_GET['id'];
+            
+            $obraModel = new ObrasModel($this->conn);
+            $obra = $obraModel->obtenerObra($id);
+            $autores = $obraModel->getAutores();
+            $clasificaciones_genericas = $obraModel->getClasificacionesGenericas();
+            $materiales = $obraModel->getMateriales();
+            $tecnicas = $obraModel->getTecnicas();
+            $anoInicio = $obraModel->getAnoInicio();
+            $anoFinal = $obraModel->getAnoFinal();
+            $formasIngreso = $obraModel->getFormasIngreso();
+            $estadosConservacion = $obraModel->getEstadosConservacion();
+            $dataciones = $obraModel->getdatacion();
+
             require_once 'views/editar_obra/editar.php';
         } else {
             echo "ID no proporcionado.";

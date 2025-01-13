@@ -89,6 +89,9 @@ $dataciones = $obraModel->getdatacion();
             <label for="coleccion_procedencia">Colección Procedencia:</label>
             <input type="text" id="coleccion_procedencia" name="coleccion_procedencia">
             
+            <label for="ubicacion">Ubicación:</label>
+            <input type="text" id="ubicacion" name="ubicacion" readonly>
+            <button type="button" onclick="openUbicacionSelector()">Seleccionar Ubicación</button>
 
         </div>
         </div>
@@ -264,6 +267,11 @@ $dataciones = $obraModel->getdatacion();
     <div id="crearResponseMessage"></div>
 
     <script src="scripts/formulario.js"></script>
+    <script>
+    function openUbicacionSelector() {
+        window.open('index.php?controller=ubicacion&action=selectUbicacion', 'Seleccionar Ubicación', 'width=800,height=600');
+    }
+    </script>
 
 </body>
 </html>
