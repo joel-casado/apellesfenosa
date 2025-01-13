@@ -11,100 +11,97 @@ $obraModel = new ObrasModel($conn);
 $obras = $obraModel->obtenerTodasLasObras();
 
 if (!$obras || count($obras) === 0) {
-    error_log("No se encontraron obras para el PDF.");
+    error_log("No s'han trobat obres per al PDF.");
 } else {
-    error_log("Obras encontradas: " . count($obras));
+    error_log("Obres trobades: " . count($obras));
 }
-
 
 $pdf = new TCPDF('P', 'mm', 'A3', true, 'UTF-8', false);
 $pdf->SetCreator(PDF_CREATOR);
 $pdf->SetAuthor('Apel·les Fenosa');
-$pdf->SetTitle('Listado de Obras');
-foreach ($obras as $obra) {
-$numeroRegistro = $obra['numero_registro']; // Asumiendo que ya tienes $obra definido
-$pdf->SetHeaderData('', 0, 'Número de Registro: ' . $numeroRegistro, '');
-}
-
+$pdf->SetTitle('Llistat d\'Obres');
 $pdf->SetFont('helvetica', '', 10);
 
 foreach ($obras as $obra) {
-    $pdf->AddPage();  // Nueva página para cada obra
+    $numeroRegistro = $obra['numero_registro']; // Ensure $obra['numero_registro'] is correctly retrieved
+    error_log("Número de Registre: " . $numeroRegistro); // Log the numero_registro for debugging
+    $pdf->SetHeaderData('', 0, 'Número de Registre: ' . $numeroRegistro, '');
+    $pdf->AddPage();  // Nova pàgina per a cada obra
 
-    // Agregar imagen si está disponible
+    // Afegir imatge si està disponible
     if (!empty($obra['imagen_url'])) {
         $pdf->Image($obra['imagen_url'], '', '', 50, 50, '', '', 'T', false, 300, '', false, false, 1, false, false, false);
-    }else{
+    } else {
         $pdf->Image('images/default.png');
     }
 
-    $pdf->Ln(55); // Espacio después de la imagen
+    $pdf->Ln(55); // Espai després de la imatge
     
-    // Crear tabla en HTML
-    $html = '<table border="0" cellpadding="10" style="width:100%;">
+    // Crear taula en HTML
+    $html = '<table border="1" cellpadding="10" style="width:100%;">
                 <tr>
-                    <td><b>Número de Registro:</b> ' . $obra['numero_registro'] . '</td>
-                    <td ><b>Clasificación Genérica:</b> ' . $obra['texto_clasificacion'] . '</td>
+                    <td><b>Número de Registre:</b> ' . $obra['numero_registro'] . '</td>
+                    <td ><b>Classificació Genèrica:</b> ' . $obra['texto_clasificacion'] . '</td>
                     <td ><b>Col·lecció de procedència:</b> ' . $obra['coleccion_procedencia'] . '</td>
                 </tr>
                 <tr>
-                    <td><b>Máxima altura:</b> ' . $obra['maxima_altura'] . '</td>
-                    <td><b>Máxima anchura:</b> ' . $obra['maxima_anchura'] . '</td>
-                    <td><b>Máxima profundidad:</b> ' . $obra['maxima_profundidad'] . '</td>
+                    <td><b>Alçada màxima:</b> ' . $obra['maxima_altura'] . '</td>
+                    <td><b>Amplada màxima:</b> ' . $obra['maxima_anchura'] . '</td>
+                    <td><b>Profunditat màxima:</b> ' . $obra['maxima_profundidad'] . '</td>
                 </tr>
                 <tr>
                     <td><b>Material:</b> ' . $obra['texto_material'] . '</td>
-                    <td><b>Técnica: </b>' . $obra['texto_tecnica'] . '</td>
+                    <td><b>Tècnica: </b>' . $obra['texto_tecnica'] . '</td>
                     <td><b>Autor: </b>' . $obra['nombre_autor'] . '</td>
                 </tr>
                 <tr>
-                    <td><b>Título:</b> ' . $obra['titulo'] . '</td>
-                    <td><b>Año Inicio:</b> ' . $obra['ano_inicio'] . '</td>
-                    <td><b>Año Final:</b> ' . $obra['ano_final'] . '</td>
+                    <td><b>Títol:</b> ' . $obra['titulo'] . '</td>
+                    <td><b>Any Inici:</b> ' . $obra['ano_inicio'] . '</td>
+                    <td><b>Any Final:</b> ' . $obra['ano_final'] . '</td>
                 </tr>
                 <tr>
-                    <td><b>Datación:</b> ' . $obra['nombre_datacion'] . '</td>
-                    <td><b>Ubicación:</b> ' . $obra['ubicacion'] . '</td>
-                    <td><b>Fecha de registro:</b> ' . $obra['fecha_registro'] . '</td>
+                    <td><b>Datació:</b> ' . $obra['nombre_datacion'] . '</td>
+                    <td><b>Ubicació:</b> ' . $obra['ubicacion'] . '</td>
+                    <td><b>Data de registre:</b> ' . $obra['fecha_registro'] . '</td>
                 </tr>
                 <tr>
-                    <td><b>Número de ejemplares:</b> ' . $obra['numero_ejemplares'] . '</td>
-                    <td><b>Forma de ingreso:</b> ' . $obra['texto_forma_ingreso'] . '</td>
-                    <td><b>Fecha de ingreso:</b> ' . $obra['fecha_ingreso'] . '</td>
+                    <td><b>Número d\'exemplars:</b> ' . $obra['numero_ejemplares'] . '</td>
+                    <td><b>Forma d\'ingrés:</b> ' . $obra['texto_forma_ingreso'] . '</td>
+                    <td><b>Data d\'ingrés:</b> ' . $obra['fecha_ingreso'] . '</td>
                 </tr>
                 <tr>
-                    <td><b>Fuente de ingreso: </b>' . $obra['fuente_ingreso'] . '</td>
-                    <td><b>Baja:</b> ' . $obra['baja'] . '</td>
-                    <td><b>Causa de baja:</b> ' . $obra['causa_baja'] . '</td>
+                    <td><b>Font d\'ingrés: </b>' . $obra['fuente_ingreso'] . '</td>
+                    <td><b>Baixa:</b> ' . $obra['baja'] . '</td>
+                    <td><b>Causa de baixa:</b> ' . $obra['causa_baja'] . '</td>
                 </tr>
                 <tr>
-                    <td><b>Fecha de baja:</b> ' . $obra['fecha_baja'] . '</td>
-                    <td><b>Persona autorizada baja:</b> ' . $obra['persona_aut_baja'] . '</td>
-                    <td><b>Estado de conservación: </b>' . $obra['nombre_estado'] . '</td>
+                    <td><b>Data de baixa:</b> ' . $obra['fecha_baja'] . '</td>
+                    <td><b>Persona autoritzada baixa:</b> ' . $obra['persona_aut_baja'] . '</td>
+                    <td><b>Estat de conservació: </b>' . $obra['nombre_estado'] . '</td>
                 </tr>
                 <tr>
-                    <td><b>Lugar de ejecución:</b> ' . $obra['lugar_ejecucion'] . '</td>
-                    <td><b>Lugar de procedencia:</b> ' . $obra['lugar_procedencia'] . '</td>
-                    <td><b>Nº Tiraje:</b> ' . $obra['num_tirada'] . '</td>
+                    <td><b>Lloc d\'execució:</b> ' . $obra['lugar_ejecucion'] . '</td>
+                    <td><b>Lloc de procedència:</b> ' . $obra['lugar_procedencia'] . '</td>
+                    <td><b>Nº Tiratge:</b> ' . $obra['num_tirada'] . '</td>
                 </tr>
                 <tr>
-                    <td><b>Otros números de identificación:</b> ' . $obra['otros_num_id'] . '</td>
-                    <td><b>Valoración económica:</b> ' . $obra['valoracion_econ'] . ' €</td>
-                    <td><b>Exposiciones:</b> ' . $obra['exposicion'] . '</td>
+                    <td><b>Altres números d\'identificació:</b> ' . $obra['otros_num_id'] . '</td>
+                    <td><b>Valoració econòmica:</b> ' . $obra['valoracion_econ'] . ' €</td>
+                    <td><b>Exposicions:</b> ' . $obra['exposicion'] . '</td>
                 </tr>
                 <tr>
-                   <td colspan="3"  style="height:150px;" ><b>Bibliografía:</b> ' . $obra['bibliografia'] . '</td>
+                   <td colspan="3"  style="height:150px;" ><b>Bibliografia:</b> ' . $obra['bibliografia'] . '</td>
                 </tr>
                 
                 <tr>
-                    <td colspan="3" style="height:150px;" ><b>Descripción:</b> ' . $obra['descripcion'] . '</td>
+                    <td colspan="3" style="height:150px;" ><b>Descripció:</b> ' . $obra['descripcion'] . '</td>
                 </tr>
                 <tr>
-                    <td colspan="3" style="height:150px;" ><b>Historia de la obra:</b> ' . $obra['historia_obra'] . '</td>
+                    <td colspan="3" style="height:150px;" ><b>Història de l\'obra:</b> ' . $obra['historia_obra'] . '</td>
                 </tr>
             </table>';
 
     $pdf->writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);
 }
 
-$pdf->Output('listado_obras.pdf', 'I');
+$pdf->Output('llistat_obres.pdf', 'I');

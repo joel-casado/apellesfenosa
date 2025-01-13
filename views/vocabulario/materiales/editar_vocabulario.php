@@ -24,7 +24,7 @@
             <label for="texto_material">Nom:</label>
             <input type="text" id="texto_material" name="texto_material" value="<?php echo htmlspecialchars($materiales['texto_material'], ENT_QUOTES, 'UTF-8'); ?>" required>
 
-            <button type="submit">Actualizar</button>
+            <button type="submit">Actualitzar</button>
         </form>
     </div>
 </div>

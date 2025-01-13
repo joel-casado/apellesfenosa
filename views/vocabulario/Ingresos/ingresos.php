@@ -12,7 +12,7 @@ $ingresos = $ingresoModel->getIngresos();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ingresos</title>
+    <title>Ingressos</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="styles/vocabulario/material.css">
@@ -21,7 +21,7 @@ $ingresos = $ingresoModel->getIngresos();
 
 <a href="index.php?controller=vocabulario&action=mostrarVocabulario" class="edit-button">Tornar</a>
 
-<h1>Listado de Ingresos</h1>
+<h1>Llistat d'Ingressos</h1>
 
 <div class="actions">
     <form class="search-bar">
