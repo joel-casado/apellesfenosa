@@ -92,20 +92,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             } else {
                 error_log("Error: El número de registro no tiene el formato esperado.");
                 echo json_encode([
-                    "numero_registro_recomendado" => ""
+                    "numero_registro_recomendado" => $letra . '0001.00' // Recomendación por defecto si no se encuentra un registro
                 ]);
             }
         } else {
-            error_log("No se encontró un número de registro para la letra proporcionada.");
+            // Si no se encuentra ningún registro para la letra, recomendar el primer número
             echo json_encode([
-                "numero_registro_recomendado" => ""
+                "numero_registro_recomendado" => $letra . '0001.00' // Recomendación por defecto
             ]);
         }
     } else {
-        error_log("Parámetros inválidos recibidos.");
-        echo json_encode([
-            "numero_registro_recomendado" => ""
-        ]);
+        echo json_encode(["success" => false, "message" => "Letra no proporcionada."]);
     }
+} else {
+    echo json_encode(["success" => false, "message" => "Método no permitido."]);
 }
 ?>
