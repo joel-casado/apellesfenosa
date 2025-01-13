@@ -14,15 +14,19 @@ class MaterialesController {
     }
 
     public function actualizar() {
-        $codigo_getty_material = $_POST['codigo_getty_material'];
-        $texto_material = $_POST['texto_material'];
-        $materialModel = new MaterialModel($this->conn);
-        $resultado = $materialModel->actualizarMaterial($codigo_getty_material, $texto_material);
-        if ($resultado) {
-            header("Location: index.php?controller=Materiales&action=mostrarMateriales");
-            exit();
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $codigo_getty_material = $_POST['codigo_getty_material'];
+            $texto_material = $_POST['texto_material'];
+            $materialModel = new MaterialModel($this->conn);
+            $resultado = $materialModel->actualizarMaterial($codigo_getty_material, $texto_material);
+            if ($resultado) {
+                header("Location: index.php?controller=Materiales&action=mostrarMateriales");
+                exit();
+            } else {
+                echo "Error al actualizar el material.";
+            }
         } else {
-            echo "Error al actualizar el material.";
+            echo "Método no permitido.";
         }
     }
 
@@ -84,6 +88,21 @@ class MaterialesController {
                 require_once 'views/vocabulario/materiales/editar_material.php';
             } else {
                 echo "Obra no encontrada.";
+            }
+        } else {
+            echo "ID no proporcionado.";
+        }
+    }
+
+    public function editarMaterial() {
+        if (isset($_GET['id'])) {
+            $id = $_GET['id'];
+            $materialModel = new MaterialModel($this->conn);
+            $materiales = $materialModel->getMaterialPorId($id); // Cambiar $material a $materiales
+            if ($materiales) {
+                require_once 'views/vocabulario/materiales/editar_vocabulario.php';
+            } else {
+                echo "Material no encontrado.";
             }
         } else {
             echo "ID no proporcionado.";

@@ -17,7 +17,7 @@ class UbicacionController {
         $tree = [];
 
         if (in_array($parent_id, $visited)) {
-            return []; // Prevent infinite recursion in case of cyclic references
+            return [];
         }
 
         $visited[] = $parent_id;
@@ -45,10 +45,9 @@ class UbicacionController {
             $fechaInicio = $this->convertDateFormat($_POST['fecha_inicio_ubi'] ?? null);
             $fechaFin = $this->convertDateFormat($_POST['fecha_fin_ubi'] ?? null);
             $comentario = htmlspecialchars($_POST['comentario_ubicacion'], ENT_QUOTES, 'UTF-8');
-            $ubicacionPadre = filter_var($_GET['padre_id'] ?? null, FILTER_VALIDATE_INT);
+            $ubicacionPadre = isset($_GET['padre_id']) ? filter_var($_GET['padre_id'], FILTER_VALIDATE_INT) : null;
 
             if (!$nombreUbicacion || !$fechaInicio) {
-                // Handle missing required fields
                 die("Error: Nombre de la ubicación y fecha de inicio son obligatorios.");
             }
 
@@ -96,6 +95,19 @@ class UbicacionController {
 
         header('Location: /index.php?controller=ubicacion&action=verArbol');
         exit;
+    }
+
+    public function listarObras() {
+        $id = filter_var($_GET['id'] ?? null, FILTER_VALIDATE_INT);
+
+        if (!$id) {
+            die("Error: ID de ubicación inválido.");
+        }
+
+        $obrasModel = new ObrasModel($this->ubicacionModel->getConnection());
+        $obras = $obrasModel->getObrasByUbicacion($id);
+
+        require_once "views/ubicaciones/listarObras.php";
     }
 
     private function convertDateFormat($date) {

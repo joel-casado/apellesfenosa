@@ -5,16 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Obras</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/header/sidebar_header.css">
     <link rel="stylesheet" href="styles/obras/obras.css">
     <link rel="stylesheet" href="styles/sidebar/sidebar.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
 </head>
 <body>
-
+<?php include 'views/header/sidebar_header.php'; ?>
 <div class="sidebar">
-    <div class="logo">
-        <img src="images/login/logo.png" alt="Museu Apel·les Fenosa">
-    </div>
     <ul class="menu">
         <li><a href="index.php?controller=Obras&action=verObras"><i class="fas fa-palette"></i> <span>Obres</span></a></li>
         <li><a href="index.php?controller=vocabulario&action=mostrarVocabulario"><i class="fas fa-book"></i> <span>Vocabulari</span></a></li>
@@ -104,23 +103,23 @@
     </table>
 </div>
 
-    <script src="scripts/busqueda.js"></script>
-    <script src="scripts/busquedaAvanzada.js"></script>
+<script src="scripts/busqueda.js"></script>
+<script src="scripts/busquedaAvanzada.js"></script>
 <script>
     document.addEventListener("DOMContentLoaded", () => {
-        const sidebar = document.querySelector(".sidebar");
-        const toggleBtn = document.querySelector(".toggle-btn i");
+    const sidebar = document.querySelector(".sidebar");
+    const toggleBtn = document.querySelector(".toggle-btn i");
 
-        toggleBtn.addEventListener("click", () => {
-            sidebar.classList.toggle("expanded");
+    toggleBtn.addEventListener("click", () => {
+        sidebar.classList.toggle("expanded");
 
-            if (sidebar.classList.contains("expanded")) {
-                toggleBtn.classList.replace("fa-angle-double-right", "fa-angle-double-left");
-            } else {
-                toggleBtn.classList.replace("fa-angle-double-left", "fa-angle-double-right");
-            }
-        });
+        if (sidebar.classList.contains("expanded")) {
+            toggleBtn.classList.replace("fa-angle-double-right", "fa-angle-double-left");
+        } else {
+            toggleBtn.classList.replace("fa-angle-double-left", "fa-angle-double-right");
+        }
     });
+});
 </script>
 
 </body>

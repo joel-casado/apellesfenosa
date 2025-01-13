@@ -3,30 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <title>Editar exposició</title>
-    <link rel="stylesheet" href="styles/exposiciones/editar_expo.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/exposiciones/crear_expo.css">
 </head>
 <body>
-    <div class="header">
-        <a href="index.php?controller=Obras&action=verObras"><img src="images/login/logo.png" alt="Museu Apel·les Fenosa"></a>
-        <a href="index.php?controller=Login&action=logout" class="create-button">Cerrar sesión</a>
-        <a href="views/vocabulario/ver_vocabulario.php?id=" class="create-button">Vocabulario</a>
-        <a href="index.php?controller=Obras&action=verObras&admin" class="create-button">Obras</a><br>
-    </div>
-    <h1>Editar exposició</h1>
-    <div class="editar">
-    <form action="index.php?controller=Exposiciones&action=update" method="POST">
-            <input type="hidden" name="id_exposicion" value="<?php echo $expo['id_exposicion']; ?>">
-            <input type="text" name="exposicion" value="<?= htmlspecialchars($expo['exposicion']); ?>" required>
-            <input type="date" name="inicio" value="<?= $expo['fecha_inicio_expo']; ?>" required>
-            <input type="date" name="fin" value="<?= $expo['fecha_fin_expo']; ?>" required>
-            <input type="text" name="tipo" value="<?= htmlspecialchars($expo['tipo_exposicion']); ?>" required>
-            <input type="text" name="lugar" value="<?= htmlspecialchars($expo['sitio_exposicion']); ?>" required>
-            <button type="submit">Guardar cambios</button>
-        </form>
-
-            
-        <div class="image_editar">
-            <img src="images/3.-Busto-de-Dora-Maar.jpg" alt="Statue">
+    <div class="container">
+        <a href="index.php?controller=Exposiciones&action=listado_exposiciones" class="edit-button">Tornar</a>
+        <h1>Editar exposició</h1>
+        <div class="expo_box">
+            <form action="index.php?controller=Exposiciones&action=update" method="POST">
+                <input type="hidden" name="id_exposicion" value="<?php echo $expo['id_exposicion']; ?>">
+                <label for="exposicion">Exposició</label>
+                <input type="text" name="exposicion" id="exposicion" value="<?= htmlspecialchars($expo['exposicion']); ?>" required>
+                <label for="inicio">Data inici expo.</label>
+                <input type="date" id="inicio" name="inicio" value="<?= $expo['fecha_inicio_expo']; ?>" required>
+                <label for="fin">Data fi expo.</label>
+                <input type="date" id="fin" name="fin" value="<?= $expo['fecha_fin_expo']; ?>" required>
+                <label for="tipo">Tipus exposició</label>
+                <input type="text" id="tipo" name="tipo" value="<?= htmlspecialchars($expo['tipo_exposicion']); ?>" required>
+                <label for="lugar">Lloc exposició</label>
+                <input type="text" id="lugar" name="lugar" value="<?= htmlspecialchars($expo['sitio_exposicion']); ?>" required>
+                <button type="submit">Guardar cambios</button>
+            </form>
+            <div class="image_expo_box">
+                <img src="images/3.-Busto-de-Dora-Maar.jpg" alt="Statue">
+            </div>
         </div>
     </div>
 </body>

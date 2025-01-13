@@ -49,8 +49,8 @@
                             <a href="index.php?controller=Exposiciones&action=editar_expo&id=<?= $expo['id_exposicion']; ?>" class="i-button" title="Editar exposició">
                                 <i class="fas fa-edit"></i>
                             </a>
-                            <a href="index.php?controller=Exposiciones&action=ver_obras&id=<?= $expo['id_exposicion']; ?>" class="i-button" title="Afegir obra">
-                                <i class="fas fa-plus"></i>
+                            <a href="index.php?controller=Exposiciones&action=ver_obras&id=<?= $expo['id_exposicion']; ?>" class="i-button" title="Llistar obres">
+                                <i class="fas fa-magnifying-glass"></i>
                             </a>
                             <form action="index.php?controller=Exposiciones&action=habilitarDeshabilitar&id=<?= $expo['id_exposicion']; ?>" method="post" class="inline-form" onsubmit="return confirm('Estàs segur de què vols habilitar/deshabilitar aquesta exposició?');">
                                 <button type="submit" class="i-button" title="Habilitar/Deshabilitar">
