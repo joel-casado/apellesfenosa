@@ -68,6 +68,37 @@ class UbicacionModel {
     
         return $query->execute();
     }
+
+    public function eliminarUbicacion($id) {
+        // Get all child ubicaciones
+        $ubicaciones = $this->getUbicaciones();
+        $idsToDelete = $this->getAllChildIds($ubicaciones, $id);
+        $idsToDelete[] = $id;
+
+        // Set obras ubicacion to null
+        $query = $this->conn->prepare("UPDATE obras SET ubicacion = NULL WHERE ubicacion IN (" . implode(',', $idsToDelete) . ")");
+        $query->execute();
+
+        // Delete child ubicaciones first
+        foreach ($idsToDelete as $childId) {
+            $query = $this->conn->prepare("DELETE FROM ubicaciones WHERE id_ubicacion = :id");
+            $query->bindParam(':id', $childId, PDO::PARAM_INT);
+            $query->execute();
+        }
+
+        return true;
+    }
+
+    private function getAllChildIds($ubicaciones, $parentId) {
+        $ids = [];
+        foreach ($ubicaciones as $ubicacion) {
+            if ($ubicacion['ubicacion_padre'] == $parentId) {
+                $ids[] = $ubicacion['id_ubicacion'];
+                $ids = array_merge($ids, $this->getAllChildIds($ubicaciones, $ubicacion['id_ubicacion']));
+            }
+        }
+        return $ids;
+    }
     
 }
 ?>

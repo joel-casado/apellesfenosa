@@ -53,7 +53,7 @@ class UbicacionController {
 
             $this->ubicacionModel->crearUbicacion($fechaInicio, $fechaFin, $comentario, $ubicacionPadre, $nombreUbicacion);
 
-            header('Location: /index.php?controller=ubicacion&action=verArbol');
+            header('Location: index.php?controller=ubicacion&action=verArbol');
             exit;
         }
 
@@ -93,7 +93,20 @@ class UbicacionController {
 
         $this->ubicacionModel->updateUbicacion($id, $nombreUbicacion, $fechaInicio, $fechaFin, $comentario);
 
-        header('Location: /index.php?controller=ubicacion&action=verArbol');
+        header('Location: index.php?controller=ubicacion&action=verArbol');
+        exit;
+    }
+
+    public function eliminarUbicacion() {
+        $id = filter_var($_GET['id'] ?? null, FILTER_VALIDATE_INT);
+
+        if (!$id) {
+            die("Error: ID de ubicación inválido.");
+        }
+
+        $this->ubicacionModel->eliminarUbicacion($id);
+
+        header('Location: index.php?controller=ubicacion&action=verArbol');
         exit;
     }
 
