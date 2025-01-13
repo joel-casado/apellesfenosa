@@ -22,7 +22,7 @@ $dataciones = $obraModel->getdatacion();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crear Obra</title>
     <link rel="stylesheet" href="SCSS/prueba/fichas.css">
-    
+
     <link rel="stylesheet" href="styles/sidebar/sidebar.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -64,8 +64,17 @@ $dataciones = $obraModel->getdatacion();
             <input type="text" id="nombre_objeto" name="nombre_objeto" >
 
 
-            <label for="n_registro">Nº Registro:</label>
-            <input type="text" id="n_registro" name="n_registro" required>
+            <div>
+            <label for="n_registro">Nº de registre <span>*</span></label>
+            <div id="camposNumeroRegistro">
+                <input type="text" name="letra" id="letra" placeholder="[A-Z]">
+                <input type="text" id="n_registro" name="n_registro" required>
+                <input type="text" name="decimales" id="decimales" placeholder="[01-99]">
+                <img src="images/lupa.png" alt="Sugerir número de registro" id="sugerirNumeroRegistro" title="Sugerir número de registre">
+                <p id="errorFormatoNumRegistro"></p>
+            </div>
+
+            </div>
 
             <label for="codigo_autor">Código Autor:</label>
             <select name="codigo_autor" id="codigo_autor" autocomplete="off" >

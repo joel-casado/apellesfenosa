@@ -351,7 +351,7 @@ class ObrasModel {
     }
 
     public function crearObra(
-        $numero_registro, $titulo, $nombre, $codigo_autor, $classificacion_generica,
+        $letra, $numero_registro, $decimales, $titulo, $nombre, $codigo_autor, $classificacion_generica,
         $coleccion_procedencia, $maxima_altura, $maxima_anchura, 
         $maxima_profundidad, $materiales, $tecnica, 
         $ano_inicio, $ano_final, $dataciones, $formas_ingreso, $fecha_registro, 
@@ -359,6 +359,13 @@ class ObrasModel {
         $estado_conservacion, $lugar_ejecucion, $lugar_procedencia, 
         $valoracion_econ, $bibliografia, $historia_obra, $usuari_creador, $ubicacion
     ) {
+        // Ajustar formato del número de registro
+    if (!empty($letra)) {
+        $numero_registro = !empty($decimales) 
+            ? $letra . $numero_registro . '.' . $decimales 
+            : $letra . $numero_registro;
+    }
+    
         $query = "INSERT INTO obras (
             numero_registro, titulo, nombre_objeto, classificacion_generica, autor, 
             coleccion_procedencia, maxima_altura, maxima_anchura, 
@@ -420,6 +427,44 @@ class ObrasModel {
             return false;
         }
     }
+
+    public function obtenerUltimoNumeroRegistro($letra) {
+        error_log("Obteniendo el último número de registro para la letra: $letra");
+        $stmt = $this->conn->prepare("SELECT numero_registro 
+                                    FROM obras 
+                                    WHERE numero_registro LIKE ? 
+                                    ORDER BY numero_registro DESC 
+                                    LIMIT 1");
+        if (!$stmt) {
+            error_log("Error al preparar la consulta: " . print_r($this->conn->errorInfo(), true));
+            return false;
+        }
+        $stmt->execute(["$letra%"]);
+        $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
+        error_log("Resultado de la consulta: " . print_r($resultado, true));
+        return $resultado;
+    }
+    
+    
+    
+    public function consultarNumeroRegistro($numeroRegistro) {
+        error_log("Verificando existencia del número de registro: $numeroRegistro");
+        $query = "SELECT numero_registro FROM obras WHERE numero_registro = :n_registro";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':n_registro', $numeroRegistro, PDO::PARAM_STR);
+    
+        try {
+            $stmt->execute();
+            $existe = $stmt->rowCount() > 0;
+            error_log("Resultado de la consulta: " . ($existe ? "Existe" : "No existe"));
+            return $existe;
+        } catch (PDOException $error) {
+            error_log("Error al ejecutar la consulta: " . $error->getMessage());
+            return false;
+        }
+    }
+    
+
     
             
 

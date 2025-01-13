@@ -46,38 +46,67 @@ datacionSelect.addEventListener('change', function () {
     }
 });
 
+document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('sugerirNumeroRegistro').addEventListener('click', function () {
+        const letra = document.getElementById('letra').value.trim();
+
+        if (!letra) {
+            alert("Por favor, introduce una letra.");
+            return;
+        }
+
+        console.log("Enviando letra al servidor:", letra);
+
+        fetch('models/NumeroRegistro.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ letra }),
+        })
+            .then(response => {
+                console.log("Respuesta del servidor:", response);
+                return response.json();
+            })
+            .then(data => {
+                console.log("Datos recibidos del servidor:", data);
+                if (data.letra && data.numero && data.decimal) {
+                    document.getElementById('letra').value = data.letra;
+                    document.getElementById('n_registro').value = data.numero;
+                    document.getElementById('decimales').value = data.decimal;
+                } else {
+                    console.warn("Datos incompletos recibidos del servidor.");
+                    document.getElementById('letra').value = '';
+                    document.getElementById('n_registro').value = '';
+                    document.getElementById('decimales').value = '';
+                }
+            })
+            .catch(error => {
+                console.error('Error al obtener el número de registro:', error);
+                alert("Hubo un error al obtener el número de registro. Por favor, inténtalo de nuevo.");
+            });
+    });
+});
+
+
+
 
 document.getElementById("crearObraForm").addEventListener("submit", function(event) {
     event.preventDefault();
-    const requiredFields = ['n_registro', 'titulo'];
-    for (let field of requiredFields) {
-        const input = document.getElementById(field);
-        if (input && input.style.display === 'none') {
-            input.closest('.section-content').style.display = 'block'; // Muestra la sección
-        }
-    }
-    
     console.log('Formulario enviado, validando campos...');
 
+    // Validar campos requeridos
     let isValid = true;
-
-    // Temporarily show the required fields before validation
-    requiredFields.forEach(fieldId => {
-        const field = document.getElementById(fieldId);
-        const container = field.closest('.toggleable-section');
-        if (container) {
-            container.style.display = "block"; // Show the section temporarily
-        }
-    });
+    const requiredFields = [ /* [tus campos] */ ];
 
     requiredFields.forEach(fieldId => {
         const field = document.getElementById(fieldId);
         if (!field.value) {
             isValid = false;
-            field.style.borderColor = "red"; // Highlight the empty field
+            field.style.borderColor = "red"; // Resalta el campo
             console.warn(`El campo ${fieldId} está vacío.`);
         } else {
-            field.style.borderColor = ""; // Remove the highlight
+            field.style.borderColor = ""; // Quita el resaltado
             console.log(`El campo ${fieldId} tiene valor:`, field.value);
         }
     });
@@ -85,17 +114,7 @@ document.getElementById("crearObraForm").addEventListener("submit", function(eve
     if (!isValid) {
         console.error("Hay campos requeridos vacíos.");
         alert("Por favor, completa todos los campos requeridos.");
-
-        // Hide the sections again after showing the error
-        requiredFields.forEach(fieldId => {
-            const field = document.getElementById(fieldId);
-            const container = field.closest('.toggleable-section');
-            if (container) {
-                container.style.display = "none"; // Hide the section again
-            }
-        });
-
-        return; // Stop submission if there are empty fields
+        return; // Detener el envío si hay campos vacíos
     }
 
     const formData = new FormData(this);
@@ -127,12 +146,12 @@ document.getElementById("crearObraForm").addEventListener("submit", function(eve
                 }
             } else {
                 alert(data.message);  // Muestra mensaje de error
-                return;
             }
         } catch (error) {
             console.error('Error al parsear JSON:', error);
             alert("Error en la respuesta del servidor.");
         }
     })
+    
     .catch(error => console.error('Error en la solicitud:', error));    
 });
