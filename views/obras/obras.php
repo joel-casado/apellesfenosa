@@ -5,143 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Obras</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/header/sidebar_header.css">
     <link rel="stylesheet" href="styles/obras/obras.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style>
-        html, body {
-            margin: 0;
-            padding: 0;
-            overflow-x: hidden; /* Prevent horizontal scroll */
-            width: 100%;
-            background-color: #F3F3F3;
-        }
-
-        .actions {
-            margin-right: 540px;
-            margin-top: 100px;
-            margin-bottom: 20px;
-            display: flex;
-            justify-content: flex-end;
-            margin-bottom: -90px;
-        }
-
-        .sidebar {
-            background-color: #FFFFFF;
-            color: #ecf0f1;
-            width: 60px;
-            min-height: 100vh;
-            transition: width 0.3s;
-            overflow: hidden;
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: 1000;
-        }
-
-        .sidebar .logo {
-            text-align: center;
-            padding: 10px 0;
-        }
-
-        .sidebar img {
-            max-width: 40px;
-        }
-
-        .sidebar ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .sidebar ul li {
-            padding: 15px 20px;
-            text-align: left;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-        }
-
-        .sidebar ul li a {
-            color: #000000;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .sidebar ul li:hover {
-            background-color: #f3f3f3;
-        }
-
-        .sidebar .toggle-btn {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            cursor: pointer;
-            color: #000000;
-            font-size: 20px;
-        }
-
-        .sidebar.expanded {
-            width: 200px;
-        }
-
-        .sidebar.expanded ul li span {
-            display: inline;
-        }
-
-        .sidebar ul li span {
-            display: none;
-        }
-
-        .content {
-            margin-left: 60px;
-            padding: 20px;
-            transition: margin-left 0.3s;
-            box-sizing: border-box; /* Ensure padding/margin is within width */
-            max-width: calc(100vw - 60px); /* Prevent overflow when sidebar is collapsed */
-        }
-
-        .sidebar.expanded ~ .content {
-            margin-left: 200px;
-            max-width: calc(100vw - 200px); /* Adjust for expanded sidebar */
-        }
-
-        .header {
-            box-sizing: border-box;
-            width: calc(100% - 60px); /* Prevent header from overflowing */
-            position: fixed;
-            top: 0;
-            left: 60px;
-            height: 10%;
-            background-color: #ffffff;
-            z-index: 900;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .sidebar.expanded ~ .header {
-            left: 200px;
-            width: calc(100% - 200px); /* Adjust for expanded sidebar */
-        }
-
-        table {
-            width: 100%; /* Ensure table doesn't overflow */
-            table-layout: auto;
-            border-collapse: collapse;
-        }
-
-
-        .filters, .search-bar, form {
-            margin-top: 80px;
-        }
-
-    </style>
+    
 </head>
 <body>
-
+<?php include 'views/header/sidebar_header.php'; ?>
 <div class="sidebar">
     <ul class="menu">
         <li><a href="index.php?controller=Obras&action=verObras"><i class="fas fa-palette"></i> <span>Obres</span></a></li>
@@ -236,9 +106,24 @@
     </table>
 </div>
 
-    <script src="scripts/busqueda.js"></script>
-    <script src="scripts/busquedaAvanzada.js"></script>
-    <script src="scripts/sidebar.js"></script>
+<script src="scripts/busqueda.js"></script>
+<script src="scripts/busquedaAvanzada.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+    const sidebar = document.querySelector(".sidebar");
+    const toggleBtn = document.querySelector(".toggle-btn i");
+
+    toggleBtn.addEventListener("click", () => {
+        sidebar.classList.toggle("expanded");
+
+        if (sidebar.classList.contains("expanded")) {
+            toggleBtn.classList.replace("fa-angle-double-right", "fa-angle-double-left");
+        } else {
+            toggleBtn.classList.replace("fa-angle-double-left", "fa-angle-double-right");
+        }
+    });
+});
+</script>
 
 </body>
 </html>
