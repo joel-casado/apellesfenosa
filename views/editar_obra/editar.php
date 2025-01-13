@@ -15,6 +15,7 @@ $anoFinal = $obraModel->getAnoFinal();
 $formasIngreso = $obraModel->getFormasIngreso();
 $estadosConservacion = $obraModel->getEstadosConservacion();
 $exposiciones = $obraModel->getexposicion();
+$imagen_url = $obraModel->obtenerImagen($obra['numero_registro']);
 ?>
 
 <!DOCTYPE html>
@@ -66,8 +67,16 @@ $exposiciones = $obraModel->getexposicion();
 
 
     <h1>Editar Obra "<?php echo $obra['titulo']; ?>"</h1>
+
     
     <form action="index.php?controller=Obras&action=actualizar" method="POST">
+
+        <?php if (!empty($imagen_url)): ?>
+            <img src="<?php echo htmlspecialchars($imagen_url); ?>" alt="<?php echo htmlspecialchars($obra['titulo']); ?>" style="width: 100px; height: auto;">
+        <?php else: ?>
+            <img src="images/login/default.png" alt="Sin imagen disponible" style="width: 100px; height: auto;">
+            
+        <?php endif; ?>
 
     <h2 class="section-title" onclick="toggleSection(this)">Informació Principal  <span class="arrow">▼</span></h2>
         <div class="section-content">

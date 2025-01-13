@@ -14,9 +14,9 @@ class ObrasModel {
                      tecnicas.texto_tecnica, 
                      COALESCE(archivos.enlace, 'images/default.jpg') AS imagen_url
               FROM obras 
-              JOIN materiales ON obras.material = materiales.codigo_getty_material
-              JOIN autores ON obras.autor = autores.codigo_autor
-              JOIN tecnicas ON obras.tecnica = tecnicas.codigo_getty_tecnica
+              LEFT JOIN materiales ON obras.material = materiales.codigo_getty_material
+              LEFT JOIN autores ON obras.autor = autores.codigo_autor
+              LEFT JOIN tecnicas ON obras.tecnica = tecnicas.codigo_getty_tecnica
               LEFT JOIN archivos ON obras.numero_registro = archivos.numero_registro 
               AND archivos.enlace LIKE 'images/%'
               ORDER BY obras.numero_registro DESC;";
