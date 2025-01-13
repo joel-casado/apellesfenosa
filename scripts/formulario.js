@@ -70,15 +70,23 @@ document.addEventListener('DOMContentLoaded', function () {
             })
             .then(data => {
                 console.log("Datos recibidos del servidor:", data);
-                if (data.letra && data.numero && data.decimal) {
-                    document.getElementById('letra').value = data.letra;
-                    document.getElementById('n_registro').value = data.numero;
-                    document.getElementById('decimales').value = data.decimal;
+
+                if (data.numero_registro_recomendado) {
+                    // Separar el número de registro recomendado en sus componentes
+                    const numeroRegistro = data.numero_registro_recomendado;
+                    const letra = numeroRegistro.substring(0, 1); // Obtener la letra
+                    const numero = numeroRegistro.substring(1, 5); // Obtener el número (4 dígitos)
+                    const decimal = numeroRegistro.substring(6, 8); // Obtener los decimales (2 dígitos)
+
+                    // Actualizar los campos del formulario
+                    document.getElementById('letra').value = letra;
+                    document.getElementById('n_registro').value = numero;
+                    document.getElementById('decimales').value = decimal;
+
+                    console.log("Número de registro recomendado actualizado:", numeroRegistro);
                 } else {
-                    console.warn("Datos incompletos recibidos del servidor.");
-                    document.getElementById('letra').value = '';
-                    document.getElementById('n_registro').value = '';
-                    document.getElementById('decimales').value = '';
+                    console.warn("No se recibió un número de registro recomendado válido.");
+                    alert("No se pudo obtener un número de registro recomendado.");
                 }
             })
             .catch(error => {

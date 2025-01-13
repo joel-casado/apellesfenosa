@@ -69,36 +69,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $decimal = $partes[1];
                 error_log("Partes separadas: letra=$letra, numero=$numero, decimal=$decimal");
 
-                // Mostrar los componentes en un console.log (simulado en PHP)
-                error_log("Componentes separados: letra=$letra, numero=$numero, decimal=$decimal");
+                // Incrementar el número y los decimales según corresponda
+                if ($decimal < 99) {
+                    $decimal = str_pad($decimal + 1, 2, '0', STR_PAD_LEFT); // Incrementar decimales
+                } else {
+                    $decimal = '00'; // Reiniciar decimales
+                    if ($numero < 9999) {
+                        $numero = str_pad($numero + 1, 4, '0', STR_PAD_LEFT); // Incrementar número
+                    } else {
+                        $numero = '0001'; // Reiniciar número
+                        $letra = chr(ord($letra) + 1); // Cambiar a la siguiente letra
+                    }
+                }
+
+                // Formar el nuevo número de registro
+                $nuevoNumeroRegistro = $letra . $numero . '.' . $decimal;
+                error_log("Nuevo número de registro recomendado: $nuevoNumeroRegistro");
 
                 echo json_encode([
-                    "letra" => $letra,
-                    "numero" => $numero,
-                    "decimal" => $decimal
+                    "numero_registro_recomendado" => $nuevoNumeroRegistro
                 ]);
             } else {
                 error_log("Error: El número de registro no tiene el formato esperado.");
                 echo json_encode([
-                    "letra" => "",
-                    "numero" => "",
-                    "decimal" => ""
+                    "numero_registro_recomendado" => ""
                 ]);
             }
         } else {
             error_log("No se encontró un número de registro para la letra proporcionada.");
             echo json_encode([
-                "letra" => "",
-                "numero" => "",
-                "decimal" => ""
+                "numero_registro_recomendado" => ""
             ]);
         }
     } else {
-        error_log("Parámetros inv álidos recibidos.");
+        error_log("Parámetros inválidos recibidos.");
         echo json_encode([
-            "letra" => "",
-            "numero" => "",
-            "decimal" => ""
+            "numero_registro_recomendado" => ""
         ]);
     }
 }
