@@ -386,7 +386,7 @@ class ObrasModel {
         $stmt->bindParam(':n_registro', $numero_registro);
         $stmt->bindParam(':titulo', $titulo);
         $stmt->bindParam(':nombre', $nombre);
-        $stmt->bindParam(':autor', $codigo_autor);
+        $stmt->bindValue(':autor', $codigo_autor, $codigo_autor === null ? PDO::PARAM_NULL : PDO::PARAM_INT);
         $stmt->bindParam(':classificacion_generica', $classificacion_generica);
         $stmt->bindParam(':coleccion_procedencia', $coleccion_procedencia);
         $stmt->bindParam(':maxima_altura', $maxima_altura);

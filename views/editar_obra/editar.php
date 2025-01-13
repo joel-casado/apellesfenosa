@@ -123,7 +123,7 @@ $imagen_url = $obraModel->obtenerImagen($obra['numero_registro']);
             <input type="text" id="maxima_profundidad" name="maxima_profundidad" value="<?php echo $obra['maxima_profundidad']; ?>">
 
             <label for="codigo_getty_material">Material:</label>
-            <select name="codigo_getty_material" id="codigo_getty_material" required>
+            <select name="codigo_getty_material" id="codigo_getty_material" >
                 <?php foreach ($materiales as $material): ?>
                     <option value="<?= $material['codigo_getty_material'] ?>" <?= $obra['material'] == $material['codigo_getty_material'] ? 'selected' : '' ?>>
                         <?= $material['texto_material'] ?>
