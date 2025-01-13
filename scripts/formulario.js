@@ -49,20 +49,35 @@ datacionSelect.addEventListener('change', function () {
 
 document.getElementById("crearObraForm").addEventListener("submit", function(event) {
     event.preventDefault();
+    const requiredFields = ['n_registro', 'titulo'];
+    for (let field of requiredFields) {
+        const input = document.getElementById(field);
+        if (input && input.style.display === 'none') {
+            input.closest('.section-content').style.display = 'block'; // Muestra la sección
+        }
+    }
+    
     console.log('Formulario enviado, validando campos...');
 
-    // Validar campos requeridos
     let isValid = true;
-    const requiredFields = [ /* [tus campos] */ ];
+
+    // Temporarily show the required fields before validation
+    requiredFields.forEach(fieldId => {
+        const field = document.getElementById(fieldId);
+        const container = field.closest('.toggleable-section');
+        if (container) {
+            container.style.display = "block"; // Show the section temporarily
+        }
+    });
 
     requiredFields.forEach(fieldId => {
         const field = document.getElementById(fieldId);
         if (!field.value) {
             isValid = false;
-            field.style.borderColor = "red"; // Resalta el campo
+            field.style.borderColor = "red"; // Highlight the empty field
             console.warn(`El campo ${fieldId} está vacío.`);
         } else {
-            field.style.borderColor = ""; // Quita el resaltado
+            field.style.borderColor = ""; // Remove the highlight
             console.log(`El campo ${fieldId} tiene valor:`, field.value);
         }
     });
@@ -70,7 +85,17 @@ document.getElementById("crearObraForm").addEventListener("submit", function(eve
     if (!isValid) {
         console.error("Hay campos requeridos vacíos.");
         alert("Por favor, completa todos los campos requeridos.");
-        return; // Detener el envío si hay campos vacíos
+
+        // Hide the sections again after showing the error
+        requiredFields.forEach(fieldId => {
+            const field = document.getElementById(fieldId);
+            const container = field.closest('.toggleable-section');
+            if (container) {
+                container.style.display = "none"; // Hide the section again
+            }
+        });
+
+        return; // Stop submission if there are empty fields
     }
 
     const formData = new FormData(this);
@@ -102,12 +127,12 @@ document.getElementById("crearObraForm").addEventListener("submit", function(eve
                 }
             } else {
                 alert(data.message);  // Muestra mensaje de error
+                return;
             }
         } catch (error) {
             console.error('Error al parsear JSON:', error);
             alert("Error en la respuesta del servidor.");
         }
     })
-    
     .catch(error => console.error('Error en la solicitud:', error));    
 });

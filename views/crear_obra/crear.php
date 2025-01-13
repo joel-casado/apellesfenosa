@@ -22,6 +22,7 @@ $dataciones = $obraModel->getdatacion();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crear Obra</title>
     <link rel="stylesheet" href="SCSS/prueba/fichas.css">
+    
     <link rel="stylesheet" href="styles/sidebar/sidebar.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -66,15 +67,11 @@ $dataciones = $obraModel->getdatacion();
             <label for="n_registro">Nº Registro:</label>
             <input type="text" id="n_registro" name="n_registro" required>
 
-
-
-            
-
             <label for="codigo_autor">Código Autor:</label>
-            <select name="codigo_autor" id="codigo_autor" >
+            <select name="codigo_autor" id="codigo_autor" autocomplete="off" >
                 <option value="">Selecciona Autor</option>
                 <?php foreach ($autores as $autor): ?>
-                    <option value="<?= $autor['codigo_autor'] ?>"><?= $autor['nombre_autor'] ?></option>
+                    <option value="<?= $autor['codigo_autor'] ?>"><?= $autor['nombre_autor'] ?> </option>
                 <?php endforeach; ?>
             </select>
 

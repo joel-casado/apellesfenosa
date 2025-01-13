@@ -7,7 +7,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles/header/sidebar_header.css">
     <link rel="stylesheet" href="styles/obras/obras.css">
-    <link rel="stylesheet" href="styles/sidebar/sidebar.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     
 </head>
@@ -77,15 +76,15 @@
         <tbody id="the_table_body">
         <?php foreach ($obras as $obra): ?>
             <tr>
-                <td>
-                    <?php if (!empty($obra['imagen_url'])): ?>
-                        <img src="<?php echo htmlspecialchars($obra['imagen_url']); ?>"
-                             alt="<?php echo htmlspecialchars($obra['titulo']); ?>">
-                    <?php else: ?>
-                        <img src="<?php echo htmlspecialchars("images/default.png"); ?>">
-                        <p>Sin imagen disponible</p>
-                    <?php endif; ?>
-                </td>
+            <td>
+                <?php if (!empty($obra['imagen_url'])): ?>
+                    <img src="<?php echo htmlspecialchars($obra['imagen_url']); ?>" 
+                        alt="<?php echo htmlspecialchars($obra['titulo']); ?>">
+                <?php else: ?>
+                    <img src="images/login/default.png" 
+                        alt="Imagen por defecto">
+                <?php endif; ?>
+            </td>
                 <td><?php echo $obra["numero_registro"]; ?></td>
                 <td><?php echo $obra['titulo']; ?></td>
                 <td><?php echo $obra['nombre_autor']; ?></td>

@@ -123,7 +123,7 @@ $imagen_url = $obraModel->obtenerImagen($obra['numero_registro']);
             <input type="text" id="maxima_profundidad" name="maxima_profundidad" value="<?php echo $obra['maxima_profundidad']; ?>">
 
             <label for="codigo_getty_material">Material:</label>
-            <select name="codigo_getty_material" id="codigo_getty_material" required>
+            <select name="codigo_getty_material" id="codigo_getty_material" >
                 <?php foreach ($materiales as $material): ?>
                     <option value="<?= $material['codigo_getty_material'] ?>" <?= $obra['material'] == $material['codigo_getty_material'] ? 'selected' : '' ?>>
                         <?= $material['texto_material'] ?>
@@ -234,7 +234,7 @@ $imagen_url = $obraModel->obtenerImagen($obra['numero_registro']);
             <textarea id="bibliografia" name="bibliografia"><?php echo $obra['bibliografia']; ?></textarea>
 
             <label for="descripcion">Descripció:</label>
-            <textarea id="descripcion" name="descripcion" required><?php echo $obra['descripcion']; ?></textarea>
+            <textarea id="descripcion" name="descripcion"><?php echo $obra['descripcion']; ?></textarea>
 
             <label for="historia_obra">Història de l'Obra:</label>
             <textarea id="historia_obra" name="historia_obra"><?php echo $obra['historia_obra']; ?></textarea>

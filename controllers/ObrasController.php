@@ -38,87 +38,117 @@ class ObrasController {
     }
 
     public function actualizar() {
+        $rutaArchivo = null;
         $rol = $_SESSION['admin'] ?? $_SESSION['tecnic'] ?? $_SESSION['convidat'] ?? null;
+        
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $numero_registro = $_POST['n_registro'];
-            $titulo = $_POST['titulo'];
-            $clasificaciones_genericas = $_POST['classificacion_generica'];
-            $autor = $_POST['codigo_autor'];
-            $coleccion_procedencia = $_POST['coleccion_procedencia'];
-            $maxima_altura = $_POST['maxima_altura'];
-            $maxima_anchura = $_POST['maxima_anchura'];
-            $maxima_profundidad = $_POST['maxima_profundidad'];
-            $materiales = $_POST['codigo_getty_material'];
-            $tecnicas = $_POST['tecnica'];
-            $ano_inicio = $_POST['ano_inicio'];
-            $ano_final = $_POST['ano_final'];
-            $dataciones = $_POST['datacion'];
-            $formas_ingreso = $_POST['forma_ingreso'];
-            $fecha_registro = $_POST['fecha_registro'];
-            $descripcion = $_POST['descripcion'];
-            $numero_ejemplares = $_POST['numero_ejemplares'];
-            $fuente_ingreso = $_POST['fuente_ingreso'];
-            $estado_conservacion = $_POST['estado_conservacion']; // Asegúrate de que el nombre del campo es correcto.
-            $lugar_procedencia = $_POST['lugar_procedencia'];
-            $lugar_ejecucion = $_POST['lugar_ejecucion'];
-            $valoracion_econ = $_POST['valoracion_econ'];
-            $bibliografia = $_POST['bibliografia'];
-            $historia_obra = $_POST['historia_obra'];
-            $ubicacion = $_POST['ubicacion']; // Add this line
-
-            // Instanciar el modelo con la conexión
-            $obraModel = new ObrasModel($this->conn);
-
-            // actualizar la obra
-            $resultado = $obraModel->actualizarObra($numero_registro, $titulo, $autor, $clasificaciones_genericas, 
-                $coleccion_procedencia, $maxima_altura, $maxima_anchura, $maxima_profundidad, $materiales, $tecnicas, 
-                $ano_inicio, $ano_final, $dataciones, $formas_ingreso, $fecha_registro, $descripcion,
-                $numero_ejemplares, $fuente_ingreso, $estado_conservacion,
-                $lugar_procedencia, $lugar_ejecucion, $valoracion_econ, $bibliografia, $historia_obra, $ubicacion); // Add $ubicacion here
+            try {
+                $numero_registro = $_POST['n_registro'];
+                $titulo = $_POST['titulo'];
+                $clasificaciones_genericas = $_POST['classificacion_generica'];
+                $autor = $_POST['codigo_autor'];
+                $coleccion_procedencia = $_POST['coleccion_procedencia'];
+                $maxima_altura = $_POST['maxima_altura'];
+                $maxima_anchura = $_POST['maxima_anchura'];
+                $maxima_profundidad = $_POST['maxima_profundidad'];
+                $materiales = $_POST['codigo_getty_material'];
+                $tecnicas = $_POST['tecnica'];
+                $ano_inicio = $_POST['ano_inicio'];
+                $ano_final = $_POST['ano_final'];
+                $dataciones = $_POST['datacion'];
+                $formas_ingreso = $_POST['forma_ingreso'];
+                $fecha_registro = $_POST['fecha_registro'];
+                $descripcion = $_POST['descripcion'];
+                $numero_ejemplares = $_POST['numero_ejemplares'];
+                $fuente_ingreso = $_POST['fuente_ingreso'];
+                $estado_conservacion = $_POST['estado_conservacion'];
+                $lugar_procedencia = $_POST['lugar_procedencia'];
+                $lugar_ejecucion = $_POST['lugar_ejecucion'];
+                $valoracion_econ = $_POST['valoracion_econ'];
+                $bibliografia = $_POST['bibliografia'];
+                $historia_obra = $_POST['historia_obra'];
+                $ubicacion = $_POST['ubicacion'];
     
-                $rutaArchivo = null; // Ruta del archivo guardado
+                // Instanciar el modelo con la conexión
+                $obraModel = new ObrasModel($this->conn);
+    
+                // Actualizar la obra
+                $resultado = $obraModel->actualizarObra($numero_registro, $titulo, $autor, $clasificaciones_genericas, 
+                    $coleccion_procedencia, $maxima_altura, $maxima_anchura, $maxima_profundidad, $materiales, $tecnicas, 
+                    $ano_inicio, $ano_final, $dataciones, $formas_ingreso, $fecha_registro, $descripcion,
+                    $numero_ejemplares, $fuente_ingreso, $estado_conservacion, $lugar_procedencia, $lugar_ejecucion, $valoracion_econ, $bibliografia, $historia_obra, $ubicacion);
+                
+                // Manejar la subida de la foto
+                if (isset($_FILES['foto']) && $_FILES['foto']['error'] === UPLOAD_ERR_OK) {
+                    $foto = $_FILES['foto'];
+                    $nombreArchivo = basename($foto['name']);
+                    $rutaDestino = "images/" . $nombreArchivo;
+    
+                    // Mover el archivo a la carpeta "images"
+                    if (move_uploaded_file($foto['tmp_name'], $rutaDestino)) {
+                        $rutaArchivo = $rutaDestino; // Guardar la ruta del archivo
+                    } else {
+                        echo json_encode(['success' => false, 'message' => 'Error al subir la foto']);
+                        exit();
+                    }
+                }
+                
                 if ($resultado) {
                     if ($rutaArchivo) {
-                        $archivoGuardado = $obraModel->guardarArchivo($numero_registro, $rutaArchivo);
-                        if (!$archivoGuardado) {
-                            echo json_encode(['success' => false, 'message' => 'Error al guardar el archivo en la base de datos']);
-                            exit();
-                        }
-                    }
-                    
-                    if ($resultado) {
-                           
-                        // Crear carpeta para archivos secundarios
-                        $carpetaObra = "archivos/obra_" . $numero_registro;
-                        if (!is_dir($carpetaObra)) {
-                            mkdir($carpetaObra, 0777, true);
-                        }
-            
-                        // Guardar archivos secundarios
-                        if (!empty($_FILES['archivos_extra']['name'][0])) {
-                            foreach ($_FILES['archivos_extra']['tmp_name'] as $key => $tmpName) {
-                                $nombreArchivoSecundario = basename($_FILES['archivos_extra']['name'][$key]);
-                                $rutaDestinoSecundario = $carpetaObra . "/" . $nombreArchivoSecundario;
-            
-                                if (move_uploaded_file($tmpName, $rutaDestinoSecundario)) {
-                                    $obraModel->guardarArchivoSecundario($numero_registro, $rutaDestinoSecundario);
-                                } else {
-                                    echo json_encode(['success' => false, 'message' => 'Error al subir archivo secundario: ' . $nombreArchivoSecundario]);
-                                    exit();
-                                }
+                        // Actualizar el archivo
+                        $imagenExistente = $obraModel->obtenerImagen($numero_registro);
+                        if ($imagenExistente) {
+                            $archivoActualizado = $obraModel->actualizarArchivo($numero_registro, $rutaArchivo);
+                            if (!$archivoActualizado) {
+                                echo json_encode(['success' => false, 'message' => 'Error al actualizar el archivo en la base de datos']);
+                                exit();
+                            }
+                        } else {
+                            $archivoGuardado = $obraModel->guardarArchivo($numero_registro, $rutaArchivo);
+                            if (!$archivoGuardado) {
+                                echo json_encode(['success' => false, 'message' => 'Error al guardar el archivo en la base de datos']);
+                                exit();
                             }
                         }
-                    } 
+                    } else {
+                        // No se ha subido un archivo, omitir la actualización del archivo
+                        // Continuar con el resto del proceso de actualización
+                    }
                 
-                    // Redirigir después de la actualización
+                    // Crear carpeta para archivos secundarios
+                    $carpetaObra = "archivos/obra_" . $numero_registro;
+                    if (!is_dir($carpetaObra)) {
+                        mkdir($carpetaObra, 0777, true);
+                    }
+                
+                    // Guardar archivos secundarios
+                    if (!empty($_FILES['archivos_extra']['name'][0])) {
+                        foreach ($_FILES['archivos_extra']['tmp_name'] as $key => $tmpName) {
+                            $nombreArchivoSecundario = basename($_FILES['archivos_extra']['name'][$key]);
+                            $rutaDestinoSecundario = $carpetaObra . "/" . $nombreArchivoSecundario;
+                
+                            if (move_uploaded_file($tmpName, $rutaDestinoSecundario)) {
+                                $obraModel->guardarArchivoSecundario($numero_registro, $rutaDestinoSecundario);
+                            } else {
+                                echo json_encode(['success' => false, 'message' => 'Error al subir archivo secundario: ' . $nombreArchivoSecundario]);
+                                exit();
+                            }
+                        }
+                    }
+                
+                    // Redirigir a la página de obras
                     header('Location: index.php?controller=Obras&action=verObras');
                     exit();
                 } else {
-                    echo "Error al actualizar la obra.";
+                    echo "Error al actualizar la obra. 2";
                 }
-                
+            } catch (Exception $e) {
+                error_log("Error en el controlador: " . $e->getMessage());
+                echo "Error en el controlador: " . $e->getMessage();
+            }
         }
     }
+    
     
     public function mostrarFicha() {
         $rol = $_SESSION['admin'] ?? $_SESSION['tecnic'] ?? $_SESSION['convidat'] ?? null;
@@ -284,7 +314,7 @@ class ObrasController {
                     echo json_encode(['success' => false, 'message' => 'Error al subir la foto']);
                     exit();
                 }
-            }           
+            }          
     
             // Log de la ejecución del modelo de creación de obra
             $obraModel = new ObrasModel($this->conn);
@@ -313,18 +343,19 @@ class ObrasController {
                 
                 if ($resultado) {
                        
+                    
                     // Crear carpeta para archivos secundarios
                     $carpetaObra = "archivos/obra_" . $numero_registro;
                     if (!is_dir($carpetaObra)) {
                         mkdir($carpetaObra, 0777, true);
                     }
-        
+
                     // Guardar archivos secundarios
                     if (!empty($_FILES['archivos_extra']['name'][0])) {
                         foreach ($_FILES['archivos_extra']['tmp_name'] as $key => $tmpName) {
                             $nombreArchivoSecundario = basename($_FILES['archivos_extra']['name'][$key]);
                             $rutaDestinoSecundario = $carpetaObra . "/" . $nombreArchivoSecundario;
-        
+
                             if (move_uploaded_file($tmpName, $rutaDestinoSecundario)) {
                                 $obraModel->guardarArchivoSecundario($numero_registro, $rutaDestinoSecundario);
                             } else {
