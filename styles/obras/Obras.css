@@ -1,6 +1,4 @@
 @charset "UTF-8";
-/*variqables" pagina login*/
-/* General Reset */
 * {
   margin: 0;
   padding: 0;
@@ -9,7 +7,7 @@
 
 body {
   font-family: "Roboto", sans-serif;
-  background-color: #f9f9f9;
+  background-color: #f5f5f5;
   color: #333;
   display: flex;
   flex-direction: column;
@@ -17,20 +15,16 @@ body {
 }
 
 /* Header */
-.header {
-  text-align: left;
-  padding: 30px;
-  background-color: rgb(255, 255, 255);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-.header img {
-  height: 80px;
-}
-
 .search-bar {
-  max-width: 600px;
-  margin-left: 1200px;
-  border-radius: 20px;
+  flex-grow: 1; /* Ocupa el espacio restante */
+  display: flex;
+}
+.search-bar input {
+  width: 80%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 14px;
 }
 
 /* Main Heading */
@@ -46,7 +40,7 @@ table {
   width: 90%;
   max-width: 1000px;
   border-collapse: collapse;
-  background-color: #fff;
+  background-color: #f5f5f5;
   border-radius: 8px;
   box-shadow: -2px 4px 4px 4px rgba(0, 0, 0, 0.1);
   margin: 100px auto;
@@ -58,7 +52,7 @@ tr {
 }
 
 thead {
-  background-color: #f3f3f3;
+  background-color: #f5f5f5;
   height: 70px;
 }
 
@@ -92,11 +86,11 @@ td img {
   border-radius: 4px;
   text-decoration: none;
   font-size: 0.9rem;
-  transition: background-color 0.3s ease;
+  transition: all 0.2s ease-in-out;
 }
 
 .edit-button:hover {
-  background-color: #2D4F6F;
+  background: #446eb2;
 }
 
 .form-container {
@@ -147,7 +141,7 @@ textarea {
   margin-bottom: 20px;
   border: 1px solid #ddd;
   border-radius: 5px;
-  background-color: #f9f9f9;
+  background-color: #f5f5f5;
   font-size: 14px;
   color: #333;
 }
@@ -172,7 +166,7 @@ button[type=submit] {
   display: block;
   width: 50%;
   padding: 12px;
-  background-color: #007bff;
+  background-color: #6589C4;
   color: white;
   font-size: 16px;
   font-weight: bold;
@@ -206,7 +200,11 @@ form img {
 }
 
 #generate-pdf {
-  background-color: grey;
+  padding: 10px 15px;
+  border: none;
+  width: 200px;
+  border-radius: 5px;
+  background-color: #6589C4;
   color: white;
   cursor: not-allowed;
 }
@@ -214,4 +212,69 @@ form img {
 #generate-pdf.active {
   background-color: blue;
   cursor: pointer;
+}
+
+.busqueda-avanzada-container {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+.busqueda-avanzada-container .toggle-filters {
+  padding: 10px 20px;
+  background-color: #6589C4;
+  color: #f0f0f0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+.busqueda-avanzada-container .toggle-filters:hover {
+  background-color: #446eb2;
+}
+
+#busquedaAvanzada {
+  display: none;
+  padding: 15px;
+  width: 400px;
+  background-color: #f0f0f0;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 -2px 4px rgba(0, 0, 0, 0.1);
+}
+#busquedaAvanzada .filter-group {
+  display: flex;
+  margin-bottom: 10px;
+}
+#busquedaAvanzada .filter-group label {
+  width: 100px;
+  font-size: 12px;
+  font-weight: bold;
+  color: #333;
+  margin-right: 10px;
+}
+#busquedaAvanzada .filter-group select,
+#busquedaAvanzada .filter-group input {
+  flex-grow: 1;
+  padding: 6px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 12px;
+  background-color: #f5f5f5;
+  color: #333;
+}
+#busquedaAvanzada .filter-submit {
+  padding: 8px 12px;
+  background-color: #6589C4;
+  color: #f0f0f0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+#busquedaAvanzada .filter-submit:hover {
+  background-color: #446eb2;
 }/*# sourceMappingURL=Obras.css.map */

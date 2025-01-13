@@ -36,24 +36,22 @@
     </div>
 
     <h1>OBRAS DISPONIBLES</h1>
-    <div class="filters">
-        <form id="filterForm" method="POST" action="index.php?controller=Obras&action=filter">
-            <!-- Grupos filtros en archivo js-->
-            <div id="filterGroups"></div>
-
-            <button type="submit">Filtrar</button>
+    <div class="busqueda-avanzada-container">
+        <button id="addFiltersButton" class="toggle-filters">Búsqueda Avanzada<i class="fas fa-chevron-down" id="toggleIcon"></i></button>
+        <div class="busqueda-avanzada" id="busquedaAvanzada" style="display: none;">
+            <form id="filterForm" method="POST" action="index.php?controller=Obras&action=filter">
+                <div id="filterGroups"></div>
+                <button type="submit" class="filter-submit">Filtrar</button>
+            </form>
+        </div>
+        <form class="search-bar">
+            <input type="text" id="q" placeholder="Buscador de obra" onkeyup="search()">
+        </form>
+        <form method="POST" action="index.php?controller=Obras&action=generarPdf">
+            <input type="hidden" name="filteredData" id="filteredData"/>
+            <button type="submit" class="pdf" id="generate-pdf" disabled>Generar PDF</button>
         </form>
     </div>
-
-    <form method="POST" action="index.php?controller=Obras&action=generarPdf">
-        <input type="hidden" name="filteredData" id="filteredData"/>
-        <button type="submit" class="pdf" id="generate-pdf" disabled>Generar PDF</button>
-    </form>
-
-    <form class="search-bar">
-        <input type="text" id="q" placeholder="Buscador de obra" onkeyup="search()">
-    </form>
-
     <div class="actions">
         <a href="index.php?controller=Obras&action=crear" class="edit-button">Crear</a>
         <a href="index.php?controller=Obras&action=mostrarPdfTodasLasObras" class="edit-button">Generar libro-registro</a>
@@ -103,6 +101,7 @@
     </table>
 </div>
 
+
 <script src="scripts/busqueda.js"></script>
 <script src="scripts/busquedaAvanzada.js"></script>
 <script>
@@ -110,16 +109,32 @@
     const sidebar = document.querySelector(".sidebar");
     const toggleBtn = document.querySelector(".toggle-btn i");
 
-    toggleBtn.addEventListener("click", () => {
-        sidebar.classList.toggle("expanded");
+        toggleBtn.addEventListener("click", () => {
+            sidebar.classList.toggle("expanded");
 
-        if (sidebar.classList.contains("expanded")) {
-            toggleBtn.classList.replace("fa-angle-double-right", "fa-angle-double-left");
-        } else {
-            toggleBtn.classList.replace("fa-angle-double-left", "fa-angle-double-right");
-        }
+            if (sidebar.classList.contains("expanded")) {
+                toggleBtn.classList.replace("fa-angle-double-right", "fa-angle-double-left");
+            } else {
+                toggleBtn.classList.replace("fa-angle-double-left", "fa-angle-double-right");
+            }
+        });
     });
-});
+    document.addEventListener("DOMContentLoaded", () => {
+    const toggleFiltersButton = document.querySelector(".toggle-filters");
+    const busquedaAvanzadaDiv = document.getElementById("busquedaAvanzada");
+
+        toggleFiltersButton.addEventListener("click", () => {
+            // Alterna la clase 'active' para mostrar/ocultar
+            if (busquedaAvanzadaDiv.style.display === "block") {
+                busquedaAvanzadaDiv.style.display = "none";
+            } else {
+                busquedaAvanzadaDiv.style.display = "block";
+            }
+        });
+    });
+
+
+
 </script>
 
 </body>

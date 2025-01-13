@@ -56,8 +56,31 @@ const foreignKeyFields = {
     "id_exposicion": "Exposición",
     "estado_conservacion": "Estado de Conservación"
 };
+document.addEventListener("DOMContentLoaded", () => {
+    const filterGroupsContainer = document.getElementById("filterGroups");
+    const addFiltersButton = document.getElementById("addFiltersButton");
+    const busquedaAvanzadaDiv = document.getElementById("busquedaAvanzada");
 
-// Function to create a filter group
+    let filtersAdded = false; // Controlar si los filtros ya fueron generados
+
+    // Función para crear 5 filtros dinámicamente
+    const generateFilters = () => {
+        if (!filtersAdded) {
+            for (let i = 1; i < 5; i++) {
+                filterGroupsContainer.appendChild(createFilterGroup(i));
+            }
+            filtersAdded = true; // Marcar que los filtros ya se generaron
+        }
+    };
+
+    // Evento para mostrar/ocultar los filtros
+    addFiltersButton.addEventListener("click", () => {
+        generateFilters(); // Generar los filtros solo si aún no se han generado
+        busquedaAvanzadaDiv.classList.toggle("visible");
+    });
+});
+
+// Función para crear un grupo de filtros
 const createFilterGroup = (index) => {
     const group = document.createElement("div");
     group.classList.add("filter-group");
@@ -86,17 +109,12 @@ const createFilterGroup = (index) => {
 };
 
 // Add filter groups to the page
-const filterGroupsContainer = document.getElementById("filterGroups");
-for (let i = 0; i < 5; i++) {
-    filterGroupsContainer.appendChild(createFilterGroup(i));
-}
-
 // Update input type and placeholder dynamically based on selected field
-document.querySelectorAll("select").forEach(select => {
-    select.addEventListener("change", function () {
-        const index = this.id.replace("filterField", "");
+document.getElementById("filterGroups").addEventListener("change", function (e) {
+    if (e.target.tagName === "SELECT") {
+        const index = e.target.id.replace("filterField", "");
         const input = document.getElementById(`filterValue${index}`);
-        const fieldType = this.value;
+        const fieldType = e.target.value;
 
         if (numericFields.includes(fieldType)) {
             input.placeholder = "Rango (ej, 10-50)";
@@ -111,5 +129,25 @@ document.querySelectorAll("select").forEach(select => {
             input.placeholder = "Texto";
             input.type = "text";
         }
-    });
+    }
 });
+const filterGroupsContainer = document.getElementById("filterGroups");
+const addFiltersButton = document.getElementById("addFiltersButton");
+
+let filterCount = 0; // Contador para rastrear cuántos filtros se han añadido
+
+addFiltersButton.addEventListener("click", function () {
+    if (filterCount < 5) { // Máximo 5 filtros
+        filterGroupsContainer.appendChild(createFilterGroup(filterCount));
+        filterCount++;
+    } else {
+        alert("Solo puedes añadir hasta 5 filtros.");
+    }
+});
+
+
+
+
+
+
+

@@ -1,7 +1,17 @@
-@import "../../SCSS/_variables.scss";
-@import "../../SCSS/_mixins.scss";
 
-/* General Reset */
+$font-family: 'Roboto', sans-serif;
+$background-color: #f5f5f5;
+$form-background: #fff;
+$form-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 -2px 4px rgba(0, 0, 0, 0.1);
+$primary-color: #6589C4;
+$secondary-color: #f0f0f0;
+$text-color: #333;
+$muted-text-color: #555;
+$error-color: #ff0000;
+
+@mixin transition($properties, $duration: 0.2s, $ease: ease-in-out) {
+  transition: $properties $duration $ease;
+}
 * {
   margin: 0;
   padding: 0;
@@ -10,7 +20,7 @@
 
 body {
   font-family: 'Roboto', sans-serif;
-  background-color: #f9f9f9;
+  background-color: $background-color;
   color: #333;
   display: flex;
   flex-direction: column;
@@ -19,14 +29,18 @@ body {
 }
 
 /* Header */
-.header {
-  @include header;
-}
 
-.search-bar{
-  max-width: 600px;
-  margin-left: 1200px;
-  border-radius: 20px;
+.search-bar {
+  flex-grow: 1; /* Ocupa el espacio restante */
+  display: flex;
+
+  input {
+      width: 80%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 14px;
+  }
 }
 
 
@@ -43,7 +57,7 @@ table {
   width: 90%; // Ajustado para que la tabla sea más pequeña y centrada
   max-width: 1000px;
   border-collapse: collapse;
-  background-color: #fff;
+  background-color: $background-color;
   border-radius: 8px; // Bordes redondeados como en la imagen
   box-shadow: -2px 4px 4px 4px rgba(0, 0, 0, 0.1); // Sombra ligera alrededor de la tabla
   margin: 100px auto;
@@ -57,7 +71,7 @@ tr {
 
 
 thead {
-  background-color: #f3f3f3;
+  background-color: $background-color;
   height: 70px;
 }
 
@@ -72,11 +86,8 @@ th, td {
 
 th {
   font-weight: 500;
-  color: #555;
+  color: $muted-text-color;
 }
-
-
-
 /* Image Styles */
 td img {
   height: 100px;
@@ -84,20 +95,19 @@ td img {
   object-fit: cover;
   border-radius: 4px;
 }
-
 /* Button Styles */
 .edit-button {
   padding: 6px 12px;
-  background-color:$button-bg;
+  background-color:$primary-color;
   color: #fff;
   border-radius: 4px;
   text-decoration: none;
   font-size: 0.9rem;
-  transition: background-color 0.3s ease;
+  @include transition(all);
 }
 
 .edit-button:hover {
-  background-color:$button_hv;
+  background: darken($primary-color, 10%);
 }
 
 .form-container {
@@ -139,18 +149,18 @@ h2 {
   align-content: center;
 }
 
-
 input[type="text"],
 input[type="date"],
 input[type="number"],
 select,
 textarea {
+  
   width: 50%; /* Usar el 100% para llenar completamente la columna */
   padding: 5px;
   margin-bottom: 20px;
   border: 1px solid #ddd;
   border-radius: 5px;
-  background-color: #f9f9f9;
+  background-color: $background-color;
   font-size: 14px;
   color: #333;
 }
@@ -175,7 +185,7 @@ button[type="submit"] {
   display: block;
   width: 50%;
   padding: 12px;
-  background-color: #007bff;
+  background-color: $primary-color;
   color: white;
   font-size: 16px;
   font-weight: bold;
@@ -207,7 +217,11 @@ form img {
   border-radius: 4px;
 }
 #generate-pdf {
-  background-color: grey;
+  padding: 10px 15px;
+  border: none;
+  width: 200px;
+  border-radius: 5px;
+  background-color: $primary-color;
   color: white;
   cursor: not-allowed;
 }
@@ -216,3 +230,79 @@ form img {
   background-color: blue;
   cursor: pointer;
 }
+.busqueda-avanzada-container {
+  display: flex;
+  align-items: center;
+  gap: 15px; 
+
+  // Botón para alternar la visibilidad
+  .toggle-filters {
+      padding: 10px 20px;
+      background-color: $primary-color;
+      color: $secondary-color;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+          background-color: darken($primary-color, 10%);
+      }
+  }
+}
+
+// Contenedor de filtros
+#busquedaAvanzada {
+  display: none;
+  padding: 15px;
+  width: 400px; // Tamaño reducido del cuadro
+  background-color: $secondary-color;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-shadow: $form-shadow;
+
+
+  .filter-group {
+      display: flex;
+      
+      margin-bottom: 10px;
+
+      label {
+          width: 100px;
+          font-size: 12px;
+          font-weight: bold;
+          color: $text-color;
+          margin-right: 10px;
+      }
+
+      select,
+      input {
+          flex-grow: 1;
+          padding: 6px;
+          border: 1px solid #ddd;
+          border-radius: 5px;
+          font-size: 12px;
+          background-color: $background-color;
+          color: $text-color;
+      }
+  }
+
+  .filter-submit {
+      padding: 8px 12px;
+      background-color: $primary-color;
+      color: $secondary-color;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+          background-color: darken($primary-color, 10%);
+      }
+  }
+}
+
