@@ -68,9 +68,21 @@ class ObrasController {
                 $bibliografia = $_POST['bibliografia'];
                 $historia_obra = $_POST['historia_obra'];
                 $ubicacion = $_POST['ubicacion'];
-    
+                $maximaAltura = $_POST['maxima_altura'];
+            $maximaAnchura = $_POST['maxima_anchura'];
+            $maximaProfundidad = $_POST['maxima_profundidad'];
+            $numeroEjemplares = $_POST['numero_ejemplares'];
+
                 // Instanciar el modelo con la conexión
                 $obraModel = new ObrasModel($this->conn);
+
+              
+
+            // Verificar si hay errores antes de continuar
+            if (!empty($errors)) {
+                echo json_encode(['success' => false, 'errors' => $errors]);
+                exit();
+            }
     
                 // Actualizar la obra
                 $resultado = $obraModel->actualizarObra($numero_registro, $titulo, $autor, $clasificaciones_genericas, 
@@ -296,6 +308,38 @@ class ObrasController {
             }
             if (empty($numero_registro)) {
                 $errors[] = 'El Nº de registro es obligatorio';
+            }
+            $maximaAltura = $_POST['maxima_altura'];
+            $maximaAnchura = $_POST['maxima_anchura'];
+            $maximaProfundidad = $_POST['maxima_profundidad'];
+            $numeroEjemplares = $_POST['numero_ejemplares'];
+
+            if ($maximaAltura && !is_numeric($maximaAltura)) {
+                $errors[] = "La máxima altura debe ser un número.";
+            }
+
+            if ($maximaAnchura && !is_numeric($maximaAnchura)) {
+                $errors[] = "La máxima anchura debe ser un número.";
+            }
+
+            if ($maximaProfundidad && !is_numeric($maximaProfundidad)) {
+                $errors[] = "La máxima profundidad debe ser un número.";
+            }
+
+            if ($numeroEjemplares && !is_numeric($numeroEjemplares)) {
+                $errors[] = "El número de ejemplares debe ser un número.";
+            }
+            $valoracionEcon = $_POST['valoracion_econ'];
+            $regex = '/^\d+(\.\d{1,2})?$/';
+
+            if ($valoracionEcon && !preg_match($regex, $valoracionEcon)) {
+                $errors[] = "La valoración económica debe ser un número válido (ejemplo: 100.50).";
+            }
+            $fechaRegistro = $_POST['fecha_registro'];
+            $fechaIngreso = $_POST['fecha_ingreso'];
+
+            if ($fechaIngreso && $fechaRegistro && strtotime($fechaIngreso) < strtotime($fechaRegistro)) {
+                $errors[] = "La fecha de ingreso no puede ser anterior a la fecha de registro.";
             }
             // Log de errores de validación
             error_log("Errores de validación: " . print_r($errors, true));

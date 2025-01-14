@@ -32,10 +32,8 @@ $imagen_url = $obraModel->obtenerImagen($obra['numero_registro']);
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
+<?php include 'views/header/sidebar_header.php'; ?>
 <div class="sidebar">
-    <div class="logo">
-        <img src="images/login/logo.png" alt="Museu Apel·les Fenosa">
-    </div>
     <ul class="menu">
         <li><a href="index.php?controller=Obras&action=verObras"><i class="fas fa-palette"></i> <span>Obres</span></a></li>
         <li><a href="index.php?controller=vocabulario&action=mostrarVocabulario"><i class="fas fa-book"></i> <span>Vocabulari</span></a></li>
@@ -43,7 +41,11 @@ $imagen_url = $obraModel->obtenerImagen($obra['numero_registro']);
         <li><a href="index.php?controller=Ubicacion&action=verArbol"><i class="fas fa-map-marker-alt"></i> <span>Ubicacions</span></a></li>
         <li><a href="index.php?controller=usuaris&action=listar_usuarios"><i class="fa-solid fa-user"></i> <span>Usuaris</span></a></li>
         <li><a href="index.php?controller=Backup&action=createBackup"><i class="fa-solid fa-file"></i> <span>Backup</span></a></li>
-        <li><a href="index.php?controller=Login&action=logout"><i class="fas fa-sign-out-alt"></i> <span>Cerrar sesión</span></a></li>
+        <li><a href="index.php?controller=Obras&action=mostrarPdfTodasLasObras"><i class="fa-regular fa-file-pdf"></i><span>Llibre-registre</span></a></li>
+        <li><a href="index.php?action=exportarCsv"> <i class="fas fa-file-export"></i> <span>Exportar Obras (CSV)</span></a></li>
+        <li><a href="index.php?controller=Prestec&action=generarWord"><i class="fas fa-book-open"></i><span>Prestec</span></a></li>
+        <li><a href="index.php?controller=Obras&action=mostrarPdfTodasLasObras"> <i class="fas fa-file-pdf"></i><span>Generar libro-registro</span></a></li>
+        <li><a href="index.php?controller=Login&action=logout"><i class="fas fa-sign-out-alt"></i> <span>Cerrar sesión</span></a></li> 
     </ul>
     <div class="toggle-btn">
         <i class="fas fa-angle-double-right"></i>
@@ -60,7 +62,6 @@ $imagen_url = $obraModel->obtenerImagen($obra['numero_registro']);
     <div class="button-bar">
     <?php if (isset($rol) && ($rol == 'admin' || $rol == 'tecnic')): ?>
         <a class="edit-button" href="index.php?controller=Obras&action=mostrarpdfGeneral&id=<?php echo $obra['numero_registro']; ?>" class="download-button">Descarregar PDF</a>
-        <a href="index.php?controller=Restauraciones&action=restauraciones&id=<?php echo $obra['numero_registro']; ?>">Restauracions</a>
         
         <?php if ($obra['baja'] == 0): ?>
             <a href="index.php?controller=Baixa&action=mostrarFormularioalta&id=<?php echo $obra['numero_registro']; ?>">Donar d'alta</a>

@@ -1,4 +1,5 @@
 <?php
+session_start();
 $dbConnection = new Database();
 $conn = $dbConnection->conectar(); 
 
@@ -56,15 +57,15 @@ $imagen_url = $obraModel->obtenerImagen($obra['numero_registro']);
 <div class="button-bar">
     <?php if (isset($rol) && ($rol == 'admin' || $rol == 'tecnic')): ?>
         <a href="index.php?controller=Obras&action=crear">Crear</a>
-    <?php endif; ?>
-    <a href="index.php?controller=Obras&action=mostrarFicha&id=<?php echo $obra['numero_registro']; ?>">Fitxa Bàsica</a>
-    <a href="index.php?controller=Obras&action=mostrarFichaGeneral&id=<?php echo $obra['numero_registro']; ?>">Fitxa General</a>
-    <a href="index.php?controller=Restauraciones&action=restauraciones&id=<?php echo $obra['numero_registro']; ?>">Restauracions</a>
-    <?php if ($obra['baja'] == 0): ?>
+        <?php if ($obra['baja'] == 0): ?>
             <a href="index.php?controller=Baixa&action=mostrarFormularioalta&id=<?php echo $obra['numero_registro']; ?>">Donar d'alta</a>
         <?php else: ?>
             <a href="index.php?controller=Baixa&action=mostrarFormulario&id=<?php echo $obra['numero_registro']; ?>">Donar de Baixa</a>
         <?php endif; ?>
+    <?php endif; ?>
+    <a href="index.php?controller=Obras&action=mostrarFicha&id=<?php echo $obra['numero_registro']; ?>">Fitxa Bàsica</a>
+    <a href="index.php?controller=Obras&action=mostrarFichaGeneral&id=<?php echo $obra['numero_registro']; ?>">Fitxa General</a>
+    
     <a href="index.php?controller=Obras&action=verObras" class="edit-button">Tornar</a>
 </div>
 
@@ -259,8 +260,11 @@ $imagen_url = $obraModel->obtenerImagen($obra['numero_registro']);
             <input type="file" id="archivos_extra" name="archivos_extra[]" multiple>
         </div>
     </div>
-
+    <?php if (isset($rol) && ($rol == 'admin' || $rol == 'tecnic')): ?>
     <button type="submit" class="edit-button">Actualitzar</button>
+    <?php else: ?>
+        <p>No Tienes permisos para actualizar
+    <?php endif; ?>
 </form>
 
 <div id="editarResponseMessage"></div>

@@ -57,6 +57,11 @@ body {
     box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
   }
   
+  .edit-button:disabled {
+    background-color: #ccc; /* Color de fondo gris */
+    cursor: not-allowed; /* Cambia el cursor a "no permitido" */
+    opacity: 0.7; /* Reduce la opacidad */
+}
 
 h2 {
   margin-top: 30px;

@@ -22,11 +22,12 @@ $dataciones = $obraModel->getdatacion();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crear Obra</title>
     <link rel="stylesheet" href="SCSS/prueba/fichas.css">
-    <link rel="stylesheet" href="styles/sidebar/sidebar.css">
+    <link rel="stylesheet" href="styles/header/sidebar_header.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
+<?php include 'views/header/sidebar_header.php'; ?>
 <div class="sidebar">
     <ul class="menu">
         <li><a href="index.php?controller=Obras&action=verObras"><i class="fas fa-palette"></i> <span>Obres</span></a></li>
@@ -46,16 +47,10 @@ $dataciones = $obraModel->getdatacion();
 
 <div class="content">
     <div class="header">
-        
+        <img src="images/login/logo.png" alt="Museu Apel·les Fenosa">
     </div>
 
 <div class="button-bar">
-    <?php if (isset($rol) && ($rol == 'admin' || $rol == 'tecnic')): ?>
-        <a href="index.php?controller=Obras&action=crear">Crear</a>
-    <?php endif; ?>
-    <a href="index.php?controller=Obras&action=mostrarFicha&id=<?php echo $obra['numero_registro']; ?>">Fitxa Bàsica</a>
-    <a href="index.php?controller=Obras&action=mostrarFichaGeneral&id=<?php echo $obra['numero_registro']; ?>">Fitxa General</a>
-    <a href="index.php?controller=Restauraciones&action=restauraciones&id=<?php echo $obra['numero_registro']; ?>">Restauracions</a>
     <a href="index.php?controller=Obras&action=verObras" class="edit-button">Tornar</a>
 </div>
     <h1>Crear Ficha</h1>
