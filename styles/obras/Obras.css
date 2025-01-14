@@ -188,7 +188,7 @@ form img {
 }
 
 #generate-pdf {
-  margin-left: -550px;
+  margin-left: -380px;
   margin-top: 285px;
   margin-bottom: -130px;
   padding: 10px 15px;
@@ -235,7 +235,7 @@ form img {
   font-size: 16px;
   font-weight: bold;
   transition: background-color 0.3s ease;
-  margin-left: 730px;
+  margin-left: 400px;
   margin-bottom: -495px;
 }
 .busqueda-avanzada-container .toggle-filters:hover {
