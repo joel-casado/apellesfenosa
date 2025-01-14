@@ -35,7 +35,7 @@ class ExposicionesController {
             foreach ($obras as $numero_registro) {
                 $this->modelo->addObraToExposicion($numero_registro, $id_exposicion);
             }
-            echo "Obras añadidas correctamente.";
+            echo "Obres afegides correctament.";
         }
     
         // Obtener las obras que no están adscritas a ninguna exposición
@@ -45,9 +45,7 @@ class ExposicionesController {
         require_once 'views/exposiciones/añadir_obra.php';
     }
     
-    
-    
-        public function crea_expo() {
+    public function crea_expo() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Recoger los datos del formulario
             $expo = [
@@ -70,7 +68,6 @@ class ExposicionesController {
         require_once 'views/exposiciones/crea_expo.php';
     }
     
-    
     public function editar_expo() {
         if (isset($_GET['id'])) {
             $id = $_GET['id'];
@@ -81,7 +78,6 @@ class ExposicionesController {
             header('Location: index.php?controller=Exposiciones&action=listado_exposiciones');
             exit();
         }
-
     }
 
     public function update() {
@@ -103,6 +99,7 @@ class ExposicionesController {
             exit();
         }
     }
+
     public function ver_obras() {
         if (isset($_GET['id'])) {
             $id_exposicion = $_GET['id'];
@@ -116,6 +113,7 @@ class ExposicionesController {
         // Cargar la vista y pasarle los datos de las obras
         require_once "views/exposiciones/ver_obras.php";
     }
+
     public function generarPdf() {
         require_once('tcpdf/tcpdf.php');
     
@@ -165,5 +163,21 @@ class ExposicionesController {
         exit;
     }
     
+    public function removeObra() {
+        if (isset($_GET['id_exposicion']) && isset($_GET['numero_registro'])) {
+            $id_exposicion = $_GET['id_exposicion'];
+            $numero_registro = $_GET['numero_registro'];
+            
+            // Remove the obra from the exposición
+            $this->modelo->removeObraFromExposicion($numero_registro);
+            
+            // Redirect back to the ver_obras page
+            header("Location: index.php?controller=Exposiciones&action=ver_obras&id=$id_exposicion");
+            exit();
+        } else {
+            echo "Error: ID de exposición o número de registro no válido.";
+            exit();
+        }
+    }
 }
 ?>

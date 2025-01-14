@@ -87,24 +87,31 @@ class Exposiciones {
             echo "Error al crear la exposición: " . $e->getMessage();
         }
     }
-    
 
-    // Opcional: Método para cerrar la conexión
-    public function __destruct() {
-        $this->db = null; // Cierra la conexión al final
-    }
-    public function ver_obras($id_exposicion) {
-        $query = "SELECT * FROM obras WHERE id_exposicion = :id_exposicion";
+    public function deshabilitarExposicion($id_exposicion) {
+        $query = "UPDATE exposiciones SET activo = 0 WHERE id_exposicion = :id_exposicion";
         try {
             $stmt = $this->db->prepare($query);
             $stmt->bindParam(':id_exposicion', $id_exposicion, PDO::PARAM_INT);
             $stmt->execute();
-            return $stmt->fetchAll(PDO::FETCH_ASSOC); // Devuelve el resultado como array asociativo
+        } catch (PDOException $e) {
+            echo "Error al deshabilitar la exposición: " . $e->getMessage();
+        }
+    }
+
+    public function ver_obras($id_exposicion) {
+        $query = "SELECT numero_registro, nombre_objeto, titulo, ubicacion FROM obras WHERE id_exposicion = :id_exposicion";
+        try {
+            $stmt = $this->db->prepare($query);
+            $stmt->bindParam(':id_exposicion', $id_exposicion, PDO::PARAM_INT);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
             echo "Error al obtener las obras: " . $e->getMessage();
             return [];
         }
     }
+
     public function addObraToExposicion($numero_registro, $id_exposicion) {
         // Primero, obtenemos las fechas de la exposición destino
         $expo = $this->getExposicionById($id_exposicion);
@@ -114,7 +121,6 @@ class Exposiciones {
             echo "La exposición no existe.";
             return;
         }
-    
     
         // Procede a añadir la obra si no hay conflicto
         $query = "UPDATE obras SET id_exposicion = :id_exposicion WHERE numero_registro = :numero_registro";
@@ -127,13 +133,29 @@ class Exposiciones {
             echo "Error al añadir la obra a la exposición: " . $e->getMessage();
         }
     }
-    
-    
+
     public function getObrasSinExposicion() {
         $query = "SELECT * FROM obras WHERE id_exposicion IS NULL"; // Ajusta según tu esquema de base de datos
-        $result = $this->db->query($query);
-        return $result->fetchAll(PDO::FETCH_ASSOC); // Devuelve las obras como un array asociativo
+        try {
+            $stmt = $this->db->query($query);
+            return $stmt->fetchAll(PDO::FETCH_ASSOC); // Devuelve las obras como un array asociativo
+        } catch (PDOException $e) {
+            echo "Error al obtener las obras sin exposición: " . $e->getMessage();
+            return [];
+        }
     }
+
+    public function removeObraFromExposicion($numero_registro) {
+        $query = "UPDATE obras SET id_exposicion = NULL WHERE numero_registro = :numero_registro";
+        try {
+            $stmt = $this->db->prepare($query);
+            $stmt->bindParam(':numero_registro', $numero_registro, PDO::PARAM_INT);
+            $stmt->execute();
+        } catch (PDOException $e) {
+            echo "Error al eliminar la obra de la exposición: " . $e->getMessage();
+        }
+    }
+
     public function existeConflictoFechas($numero_registro, $fecha_inicio, $fecha_fin) {
         $query = "SELECT 1 FROM exposiciones e
                 INNER JOIN obras o ON e.id_exposicion = o.id_exposicion
@@ -153,6 +175,10 @@ class Exposiciones {
             return true;
         }
     }
-    
+
+    // Opcional: Método para cerrar la conexión
+    public function __destruct() {
+        $this->db = null; // Cierra la conexión al final
+    }
 }
 ?>
