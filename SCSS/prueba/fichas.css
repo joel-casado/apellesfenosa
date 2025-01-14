@@ -17,6 +17,18 @@ h1 {
   margin-bottom: 20px; /* Reduce la distancia entre el título y el formulario */
 }
 
+#sugerirNumeroRegistro {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  margin-left: 10px;
+  vertical-align: middle;
+  transition: transform 0.2s ease;
+}
+#sugerirNumeroRegistro:hover {
+  transform: scale(1.1);
+}
+
 .search-bar {
   margin-right: 540px;
   margin-top: 100px;

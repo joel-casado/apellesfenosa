@@ -1,4 +1,6 @@
 <?php
+session_start(); // Asegúrate de que esto esté al principio
+
 $dbConnection = new Database();
 $conn = $dbConnection->conectar(); 
 
@@ -18,8 +20,6 @@ $estadosConservacion = $obraModel->getEstadosConservacion();
 $exposiciones = $obraModel->getexposicion();
 $imagen_url = $obraModel->obtenerImagen($obra['numero_registro']);
 ?>
-
-
 <!DOCTYPE html>
 <html lang="es">
 <head>

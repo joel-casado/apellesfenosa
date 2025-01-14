@@ -283,13 +283,7 @@ class ObrasController {
             $historia_obra = isset($_POST['historia_obra']) ? trim($_POST['historia_obra']) : null;
             $ubicacion = isset($_POST['ubicacion']) ? trim($_POST['ubicacion']) : null;
     
-            // Log de los datos recibidos
-            error_log("Datos del formulario recibidos: " . print_r($_POST, true));
-    
-            // Registro del flujo de datos
-            error_log("Letra recibida: $letra");
-            error_log("Número de registro recibido: $numero_registro");
-            
+                        
             $obraModel = new ObrasModel($this->conn);
             if ($obraModel->consultarNumeroRegistro($numero_registro)) {
                 echo json_encode(['success' => false, 'message' => 'El número de registro ya existe.']);

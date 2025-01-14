@@ -40,20 +40,23 @@ class BaixaController {
         $persona_autorizada = $_POST['persona_autorizada'];
         $fecha_baja = $_POST['fecha'];
         $id = $_POST['id'];
+    
         // Llamar al modelo para actualizar la obra
         $baixaModel = new BaixaModel($this->conn);
         $resultado = $baixaModel->darDeBaja($baja, $causa_baja, $persona_autorizada, $fecha_baja, $id);
-        
+    
         // Redirigir con un mensaje de éxito o error
         if ($resultado) {
-            header('Location: index.php?controller=Obras&action=mostrarFicha&id=' . $id);
+            $_SESSION['mensaje'] = "Baixa realitzada correctament.";
+            $_SESSION['tipo_mensaje'] = 'success'; // Tipo de mensaje (éxito)
         } else {
-            header('Location: index.php?controller=Obras&action=mostrarFicha&id=' . $id);
+            $_SESSION['mensaje'] = "Error en realitzar la baixa.";
+            $_SESSION['tipo_mensaje'] = 'error'; // Tipo de mensaje (error)
         }
-        exit;  // Es importante usar exit después de header para evitar que el script siga ejecutándose.
-        
+        header('Location: index.php?controller=Obras&action=mostrarFicha&id=' . $id);
+        exit;
     }
-
+    
     public function darAlta() {
         // Obtener los datos enviados desde el formulario
         $causa_alta = $_POST['causa_alta'];
@@ -67,11 +70,12 @@ class BaixaController {
     
         // Redirigir con un mensaje de éxito o error
         if ($resultado) {
-            header('Location: index.php?controller=Obras&action=mostrarFicha&id=' . $id);
+            $_SESSION['mensaje'] = "Alta realitzada correctament.";
         } else {
-            header('Location: index.php?controller=Obras&action=mostrarFicha&id=' . $id);
+            $_SESSION['mensaje'] = "Error en realitzar l'alta.";
         }
-        exit;  // Es importante usar exit después de header para evitar que el script siga ejecutándose.
+        header('Location: index.php?controller=Obras&action=mostrarFicha&id=' . $id);
+        exit;
     }
     
 

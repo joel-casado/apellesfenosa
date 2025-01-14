@@ -2,9 +2,6 @@ function toggleSection(titleElement) {
     const content = titleElement.nextElementSibling; // Selecciona el siguiente elemento (contenido)
     const arrow = titleElement.querySelector('.arrow'); // Selecciona la flecha dentro del título
 
-    console.log('Se ha hecho clic en:', titleElement);
-    console.log('Estado inicial del contenido:', content.style.display);
-
     // Cambia la visibilidad del contenido
     if (content.style.display === "block") {
         content.style.display = "none";
@@ -98,9 +95,54 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-
 document.getElementById("crearObraForm").addEventListener("submit", function(event) {
     event.preventDefault();
+
+    
+    const valoracionEcon = document.getElementById('valoracion_econ').value;
+
+    
+    const regex = /^\d+(\.\d{1,2})?$/;
+
+    if (valoracionEcon && !regex.test(valoracionEcon)) {
+        alert('La valoración económica debe ser un número válido (ejemplo: 100.50).');
+        document.getElementById('valoracion_econ').style.borderColor = "red"; // Resalta el campo
+        return false;
+    } else {
+        document.getElementById('valoracion_econ').style.borderColor = ""; // Quita el resaltado
+    }
+
+    const fechaRegistro = document.getElementById('fecha_registro').value;
+    const fechaIngreso = document.getElementById('fecha_ingreso').value;
+
+    if (fechaIngreso && fechaRegistro && new Date(fechaIngreso) < new Date(fechaRegistro)) {
+        alert('La fecha de ingreso no puede ser anterior a la fecha de registro.');
+        return false;
+    }
+
+    const maximaAltura = document.getElementById('maxima_altura').value;
+    const maximaAnchura = document.getElementById('maxima_anchura').value;
+    const maximaProfundidad = document.getElementById('maxima_profundidad').value;
+    const numeroEjemplares = document.getElementById('numero_ejemplares').value;
+
+    if (maximaAltura && isNaN(maximaAltura)) {
+        alert('La máxima altura debe ser un número.');
+        return false;
+    }
+
+    if (maximaAnchura && isNaN(maximaAnchura)) {
+        alert('La máxima anchura debe ser un número.');
+        return false;
+    }
+    if (maximaProfundidad && isNaN(maximaProfundidad)) {
+        alert('La máxima profundidad debe ser un número.');
+        return false;
+    }
+
+    if (numeroEjemplares && isNaN(numeroEjemplares)) {
+        alert('El número de ejemplares debe ser un número.');
+        return false;
+    }
     console.log('Formulario enviado, validando campos...');
 
     // Validar campos requeridos

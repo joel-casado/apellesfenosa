@@ -15,7 +15,18 @@ body {
     color: #333;
     margin-bottom: 20px; /* Reduce la distancia entre el título y el formulario */
   }
-  
+  #sugerirNumeroRegistro {
+    width: 20px; // Tamaño pequeño
+    height: 20px; // Tamaño pequeño
+    cursor: pointer; // Cambia el cursor a una mano al pasar sobre la lupa
+    margin-left: 10px; // Espacio entre el campo de texto y la lupa
+    vertical-align: middle; // Alinea verticalmente con los campos de texto
+    transition: transform 0.2s ease; // Efecto de transición al hacer hover
+
+    &:hover {
+        transform: scale(1.1); // Aumenta ligeramente el tamaño al pasar el mouse
+    }
+}
 
 .search-bar{
   margin-right: 540px;
