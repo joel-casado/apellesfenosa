@@ -199,15 +199,37 @@ form img {
   object-fit: cover;
   border-radius: 4px;
 }
+.create-button {
+  border: none;
+  width: 200px;
+  border-radius: 5px;
+  background-color: $primary-color;
+  color: white;
+  font-size: 16px;
+  padding: 10px 15px;
+  text-decoration: none; // Elimina el subrayado
+  display: inline-block; // Asegura que se comporte como un bloque
+  text-align: center; // Centra el texto
+  cursor: pointer; // Cambia el cursor al pasar el mouse
+  margin-top: 335px;
+  margin-right: 402px;
+  margin-bottom: -100px;
+}
+
+.create-button:hover {
+  background: darken($primary-color, 10%);
+  text-decoration: none; // Asegura que no haya subrayado en hover
+}
 #generate-pdf {
-  margin-left: -380px;
-  margin-top: 285px;
+  margin-left: -80px;
+  margin-top: 225px;
   margin-bottom: -130px;
   padding: 10px 15px;
   border: none;
   width: 200px;
   border-radius: 5px;
   background-color: $primary-color;
+  font-size: 16px;
   color: white;
   cursor: not-allowed;
 }
@@ -220,15 +242,15 @@ form img {
 .search-bar {
   flex-grow: 1; /* Ocupa el espacio restante */
   display: flex;
-  margin-bottom: -435px;
-  margin-left: -8px;
+  margin-bottom: -375px;
+  margin-left: 45px;
 
   input {
       width:200px;
       padding: 10px;
       border: 1px solid #ddd;
       border-radius: 5px;
-      font-size: 14px;
+      font-size: 16px;
   }
 }
 .busqueda-avanzada-container {
@@ -238,7 +260,7 @@ form img {
 
   // Botón para alternar la visibilidad
   .toggle-filters {
-    width: 650px;
+    width: 1050px;
     padding: 10px 20px;
     background-color: $primary-color;
     color: $secondary-color;
@@ -249,7 +271,7 @@ form img {
     font-weight: bold;
     transition: background-color 0.3s ease;
     margin-left: 400px;
-    margin-bottom: -495px;
+    margin-bottom: -433px;
 
     &:hover {
       background-color: darken($primary-color, 10%);
@@ -266,7 +288,7 @@ form img {
   border: 1px solid #ddd;
   border-radius: 4px;
   box-shadow: $form-shadow;
-  left: -320px; 
+  left: -120px; 
 
   .filter-group {
       display: flex;

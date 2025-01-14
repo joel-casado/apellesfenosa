@@ -38,7 +38,7 @@
 
     <h1>OBRAS DISPONIBLES</h1>
     <div class="busqueda-avanzada-container">
-        <button id="addFiltersButton" class="toggle-filters">Búsqueda Avanzada<i class="fas fa-chevron-down" id="toggleIcon"></i></button>
+        <button id="addFiltersButton" class="toggle-filters">Búsqueda Avanzada</button>
         <div class="busqueda-avanzada" id="busquedaAvanzada" style="display: none;">
             <form id="filterForm" method="POST" action="index.php?controller=Obras&action=filter">
                 <div id="filterGroups"></div>
@@ -52,9 +52,10 @@
             <input type="hidden" name="filteredData" id="filteredData"/>
             <button type="submit" class="pdf" id="generate-pdf" disabled>Generar PDF</button>
         </form>
+        <a href="index.php?controller=Obras&action=crear" class="create-button">Crear</a>
     </div>
     <div class="actions">
-        <a href="index.php?controller=Obras&action=crear" class="edit-button">Crear</a>
+        
     </div>
     
 

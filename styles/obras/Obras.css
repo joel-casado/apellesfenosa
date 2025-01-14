@@ -187,15 +187,38 @@ form img {
   border-radius: 4px;
 }
 
+.create-button {
+  border: none;
+  width: 200px;
+  border-radius: 5px;
+  background-color: #6589C4;
+  color: white;
+  font-size: 16px;
+  padding: 10px 15px;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+  cursor: pointer;
+  margin-top: 335px;
+  margin-right: 402px;
+  margin-bottom: -100px;
+}
+
+.create-button:hover {
+  background: #446eb2;
+  text-decoration: none;
+}
+
 #generate-pdf {
-  margin-left: -380px;
-  margin-top: 285px;
+  margin-left: -80px;
+  margin-top: 225px;
   margin-bottom: -130px;
   padding: 10px 15px;
   border: none;
   width: 200px;
   border-radius: 5px;
   background-color: #6589C4;
+  font-size: 16px;
   color: white;
   cursor: not-allowed;
 }
@@ -208,15 +231,15 @@ form img {
 .search-bar {
   flex-grow: 1; /* Ocupa el espacio restante */
   display: flex;
-  margin-bottom: -435px;
-  margin-left: -8px;
+  margin-bottom: -375px;
+  margin-left: 45px;
 }
 .search-bar input {
   width: 200px;
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 5px;
-  font-size: 14px;
+  font-size: 16px;
 }
 
 .busqueda-avanzada-container {
@@ -225,7 +248,7 @@ form img {
   gap: 15px;
 }
 .busqueda-avanzada-container .toggle-filters {
-  width: 650px;
+  width: 1050px;
   padding: 10px 20px;
   background-color: #6589C4;
   color: #f0f0f0;
@@ -236,7 +259,7 @@ form img {
   font-weight: bold;
   transition: background-color 0.3s ease;
   margin-left: 400px;
-  margin-bottom: -495px;
+  margin-bottom: -433px;
 }
 .busqueda-avanzada-container .toggle-filters:hover {
   background-color: #446eb2;
@@ -250,7 +273,7 @@ form img {
   border: 1px solid #ddd;
   border-radius: 4px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 -2px 4px rgba(0, 0, 0, 0.1);
-  left: -320px;
+  left: -120px;
 }
 #busquedaAvanzada .filter-group {
   display: flex;
