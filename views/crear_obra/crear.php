@@ -29,9 +29,6 @@ $dataciones = $obraModel->getdatacion();
 </head>
 <body>
 <div class="sidebar">
-    <div class="logo">
-        <img src="images/login/logo.png" alt="Museu Apel·les Fenosa">
-    </div>
     <ul class="menu">
         <li><a href="index.php?controller=Obras&action=verObras"><i class="fas fa-palette"></i> <span>Obres</span></a></li>
         <li><a href="index.php?controller=vocabulario&action=mostrarVocabulario"><i class="fas fa-book"></i> <span>Vocabulari</span></a></li>
@@ -39,11 +36,28 @@ $dataciones = $obraModel->getdatacion();
         <li><a href="index.php?controller=Ubicacion&action=verArbol"><i class="fas fa-map-marker-alt"></i> <span>Ubicacions</span></a></li>
         <li><a href="index.php?controller=usuaris&action=listar_usuarios"><i class="fa-solid fa-user"></i> <span>Usuaris</span></a></li>
         <li><a href="index.php?controller=Backup&action=createBackup"><i class="fa-solid fa-file"></i> <span>Backup</span></a></li>
+        <li><a href="index.php?controller=Obras&action=mostrarPdfTodasLasObras"><i class="fa-regular fa-file-pdf"></i><span>Llibre-registre</span></a></li>
         <li><a href="index.php?controller=Login&action=logout"><i class="fas fa-sign-out-alt"></i> <span>Cerrar sesión</span></a></li>
+        
     </ul>
     <div class="toggle-btn">
         <i class="fas fa-angle-double-right"></i>
     </div>
+</div>
+
+<div class="content">
+    <div class="header">
+        
+    </div>
+
+<div class="button-bar">
+    <?php if (isset($rol) && ($rol == 'admin' || $rol == 'tecnic')): ?>
+        <a href="index.php?controller=Obras&action=crear">Crear</a>
+    <?php endif; ?>
+    <a href="index.php?controller=Obras&action=mostrarFicha&id=<?php echo $obra['numero_registro']; ?>">Fitxa Bàsica</a>
+    <a href="index.php?controller=Obras&action=mostrarFichaGeneral&id=<?php echo $obra['numero_registro']; ?>">Fitxa General</a>
+    <a href="index.php?controller=Restauraciones&action=restauraciones&id=<?php echo $obra['numero_registro']; ?>">Restauracions</a>
+    <a href="index.php?controller=Obras&action=verObras" class="edit-button">Tornar</a>
 </div>
     <h1>Crear Ficha</h1>
     

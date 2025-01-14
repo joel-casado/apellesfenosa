@@ -11,12 +11,6 @@ body {
 h1 {
   color: #333;
   margin-bottom: 20px;
-  text-align: center;
-}
-
-.container {
-  width: 90%;
-  max-width: 1000px;
 }
 
 .search-bar-container {
@@ -28,14 +22,14 @@ h1 {
   max-width: 1000px;
 }
 
-.usuaris_box {
+form {
   width: 90%;
   max-width: 1000px;
   background: #fff;
   border-radius: 9px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 -2px 4px rgba(0, 0, 0, 0.1);
   padding: 20px;
-  margin: 0 auto;
+  margin: 0;
 }
 
 table {
@@ -170,4 +164,4 @@ table tbody tr td .acciones a i {
 
 .inline-form {
   display: inline;
-}/*# sourceMappingURL=ver_obras.css.map */
+}/*# sourceMappingURL=añadir_obra.css.map */
