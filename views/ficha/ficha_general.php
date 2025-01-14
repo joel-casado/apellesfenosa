@@ -27,7 +27,7 @@ $imagen_url = $obraModel->obtenerImagen($obra['numero_registro']);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Obra</title>
     <link rel="stylesheet" href="SCSS/prueba/fichas.css">
-    <link rel="stylesheet" href="styles/sidebar/sidebar.css">
+    <link rel="stylesheet" href="styles/header/sidebar_header.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
@@ -51,17 +51,26 @@ $imagen_url = $obraModel->obtenerImagen($obra['numero_registro']);
 </div>
 
 <div class="content">
+    <div class="header">
+        <img src="images/login/logo.png" alt="Museu Apel·les Fenosa">
+    </div>
+
+<div class="content">
 <div class="button-bar">
 <a class="edit-button" href="index.php?controller=Obras&action=mostrarpdfGeneral&id=<?php echo $obra['numero_registro']; ?>" class="download-button">Descarregar PDF</a>
     <?php if (isset($rol) && ($rol == 'admin' || $rol == 'tecnic')): ?>
         <a href="index.php?controller=Restauraciones&action=restauraciones&id=<?php echo $obra['numero_registro']; ?>">Restauracions</a>
+        <?php if ($obra['baja'] == 0): ?>
+            <a href="index.php?controller=Baixa&action=mostrarFormularioalta&id=<?php echo $obra['numero_registro']; ?>">Donar d'alta</a>
+        <?php else: ?>
+            <a href="index.php?controller=Baixa&action=mostrarFormulario&id=<?php echo $obra['numero_registro']; ?>">Donar de Baixa</a>
+        <?php endif; ?>
     <?php endif; ?>
+    <a href="index.php?controller=Obras&action=mostrarFormulario&id=<?php echo $obra['numero_registro']; ?>" class="edit-button">Tornar</a>
 </div>
 
     <br>
     <div class="form-container">
-
-    <h1> Usuario <?php echo $username; ?></h1>
 
     <h1>FICHA GENERAL "<?php echo $obra['titulo']; ?>"</h1>  
 

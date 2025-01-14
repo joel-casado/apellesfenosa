@@ -7,6 +7,13 @@ class ObrasModel {
         $this->conn = $db;
     }
 
+    public function obtenObras() { 
+        $query = "SELECT * FROM obras";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public function getObras() { 
         $query = "SELECT obras.*, 
                      materiales.texto_material, 
@@ -310,7 +317,7 @@ class ObrasModel {
         $stmt = $this->conn->prepare($query);
     
         $stmt->bindParam(':enlace', $rutaArchivo);
-        $stmt->bindParam(':numero_registro', $numero_registro);
+        $stmt->bindParam(':numero_registro', $numero_registro, PDO::PARAM_STR);
     
         if ($stmt->execute()) {
             error_log("Archivo guardado en la base de datos correctamente");
