@@ -7,9 +7,6 @@
 </head>
 <body>
     
-    <div class="header">
-        <img src="views/obras/Logo2.png" alt="Logo">
-    </div>
 
     <div class="search-bar-container">
         <form class="search-bar">

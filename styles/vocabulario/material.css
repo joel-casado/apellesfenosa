@@ -26,10 +26,12 @@ h1 {
   margin-bottom: 20px;
   transition: all 0.2s ease-in-out;
 }
+
 .edit-button:hover {
   background: #6589C4;
   color: #fff;
 }
+
 .edit-button i {
   font-size: 18px;
 }
@@ -43,9 +45,9 @@ h1 {
 }
 
 .search-bar {
-  margin-bottom: 20px;
   flex-grow: 1;
 }
+
 .search-bar input {
   padding: 10px;
   font-size: 14px;
@@ -101,13 +103,7 @@ table tbody tr td .action-icons {
   gap: 10px;
   align-items: center;
 }
-table tbody tr td .action-icons a, table tbody tr td .action-icons form {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-}
-table tbody tr td a {
+table tbody tr td .action-icons a {
   text-decoration: none;
   color: #6589C4;
   font-size: 14px;
@@ -119,24 +115,10 @@ table tbody tr td a {
   border-radius: 4px;
   transition: all 0.2s ease-in-out;
 }
-table tbody tr td a:hover {
+table tbody tr td .action-icons a:hover {
   background: #6589C4;
   color: #fff;
 }
-table tbody tr td a i {
-  font-size: 18px;
-}
-table tbody tr td .edit-button {
-  margin: 0;
-  padding: 6px;
-  border: none;
-  background: none;
-  cursor: pointer;
-}
-table tbody tr td .edit-button:hover {
-  background: none;
-  color: #6589C4;
-}
-table tbody tr td .edit-button i {
+table tbody tr td .action-icons a i {
   font-size: 18px;
 }/*# sourceMappingURL=material.css.map */

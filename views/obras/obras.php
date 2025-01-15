@@ -10,29 +10,8 @@
     
 </head>
 <body>
-<div class="sidebar">
-    <ul class="menu">
-        <li><a href="index.php?controller=Obras&action=verObras"><i class="fas fa-palette"></i> <span>Obres</span></a></li>
-        <li><a href="index.php?controller=vocabulario&action=mostrarVocabulario"><i class="fas fa-book"></i> <span>Vocabulari</span></a></li>
-        <li><a href="index.php?controller=Exposiciones&action=listado_exposiciones"><i class="fas fa-university"></i> <span>Exposicions</span></a></li>
-        <li><a href="index.php?controller=Ubicacion&action=verArbol"><i class="fas fa-map-marker-alt"></i> <span>Ubicacions</span></a></li>
-        <li><a href="index.php?controller=usuaris&action=listar_usuarios"><i class="fa-solid fa-user"></i> <span>Usuaris</span></a></li>
-        <li><a href="index.php?controller=Backup&action=createBackup"><i class="fa-solid fa-file"></i> <span>Backup</span></a></li>
-        <li><a href="index.php?controller=Obras&action=mostrarPdfTodasLasObras"><i class="fa-regular fa-file-pdf"></i><span>Llibre-registre</span></a></li>
-        <li><a href="index.php?action=exportarCsv"> <i class="fas fa-file-export"></i> <span>Exportar Obras (CSV)</span></a></li>
-        <li><a href="index.php?controller=Prestec&action=generarWord"><i class="fas fa-book-open"></i><span>Prestec</span></a></li>
-        <li><a href="index.php?controller=Obras&action=mostrarPdfTodasLasObras"> <i class="fas fa-file-pdf"></i><span>Generar libro-registro</span></a></li>
-        <li><a href="index.php?controller=Login&action=logout"><i class="fas fa-sign-out-alt"></i> <span>Cerrar sesión</span></a></li> 
-    </ul>
-    <div class="toggle-btn">
-        <i class="fas fa-angle-double-right"></i>
-    </div>
-</div>
 
 <div class="content">
-    <div class="header">
-        <img src="images/login/logo.png" alt="Museu Apel·les Fenosa">
-    </div>
 
     <h1>OBRAS DISPONIBLES</h1>
     <div class="busqueda-avanzada-container">
@@ -101,38 +80,7 @@
 
 <script src="scripts/busqueda.js"></script>
 <script src="scripts/busquedaAvanzada.js"></script>
-<script>
-    document.addEventListener("DOMContentLoaded", () => {
-    const sidebar = document.querySelector(".sidebar");
-    const toggleBtn = document.querySelector(".toggle-btn i");
 
-        toggleBtn.addEventListener("click", () => {
-            sidebar.classList.toggle("expanded");
-
-            if (sidebar.classList.contains("expanded")) {
-                toggleBtn.classList.replace("fa-angle-double-right", "fa-angle-double-left");
-            } else {
-                toggleBtn.classList.replace("fa-angle-double-left", "fa-angle-double-right");
-            }
-        });
-    });
-    document.addEventListener("DOMContentLoaded", () => {
-    const toggleFiltersButton = document.querySelector(".toggle-filters");
-    const busquedaAvanzadaDiv = document.getElementById("busquedaAvanzada");
-
-        toggleFiltersButton.addEventListener("click", () => {
-            // Alterna la clase 'active' para mostrar/ocultar
-            if (busquedaAvanzadaDiv.style.display === "block") {
-                busquedaAvanzadaDiv.style.display = "none";
-            } else {
-                busquedaAvanzadaDiv.style.display = "block";
-            }
-        });
-    });
-
-
-
-</script>
 
 </body>
 </html>

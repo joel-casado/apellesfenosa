@@ -1,5 +1,7 @@
 <?php
-session_start();
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 $dbConnection = new Database();
 $conn = $dbConnection->conectar(); 
 
@@ -31,28 +33,6 @@ $imagen_url = $obraModel->obtenerImagen($obra['numero_registro']);
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-<?php include 'views/header/sidebar_header.php'; ?>
-<div class="sidebar">
-    <ul class="menu">
-        <li><a href="index.php?controller=Obras&action=verObras"><i class="fas fa-palette"></i> <span>Obres</span></a></li>
-        <li><a href="index.php?controller=vocabulario&action=mostrarVocabulario"><i class="fas fa-book"></i> <span>Vocabulari</span></a></li>
-        <li><a href="index.php?controller=Exposiciones&action=listado_exposiciones"><i class="fas fa-university"></i> <span>Exposicions</span></a></li>
-        <li><a href="index.php?controller=Ubicacion&action=verArbol"><i class="fas fa-map-marker-alt"></i> <span>Ubicacions</span></a></li>
-        <li><a href="index.php?controller=usuaris&action=listar_usuarios"><i class="fa-solid fa-user"></i> <span>Usuaris</span></a></li>
-        <li><a href="index.php?controller=Backup&action=createBackup"><i class="fa-solid fa-file"></i> <span>Backup</span></a></li>
-        <li><a href="index.php?controller=Obras&action=mostrarPdfTodasLasObras"><i class="fa-regular fa-file-pdf"></i><span>Llibre-registre</span></a></li>
-        <li><a href="index.php?controller=Login&action=logout"><i class="fas fa-sign-out-alt"></i> <span>Cerrar sesión</span></a></li>
-        
-    </ul>
-    <div class="toggle-btn">
-        <i class="fas fa-angle-double-right"></i>
-    </div>
-</div>
-
-<div class="content">
-    <div class="header">
-        <img src="images/login/logo.png" alt="Museu Apel·les Fenosa">
-    </div>
 
 <div class="button-bar">
     <?php if (isset($rol) && ($rol == 'admin' || $rol == 'tecnic')): ?>
