@@ -7,14 +7,11 @@
     <link rel="stylesheet" href="styles/usuarios/listado_usuarios.css">
 </head>
 <body>
-    <div class="header">
-        <img src="views/obras/Logo2.png" alt="Logo">
-    </div>
 
     <div class="search-bar-container">
         <form class="search-bar">
             <i class="fa fa-search"></i>
-            <input type="text" id="q" placeholder="Buscador de obra" onkeyup="search()">
+            <input type="text" id="q" placeholder="Buscador d'usuaris" onkeyup="search()">
         </form>
     </div>
 

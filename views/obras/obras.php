@@ -5,13 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Obras</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles/header/sidebar_header.css">
     <link rel="stylesheet" href="styles/obras/obras.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     
 </head>
 <body>
-<?php include 'views/header/sidebar_header.php'; ?>
 <div class="sidebar">
     <ul class="menu">
         <li><a href="index.php?controller=Obras&action=verObras"><i class="fas fa-palette"></i> <span>Obres</span></a></li>

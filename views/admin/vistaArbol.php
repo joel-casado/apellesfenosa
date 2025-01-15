@@ -13,10 +13,6 @@
 </head>
 <body>
 
-    <div class="header">
-        <img src="images/login/logo.png" alt="Museu Apel·les Fenosa">
-    </div>
-
     <div class="container">
         <h1>Arbre d'Ubicacions</h1>
         <div id="jstree"></div>

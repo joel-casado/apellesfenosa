@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="styles/header/sidebar_header.css">
 </head>
 <body>
-    <?php include 'views/header/sidebar_header.php'; ?>
     <table>
         <thead>
             <tr>
@@ -45,6 +44,5 @@
             </tr>
         </tbody>
     </table>
-    <script src="scripts/sidebar.js"></script>
 </body>
 </html>

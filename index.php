@@ -4,13 +4,15 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/header/sidebar_header.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
 <?php
+require_once "views/header/sidebar_header.php"; // Include the sidebar header
 
 require_once "autoload.php";
 require_once "models/database.php";
-
 
 try {
     $db = new Database();
@@ -53,4 +55,5 @@ if (isset($_GET['action']) && $_GET['action'] == 'exportarCsv') {
 }
 ?>
 </body>
+<script src="scripts/sidebar.js"></script>
 </html>
