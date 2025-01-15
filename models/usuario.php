@@ -92,7 +92,7 @@ class Usuario extends Database {
             $stmt = $this->db->prepare($sql);
             $stmt->bindParam(':nombreNuevo', $nombreNuevo);
             $stmt->bindParam(':rol', $rol);
-            $stmt->bindParam(':activo', $activo, PDO::PARAM_BOOL);
+            $stmt->bindParam(':activo', $activo); // No uses PDO::PARAM_BOOL
             $stmt->bindParam(':nombreOriginal', $nombreOriginal);
             if ($hashedPassword) {
                 $stmt->bindParam(':hashedPassword', $hashedPassword);

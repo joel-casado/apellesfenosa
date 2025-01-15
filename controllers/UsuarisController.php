@@ -83,19 +83,19 @@ class UsuarisController {
         }
     }
     
-    public function updateUser() {
+    public function updateUser () {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $nombreOriginal = $_POST['nombre_original']; // Original username
-            $nombreNuevo = $_POST['name']; // New username
+            $nombreOriginal = $_POST['nombre_original'];
+            $nombreNuevo = $_POST['name'];
             $rol = $_POST['rol'];
-            $activo = $_POST['activo'];
-            $password = $_POST['password']; // New password (optional)
+            $activo = $_POST['activo']; // Debería ser "activo" o "inactivo"
+            $password = $_POST['password'];
     
             $usuarioModel = new Usuario();
     
-            // Check if the new username already exists and is not the current user's username
-            $existingUser = $usuarioModel->getByUsername($nombreNuevo);
-            if ($existingUser && $nombreOriginal !== $nombreNuevo) {
+            // Verifica si el usuario existe
+            $existingUser  = $usuarioModel->getByUsername($nombreNuevo);
+            if ($existingUser  && $nombreOriginal !== $nombreNuevo) {
                 $errorMessage = "Error: El nombre de usuario '$nombreNuevo' ya existe.";
                 $user = $usuarioModel->getByUsername($nombreOriginal); // Reload current user info
                 include 'views/usuarios/editarUsuario.php';

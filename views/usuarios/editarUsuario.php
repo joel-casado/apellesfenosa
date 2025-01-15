@@ -41,9 +41,9 @@
                         <label for="rol">Estatus</label>
                         <i class="fa-solid fa-star"></i>
                         <select name="activo">
-                            <option value="activo" <?= $user['estado'] == 'activo' ? 'selected' : '' ?>>Actiu</option>
-                            <option value="inactivo" <?= $user['estado'] == 'inactivo' ? 'selected' : '' ?>>Inactiu</option>
-                        </select>
+    <option value="activo" <?= $user['estado'] == 'activo' ? 'selected' : '' ?>>Activo</option>
+    <option value="inactivo" <?= $user['estado'] == 'inactivo' ? 'selected' : '' ?>>Inactivo</option>
+</select>
                     </div>
                     <button type="submit" class="login-btn">Guardar Canvis</button>
                 </form>
