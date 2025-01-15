@@ -1,20 +1,9 @@
 @charset "UTF-8";
-/*variqables" pagina login*/
 body {
   font-family: "Arial", sans-serif;
-  background-color: #FFFFFF;
+  background-color: #f5f5f5;
   margin: 0;
   padding: 0;
-}
-
-.header {
-  text-align: left;
-  padding: 30px;
-  background-color: rgb(255, 255, 255);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-.header img {
-  height: 80px;
 }
 
 .editar-usuario {
@@ -39,7 +28,7 @@ body {
   border: none;
 }
 .btn-success:hover {
-  background-color: #2D4F6F;
+  background-color: #0056b3;
 }
 
 .btn-primary {
@@ -47,7 +36,7 @@ body {
   border: none;
 }
 .btn-primary:hover {
-  background-color: #2D4F6F;
+  background-color: #0056b3;
 }
 
 /* Contenedor principal */
@@ -55,7 +44,7 @@ body {
   max-width: 1000px;
   margin: 20px auto; /* Asegura que hay suficiente espacio alrededor */
   padding: 20px;
-  background-color: #FFFFFF;
+  background-color: #f5f5f5;
   box-shadow: -2px 4px 4px 4px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
 }
@@ -77,7 +66,7 @@ body {
   text-align: center;
 }
 .table tr {
-  background-color: #FFFFFF;
+  background-color: white;
   position: relative;
   box-shadow: 0 0px 5px 0px rgba(0, 0, 0, 0.1);
 }

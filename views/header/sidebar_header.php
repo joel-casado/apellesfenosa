@@ -9,7 +9,6 @@
         <li><a href="index.php?controller=Obras&action=mostrarPdfTodasLasObras"><i class="far fa-file-pdf"></i><span>Llibre-registre</span></a></li>
         <li><a href="index.php?action=exportarCsv"> <i class="fas fa-file-export"></i> <span>Exportar Obras (CSV)</span></a></li>
         <li><a href="index.php?controller=Prestec&action=generarWord"><i class="fas fa-book-open"></i><span>Prestec</span></a></li>
-        <li><a href="index.php?controller=Obras&action=mostrarPdfTodasLasObras"> <i class="fas fa-file-pdf"></i><span>Generar libro-registro</span></a></li>
         <li><a href="index.php?controller=Login&action=logout"><i class="fas fa-sign-out-alt"></i> <span>Cerrar sesión</span></a></li>
     </ul>
     <div class="toggle-btn">
