@@ -179,5 +179,21 @@ class ExposicionesController {
             exit();
         }
     }
+
+    public function toggleActivo() {
+        if (isset($_GET['id_exposicion'])) {
+            $id_exposicion = $_GET['id_exposicion'];
+            
+            // Toggle the activo field
+            $this->modelo->toggleActivo($id_exposicion);
+            
+            // Redirect back to the listado_exposiciones page
+            header("Location: index.php?controller=Exposiciones&action=listado_exposiciones");
+            exit();
+        } else {
+            echo "Error: ID de exposición no válido.";
+            exit();
+        }
+    }
 }
 ?>

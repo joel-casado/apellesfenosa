@@ -176,6 +176,25 @@ class Exposiciones {
         }
     }
 
+    public function toggleActivo($id_exposicion) {
+        // Get the current value of the activo field
+        $query = "SELECT activo FROM exposiciones WHERE id_exposicion = :id_exposicion";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindParam(':id_exposicion', $id_exposicion, PDO::PARAM_INT);
+        $stmt->execute();
+        $current = $stmt->fetch(PDO::FETCH_ASSOC)['activo'];
+
+        // Toggle the value
+        $new_value = $current == 1 ? 0 : 1;
+
+        // Update the activo field
+        $query = "UPDATE exposiciones SET activo = :new_value WHERE id_exposicion = :id_exposicion";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindParam(':new_value', $new_value, PDO::PARAM_INT);
+        $stmt->bindParam(':id_exposicion', $id_exposicion, PDO::PARAM_INT);
+        $stmt->execute();
+    }
+
     // Opcional: Método para cerrar la conexión
     public function __destruct() {
         $this->db = null; // Cierra la conexión al final

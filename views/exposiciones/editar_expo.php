@@ -26,7 +26,7 @@
                 <button type="submit">Guardar cambios</button>
             </form>
             <div class="image_expo_box">
-                <img src="images/3.-Busto-de-Dora-Maar.jpg" alt="Statue">
+                <img src="images/3.-Busto-de-Dora-Maar-983x1536.jpg" alt="Statue">
             </div>
         </div>
     </div>

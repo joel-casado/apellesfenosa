@@ -1,0 +1,100 @@
+$font-family: 'Roboto', sans-serif;
+$background-color: #f5f5f5;
+$form-background: #fff;
+$form-shadow: 0 4px 8px rgba(0, 0, 0, 0.1), 0 -2px 4px rgba(0, 0, 0, 0.1);
+$primary-color: #6589C4;
+$text-color: #333;
+$muted-text-color: #555;
+$error-color: #ff0000;
+
+@mixin transition($properties, $duration: 0.2s, $ease: ease-in-out) {
+  transition: $properties $duration $ease;
+}
+
+body {
+  font-family: $font-family;
+  background-color: $background-color;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0;
+  padding: 20px;
+}
+
+h1 {
+  color: $text-color;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.form_container {
+  width: 90%;
+  max-width: 600px;
+  background: $form-background;
+  border-radius: 9px;
+  box-shadow: $form-shadow;
+  padding: 20px;
+  margin: 0 auto; // Center the form
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+
+  label {
+    text-align: left;
+    color: $text-color;
+    font-weight: 500;
+  }
+
+  input, textarea {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: calc(100% - 20px);
+  }
+
+  textarea {
+    resize: vertical;
+  }
+
+  button {
+    padding: 10px;
+    font-size: 14px;
+    color: #fff;
+    background: $primary-color;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+
+    @include transition(all);
+
+    &:hover {
+      background: darken($primary-color, 10%);
+    }
+  }
+}
+
+.edit-button {
+  text-decoration: none;
+  color: #fff;
+  font-size: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 20px;
+  background: $primary-color;
+  border: none;
+  border-radius: 4px;
+  transition: all 0.2s ease-in-out;
+  margin-bottom: 20px; // Add margin to separate from the heading
+  display: block;
+  text-align: center;
+  margin: 0 auto; // Center the button
+}
+
+.edit-button:hover {
+  background: darken($primary-color, 10%);
+}

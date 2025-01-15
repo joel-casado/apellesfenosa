@@ -25,7 +25,7 @@
                 <button type="submit">Crear exposició</button>
             </form>
             <div class="image_expo_box">
-                <img src="images/10.-Orlando-furioso-768x1025.jpg" alt="Statue">
+                <img src="images/10.-Orlando-furioso.jpg" alt="Statue">
             </div>
         </div>
     </div>
