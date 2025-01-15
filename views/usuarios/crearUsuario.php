@@ -27,6 +27,7 @@
                 </select>
                 <label for="password">Contrasenya</label>
                 <input type="password" name="password" id="password" required placeholder="Contrasenya">
+                <input type="hidden" name="activo" value="<?= 'activo'; ?>">
                 <button type="submit">Crear usuari</button>
             </form>
             <div class="image_user_box">

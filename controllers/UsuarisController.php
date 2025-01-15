@@ -36,16 +36,16 @@ class UsuarisController {
         require_once "views/usuarios/listarUsuarios.php";
     }
 
-    public function createUser() {
+    public function createUser  () {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $nombre = $_POST['name'];
             $rol = $_POST['rol'];
             $password = $_POST['password'];
             $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-            $estado = 'activo'; // Set estado to activo
+            $estado = 'activo'; // Establece el estado en "activo"
             $usuarioModel = new Usuario();
-            $existingUser = $usuarioModel->getByUsername($nombre);
-            if ($existingUser) {
+            $existingUser    = $usuarioModel->getByUsername($nombre);
+            if ($existingUser  ) {
                 $errorMessage = "Error: El nombre de usuario ya existe.";
                 include('views/usuarios/crearUsuario.php');
                 return;

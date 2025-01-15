@@ -62,13 +62,14 @@ class Usuario extends Database {
         }
     }
 
-    public function insertar($nombre, $rol, $password) {
-        $sql = "INSERT INTO usuarios (nombre_usuario, rol_usuario, password) VALUES (:nombre_usuario, :rol_usuario, :password)";
+    public function insertar($nombre, $rol, $password, $estado) {
+        $sql = "INSERT INTO usuarios (nombre_usuario, rol_usuario, password, estado) VALUES (:nombre_usuario, :rol_usuario, :password, :estado)";
         try {
             $stmt = $this->db->prepare($sql);
             $stmt->bindParam(':nombre_usuario', $nombre);
             $stmt->bindParam(':rol_usuario', $rol);
             $stmt->bindParam(':password', $password);
+            $stmt->bindParam(':estado', $estado);
             $stmt->execute();
             return true;
         } catch (PDOException $e) {
