@@ -36,20 +36,21 @@ class UsuarisController {
         require_once "views/usuarios/listarUsuarios.php";
     }
 
-    public function createUser  () {
+    public function createUser() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $nombre = $_POST['name'];
             $rol = $_POST['rol'];
             $password = $_POST['password'];
             $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+            $estado = 'activo'; // Set estado to activo
             $usuarioModel = new Usuario();
-            $existingUser   = $usuarioModel->getByUsername($nombre);
-            if ($existingUser ) {
+            $existingUser = $usuarioModel->getByUsername($nombre);
+            if ($existingUser) {
                 $errorMessage = "Error: El nombre de usuario ya existe.";
                 include('views/usuarios/crearUsuario.php');
                 return;
             }
-            if ($usuarioModel->insertar($nombre, $rol, $hashedPassword)) {
+            if ($usuarioModel->insertar($nombre, $rol, $hashedPassword, $estado)) {
                 header('Location: index.php?controller=Usuaris&action=listar_usuarios');
                 exit();
             } else {
@@ -62,8 +63,8 @@ class UsuarisController {
     public function checkUsername() {
         $username = $_GET['username'];
         $usuarioModel = new Usuario();
-        $existingUser  = $usuarioModel->getByUsername($username);
-        $exists = !empty($existingUser );
+        $existingUser = $usuarioModel->getByUsername($username);
+        $exists = !empty($existingUser);
         echo json_encode(['exists' => $exists]);
         exit;
     }
@@ -109,7 +110,7 @@ class UsuarisController {
             }
     
             // Update the user
-            if ($usuarioModel->actualizar($nombreOriginal, $nombreNuevo, $rol, $activo, $hashedPassword)) {
+            if ($usuarioModel->actualizar($nombreOriginal, $nombreNuevo, $rol, $activo, $hashedPassword, $estado)) {
                 header('Location: index.php?controller=Usuaris&action=listar_usuarios');
                 exit();
             } else {
@@ -117,7 +118,4 @@ class UsuarisController {
             }
         }
     }
-    
-    
-    
 }
