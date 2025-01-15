@@ -16,7 +16,7 @@
     <h1>OBRAS DISPONIBLES</h1>
     <div class="busqueda-avanzada-container">
         <button id="addFiltersButton" class="toggle-filters">Búsqueda Avanzada</button>
-        <div class="busqueda-avanzada" id="busquedaAvanzada" style="display: none;">
+        <div class="busqueda-avanzada" id="busquedaAvanzada" >
             <form id="filterForm" method="POST" action="index.php?controller=Obras&action=filter">
                 <div id="filterGroups"></div>
                 <button type="submit" class="filter-submit">Filtrar</button>
@@ -80,6 +80,21 @@
 
 <script src="scripts/busqueda.js"></script>
 <script src="scripts/busquedaAvanzada.js"></script>
+<script>
+   document.addEventListener("DOMContentLoaded", () => {
+    const toggleFiltersButton = document.querySelector(".toggle-filters");
+    const busquedaAvanzadaDiv = document.getElementById("busquedaAvanzada");
+
+        toggleFiltersButton.addEventListener("click", () => {
+            // Alterna la clase 'active' para mostrar/ocultar
+            if (busquedaAvanzadaDiv.style.display === "block") {
+                busquedaAvanzadaDiv.style.display = "none";
+            } else {
+                busquedaAvanzadaDiv.style.display = "block";
+            }
+        });
+    });
+</script>
 
 
 </body>
