@@ -200,7 +200,7 @@ form img {
   text-align: center;
   cursor: pointer;
   margin-top: 335px;
-  margin-right: 402px;
+  margin-right: 365px;
   margin-bottom: -100px;
 }
 
@@ -210,8 +210,8 @@ form img {
 }
 
 #generate-pdf {
-  margin-left: -80px;
-  margin-top: 225px;
+  margin-left: -82px;
+  margin-top: 222px;
   margin-bottom: -130px;
   padding: 10px 15px;
   border: none;
@@ -231,8 +231,8 @@ form img {
 .search-bar {
   flex-grow: 1; /* Ocupa el espacio restante */
   display: flex;
-  margin-bottom: -375px;
-  margin-left: 45px;
+  margin-bottom: -374px;
+  margin-left: 30px;
 }
 .search-bar input {
   width: 200px;
@@ -258,7 +258,7 @@ form img {
   font-size: 16px;
   font-weight: bold;
   transition: background-color 0.3s ease;
-  margin-left: 400px;
+  margin-left: 360px;
   margin-bottom: -433px;
 }
 .busqueda-avanzada-container .toggle-filters:hover {
